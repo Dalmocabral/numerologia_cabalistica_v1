@@ -19,6 +19,8 @@ import { calcularMesPessoal, calcularDiaPessoal } from './components/CalculoMesD
 import { calcularSubconsciente } from './components/CalculoSubconsciente';
 import { calcularCicloVida } from './components/CalculoCicloVida';
 import { calcularMomentosDecisivos } from './components/CalcularMomentosDecisivos';
+import { calcularDesafios } from './components/CalculoDesafios';
+import { calcularHarmoniaConjugal } from './components/CalculoHarmoniaConjugal';
 
 // Estilos personalizados para as células da tabela
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -67,7 +69,11 @@ const App = () => {
     return `${dia}/${mes}/${ano}`;
   };
 
+  // Cálculos principais
+  const missao = calcularMissao(nome, dataNascimento);
   const momentosDecisivos = calcularMomentosDecisivos(dataNascimento, calcularDestino(dataNascimento));
+  const desafios = calcularDesafios(dataNascimento, calcularCicloVida(dataNascimento, calcularDestino(dataNascimento)));
+  const harmonia = calcularHarmoniaConjugal(missao);
 
   return (
     <>
@@ -92,7 +98,7 @@ const App = () => {
                 </Box>
                 <Box sx={{ display: "flex", gap: 2 }}>
                   <TextField label="Número de Destino" value={calcularDestino(dataNascimento)} disabled fullWidth sx={{ mt: 2 }} />
-                  <TextField label="Missão" value={calcularMissao(nome, dataNascimento)} disabled fullWidth sx={{ mt: 2 }} />
+                  <TextField label="Missão" value={missao} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Dívidas Cármicas" value={calcularDividasCarmicas(dataNascimento, calcularExpressao(nome), calcularDestino(dataNascimento), calcularMotivacao(nome))} disabled fullWidth sx={{ mt: 2 }} />
                 </Box>
                 <Box sx={{ display: "flex", gap: 2 }}>
@@ -127,7 +133,7 @@ const App = () => {
                               </StyledTableCell>
                               <StyledTableCell align="right">{ciclo.idade}</StyledTableCell>
                               <StyledTableCell align="right">{ciclo.periodo}</StyledTableCell>
-                              <StyledTableCell align="right">{ciclo.energia}</StyledTableCell>  
+                              <StyledTableCell align="right">{ciclo.energia}</StyledTableCell>
                             </StyledTableRow>
                           ))}
                         </TableBody>
@@ -135,6 +141,36 @@ const App = () => {
                     </TableContainer>
                   </Box>
 
+                  {/* Tabela dos Desafios */}
+                  <Box sx={{ flex: 1 }}>
+                    <Typography variant="h6" align="center">Desafios</Typography>
+                    <TableContainer component={Paper}>
+                      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                        <TableHead>
+                          <TableRow>
+                            <StyledTableCell>Desafio</StyledTableCell>
+                            <StyledTableCell align="right">Valor</StyledTableCell>
+                            <StyledTableCell align="right">Período</StyledTableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {desafios.map((desafio, index) => (
+                            <StyledTableRow key={index}>
+                              <StyledTableCell component="th" scope="row">
+                                {desafio.nome}
+                              </StyledTableCell>
+                              <StyledTableCell align="right">{desafio.valor}</StyledTableCell>
+                              <StyledTableCell align="right">{desafio.periodo}</StyledTableCell>
+                            </StyledTableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </Box>
+                </Box>
+
+                {/* Tabela dos Momentos Decisivos e Harmonia Conjugal lado a lado */}
+                <Box sx={{ display: 'flex', gap: 2, mt: 4 }}>
                   {/* Tabela dos Momentos Decisivos */}
                   <Box sx={{ flex: 1 }}>
                     <Typography variant="h6" align="center">Momentos Decisivos</Typography>
@@ -162,6 +198,48 @@ const App = () => {
                               <StyledTableCell align="right">{`${momentosDecisivos[index].inicio} até ${momentosDecisivos[index].fim}`}</StyledTableCell>
                             </StyledTableRow>
                           ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </Box>
+
+                  {/* Tabela da Harmonia Conjugal */}
+                  <Box sx={{ flex: 1 }}>
+                    <Typography variant="h6" align="center">
+                    Harmonia Conjugal - {' '}
+  <Box component="span" sx={{ color: 'error.main' }}> {/* Cor vermelha */}
+    {harmonia?.numero}
+  </Box>
+                    </Typography>
+                    <TableContainer component={Paper}>
+                      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                        <TableHead>
+                          <TableRow>
+                            <StyledTableCell>#</StyledTableCell>
+                            <StyledTableCell align="right"></StyledTableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {harmonia && (
+                            <>
+                              <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">Vibra com</StyledTableCell>
+                                <StyledTableCell align="right">{harmonia.vibraCom}</StyledTableCell>
+                              </StyledTableRow>
+                              <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">Atrai</StyledTableCell>
+                                <StyledTableCell align="right">{harmonia.atrai}</StyledTableCell>
+                              </StyledTableRow>
+                              <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">É oposto</StyledTableCell>
+                                <StyledTableCell align="right">{harmonia.oposto}</StyledTableCell>
+                              </StyledTableRow>
+                              <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">É passivo em relação a</StyledTableCell>
+                                <StyledTableCell align="right">{harmonia.passivo}</StyledTableCell>
+                              </StyledTableRow>
+                            </>
+                          )}
                         </TableBody>
                       </Table>
                     </TableContainer>

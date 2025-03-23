@@ -1,7 +1,7 @@
 import { tabelaNumeros, tabelaAcentos } from './TabelaNumerologia';
 
 // Função para calcular o valor da letra considerando acentos
-const calcularValorComAcento = (letra) => {
+export const calcularValorComAcento = (letra) => {
     if (!letra.trim()) return 0; // Ignora espaços em branco
 
     // Captura os acentos da letra
