@@ -1,14 +1,26 @@
-// src/components/NovoMapaDialog.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button } from '@mui/material';
 
 const NovoMapaDialog = ({ open, onClose, onSalvarNome }) => {
+  // Estados para armazenar os valores dos inputs
   const [nome, setNome] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
+  const [mesInteresse, setMesInteresse] = useState('');
+  const [diaInteresse, setDiaInteresse] = useState('');
 
+  // Resetar os inputs ao abrir o diálogo
+  useEffect(() => {
+    if (open) {
+      setNome('');
+      setDataNascimento('');
+      setMesInteresse('');
+      setDiaInteresse('');
+    }
+  }, [open]);
+
+  // Função para salvar os dados
   const handleSalvar = () => {
-    // Chama a função onSalvarNome passando o nome e a data de nascimento
-    onSalvarNome(nome, dataNascimento);
+    onSalvarNome(nome, dataNascimento, mesInteresse, diaInteresse);
     onClose();
   };
 
@@ -29,11 +41,25 @@ const NovoMapaDialog = ({ open, onClose, onSalvarNome }) => {
           label="Data de Nascimento"
           type="date"
           fullWidth
-          InputLabelProps={{
-            shrink: true,
-          }}
+          InputLabelProps={{ shrink: true }}
           value={dataNascimento}
           onChange={(e) => setDataNascimento(e.target.value)}
+        />
+        <TextField
+          margin="dense"
+          label="Mês de Interesse (1-12)"
+          type="number"
+          fullWidth
+          value={mesInteresse}
+          onChange={(e) => setMesInteresse(e.target.value)}
+        />
+        <TextField
+          margin="dense"
+          label="Dia de Interesse (1-31)"
+          type="number"
+          fullWidth
+          value={diaInteresse}
+          onChange={(e) => setDiaInteresse(e.target.value)}
         />
       </DialogContent>
       <DialogActions>
