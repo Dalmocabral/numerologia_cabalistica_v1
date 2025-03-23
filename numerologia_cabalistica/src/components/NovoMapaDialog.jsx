@@ -1,26 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, CircularProgress, Typography, Box } from '@mui/material';
 
 const NovoMapaDialog = ({ open, onClose, onSalvarNome }) => {
-  // Estados para armazenar os valores dos inputs
   const [nome, setNome] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [mesInteresse, setMesInteresse] = useState('');
   const [diaInteresse, setDiaInteresse] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState('');
 
-  // Resetar os inputs ao abrir o diálogo
   useEffect(() => {
     if (open) {
       setNome('');
       setDataNascimento('');
       setMesInteresse('');
       setDiaInteresse('');
+      setLoading(false); // Reseta o estado de carregamento ao abrir o diálogo
     }
   }, [open]);
 
-  // Função para salvar os dados
-  const handleSalvar = () => {
+  const handleSalvar = async () => {
+    setLoading(true);
+
+    setLoadingMessage('Analisando os dados...');
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    setLoadingMessage('Calculando as informações...');
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    setLoadingMessage('Finalizando...');
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     onSalvarNome(nome, dataNascimento, mesInteresse, diaInteresse);
+    setLoading(false);
     onClose();
   };
 
@@ -28,43 +40,52 @@ const NovoMapaDialog = ({ open, onClose, onSalvarNome }) => {
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Criar Novo Mapa</DialogTitle>
       <DialogContent>
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Nome"
-          fullWidth
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-        />
-        <TextField
-          margin="dense"
-          label="Data de Nascimento"
-          type="date"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          value={dataNascimento}
-          onChange={(e) => setDataNascimento(e.target.value)}
-        />
-        <TextField
-          margin="dense"
-          label="Mês de Interesse (1-12)"
-          type="number"
-          fullWidth
-          value={mesInteresse}
-          onChange={(e) => setMesInteresse(e.target.value)}
-        />
-        <TextField
-          margin="dense"
-          label="Dia de Interesse (1-31)"
-          type="number"
-          fullWidth
-          value={diaInteresse}
-          onChange={(e) => setDiaInteresse(e.target.value)}
-        />
+        {loading ? (
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+            <CircularProgress />
+            <Typography variant="body1">{loadingMessage}</Typography>
+          </Box>
+        ) : (
+          <>
+            <TextField
+              autoFocus
+              margin="dense"
+              label="Nome"
+              fullWidth
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+            />
+            <TextField
+              margin="dense"
+              label="Data de Nascimento"
+              type="date"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              value={dataNascimento}
+              onChange={(e) => setDataNascimento(e.target.value)}
+            />
+            <TextField
+              margin="dense"
+              label="Mês de Interesse (1-12)"
+              type="number"
+              fullWidth
+              value={mesInteresse}
+              onChange={(e) => setMesInteresse(e.target.value)}
+            />
+            <TextField
+              margin="dense"
+              label="Dia de Interesse (1-31)"
+              type="number"
+              fullWidth
+              value={diaInteresse}
+              onChange={(e) => setDiaInteresse(e.target.value)}
+            />
+          </>
+        )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancelar</Button>
-        <Button onClick={handleSalvar}>Salvar</Button>
+        <Button onClick={onClose} disabled={loading}>Cancelar</Button>
+        <Button onClick={handleSalvar} disabled={loading}>Salvar</Button>
       </DialogActions>
     </Dialog>
   );

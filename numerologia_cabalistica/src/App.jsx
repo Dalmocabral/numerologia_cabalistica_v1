@@ -1,6 +1,8 @@
 // src/App.jsx
 import React, { useState } from 'react';
 import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
+import PsychologyIcon from '@mui/icons-material/Psychology';
+import NumbersIcon from '@mui/icons-material/Numbers';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Box, Divider, TextField, Typography } from '@mui/material';
 import { Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
@@ -85,7 +87,7 @@ const App = () => {
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <div style={{ marginLeft: 240, padding: '16px' }}>
-          {nome && (
+          {nome ? (
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 4 }}>
               <NomeNumerologia nome={nome} />
               <Divider sx={{ width: '100%', my: 2 }} />
@@ -206,10 +208,10 @@ const App = () => {
                   {/* Tabela da Harmonia Conjugal */}
                   <Box sx={{ flex: 1 }}>
                     <Typography variant="h6" align="center">
-                    Harmonia Conjugal - {' '}
-  <Box component="span" sx={{ color: 'error.main' }}> {/* Cor vermelha */}
-    {harmonia?.numero}
-  </Box>
+                      Harmonia Conjugal -{' '}
+                      <Box component="span" sx={{ color: 'error.main' }}>
+                        {harmonia?.numero}
+                      </Box>
                     </Typography>
                     <TableContainer component={Paper}>
                       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -246,6 +248,33 @@ const App = () => {
                   </Box>
                 </Box>
               </Box>
+            </Box>
+          ) : (
+            // Mensagem de boas-vindas e imagem de marca d'água
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '80vh',
+                textAlign: 'center',                
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                opacity: 0.6, // Ajuste a opacidade da imagem
+              }}
+            >
+              <Typography variant="h1" sx={{ color: 'primary.main', mb: 2 }}>
+              <PsychologyIcon sx={{ fontSize: 80, color: 'primary.main' }} />
+                              Numeris
+              </Typography>
+              <Typography variant="h3" sx={{ color: 'primary.main', mb: 2 }}>
+                Seja bem-vindo ao Sistema de Numerologia Cabalística!
+              </Typography>
+              <Typography variant="h5" sx={{ color: 'text.secondary' }}>
+                Insira seus dados no menu ao lado para começar.
+              </Typography>
             </Box>
           )}
         </div>
