@@ -1,9 +1,14 @@
-import React from 'react';
-import { Box, Typography } from '@mui/material';
+
+import React, { useState } from 'react';
+import { Box, Typography, Button } from '@mui/material';
 import { findSequences } from './generateInvertedPyramid';
 import { negativeSequenceTriangleNumberRepeat } from '../components/TabelaNumerologia';
+import DialogNomeSocial from './DialogNomeSocial';
 
-const PiramideInvertida = ({ dados }) => {
+
+const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   if (!dados || dados.length === 0) {
     return (
       <Typography variant="body1" sx={{ color: 'text.secondary', fontStyle: 'italic', mt: 2 }}>
@@ -103,6 +108,8 @@ const PiramideInvertida = ({ dados }) => {
         </Box>
       ))}
 
+      
+
       {/* Exibição simplificada das sequências */}
       {Object.keys(sequencesFound).length > 0 && (
         <Box sx={{ 
@@ -125,6 +132,23 @@ const PiramideInvertida = ({ dados }) => {
           ))}
         </Box>
       )}
+
+      {/* Botão para criar nome social */}
+      <Button 
+        variant="contained" 
+        sx={{ mt: 4 }}
+        onClick={() => setDialogOpen(true)}
+      >
+        Criar Nome Social
+      </Button>
+
+      <DialogNomeSocial
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onSave={(novoNome) => {
+          onNomeSocialChange(novoNome);
+        }}
+      />  
     </Box>
   );
 };
