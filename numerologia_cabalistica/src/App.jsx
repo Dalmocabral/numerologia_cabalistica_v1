@@ -2,9 +2,8 @@
 import React, { useState } from 'react';
 import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
 import PsychologyIcon from '@mui/icons-material/Psychology';
-import NumbersIcon from '@mui/icons-material/Numbers';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Box, Divider, TextField, Typography } from '@mui/material';
+import { Box, Divider, TextField, Typography, Tabs, Tab } from '@mui/material';
 import { Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import Sidebar from './components/Sidebar';
 import NomeNumerologia from './components/NomeNumerologia';
@@ -23,6 +22,11 @@ import { calcularCicloVida } from './components/CalculoCicloVida';
 import { calcularMomentosDecisivos } from './components/CalcularMomentosDecisivos';
 import { calcularDesafios } from './components/CalculoDesafios';
 import { calcularHarmoniaConjugal } from './components/CalculoHarmoniaConjugal';
+import { calcularNumeroHarmonico } from "./components/CalculoHarmonico";
+import { calcularCoresFavoraveis } from './components/CalculoCoresFavoraveis';
+import { generateInvertedPyramid } from "./components/generateInvertedPyramid";
+import PiramideInvertida from "./components/PiramideInvertida";
+
 
 // Estilos personalizados para as células da tabela
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -52,6 +56,12 @@ const App = () => {
   const [dataNascimento, setDataNascimento] = useState('');
   const [mesInteresse, setMesInteresse] = useState('');
   const [diaInteresse, setDiaInteresse] = useState('');
+  const [harmonicos, setHarmonicos] = useState([]);
+  const [numeroExpressao, setNumeroExpressao] = useState('');
+  const [tabIndex, setTabIndex] = useState(0);
+  const [piramide, setPiramide] = useState([]);
+  
+
 
   const darkTheme = createTheme({ palette: { mode: 'dark' } });
   const lightTheme = createTheme({ palette: { mode: 'light' } });
@@ -63,8 +73,15 @@ const App = () => {
     setDataNascimento(novaDataNascimento);
     setMesInteresse(novoMesInteresse);
     setDiaInteresse(novoDiaInteresse);
+    
+    const resultado = calcularNumeroHarmonico(novaDataNascimento);
+    setHarmonicos(resultado);
+  
+    const expressao = calcularExpressao(novoNome);
+    setNumeroExpressao(expressao);
+  
+    setPiramide(generateInvertedPyramid(novoNome));
   };
-
   const formatarData = (data) => {
     if (!data) return '';
     const [ano, mes, dia] = data.split('-');
@@ -76,6 +93,11 @@ const App = () => {
   const momentosDecisivos = calcularMomentosDecisivos(dataNascimento, calcularDestino(dataNascimento));
   const desafios = calcularDesafios(dataNascimento, calcularCicloVida(dataNascimento, calcularDestino(dataNascimento)));
   const harmonia = calcularHarmoniaConjugal(missao);
+  
+  // Função para alternar entre as abas
+const handleTabChange = (event, newIndex) => {
+  setTabIndex(newIndex);
+};
 
   return (
     <>
@@ -102,6 +124,7 @@ const App = () => {
                   <TextField label="Número de Destino" value={calcularDestino(dataNascimento)} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Missão" value={missao} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Dívidas Cármicas" value={calcularDividasCarmicas(dataNascimento, calcularExpressao(nome), calcularDestino(dataNascimento), calcularMotivacao(nome))} disabled fullWidth sx={{ mt: 2 }} />
+                  
                 </Box>
                 <Box sx={{ display: "flex", gap: 2 }}>
                   <TextField label="Lições Cármicas" value={calcularLicoesCarmicas(nome)} disabled fullWidth sx={{ mt: 2 }} />
@@ -110,6 +133,11 @@ const App = () => {
                   <TextField label="Mês Pessoal" value={calcularMesPessoal(dataNascimento, mesInteresse)} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Dia Pessoal" value={calcularDiaPessoal(dataNascimento, mesInteresse, diaInteresse)} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Subconsciente" value={calcularSubconsciente(calcularLicoesCarmicas(nome))} disabled fullWidth sx={{ mt: 2 }} />
+                  <TextField label="Número Harmônico" value={harmonicos.length ? harmonicos.join(", ") : "Nenhum"}  disabled fullWidth sx={{ mt: 2 }} />
+                  
+                </Box>
+                <Box sx={{ display: "flex", gap: 2 }}>
+                <TextField label="Cores Favoráveis" value={calcularCoresFavoraveis(numeroExpressao)}  disabled fullWidth sx={{ mt: 2 }} />
                 </Box>
 
                 {/* Container para as tabelas */}
@@ -248,6 +276,30 @@ const App = () => {
                   </Box>
                 </Box>
               </Box>
+              {/* Adicionando Tabs abaixo das tabelas */}
+<Box sx={{ width: '100%', mt: 4 }}>
+  <Tabs value={tabIndex} onChange={handleTabChange} centered>
+    <Tab label="Triângulo Invertido" />
+    <Tab label="Arcanos" />
+  </Tabs>
+
+  {/* Conteúdo das abas */}
+  {tabIndex === 0 && (
+  <Box sx={{ mt: 2 }}>
+    
+    <PiramideInvertida dados={piramide} />
+  </Box>
+)}
+
+  {tabIndex === 1 && (
+    <Box sx={{ mt: 2 }}>
+      <Typography variant="h6">Arcanos</Typography>
+      <Typography>
+      
+      </Typography>
+    </Box>
+  )}
+</Box>
             </Box>
           ) : (
             // Mensagem de boas-vindas e imagem de marca d'água

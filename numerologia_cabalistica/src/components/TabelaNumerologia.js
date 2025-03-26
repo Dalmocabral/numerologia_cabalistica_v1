@@ -81,3 +81,76 @@ export const tabelaNumerologia = [
     'É passivo em relação a': [4, 8],
   },
 ];
+
+export const numerosHarmonicos = {
+  1: [2, 4, 9],
+  2: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  3: [2, 3, 6, 8, 9],
+  4: [1, 2, 6, 7],
+  5: [2, 5, 6, 7, 9],
+  6: [2, 3, 4, 5, 6, 9],
+  7: [2, 4, 5, 7],
+  8: [2, 3, 9],
+  9: [1, 2, 3, 5, 6, 8, 9]
+};
+
+
+export const coresFavoraveis = {
+  1: {
+    descricao: "amarelo e laranja, castanho, dourado, verde, creme e branco",
+    cores: ["amarelo", "laranja", "castanho", "dourado", "verde", "creme", "branco"]
+  },
+  2: {
+    descricao: "Todos os tons de verde, creme, branco e cinza",
+    cores: ["verde", "creme", "branco", "cinza"]
+  },
+  3: {
+    descricao: "Violeta, vinho, púrpura e vermelho",
+    cores: ["violeta", "vinho", "púrpura", "vermelho"]
+  },
+  4: {
+    descricao: "Azul, cinza, púrpura e ouro",
+    cores: ["azul", "cinza", "púrpura", "ouro"]
+  },
+  5: {
+    descricao: "Todas as cores claras, cinza e prateado",
+    cores: ["cores claras", "cinza", "prateado"]
+  },
+  6: {
+    descricao: "Rosa, azul e verde",
+    cores: ["rosa", "azul", "verde"]
+  },
+  7: {
+    descricao: "Verde, amarelo, branco, cinza e azul-claro",
+    cores: ["verde", "amarelo", "branco", "cinza", "azul-claro"]
+  },
+  8: {
+    descricao: "Púrpura, cinza, azul, preto e castanho",
+    cores: ["púrpura", "cinza", "azul", "preto", "castanho"]
+  },
+  9: {
+    descricao: "Vermelho, rosa, coral e vinho",
+    cores: ["vermelho", "rosa", "coral", "vinho"]
+  },
+  11: {
+    descricao: "Branco, violeta e cores claras",
+    cores: ["branco", "violeta", "cores claras"]
+  },
+  22: {
+    descricao: "Violeta, branco e cores claras",
+    cores: ["violeta", "branco", "cores claras"]
+  }
+};
+
+
+export const negativeSequenceTriangleNumberRepeat = [
+  "Está relacionado à iniciativa e determinação. No entanto, essa sequência pode limitar uma pessoa, diminuindo sua coragem de se aventurar em algo novo. Pode também resultar em um longo período inativo, desempregado ou mesmo impotente para realizar qualquer coisa, permanecendo nesse estado pelo tempo que durar o Arcano que domina o período.",
+  "Com a autoconfiança - essa configuração pode provocar timidez e indecisão, levando o indivíduo a ser subjugado por pessoas próximas, como amigos, colegas de trabalho ou conhecidos. Isso pode resultar na perda da autoestima e limitar seus projetos e realizações.",
+  "Com a comunicação: a pessoa pode se sentir incompreendida. Há uma falta de diálogo em várias áreas, principalmente com colegas de trabalho e parceiros(as). Existe dificuldade em se impor em projetos e persuadir as pessoas.",
+  "Com o trabalho: essa sequência pode dificultar qualquer realização profissional. Geralmente, está associada a baixa remuneração e perspectivas profissionais desafiadoras. A pessoa pode encontrar dificuldades para se manter no emprego ou obter sucesso em suas atividades.",
+  "Com a instabilidade financeira e pessoal: essa sequência pode causar mudanças indesejadas de residência, emprego, círculo social e relacionamentos. Sob essa influência, a pessoa experimenta altos e baixos constantes, lutando para se estabelecer profissionalmente e sempre em busca de melhores oportunidades, porém sem sucesso. Além disso, pode ocorrer uma tendência de se afastar do meio social em que vive.",
+  "Com os afetos e sentimentos: essa sequência pode levar a decepções nos relacionamentos com amigos, sócios, colegas de trabalho, familiares e até mesmo com o parceiro amoroso. A pessoa pode se sentir incompreendida em seus objetivos e emoções.",
+  "Com o medo e a intolerância: essa sequência pode levar a pessoa a se afastar dos outros e se tornar dependente, vaidosa, arrogante e intolerante. Provoca sentimentos de solidão, desânimo e pode contribuir para o desenvolvimento de doenças nervosas e dependências. É importante buscar o equilíbrio emocional e cultivar a compreensão e a tolerância.",
+  "Com problemas emocionais e também financeiros: essa sequência pode tornar a pessoa retraída, afastando-a das atividades sociais. Caso não haja um desenvolvimento espiritual, pode haver descontrole emocional. Sob essa vibração, a pessoa pode experimentar altos e baixos financeiros e, como consequência, enfrentar graves problemas de saúde ou até mesmo seus dependentes. É essencial buscar equilíbrio emocional e buscar orientação para lidar com os desafios financeiros, a fim de promover bem-estar e evitar problemas de saúde.",
+  "Com relação a finanças: essa sequência indica sérios problemas financeiros, perda de bens materiais, fracasso empresarial e provações resultantes de períodos prolongados de inatividade. Essa situação pode afetar o sistema nervoso e o coração, gerando tensões e desafios emocionais."
+]
