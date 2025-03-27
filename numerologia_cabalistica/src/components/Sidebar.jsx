@@ -1,10 +1,11 @@
 // src/components/Sidebar.jsx
 import React, { useState } from 'react';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton } from '@mui/material';
-import { Add, DarkMode, LightMode } from '@mui/icons-material';
+import { Add, DarkMode, LightMode, PictureAsPdf } from '@mui/icons-material';
 import NovoMapaDialog from './NovoMapaDialog';
+import PdfGeneratorButton from './PdfGeneratorButton'; // Importa o botão de gerar PDF
 
-const Sidebar = ({ darkMode, toggleDarkMode, onSalvarNome }) => {
+const Sidebar = ({ darkMode, toggleDarkMode, onSalvarNome, nomeCliente, dataNascimento }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleOpenDialog = () => {
@@ -37,6 +38,7 @@ const Sidebar = ({ darkMode, toggleDarkMode, onSalvarNome }) => {
             </ListItemIcon>
             <ListItemText primary="Calcular Mapa" />
           </ListItem>
+          
           <ListItem button onClick={toggleDarkMode}>
             <ListItemIcon>
               {darkMode ? (
@@ -47,6 +49,13 @@ const Sidebar = ({ darkMode, toggleDarkMode, onSalvarNome }) => {
             </ListItemIcon>
             <ListItemText primary={darkMode ? 'Modo Claro' : 'Modo Escuro'} />
           </ListItem>
+
+          {/* Botão para gerar o PDF */}
+          <PdfGeneratorButton 
+              nomeCliente={nomeCliente}
+              dataNascimento={dataNascimento}
+            />
+
         </List>
       </Drawer>
       <NovoMapaDialog open={openDialog} onClose={handleCloseDialog} onSalvarNome={onSalvarNome} />

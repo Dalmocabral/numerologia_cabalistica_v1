@@ -1,3 +1,5 @@
+//src/components/NovoMapaDialog.jsx
+
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, CircularProgress, Typography, Box } from '@mui/material';
 

@@ -60,7 +60,7 @@ const App = () => {
   const [numeroExpressao, setNumeroExpressao] = useState('');
   const [tabIndex, setTabIndex] = useState(0);
   const [piramide, setPiramide] = useState([]);
-  
+
 
 
   const darkTheme = createTheme({ palette: { mode: 'dark' } });
@@ -73,13 +73,13 @@ const App = () => {
     setDataNascimento(novaDataNascimento);
     setMesInteresse(novoMesInteresse);
     setDiaInteresse(novoDiaInteresse);
-    
+
     const resultado = calcularNumeroHarmonico(novaDataNascimento);
     setHarmonicos(resultado);
-  
+
     const expressao = calcularExpressao(novoNome);
     setNumeroExpressao(expressao);
-  
+
     setPiramide(generateInvertedPyramid(novoNome));
   };
   const formatarData = (data) => {
@@ -93,24 +93,31 @@ const App = () => {
   const momentosDecisivos = calcularMomentosDecisivos(dataNascimento, calcularDestino(dataNascimento));
   const desafios = calcularDesafios(dataNascimento, calcularCicloVida(dataNascimento, calcularDestino(dataNascimento)));
   const harmonia = calcularHarmoniaConjugal(missao);
-  
+
   // Função para alternar entre as abas
-const handleTabChange = (event, newIndex) => {
-  setTabIndex(newIndex);
-};
+  const handleTabChange = (event, newIndex) => {
+    setTabIndex(newIndex);
+  };
 
   return (
     <>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <Sidebar darkMode={darkMode} toggleDarkMode={toggleDarkMode} onSalvarNome={handleSalvarNome} />
+        <Sidebar
+          darkMode={darkMode}
+          toggleDarkMode={toggleDarkMode}
+          onSalvarNome={handleSalvarNome}
+          nomeCliente={nome}              // Passa o estado 'nome' diretamente
+          dataNascimento={dataNascimento} // Passa o estado 'dataNascimento' diretamente
+        />
       </ThemeProvider>
 
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <div style={{ marginLeft: 240, padding: '16px' }}>
           {nome ? (
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 4 }}>
+
+            <Box id="pdf-nome-numerologia" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 4 }}>
               <NomeNumerologia nome={nome} />
               <Divider sx={{ width: '100%', my: 2 }} />
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2, width: "100%" }}>
@@ -124,7 +131,7 @@ const handleTabChange = (event, newIndex) => {
                   <TextField label="Número de Destino" value={calcularDestino(dataNascimento)} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Missão" value={missao} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Dívidas Cármicas" value={calcularDividasCarmicas(dataNascimento, calcularExpressao(nome), calcularDestino(dataNascimento), calcularMotivacao(nome))} disabled fullWidth sx={{ mt: 2 }} />
-                  
+
                 </Box>
                 <Box sx={{ display: "flex", gap: 2 }}>
                   <TextField label="Lições Cármicas" value={calcularLicoesCarmicas(nome)} disabled fullWidth sx={{ mt: 2 }} />
@@ -133,11 +140,11 @@ const handleTabChange = (event, newIndex) => {
                   <TextField label="Mês Pessoal" value={calcularMesPessoal(dataNascimento, mesInteresse)} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Dia Pessoal" value={calcularDiaPessoal(dataNascimento, mesInteresse, diaInteresse)} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Subconsciente" value={calcularSubconsciente(calcularLicoesCarmicas(nome))} disabled fullWidth sx={{ mt: 2 }} />
-                  <TextField label="Número Harmônico" value={harmonicos.length ? harmonicos.join(", ") : "Nenhum"}  disabled fullWidth sx={{ mt: 2 }} />
-                  
+                  <TextField label="Número Harmônico" value={harmonicos.length ? harmonicos.join(", ") : "Nenhum"} disabled fullWidth sx={{ mt: 2 }} />
+
                 </Box>
                 <Box sx={{ display: "flex", gap: 2 }}>
-                <TextField label="Cores Favoráveis" value={calcularCoresFavoraveis(numeroExpressao)}  disabled fullWidth sx={{ mt: 2 }} />
+                  <TextField label="Cores Favoráveis" value={calcularCoresFavoraveis(numeroExpressao)} disabled fullWidth sx={{ mt: 2 }} />
                 </Box>
 
                 {/* Container para as tabelas */}
@@ -277,30 +284,32 @@ const handleTabChange = (event, newIndex) => {
                 </Box>
               </Box>
               {/* Adicionando Tabs abaixo das tabelas */}
-<Box sx={{ width: '100%', mt: 4 }}>
-  <Tabs value={tabIndex} onChange={handleTabChange} centered>
-    <Tab label="Triângulo Invertido" />
-    <Tab label="Arcanos" />
-  </Tabs>
+              <Box sx={{ width: '100%', mt: 4 }}>
+                <Tabs value={tabIndex} onChange={handleTabChange} centered>
+                  <Tab label="Triângulo Invertido" />
+                  <Tab label="Arcanos" />
+                </Tabs>
 
-  {/* Conteúdo das abas */}
-  {tabIndex === 0 && (
-  <Box sx={{ mt: 2 }}>
-    
-    <PiramideInvertida dados={piramide} />
-  </Box>
-)}
+                {/* Conteúdo das abas */}
+                {tabIndex === 0 && (
+                  <Box sx={{ mt: 2 }}>
 
-  {tabIndex === 1 && (
-    <Box sx={{ mt: 2 }}>
-      <Typography variant="h6">Arcanos</Typography>
-      <Typography>
-      
-      </Typography>
-    </Box>
-  )}
-</Box>
+                    <PiramideInvertida dados={piramide} />
+                  </Box>
+                )}
+
+                {tabIndex === 1 && (
+                  <Box sx={{ mt: 2 }}>
+                    <Typography variant="h6">Arcanos</Typography>
+                    <Typography>
+
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
+
             </Box>
+
           ) : (
             // Mensagem de boas-vindas e imagem de marca d'água
             <Box
@@ -310,7 +319,7 @@ const handleTabChange = (event, newIndex) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 height: '80vh',
-                textAlign: 'center',                
+                textAlign: 'center',
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
@@ -318,8 +327,8 @@ const handleTabChange = (event, newIndex) => {
               }}
             >
               <Typography variant="h1" sx={{ color: 'primary.main', mb: 2 }}>
-              <PsychologyIcon sx={{ fontSize: 80, color: 'primary.main' }} />
-                              Numeris
+                <PsychologyIcon sx={{ fontSize: 80, color: 'primary.main' }} />
+                Numeris
               </Typography>
               <Typography variant="h3" sx={{ color: 'primary.main', mb: 2 }}>
                 Seja bem-vindo ao Sistema de Numerologia Cabalística!
@@ -329,6 +338,7 @@ const handleTabChange = (event, newIndex) => {
               </Typography>
             </Box>
           )}
+
         </div>
       </ThemeProvider>
     </>
