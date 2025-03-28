@@ -1,3 +1,5 @@
+//src/components/CalculoImpressao.jsx
+
 import { tabelaNumeros } from './TabelaNumerologia';
 
 export const calcularImpressao = (nome) => {

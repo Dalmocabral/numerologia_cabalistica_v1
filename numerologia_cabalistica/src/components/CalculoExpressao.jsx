@@ -1,3 +1,5 @@
+//scr/components/CalculoExpressao.jsx
+
 import { tabelaNumeros, tabelaAcentos } from './TabelaNumerologia';
 
 // Função para calcular o valor da letra considerando acentos

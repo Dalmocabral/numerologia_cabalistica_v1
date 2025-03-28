@@ -1,3 +1,5 @@
+//src/components/Calculo/missao.jsx
+
 import { calcularExpressao } from './CalculoExpressao';
 import { calcularDestino } from './CalculoDestino'; // Criamos essa função baseada na data de nascimento
 
