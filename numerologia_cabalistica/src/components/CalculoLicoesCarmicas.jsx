@@ -1,3 +1,5 @@
+//src/components/CalculoLicoesCarmicas
+
 import { tabelaNumeros } from './TabelaNumerologia';
 
 export const calcularLicoesCarmicas = (nome) => {

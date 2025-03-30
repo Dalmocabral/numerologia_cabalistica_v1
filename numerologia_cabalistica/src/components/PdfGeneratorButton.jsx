@@ -9,7 +9,9 @@ import { calcularImpressao } from "./CalculoImpressao";
 import { calcularExpressao } from "./CalculoExpressao";
 import { calcularDestino } from "./CalculoDestino";
 import { calcularMissao } from "./CalculoMissao";
-import { tabelaNumeros, tabelaAcentos, impressaoTextos, expressaoTextos, destinoTextos, missaoTextos } from "./TabelaNumerologia";
+import { calcularDividasCarmicas } from "./CalculoDividasCarmicas";
+import { calcularLicoesCarmicas } from "./CalculoLicoesCarmicas";
+import { tabelaNumeros, tabelaAcentos, impressaoTextos, expressaoTextos, destinoTextos, missaoTextos, dividasCarmicasTextos, licoesCarmicasTexto } from "./TabelaNumerologia";
 
 const PdfGeneratorButton = ({ nomeCliente, dataNascimento }) => {
   // Função para calcular valor com acento (copiada do NomeNumerologia)
@@ -443,7 +445,158 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento }) => {
           }
         }
       }
+      // NONA PÁGINA - DÍVIDAS CÁRMICAS
+      if (nomeCliente && dataNascimento) {
+        doc.addPage();
 
+        // Título Dívidas Cármicas
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(22);
+        doc.setTextColor('#000000');
+        doc.text("Dívidas Cármicas", 105, 30, { align: "center" });
+        let yPosition = 50;
+
+        // Texto introdutório sobre dívidas cármicas
+        doc.setFontSize(12);
+        doc.setFont("helvetica", "normal");
+        const introTextDividas = [
+          "As Dívidas Cármicas na Numerologia Cabalística representam lições não",
+          "aprendidas em vidas passadas, que se manifestam como desafios nesta vida.",
+          "Elas são identificadas através da data de nascimento e dos números principais",
+          "(Expressão, Destino e Motivação). Reconhecê-las ajuda a superar bloqueios.",
+          " "
+        ];
+
+        introTextDividas.forEach(linha => {
+          doc.text(linha, 20, yPosition);
+          yPosition += 7;
+        });
+
+        // Cálculo das dívidas cármicas
+        doc.setFont("helvetica", "bold");
+        doc.text("Dívidas Identificadas:", 20, yPosition);
+        yPosition += 10;
+
+        doc.setFont("helvetica", "normal");
+        const dividas = calcularDividasCarmicas(
+          dataNascimento,
+          calcularExpressao(nomeCliente),
+          calcularDestino(dataNascimento),
+          calcularMotivacao(nomeCliente) // Adicione esta função se necessário
+        );
+
+        doc.text(dividas === 'Nenhuma' ? "Nenhuma dívida cármica identificada." : `Números: ${dividas}`, 30, yPosition);
+        yPosition += 15;
+
+        // Definição das dívidas (se houver)
+        if (dividas !== 'Nenhuma') {
+          doc.setFont("helvetica", "bold");
+          doc.text("Significados:", 20, yPosition);
+          yPosition += 10;
+
+          const pageHeight = doc.internal.pageSize.height - 20;
+          const dividasArray = dividas.split(', ');
+
+          dividasArray.forEach(numero => {
+            if (dividasCarmicasTextos && dividasCarmicasTextos[numero]) {
+              // Número da dívida cármica
+              doc.setFont("helvetica", "bold");
+              doc.setFontSize(14);
+              doc.text(`Número ${numero}:`, 20, yPosition);
+
+              // Texto da dívida cármica
+              doc.setFont("helvetica", "normal");
+              doc.setFontSize(12);
+              const lines = doc.splitTextToSize(dividasCarmicasTextos[numero], 170);
+
+              yPosition += 7;
+              for (let i = 0; i < lines.length; i++) {
+                if (yPosition > pageHeight) {
+                  doc.addPage();
+                  yPosition = 20;
+                }
+                doc.text(lines[i], 25, yPosition);
+                yPosition += 7;
+              }
+              yPosition += 10; // Espaço entre dívidas
+            }
+          });
+        }
+      }
+      // DÉCIMA PÁGINA - LIÇÕES CÁRMICAS (LAYOUT ATUALIZADO)
+      if (nomeCliente) {
+        doc.addPage();
+
+        // Título Lições Cármicas
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(22);
+        doc.setTextColor('#000000');
+        doc.text("Lições Cármicas", 105, 30, { align: "center" });
+        let yPosition = 50;
+
+        // Texto introdutório
+        doc.setFontSize(12);
+        doc.setFont("helvetica", "normal");
+        const introTextLicoes = [
+          "As Lições Cármicas revelam números ausentes no seu nome completo, indicando",
+          "habilidades ou experiências que você precisa desenvolver nesta encarnação.",
+          "Cada número faltante representa um desafio específico para seu crescimento.",
+          " "
+        ];
+
+        introTextLicoes.forEach(linha => {
+          doc.text(linha, 20, yPosition);
+          yPosition += 7;
+        });
+
+        // Cálculo das lições
+        doc.setFont("helvetica", "bold");
+        doc.text("Lições Identificadas:", 20, yPosition);
+        yPosition += 10;
+
+        doc.setFont("helvetica", "normal");
+        const licoes = calcularLicoesCarmicas(nomeCliente);
+
+        // Formatação dos números identificados
+        if (licoes === 'Nenhuma') {
+          doc.text("Nenhuma lição cármica identificada.", 30, yPosition);
+          yPosition += 10;
+        } else {
+          doc.text(`Números: ${licoes}`, 30, yPosition);
+          yPosition += 15;
+
+          // Definição das lições com novo layout
+          doc.setFont("helvetica", "bold");
+          doc.text("Significados:", 20, yPosition);
+          yPosition += 10;
+
+          const pageHeight = doc.internal.pageSize.height - 20;
+          const licoesArray = licoes.split(', ');
+
+          licoesArray.forEach(numero => {
+            if (licoesCarmicasTexto && licoesCarmicasTexto[numero]) {
+              // Título da lição (ex: "Lições 6 - Responsabilidade")
+              doc.setFont("helvetica", "bold");
+              doc.text(`Lições ${numero}:`, 20, yPosition);
+              yPosition += 7;
+
+              // Texto explicativo
+              doc.setFont("helvetica", "normal");
+              const lines = doc.splitTextToSize(licoesCarmicasTexto[numero], 170);
+
+              for (let i = 0; i < lines.length; i++) {
+                if (yPosition > pageHeight) {
+                  doc.addPage();
+                  yPosition = 20;
+                }
+                doc.text(lines[i], 25, yPosition, { maxWidth: 165 });
+                yPosition += 7;
+              }
+              yPosition += 10; // Espaço maior entre lições
+            }
+          });
+        }
+      }
 
 
 

@@ -1749,3 +1749,253 @@ líder religioso, magnata industrial, comercial ou de múltiplos interesses.
 `
 
 }
+
+
+export const dividasCarmicasTextos = {
+
+  13: `Esta Dívida Cármica representa negligências ou atentados contra a vida, causando
+a morte sua ou de outros em vida passada. Certamente cometeu algum ato contra a
+vida, que pode ter sido: suicídio; homicídio; passividade ou negligência com a
+própria vida; passividade ou negligência com a vida alheia; vícios de qualquer
+natureza que apressaram a própria morte.
+Qualquer que tenha sido o caso, ou os casos, os mesmos foram cometidos por
+escolha e decisão própria, não sofrendo influências de outras pessoas. Em vida
+passada deve ter se mostrado indiferente, não se importando com a preservação da
+sua vida, nem com a dos outros. Por seus atos, pode ter apressado a sua morte, ou
+de outras pessoas. Pode mesmo ter incorrido em graves transgressões, como
+suicídio ou homicídio. Em todos os casos a sua atitude deve ter sido intencional, ou
+pelo menos sabia no que poderia resultar.
+Agora, pelo medo das transformações pode se refugiar na inércia, na indiferença
+total e descontentamento constante; resvalar para a preguiça, negatividade e
+ineficiência; a ter medo da morte, estendendo este medo para toda e qualquer
+mudança ou transformação, inconscientemente associando-as com a morte. Para
+superar seus medos e evitar repetir os mesmos atos nocivos do passado, precisa
+manter-se ocupado (a) no campo do trabalho; evitar a indiferença, as más atitudes e
+o descontentamento.
+Na Vida Atual – Probabilidade de haver dificuldades para aceitar rotinas e
+pormenores. Medo do trabalho e da morte; eventuais perdas no plano material;
+indiferença, descontentamento e más atitudes; preguiça, negatividade e ineficiência;
+pressentimentos; eventual tendência a uso de drogas.
+A Conscientização – O que deve fazer: Aplicar-se na realização de suas tarefas
+cuidando dos pormenores e detalhes. A palavra chave é trabalho no plano material.
+Dominar o medo da morte, encarando-a com uma mudança de conscientização.
+Desenvolver talentos e habilidades e motivar-se para a vida. Trabalhar e manter-se
+ocupado (a) o tempo todo.`,
+
+14: `É a Dívida Cármica que trata dos bens materiais. Ela adverte sobre a perda de
+propriedades e fracassos nos negócios. Em vida passada, para subir na vida, agiu
+fraudulentamente visando ganhos financeiros e materiais e prejudicando outras
+pessoas, como sócios, amigos, familiares e companheiros de jornada, levando-os a
+ter prejuízos, ou à miséria total, à desonra e destituição moral. Com isso trouxe para
+esta vida o peso desses crimes causados pela inconsciência e ambição egoísta.
+Agora poderá sofrer adiamentos, perturbações emocionais e enfrentar perdas e
+desapontamentos. O seu erro foi a consequência natural da falta de compreensão, e
+pode, ainda agora, incidir no mesmo erro. Deve aprender a lição do desapego. Para
+reajustar este carma precisa cultivar a compreensão, desapego e perdão.
+Na Vida Atual – Possibilidade de vir a enfrentar provações financeiras e materiais;
+dificuldades em realizar-se sexualmente e, eventualmente, até mesmo sofrer
+abusos sexuais. Poderá ter interesse demasiado no físico, com perda de energia;
+indecisões, eventuais doenças, adiamentos e perturbações emocionais.
+Envolvimentos emocionais que podem acabar mal; desapontamentos, perdas e
+decepções no domínio material e financeiro poderão acontecer em algum momento.
+A Conscientização – O que deve fazer: Aprender a lição do desapego, desenvolver
+a compreensão, humildade, amor e compaixão. Evitar extremismos, equilibrar o
+corpo físico através do uso adequado da sexualidade; cuidar da saúde do corpo.
+Determinar-se para uma direção positiva na vida e aprender a usar adequadamente
+o ritmo e o tempo. Aprender a conviver com mudanças, aceitando-as como uma
+nova forma de consciência. Ter objetivos sempre e nunca desistir deles nem
+desanimar. Palavras chaves: Compreensão, Desapego e Perdão.`,
+
+16: `Esta Dívida Cármica trata basicamente do orgulho e da vaidade humana. Em vida
+passada, agiu guiado (a) pelo despotismo cruel na manifestação da vontade própria,
+com egoísmo desmedido, sem se importar com os direitos e os sentimentos dos
+outros. Agora poderá sofrer calamidades, fracassos, acidentes, decepções e outras
+adversidades. A consequência desse carma pode ser, ainda, arcar com traições,
+perda de posição social, da reputação, de fortuna e poder; ver seus sonhos
+obstruídos e sofrer decepções e desenganos causados por falsos amigos.
+Conforme for estruturada a sua vida agora, algumas tragédias podem acontecer, e ir
+do triunfo à queda, enfrentar provações dolorosas e incompreensíveis, muitas vezes
+envolvendo pessoas queridas e o quer que seja de seu apreço. Para reajustar esse
+carma, seja compreensivo (a), humilde, justo (a), solidário (a) e altruísta, dedicando
+ao próximo todo bem que possa fazer.
+Na Vida Atual – Será afetado (a) constantemente em seu orgulho e vaidade com
+eventuais fracassos em seus planos; eventuais acidentes, decepções e
+adversidades. Atrairá falsos amigos e poderá ter alguns sonhos obstruídos.
+Possibilidade de ocorrer separação no casamento; dificuldade em encontrar um par
+afetivo duradouro. Perda de posição social, de fortuna e poder, perda de bens
+materiais. Algumas tragédias podem ser conhecidas. De todas as possíveis
+repercussões de seus atos passados descritas aqui, talvez ocorram apenas
+algumas, aquelas relacionadas mais diretamente com as causas.
+A Conscientização – O que deve fazer: Aprender a lição do desapego material e
+sentimental. Aprender a aceitar a dor e não resistir às mudanças frequentes a que
+estará sujeito (a). Ampliar as perspectivas de vida, buscando a meta de crescimento
+em todas as direções. Aprender a interiorizar-se, visando o encontro com a sua
+própria sabedoria. Desenvolver a confiança em si mesmo (a) e no mundo que o (a)
+cerca. Estar consciente de que todo o progresso interior é inseparável do conflito.
+Deve ser justo (a) e honesto (a) com tudo e com todos e ser solidário (a). As
+palavras chaves são Compreensão, Paciência e Solidariedade.`,
+
+19: `Este é o número do equilíbrio, indicando que se tira da vida exatamente o que nela
+se colocou, ou seja, o efeito vem exatamente como foi causado. Em vida passada
+tomou posse de algo e deve ter cometido transgressões que ficaram impunes,
+imputando responsabilidades a outros que pagaram por elas. Pode ter, ainda,
+usurpado bens ou direitos autorais de outros, assumindo com isso posições que
+não
+lhe cabiam por mérito e sim aos seus verdadeiros proprietários e autores,
+apregoando como sendo seus ou de sua autoria. Agora poderá sofrer quebra de
+sigilos e ver seus segredos revelados. Terá de enfrentar suas falhas e colher o que
+semeou. Este aviso é para que não seja dominador e exerça a tolerância. A maneira
+de reajustar este carma é levar uma vida elevada e altruísta, compatível com o seu
+destino e do que os outros esperam de você.
+Na Vida Atual – Momentos difíceis no curso da vida. Convívio com as próprias
+falhas e colheita do que semeou. Perda de energia e momentos desperdiçados,
+perdas materiais, injustiças, fraqueza de caráter, intolerância. Tentativa de domínio
+sobre tudo e todos, abuso de poder. Pode perceber no final da vida que tudo se
+perdeu.
+A Conscientização – O que deve fazer: Tomar consciência de que retiramos da vida
+exatamente o que nela colocamos – outrora tomou algo de alguém e agora deve
+pagar o seu preço. Aprender a ser justo (a), não ser dominador (a) e exercer a
+tolerância. Usar equilibradamente o poder com amor incondicional. Construir o
+caráter a partir das próprias experiências. Aprender a utilizar bem o tempo e a
+própria energia, canalizando-a para o melhor. Palavras chave: Justiça e Altruísmo.`,
+}
+
+
+export const licoesCarmicasTexto = {
+
+  1: `Este é um aspecto que vem sendo negligenciado desde encarnações passadas, e
+agora se apresenta na lista dos aprendizados importantes, na encarnação atual,
+como uma lição a ser aprendida no setor da individualidade. A falta de iniciativa, de
+originalidade, de ambição, de dinamismo, de independência, de autoconfiança e de
+domínio sobre as suas fraquezas e medos, mais o acentuado grau de individualismo
+que o (a) levou a pensar mais em si que no todo, vem prejudicando o bom
+andamento do seu progresso pessoal e evolução espiritual. Em vez de expressar
+essas qualidades essenciais, os receios e a carência de autoconfiança minaram as
+suas iniciativas em torno do seu progresso. Como consequência disso, agora teme
+as decisões, tem dificuldade para iniciar coisas novas, e deve aprender a fazê-lo se
+quiser ser bem sucedido (a). Para eliminar esse aspecto negativo de sua
+personalidade será preciso avançar corajosamente sobre o temor, confiar em si
+mesmo (a), apoiar-se nas suas melhores qualidades e ter iniciativa própria, deixando
+de depender dos outros. Precisa desenvolver o seu senso de integridade,
+originalidade, pioneirismo e independência; aprimorar a sua determinação e
+liderança; reforçar a vontade e desenvolver a sua individualidade equilibradamente.
+Precisa, ainda, aprender a respeitar os limites da autoridade; ser menos egoísta e a
+falar de seus sentimentos.`,
+
+2: `Este é um aspecto que vem sendo negligenciado desde encarnações passadas, e
+agora se apresenta na lista dos aprendizados importantes, na encarnação atual,
+como uma lição a ser aprendida no setor da colaboração e da sensibilidade. A falta
+de tato, de cooperação, de disciplina e de consideração pelos outros; a timidez e a
+desconfiança fizeram com que perdesse boas oportunidades de progresso pessoal.
+Houve preocupação excessiva com detalhes, impaciência e pouco senso
+diplomático, junto com sentimento de vítima ou de perseguição deliberada,
+sensibilidade excessiva e insegurança que minaram a sua autoconfiança. Isso se
+manifesta na atual encarnação na forma de timidez e desconfiança, a ponto de
+evitar se relacionar para não se expor. Para eliminar esta negatividade precisa
+aprender a cooperar, ter consideração pelos outros, aceitar ordens e não se apoiar
+nos outros. Precisa desenvolver uma sensibilidade equilibrada, compreensão e
+capacidade de observação, senso diplomático e ritmo. Ser impessoal, porém,
+reconhecendo as necessidades dos outros.
+`,
+
+3: `Este é um aspecto que vem sendo negligenciado desde encarnações passadas, e
+agora se apresenta na lista dos aprendizados importantes, na encarnação atual,
+como uma lição que se impõe aprender no setor das manifestações criativas e da
+autoexpressão. A deficiência em sua autoexpressão arrefeceu a sua criatividade e o
+seu senso de humor, enfraquecendo a vontade e a autoconfiança, a ponto de
+desejar se esconder para não ser notado (a) em público. Isso afeta as suas
+iniciativas mais expressivas na encarnação atual fazendo com que se irrite
+facilmente, principalmente diante das críticas; que tenha pouca imaginação e
+desperdice seus melhores talentos. Para eliminar esta negatividade precisa
+aprender a usar a palavra sem timidez, externar as suas ideias com segurança e
+firmeza, cultivar a imaginação, desenvolver apurado senso de humor, expressar-se
+com alegria, e ter paciência.`,
+
+4: `Este é um aspecto que vem sendo negligenciado desde encarnações passadas, e
+agora se apresenta na lista dos aprendizados importantes, na encarnação atual,
+como uma lição a se aplicar no setor do trabalho e da disciplina. Certamente, não
+gostava de trabalhar, foi deficiente nos detalhes e pormenores, teve dificuldade para
+a sistematização e faltou perseverança e prudência. Adiava indefinidamente as suas
+obrigações. Isso afeta as suas iniciativas na encarnação atual, podendo ser forçado
+(a) a construir um alicerce, a ter de encarar o trabalho, seja de que tipo for, ter
+paciência e concentração na sua ocupação, sem aceitar ou impor-se limitações.
+Para equilibrar essas deficiências, precisa aplicar-se no trabalho com dedicação e
+amor, dominar a cólera e não se sentir deprimido (a) pelo trabalho. Precisa se
+realizar através do trabalho árduo e do esforço físico, de disciplina, da lógica, e
+persistir nas suas metas e objetivos visando à ordem e a estruturação dos seus
+planos.`,
+
+5: `Este é um aspecto que vem sendo negligenciado desde encarnações passadas e
+agora se apresenta na lista dos aprendizados importantes, na encarnação atual,
+como uma lição a ser aprendida no setor das liberdades e das responsabilidades. O
+medo de enfrentar mudanças ou novidades, de exercer sua liberdade e assumir as
+responsabilidades inerentes cristalizou atitudes e comportamentos apegados e
+comodistas, relutância em assumir riscos e dificuldade para se adaptar às
+novidades; manifestou reações sensoriais pobres e falta de controle sobre seus
+apetites sexuais. Agora se sente incompreendido (a) e tem curiosidade e interesse
+pelos seus semelhantes como defesa a uma imaginária rejeição por parte dos
+outros. É, constantemente, obrigado a enfrentar alguma mudança, às vezes
+inesperada. Para eliminar esta negatividade de sua personalidade precisa olhar para
+o passado apenas com a percepção dos fatos, e não como um modo de se
+justificar. Precisa aprender a aceitar as mudanças, equilibrar a sua liberdade e
+direcionar equilibradamente a sua energia sexual; conter seu impulso para
+reviravoltas intempestivas e exercer seu senso de responsabilidade.`,
+
+6: `Este é um aspecto que vem sendo negligenciado desde encarnações passadas e
+agora se apresenta na lista dos aprendizados importantes, na encarnação atual,
+como uma lição a ser aprendida no setor familiar. Houve, no passado, negação em
+assumir certas responsabilidades e obrigações familiares, com filhos, com o
+casamento; negligencia com relação às atividades e responsabilidades domésticas,
+refletindo-se em dificuldade para conviver em família e grupos, e falta de motivação
+social. Agora, precisa se esforçar para ser bom (a) companheiro (a) no casamento,
+bom pai ou boa mãe, bom (a) filho (a), porque muito lhe será exigido tendo mesmo
+que assumir responsabilidades domésticas e prestar serviços aos outros. Precisa
+aceitar as coisas como elas são e não ser tanto exigente com os outros; aprender a
+consciência do envolvimento com os outros e cultivar os valores da família,
+assumindo as obrigações que são inerentes às suas responsabilidades domésticas.`,
+
+7: `Este é um aspecto que vem sendo negligenciado desde encarnações passadas e
+agora se apresenta na lista dos aprendizados importantes, na encarnação atual,
+como uma lição a ser aprendida no setor familiar. Houve, no passado, negação em
+assumir certas responsabilidades e obrigações familiares, com filhos, com o
+casamento; negligencia com relação às atividades e responsabilidades domésticas,
+refletindo-se em dificuldade para conviver em família e grupos, e falta de motivação
+social. Agora, precisa se esforçar para ser bom (a) companheiro (a) no casamento,
+bom pai ou boa mãe, bom (a) filho (a), porque muito lhe será exigido tendo mesmo
+que assumir responsabilidades domésticas e prestar serviços aos outros. Precisa
+aceitar as coisas como elas são e não ser tanto exigente com os outros; aprender a
+consciência do envolvimento com os outros e cultivar os valores da família,
+assumindo as obrigações que são inerentes às suas responsabilidades domésticas.`,
+
+8: `Este é um aspecto que vem sendo negligenciado desde encarnações passadas e
+agora se apresenta na lista dos aprendizados importantes, na encarnação atual,
+como uma lição a ser aprendida no setor das finanças e da justiça. Originada na
+incapacidade de assumir com eficiência e vontade a conduta nos negócios, nas
+finanças e outros assuntos da vida material; na não apreciação do justo valor do
+dinheiro, do poder e da justiça. Agora ainda poderá ter de enfrentar constantes
+problemas econômicos ou financeiros, ter fraca percepção da realidade, sede de
+poder, ganância, carência de bom discernimento, falta de senso de valor do dinheiro
+ou preocupação excessiva com ele, sem motivo. Para eliminar esta negatividade
+precisa aprender a utilizar corretamente o dinheiro como um meio de trocas; a não
+pensar unicamente nos valores materiais, mas também não negligenciá-los; exercer
+o poder com amor e justiça, e assumir posições que exijam autoridade e
+prerrogativas administrativas.`,
+
+9: `Este é um aspecto que vem sendo negligenciado desde encarnações passadas e
+agora se apresenta na lista dos aprendizados importantes, na encarnação atual,
+como a suprema lição do amor e da compaixão. Em constantes repetições das
+mesmas atitudes, negligenciando na compreensão, na compaixão, no perdão, na
+solidariedade, na caridade humana, cristalizou-se profundamente na consciência um
+padrão endurecido de ego que ainda não aprendeu a olhar para o seu semelhante
+como uma extensão sua. A insensibilidade para com as dores alheias, a falsa noção
+de que são os outros os responsáveis pelas tragédias que atrai, imputando-lhes
+culpa, reflete toda escuridão da ignorância sobre a mais elevada das leis eternas da
+evolução humana/espiritual – a Lei do Amor. Para eliminar esta negatividade de sua
+personalidade, precisa aprender a ser generoso (a), bondoso (a), amoroso (a),
+compreensivo (a) e a ter compaixão pelo sofrimento alheio; praticar a caridade,
+desenvolver a tolerância, a compreensão e o perdão. Esta é a lição mais difícil de ser
+aprendida, porque afeta diretamente o orgulhoso ego, que não admite ser humilde e
+oferecer a “outra face” perante a ofensa, a agressão, revidando continuamente na
+mesma moeda recebida.`,
+
+}
