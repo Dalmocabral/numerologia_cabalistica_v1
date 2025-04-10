@@ -26,6 +26,7 @@ import { calcularNumeroHarmonico } from "./components/CalculoHarmonico";
 import { calcularCoresFavoraveis } from './components/CalculoCoresFavoraveis';
 import { generateInvertedPyramid } from "./components/generateInvertedPyramid";
 import PiramideInvertida from "./components/PiramideInvertida";
+import DialogNomeSocial from './components/DialogNomeSocial';
 
 
 // Estilos personalizados para as células da tabela
@@ -60,6 +61,9 @@ const App = () => {
   const [numeroExpressao, setNumeroExpressao] = useState('');
   const [tabIndex, setTabIndex] = useState(0);
   const [piramide, setPiramide] = useState([]);
+  const [nomeSocial, setNomeSocial] = useState('');
+  const [arcano, setArcano] = useState('');
+  const [openDialogNomeSocial, setOpenDialogNomeSocial] = useState(false);
 
 
 
@@ -73,6 +77,10 @@ const App = () => {
     setDataNascimento(novaDataNascimento);
     setMesInteresse(novoMesInteresse);
     setDiaInteresse(novoDiaInteresse);
+
+    // Limpa os dados do nome social quando um novo nome principal é processado
+    setNomeSocial('');
+    setArcano('');
 
     const resultado = calcularNumeroHarmonico(novaDataNascimento);
     setHarmonicos(resultado);
@@ -99,6 +107,12 @@ const App = () => {
     setTabIndex(newIndex);
   };
 
+  const handleSaveNomeSocial = (nomeSocial, arcanoNumber) => {
+    setNomeSocial(nomeSocial);
+    setArcano(arcanoNumber);
+    setOpenDialogNomeSocial(false);
+  };
+
   return (
     <>
       <ThemeProvider theme={darkTheme}>
@@ -107,9 +121,16 @@ const App = () => {
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
           onSalvarNome={handleSalvarNome}
-          nomeCliente={nome}              // Passa o estado 'nome' diretamente
-          dataNascimento={dataNascimento} // Passa o estado 'dataNascimento' diretamente
+          nomeCliente={nome}
+          dataNascimento={dataNascimento}
         />
+        {/* Adicione este componente */}
+        <DialogNomeSocial
+          open={openDialogNomeSocial}
+          onClose={() => setOpenDialogNomeSocial(false)}
+          onSave={handleSaveNomeSocial}
+        />
+
       </ThemeProvider>
 
       <ThemeProvider theme={lightTheme}>
@@ -145,6 +166,8 @@ const App = () => {
                 </Box>
                 <Box sx={{ display: "flex", gap: 2 }}>
                   <TextField label="Cores Favoráveis" value={calcularCoresFavoraveis(numeroExpressao)} disabled fullWidth sx={{ mt: 2 }} />
+                  <TextField label="Nome social" value={nomeSocial} disabled fullWidth sx={{ mt: 2 }} />
+                  <TextField label="Arcano" value={arcano} disabled fullWidth sx={{ mt: 2 }} />
                 </Box>
 
                 {/* Container para as tabelas */}
@@ -286,7 +309,7 @@ const App = () => {
               {/* Adicionando Tabs abaixo das tabelas */}
               <Box sx={{ width: '100%', mt: 4 }}>
                 <Tabs value={tabIndex} onChange={handleTabChange} centered>
-                  <Tab label="Triângulo Invertido" />
+                  <Tab label="Pirâmide Invertido" />
                   <Tab label="Arcanos" />
                 </Tabs>
 
@@ -294,7 +317,14 @@ const App = () => {
                 {tabIndex === 0 && (
                   <Box sx={{ mt: 2 }}>
 
-                    <PiramideInvertida dados={piramide} />
+                    <PiramideInvertida
+                      dados={piramide}
+                      onNomeSocialChange={(nomeSocial, arcano) => {
+                        setNomeSocial(nomeSocial);
+                        setArcano(arcano);
+                      }}
+                    />
+
                   </Box>
                 )}
 

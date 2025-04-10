@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { PictureAsPdf } from "@mui/icons-material";
 import jsPDF from "jspdf";
 import logo from "../assets/image/logo.png";
@@ -13,7 +13,7 @@ import { calcularDividasCarmicas } from "./CalculoDividasCarmicas";
 import { calcularLicoesCarmicas } from "./CalculoLicoesCarmicas";
 import { tabelaNumeros, tabelaAcentos, impressaoTextos, expressaoTextos, destinoTextos, missaoTextos, dividasCarmicasTextos, licoesCarmicasTexto } from "./TabelaNumerologia";
 
-const PdfGeneratorButton = ({ nomeCliente, dataNascimento }) => {
+const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode }) => {
   // Função para calcular valor com acento (copiada do NomeNumerologia)
   const calcularValorComAcento = (letra) => {
     if (letra.trim() === "") return 0;
@@ -611,6 +611,17 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento }) => {
       alert("Ocorreu um erro ao gerar o PDF. Por favor, tente novamente.");
     }
   };
+
+  if (asListItem) {
+    return (
+      <ListItem button onClick={generatePDF}>
+        <ListItemIcon>
+          <PictureAsPdf sx={{ color: darkMode ? '#ffffff' : '#000000' }} />
+        </ListItemIcon>
+        <ListItemText primary="Gerar PDF" />
+      </ListItem>
+    );
+  }
 
   return (
     <Button

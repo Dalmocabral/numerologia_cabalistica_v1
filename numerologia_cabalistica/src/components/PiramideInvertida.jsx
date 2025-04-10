@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { findSequences } from './generateInvertedPyramid';
 import { negativeSequenceTriangleNumberRepeat } from '../components/TabelaNumerologia';
@@ -8,6 +8,11 @@ import DialogNomeSocial from './DialogNomeSocial';
 
 const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  // Limpa o diálogo quando novos dados são recebidos
+  useEffect(() => {
+    setDialogOpen(false);
+  }, [dados]);
 
   if (!dados || dados.length === 0) {
     return (
@@ -35,7 +40,7 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
   });
 
   return (
-    <Box sx={{ 
+    <Box sx={{
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -44,9 +49,9 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
     }}>
       {/* Renderização da pirâmide */}
       {dados.map((row, rowIndex) => (
-        <Box 
-          key={rowIndex} 
-          sx={{ 
+        <Box
+          key={rowIndex}
+          sx={{
             display: 'flex',
             gap: 0.5,
             justifyContent: 'center',
@@ -68,8 +73,8 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
 
             if (row.type === 'letters') {
               return (
-                <Box 
-                  key={itemIndex} 
+                <Box
+                  key={itemIndex}
                   sx={{
                     ...baseStyle,
                     fontSize: '1.8rem',
@@ -84,13 +89,13 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
                 </Box>
               );
             }
-            
+
             const sequences = findSequences(row.data);
             const isSequence = sequences.includes(itemIndex);
-            
+
             return (
-              <Box 
-                key={itemIndex} 
+              <Box
+                key={itemIndex}
                 sx={{
                   ...baseStyle,
                   fontSize: '1.5rem',
@@ -108,11 +113,11 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
         </Box>
       ))}
 
-      
+
 
       {/* Exibição simplificada das sequências */}
       {Object.keys(sequencesFound).length > 0 && (
-        <Box sx={{ 
+        <Box sx={{
           mt: 4,
           width: '100%',
           maxWidth: '600px',
@@ -122,7 +127,7 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
           <Typography variant="h6" gutterBottom sx={{ color: 'error.main' }}>
             Interpretação das Sequências:
           </Typography>
-          
+
           {Object.entries(sequencesFound).map(([sequence, description], index) => (
             <Box key={index} sx={{ mb: 2 }}>
               <Typography variant="body1" component="div">
@@ -134,8 +139,8 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
       )}
 
       {/* Botão para criar nome social */}
-      <Button 
-        variant="contained" 
+      <Button
+        variant="contained"
         sx={{ mt: 4 }}
         onClick={() => setDialogOpen(true)}
       >
@@ -145,10 +150,11 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
       <DialogNomeSocial
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
-        onSave={(novoNome) => {
-          onNomeSocialChange(novoNome);
+        onSave={(nomeSocial, arcano) => {
+          onNomeSocialChange(nomeSocial, arcano);
+          setDialogOpen(false);
         }}
-      />  
+      />
     </Box>
   );
 };
