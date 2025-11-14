@@ -17,6 +17,7 @@ import { calcularLicoesCarmicas } from './components/CalculoLicoesCarmicas';
 import { calcularTendenciasOcultas } from './components/CalculoTendenciasOcultas';
 import { calcularAnoPessoal } from './components/CalculoAnoPessoal';
 import { calcularMesPessoal, calcularDiaPessoal } from './components/CalculoMesDiaPessoal';
+import { calcularMesesPessoaisRestantes } from './components/CalculoMesDiaPessoal';
 import { calcularSubconsciente } from './components/CalculoSubconsciente';
 import { calcularCicloVida } from './components/CalculoCicloVida';
 import { calcularMomentosDecisivos } from './components/CalcularMomentosDecisivos';
@@ -25,8 +26,10 @@ import { calcularHarmoniaConjugal } from './components/CalculoHarmoniaConjugal';
 import { calcularNumeroHarmonico } from "./components/CalculoHarmonico";
 import { calcularCoresFavoraveis } from './components/CalculoCoresFavoraveis';
 import { generateInvertedPyramid } from "./components/generateInvertedPyramid";
+
 import PiramideInvertida from "./components/PiramideInvertida";
 import DialogNomeSocial from './components/DialogNomeSocial';
+
 
 
 // Estilos personalizados para as células da tabela
@@ -102,6 +105,10 @@ const App = () => {
   const desafios = calcularDesafios(dataNascimento, calcularCicloVida(dataNascimento, calcularDestino(dataNascimento)));
   const harmonia = calcularHarmoniaConjugal(missao);
 
+  // Cálculo dos Meses Pessoais Restantes
+  const mesesPessoaisLista = calcularMesesPessoaisRestantes(dataNascimento, mesInteresse);
+
+
   // Função para alternar entre as abas
   const handleTabChange = (event, newIndex) => {
     setTabIndex(newIndex);
@@ -164,6 +171,20 @@ const App = () => {
                   <TextField label="Número Harmônico" value={harmonicos.length ? harmonicos.join(", ") : "Nenhum"} disabled fullWidth sx={{ mt: 2 }} />
 
                 </Box>
+               <Box sx={{ mt: 2, p: 2, border: "1px solid #ccc", borderRadius: 2 }}>
+                <TextField
+  label="Meses Pessoais"
+  value={mesesPessoaisLista
+    .map(item => `${item.nomeMes}/${item.ano} – ${item.valor}`)
+    .join('\n')
+  }
+  multiline
+  disabled
+  fullWidth
+  sx={{ mt: 2 }}
+/>
+  
+</Box>
                 <Box sx={{ display: "flex", gap: 2 }}>
                   <TextField label="Cores Favoráveis" value={calcularCoresFavoraveis(numeroExpressao)} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Nome social" value={nomeSocial} disabled fullWidth sx={{ mt: 2 }} />
