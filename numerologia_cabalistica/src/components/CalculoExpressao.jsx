@@ -2,24 +2,32 @@
 
 import { tabelaNumeros, tabelaAcentos } from './TabelaNumerologia';
 
-// Função para calcular o valor da letra considerando acentos
+// Normaliza corretamente (padroniza apóstrofo curvo)
+const normalizarNome = (nome) => {
+    return nome
+        .normalize('NFC')
+        .replace(/’/g, "'")
+        .toUpperCase();
+};
+
+// Função para calcular o valor da letra considerando acentos e apóstrofo
 export const calcularValorComAcento = (letra) => {
-    if (!letra.trim()) return 0; // Ignora espaços em branco
+    if (!letra.trim()) return 0;
 
-    // Captura os acentos da letra
+    // Se for apóstrofo diretamente
+    if (letra === "'") {
+        return tabelaAcentos["'"] || 0;
+    }
+
     const acentos = letra.normalize('NFD').match(/[\u0300-\u036f]/g);
-
-    // Obtém a letra base sem acento
     const letraBase = letra.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
-    // Obtém o valor da letra base
     let valorBase = tabelaNumeros[letraBase] || 0;
 
-    // Se houver acentos, soma os valores dos acentos
     if (acentos) {
         acentos.forEach(acento => {
             if (tabelaAcentos[acento]) {
-                valorBase += tabelaAcentos[acento]; // Soma o valor do acento corretamente
+                valorBase += tabelaAcentos[acento];
             }
         });
     }
@@ -27,27 +35,26 @@ export const calcularValorComAcento = (letra) => {
     return valorBase;
 };
 
+// EXPRESSÃO = soma total das letras + reduzir
 export const calcularExpressao = (nome) => {
     if (!nome) return '';
 
-    // Converte o nome para maiúsculas e remove espaços
-    const nomeFormatado = nome.toUpperCase().replace(/\s/g, '');
+    const nomeNormalizado = normalizarNome(nome);
 
-    // Calcula a soma total das letras (considerando acentos)
-    const somaTotal = nomeFormatado
-        .split('')
-        .reduce((total, letra) => total + calcularValorComAcento(letra), 0);
+    const letrasValidas = nomeNormalizado.split('').filter(c =>
+        /[A-ZÇÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕÄËÏÖÜ']/.test(c)
+    );
 
-    // Função para reduzir o número, mantendo 11 e 22
-    const reduzirNumero = (numero) => {
-        if (numero === 11 || numero === 22) {
-            return numero; // Mantém números mestres
+    const somaTotal = letrasValidas.reduce((acc, letra) =>
+        acc + calcularValorComAcento(letra), 0
+    );
+
+    const reduzir = (n) => {
+        while (n >= 10 && n !== 11 && n !== 22) {
+            n = n.toString().split('').reduce((s, d) => s + Number(d), 0);
         }
-        while (numero >= 10) {
-            numero = numero.toString().split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0);
-        }
-        return numero;
+        return n;
     };
 
-    return reduzirNumero(somaTotal);
+    return reduzir(somaTotal);
 };

@@ -1,22 +1,37 @@
 //src/components/Calculo/missao.jsx
 
-import { calcularExpressao } from './CalculoExpressao';
-import { calcularDestino } from './CalculoDestino'; // Criamos essa função baseada na data de nascimento
+import { calcularValorComAcento } from "./CalculoExpressao";
 
-export const calcularMissao = (nome, dataNascimento) => {
-    if (!nome || !dataNascimento) return '';
+const normalizar = (nome) => {
+    return nome
+        .normalize("NFC")
+        .replace(/’/g, "'")
+        .toUpperCase();
+};
 
-    // Calcula os números de Destino e Expressão
-    const numeroDestino = calcularDestino(dataNascimento);
-    const numeroExpressao = calcularExpressao(nome);
-
-    // Soma os dois valores
-    let somaTotal = numeroDestino + numeroExpressao;
-
-    // Reduz a soma final, mas preservando 11 e 22
-    while (somaTotal >= 10 && somaTotal !== 11 && somaTotal !== 22) {
-        somaTotal = somaTotal.toString().split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0);
+const reduzir = (n) => {
+    while (n >= 10 && n !== 11 && n !== 22) {
+        n = n.toString().split("").reduce((s, d) => s + Number(d), 0);
     }
+    return n;
+};
 
-    return somaTotal;
+// MISSÃO = último sobrenome reduzido
+export const calcularMissao = (nome) => {
+    if (!nome) return "";
+
+    const nomeNorm = normalizar(nome);
+
+    // separa por espaços e apóstrofo
+    const partes = nomeNorm.split(/[\s']/).filter(Boolean);
+
+    const sobrenome = partes[partes.length - 1];
+
+    const valores = sobrenome
+        .split("")
+        .map((letra) => calcularValorComAcento(letra));
+
+    const soma = valores.reduce((a, b) => a + b, 0);
+
+    return reduzir(soma);
 };

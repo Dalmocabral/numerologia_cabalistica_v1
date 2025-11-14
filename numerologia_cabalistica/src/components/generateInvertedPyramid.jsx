@@ -1,11 +1,17 @@
 import { tabelaNumeros, tabelaAcentos } from "../components/TabelaNumerologia";
 
-// Função para calcular valor com acento (mantida igual)
+// Função para calcular valor com acento OU caractere especial
 const calcularValorComAcento = (letra) => {
   if (letra.trim() === "") return 0;
 
+  // Se for um caractere especial listado na tabela (ex: apostrofo)
+  if (tabelaAcentos[letra]) {
+    return tabelaAcentos[letra];
+  }
+
   const acentos = letra.normalize('NFD').match(/[\u0300-\u036f]/g);
   const letraBase = letra.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
   let valorBase = tabelaNumeros[letraBase] || 0;
 
   if (acentos) {
@@ -25,8 +31,9 @@ export const nameToNumbers = (name) => {
     .normalize('NFC')
     .toUpperCase()
     .split("")
-    .filter(char => /[A-ZÇÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕÄËÏÖÜ]/.test(char)) // Remover espaços
-    .map((char) => calcularValorComAcento(char)); // Calcular diretamente sem zeros
+    // Incluindo apóstrofo e letras acentuadas
+    .filter(char => /[A-ZÇÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕÄËÏÖÜ'’]/.test(char))
+    .map((char) => calcularValorComAcento(char));
 };
 
 // Função para reduzir números maiores que 9 somando seus dígitos
@@ -43,37 +50,36 @@ export const generateInvertedPyramid = (name) => {
   
   let rows = [];
 
-  // Normalizamos e filtramos para manter apenas letras válidas
   const letras = name
     .normalize('NFC')
     .toUpperCase()
     .split("")
-    .filter(char => /[A-ZÇÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕÄËÏÖÜ]/.test(char)); // Remover espaços
+    .filter(char => /[A-ZÇÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕÄËÏÖÜ'’]/.test(char));
 
   rows.push({
     type: 'letters',
     data: letras
   });
 
-  // Converter nome para números (sem incluir espaços)
   let currentRow = nameToNumbers(name);
+
   rows.push({
     type: 'numbers',
     data: [...currentRow]
   });
 
-  // Construir a pirâmide invertida
+  // Construção da pirâmide invertida
   while (currentRow.length > 1) {
     currentRow = currentRow
       .map((num, i, arr) => {
         if (i < arr.length - 1) {
-          let soma = parseInt(num) + parseInt(arr[i + 1]); 
-          return reduzirNumero(soma); // Aplicar a redução numerológica
+          let soma = parseInt(num) + parseInt(arr[i + 1]);
+          return reduzirNumero(soma);
         }
         return null;
       })
       .filter(num => num !== null);
-    
+
     rows.push({
       type: 'numbers',
       data: [...currentRow]
@@ -87,26 +93,20 @@ export const findSequences = (row) => {
   const sequences = [];
   let currentNum = null;
   let count = 1;
-  let sequenceStart = 0;
 
   for (let i = 0; i < row.length; i++) {
     if (row[i] === currentNum) {
       count++;
       
-      // Quando encontramos exatamente 3 números iguais
       if (count === 3) {
-        // Marca os 3 primeiros da sequência
         sequences.push(i-2, i-1, i);
       }
-      
-      // Ignora qualquer número além do terceiro na sequência
-      if (count > 3) {
-        continue;
-      }
+
+      if (count > 3) continue;
+
     } else {
       currentNum = row[i];
       count = 1;
-      sequenceStart = i;
     }
   }
 

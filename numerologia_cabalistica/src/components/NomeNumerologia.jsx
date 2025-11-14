@@ -4,29 +4,32 @@ import { Box, Typography } from '@mui/material';
 import { tabelaNumeros, tabelaAcentos } from './TabelaNumerologia';
 
 const calcularValorComAcento = (letra) => {
-  // Se for um espaço, retornar 0
   if (letra.trim() === "") return 0;
 
-  // Captura os acentos
+  // Se for um símbolo isolado (como o apóstrofo)
+  if (tabelaAcentos[letra]) {
+    return tabelaAcentos[letra];
+  }
+
+  // Captura acentos combinantes
   const acentos = letra.normalize('NFD').match(/[\u0300-\u036f]/g);
 
-  // Obtém a letra base sem acento
+  // Letra base
   const letraBase = letra.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
-  // Obtém o valor da letra base
   let valorBase = tabelaNumeros[letraBase] || 0;
 
-  // Se houver acentos, aplica os modificadores corretamente
   if (acentos) {
-      acentos.forEach(acento => {
-          if (tabelaAcentos[acento]) {
-              valorBase += tabelaAcentos[acento]; // Agora soma corretamente o valor do acento
-          }
-      });
+    acentos.forEach(acento => {
+      if (tabelaAcentos[acento]) {
+        valorBase += tabelaAcentos[acento];
+      }
+    });
   }
 
   return valorBase;
 };
+
 
 
 // Função para verificar se uma letra é vogal (considerando acentos)

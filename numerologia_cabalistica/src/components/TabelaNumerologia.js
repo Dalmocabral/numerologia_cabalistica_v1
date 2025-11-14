@@ -9,6 +9,8 @@ export const tabelaAcentos = {
   '́': 2,  // Agudo (´) adiciona +2
   '̀': 2,  // Grave (`) adiciona +2
   '̈': 2,  // Trema (¨) adiciona +2
+  "'": 2,  // Apóstrofo simples adiciona +2
+  "’": 2,  // Apóstrofo tipográfico (curvado) adiciona +2
   '̂': 7,  // Circunflexo (^) adiciona +7
   '̃': 3,  // Tilde (~) adiciona +3
   'º': 7,  // Símbolo ordinal adiciona +7
