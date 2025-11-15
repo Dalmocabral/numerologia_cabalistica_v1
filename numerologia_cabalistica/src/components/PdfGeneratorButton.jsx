@@ -12,6 +12,9 @@ import { calcularMissao } from "./CalculoMissao";
 import { calcularDividasCarmicas } from "./CalculoDividasCarmicas";
 import { calcularLicoesCarmicas } from "./CalculoLicoesCarmicas";
 import { tabelaNumeros, tabelaAcentos, impressaoTextos, expressaoTextos, destinoTextos, missaoTextos, dividasCarmicasTextos, licoesCarmicasTexto } from "./TabelaNumerologia";
+import { calcularMesesPessoaisRestantes } from "./CalculoMesDiaPessoal";
+import { mesesPessoal } from "./TabelaNumerologia";
+
 
 const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode }) => {
   // Função para calcular valor com acento (copiada do NomeNumerologia)
@@ -598,6 +601,65 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
         }
       }
 
+      // PÁGINA - MÊS PESSOAL
+      if (dataNascimento) {
+        doc.addPage();
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(22);
+        doc.setTextColor('#000000');
+        doc.text("Mês Pessoal", 105, 30, { align: "center" });
+
+        let yPosition = 50;
+
+        // Introdução
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
+        const introMes = [
+          "O Mês Pessoal mostra como a energia numerológica atua mês a mês na sua vida.",
+          "Ele é calculado a partir da sua data de nascimento e do ano corrente,",
+          "indicando tendências, desafios e oportunidades específicas para o período."
+        ];
+
+        introMes.forEach(linha => {
+          doc.text(linha, 20, yPosition);
+          yPosition += 7;
+        });
+
+        yPosition += 10;
+
+        // Número calculado
+        doc.setFont("helvetica", "bold");
+        doc.text("Seu Mês Pessoal atual:", 20, yPosition);
+        doc.setFont("helvetica", "normal");
+
+        const mesPessoalCalculado = calcularMesesPessoaisRestantes(dataNascimento);
+        doc.text(mesPessoalCalculado.toString(), 80, yPosition);
+
+        yPosition += 15;
+
+        // Definição
+        doc.setFont("helvetica", "bold");
+        doc.text("Significado:", 20, yPosition);
+        yPosition += 7;
+
+        if (mesesPessoal[mesPessoalCalculado]) {
+          const texto = mesesPessoal[mesPessoalCalculado];
+          const pageHeight = doc.internal.pageSize.height - 20;
+          const lines = doc.splitTextToSize(texto, 170);
+
+          doc.setFont("helvetica", "normal");
+
+          lines.forEach(l => {
+            if (yPosition > pageHeight) {
+              doc.addPage();
+              yPosition = 20;
+            }
+            doc.text(l, 20, yPosition);
+            yPosition += 7;
+          });
+        }
+      }
 
 
 

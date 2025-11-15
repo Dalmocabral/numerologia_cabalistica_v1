@@ -2001,3 +2001,84 @@ oferecer a “outra face” perante a ofensa, a agressão, revidando continuamen
 mesma moeda recebida.`,
 
 }
+
+export const mesesPessoal = {
+  1: `Mês Pessoal 1
+É o mês para assumir o comando e novas responsabilidades. Bom para desenvolver
+a individualidade e a independência, para abrir novas oportunidades, decidir,
+começar algo novo, dinamizar, propor, apressar as coisas, forçar o movimento
+daquilo que e está emperrado. Favorece os pioneiros, as pessoas influentes, os
+inventores e os planejadores. Porém, é um mês onde também as pessoas tendem a
+dominar, consciente ou inconscientemente, todos os envolvidos. Para negócios e
+especulações, é excelente.`,
+
+  2: `Mês Pessoal 2
+É um mês passivo e receptivo, bom para exercitar a paciência, harmonizar e
+apaziguar grupos, agir com diplomacia, assumir compromissos e proteger, nutrir,
+sentir, intermediar. É um mês de hesitações e dúvidas, portanto, nenhum projeto
+deve ser iniciado neste período, pois corre risco de não dar certo. O êxito só virá pela
+colaboração e cooperação com outras pessoas.`,
+
+  3: `Mês Pessoal 3
+Um mês favorável para as relações externas e os contatos. Bom para a vida social,
+as amizades, para aventurar-se em novo relacionamento, sendo que para isso o ano
+pessoal precisa estar favorável também. Ideal para expressar alegria e criatividade,
+para diversão, comunicação, imaginação, popularidade, exposição. O cuidado deve
+ser para não dispersar energias, e com isso oportunidades também.`,
+
+  4: `Mês Pessoal 4
+É um mês para trabalhar na construção de fundações sólidas; ser realista e
+equilibrado (a). Ideal para organizar, sistematizar, economizar e aprender a lidar com
+limites e restrições, bem como atentar-se para os pormenores, tanto no domínio
+profissional quanto no lar. Um mês para tratar de assuntos concretos.`,
+
+  5: `Mês Pessoal 5
+Um mês favorável para viagens, mudanças, liberdade e aventuras. Será um mês
+movimentado, bom para novas amizades, para desfrutar de novas sensações da
+sensualidade e sexualidade. Bom para desfrutar os prazeres físicos, porém, isso
+pode também ser delicado caminho para perdições viciosas. Bom período para
+exercitar a inteligência, a esperteza e a versatilidade. A agitação deste mês poderá
+insuflar a impaciência.`,
+
+  6: `Mês Pessoal 6
+Este é um período para dar atenção às obrigações afetivas, mas também de
+proteção financeira. É importante desenvolver atividades familiares e domésticas,
+cumprir deveres e obrigações, assumir responsabilidades. Manter a calma e a
+serenidade, cumprir a rotina sem grandes inovações, evitar se meter em confusões
+ou discussões, a fim de que a paz se estabeleça no lar ou no grupo.`,
+
+  7: `Mês Pessoal 7
+Um mês que pode retardar um pouco alguns projetos por necessidade de análise
+mais aprofundada. Bom período para reflexão, introspecção, isolamento,
+crescimento interior, autoconsciência, avaliar a vida pessoal, silenciar. Favorece as
+alianças e os acordos, o desenvolvimento da intuição e o interesse por assuntos
+metafísicos, espirituais ou esotéricos.`,
+
+  8: `Mês Pessoal 8
+Este é o mês que favorece todos os campos de domínio material e financeiro. Bom
+para os negócios e empreendimentos, para atividades políticas e com público em
+geral. Surge algum carisma que pode facilitar as alianças nos negócios ou na
+política. A agitação pode levar ao nervosismo, sendo aconselhável manter-se calmo
+(a) e não discutir nem argumentar sem razão.`,
+
+  9: `Mês Pessoal 9
+É o mês da espiritualidade e da intelectualidade. O sucesso virá das realizações
+positivas que ajudem os outros. Os objetivos devem ser canalizados para benefício
+mais da humanidade que aos interesses pessoais. Período de finalizações,
+completude, inspiração, humanidade; bom para viagens e contato com multidões.
+Estimula a confiança, a coragem, independência e determinação.`,
+
+  11: `Mês Pessoal 11
+Um mês favorável às grandes realizações e revelações, sejam elas de cunho
+material, mental ou espiritual. Ideal para por as ideias em ordem, pois a intuição
+estará mais aflorada, a inteligência vibrante e a imaginação correndo solta. Período
+favorável para os ajustes daquilo que pode melhorar o ser humano, a sua
+espiritualidade.`,
+
+  22: `Mês Pessoal 22
+Normalmente, neste período você se sente mais prático(a), cordial, idealista,
+inspirado(a) e eficiente. Logo, é uma excelente época para desenvolver novas idéias,
+pois os projetos iniciados neste período, quase sempre conseguem grandes êxitos,
+tanto materiais quanto espirituais. Sendo o número mais poderoso, não é bom
+desperdiçar a oportunidade, pois ela pode nunca mais aparecer.`
+};
