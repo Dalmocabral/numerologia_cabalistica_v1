@@ -11,9 +11,10 @@ import { calcularDestino } from "./CalculoDestino";
 import { calcularMissao } from "./CalculoMissao";
 import { calcularDividasCarmicas } from "./CalculoDividasCarmicas";
 import { calcularLicoesCarmicas } from "./CalculoLicoesCarmicas";
-import { tabelaNumeros, tabelaAcentos, impressaoTextos, expressaoTextos, destinoTextos, missaoTextos, dividasCarmicasTextos, licoesCarmicasTexto } from "./TabelaNumerologia";
+import { tabelaNumeros, tabelaAcentos, impressaoTextos, expressaoTextos, destinoTextos, missaoTextos, dividasCarmicasTextos, licoesCarmicasTexto, anoPessoalDescritivo } from "./TabelaNumerologia";
 import { calcularMesesPessoaisRestantes } from "./CalculoMesDiaPessoal";
 import { mesesPessoal } from "./TabelaNumerologia";
+import {calcularAnoPessoal} from "./CalculoAnoPessoal";
 
 
 const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode }) => {
@@ -601,65 +602,133 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
         }
       }
 
+      // -------------------------------
+// PÁGINA - ANO PESSOAL
+// -------------------------------
+
+if (dataNascimento) {
+    const anoPessoal = calcularAnoPessoal(dataNascimento); // sua função existente
+
+    doc.addPage();
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(22);
+    doc.text("Ano Pessoal", 105, 30, { align: "center" });
+
+    let y = 55;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+
+    const introAno = [
+        "O Ano Pessoal representa o ciclo energético que influencia a sua vida durante todo o ano corrente.",
+        "Ele é calculado somando o dia e mês do seu nascimento ao ano atual reduzido a um único dígito.",
+        "Esse número revela oportunidades, desafios e o tipo de vibração que estará mais presente em sua jornada."
+    ];
+
+    introAno.forEach(linha => {
+        doc.text(linha, 20, y);
+        y += 7;
+    });
+
+    y += 15;
+
+    // Exibição do ano pessoal calculado
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.text(`Seu Ano Pessoal: ${anoPessoal}`, 20, y);
+    y += 12;
+
+    // Texto explicativo do ano pessoal
+    const textoAno = anoPessoalDescritivo[anoPessoal]; // OBJETO COM TEXTOS igual ao de Mês Pessoal
+
+    if (textoAno) {
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
+
+        const linhas = doc.splitTextToSize(textoAno, 170);
+
+        linhas.forEach(l => {
+            if (y > doc.internal.pageSize.height - 20) {
+                doc.addPage();
+                y = 20;
+            }
+            doc.text(l, 20, y);
+            y += 7;
+        });
+    }
+
+    y += 10;
+}
+
+
       // PÁGINA - MÊS PESSOAL
       if (dataNascimento) {
+        const mesesLista = calcularMesesPessoaisRestantes(dataNascimento);
+
         doc.addPage();
 
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
-        doc.setTextColor('#000000');
         doc.text("Mês Pessoal", 105, 30, { align: "center" });
 
-        let yPosition = 50;
+        let y = 55;
 
-        // Introdução
         doc.setFont("helvetica", "normal");
         doc.setFontSize(12);
-        const introMes = [
+
+        const intro = [
           "O Mês Pessoal mostra como a energia numerológica atua mês a mês na sua vida.",
           "Ele é calculado a partir da sua data de nascimento e do ano corrente,",
           "indicando tendências, desafios e oportunidades específicas para o período."
         ];
 
-        introMes.forEach(linha => {
-          doc.text(linha, 20, yPosition);
-          yPosition += 7;
+        intro.forEach(linha => {
+          doc.text(linha, 20, y);
+          y += 7;
         });
 
-        yPosition += 10;
+        y += 10;
 
-        // Número calculado
-        doc.setFont("helvetica", "bold");
-        doc.text("Seu Mês Pessoal atual:", 20, yPosition);
-        doc.setFont("helvetica", "normal");
+        const pageHeight = doc.internal.pageSize.height - 20;
 
-        const mesPessoalCalculado = calcularMesesPessoaisRestantes(dataNascimento);
-        doc.text(mesPessoalCalculado.toString(), 80, yPosition);
+        mesesLista.forEach((item) => {
+          const tituloLinha = `${item.nomeMes}/${item.ano} – ${item.valor}`;
 
-        yPosition += 15;
+          // Título do mês
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(14);
 
-        // Definição
-        doc.setFont("helvetica", "bold");
-        doc.text("Significado:", 20, yPosition);
-        yPosition += 7;
+          if (y > pageHeight) {
+            doc.addPage();
+            y = 20;
+          }
 
-        if (mesesPessoal[mesPessoalCalculado]) {
-          const texto = mesesPessoal[mesPessoalCalculado];
-          const pageHeight = doc.internal.pageSize.height - 20;
-          const lines = doc.splitTextToSize(texto, 170);
+          doc.text(tituloLinha, 20, y);
+          y += 8;
 
-          doc.setFont("helvetica", "normal");
+          // Texto explicativo do mês
+          const textoDoMes = mesesPessoal[item.valor];
+          if (textoDoMes) {
+            const linhas = doc.splitTextToSize(textoDoMes, 170);
 
-          lines.forEach(l => {
-            if (yPosition > pageHeight) {
-              doc.addPage();
-              yPosition = 20;
-            }
-            doc.text(l, 20, yPosition);
-            yPosition += 7;
-          });
-        }
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(12);
+
+            linhas.forEach(l => {
+              if (y > pageHeight) {
+                doc.addPage();
+                y = 20;
+              }
+              doc.text(l, 20, y);
+              y += 7;
+            });
+          }
+
+          y += 10; // espaço entre meses
+        });
       }
+
 
 
 
