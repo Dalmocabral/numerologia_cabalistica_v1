@@ -2344,3 +2344,40 @@ em como ganhar dinheiro, obter bens materiais e também poder.`,
 excessivamente com os problemas mundiais em detrimento de si próprio e da
 família.`
 };
+
+export const respostaSubconsciente = {
+  2: `Resposta Subconsciente 2
+É um ser arrogante, mentiroso (a), que não respeita regras e quer que tudo e todos
+girem em torno de si.`,
+
+  3: `Resposta Subconsciente 3
+É dispersivo (a) e até indisciplinado (a); normalmente reage de forma explosiva e até
+de certa maneira destrutiva.`,
+
+  4: `Resposta Subconsciente 4
+Normalmente é um ser que vive perdido num labirinto de detalhes. As suas reações
+são fracas, tem tendência a vacilar e até atrapalhar os outros.`,
+
+  5: `Resposta Subconsciente 5
+É uma pessoa tensa e nervosa. Numa crise tem tendência a agir de forma confusa e
+impulsiva.`,
+
+  6: `Resposta Subconsciente 6
+É um ser sentimental. Sua primeira preocupação numa crise é com os entes
+queridos, seus objetos de estimação e animais (se os tiver).`,
+
+  7: `Resposta Subconsciente 7
+Normalmente é arredio (a) e não gosta de se envolver com problemas alheios. Em
+uma emergência, considerará analiticamente a situação e, então, normalmente se
+retirará para dentro de si mesmo (a) e rezará. Se existirem perdas materiais ou de
+vidas, poderá se entregar a vícios, como a bebida ou drogas.`,
+
+  8: `Resposta Subconsciente 8
+É eficiente e organizado (a). Numa crise ou em qualquer ocasião pode-se contar
+com ele (a), pois é seguro (a) e digno (a) de confiança.`,
+
+  9: `Resposta Subconsciente 9
+É um ser entediado (a). A maioria das coisas tem pouca importância para você.
+Numa crise é melhor não contar com você, pois é impessoal, filósofo (a),
+introspectivo (a), resignado (a) e indeciso (a).`
+};

@@ -11,10 +11,17 @@ import { calcularDestino } from "./CalculoDestino";
 import { calcularMissao } from "./CalculoMissao";
 import { calcularDividasCarmicas } from "./CalculoDividasCarmicas";
 import { calcularLicoesCarmicas } from "./CalculoLicoesCarmicas";
-import { tabelaNumeros, tabelaAcentos, impressaoTextos, expressaoTextos, destinoTextos, missaoTextos, dividasCarmicasTextos, licoesCarmicasTexto, anoPessoalDescritivo } from "./TabelaNumerologia";
+import {
+  tabelaNumeros, tabelaAcentos, impressaoTextos, expressaoTextos, destinoTextos, missaoTextos, dividasCarmicasTextos, licoesCarmicasTexto,
+  anoPessoalDescritivo, tendenciaOculta, respostaSubconsciente, coresFavoraveis
+} from "./TabelaNumerologia";
 import { calcularMesesPessoaisRestantes } from "./CalculoMesDiaPessoal";
 import { mesesPessoal } from "./TabelaNumerologia";
-import {calcularAnoPessoal} from "./CalculoAnoPessoal";
+import { calcularAnoPessoal } from "./CalculoAnoPessoal";
+import { calcularTendenciasOcultas } from "./CalculoTendenciasOcultas";
+import { calcularSubconsciente } from "./CalculoSubconsciente";
+import { calcularNumeroHarmonico } from "./CalculoHarmonico";
+import { calcularCoresFavoraveis } from "./CalculoCoresFavoraveis";
 
 
 const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode }) => {
@@ -603,63 +610,63 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       }
 
       // -------------------------------
-// PÁGINA - ANO PESSOAL
-// -------------------------------
+      // PÁGINA - ANO PESSOAL
+      // -------------------------------
 
-if (dataNascimento) {
-    const anoPessoal = calcularAnoPessoal(dataNascimento); // sua função existente
+      if (dataNascimento) {
+        const anoPessoal = calcularAnoPessoal(dataNascimento); // sua função existente
 
-    doc.addPage();
+        doc.addPage();
 
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(22);
-    doc.text("Ano Pessoal", 105, 30, { align: "center" });
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(22);
+        doc.text("Ano Pessoal", 105, 30, { align: "center" });
 
-    let y = 55;
+        let y = 55;
 
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(12);
-
-    const introAno = [
-        "O Ano Pessoal representa o ciclo energético que influencia a sua vida durante todo o ano corrente.",
-        "Ele é calculado somando o dia e mês do seu nascimento ao ano atual reduzido a um único dígito.",
-        "Esse número revela oportunidades, desafios e o tipo de vibração que estará mais presente em sua jornada."
-    ];
-
-    introAno.forEach(linha => {
-        doc.text(linha, 20, y);
-        y += 7;
-    });
-
-    y += 15;
-
-    // Exibição do ano pessoal calculado
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
-    doc.text(`Seu Ano Pessoal: ${anoPessoal}`, 20, y);
-    y += 12;
-
-    // Texto explicativo do ano pessoal
-    const textoAno = anoPessoalDescritivo[anoPessoal]; // OBJETO COM TEXTOS igual ao de Mês Pessoal
-
-    if (textoAno) {
         doc.setFont("helvetica", "normal");
         doc.setFontSize(12);
 
-        const linhas = doc.splitTextToSize(textoAno, 170);
+        const introAno = [
+          "O Ano Pessoal representa o ciclo energético que influencia a sua vida durante todo o ano corrente.",
+          "Ele é calculado somando o dia e mês do seu nascimento ao ano atual reduzido a um único dígito.",
+          "Esse número revela oportunidades, desafios e o tipo de vibração que estará mais presente em sua jornada."
+        ];
 
-        linhas.forEach(l => {
+        introAno.forEach(linha => {
+          doc.text(linha, 20, y);
+          y += 7;
+        });
+
+        y += 15;
+
+        // Exibição do ano pessoal calculado
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(16);
+        doc.text(`Seu Ano Pessoal: ${anoPessoal}`, 20, y);
+        y += 12;
+
+        // Texto explicativo do ano pessoal
+        const textoAno = anoPessoalDescritivo[anoPessoal]; // OBJETO COM TEXTOS igual ao de Mês Pessoal
+
+        if (textoAno) {
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(12);
+
+          const linhas = doc.splitTextToSize(textoAno, 170);
+
+          linhas.forEach(l => {
             if (y > doc.internal.pageSize.height - 20) {
-                doc.addPage();
-                y = 20;
+              doc.addPage();
+              y = 20;
             }
             doc.text(l, 20, y);
             y += 7;
-        });
-    }
+          });
+        }
 
-    y += 10;
-}
+        y += 10;
+      }
 
 
       // PÁGINA - MÊS PESSOAL
@@ -728,6 +735,320 @@ if (dataNascimento) {
           y += 10; // espaço entre meses
         });
       }
+
+
+      // ---------------------------------------
+      // PÁGINA - TENDÊNCIAS OCULTAS
+      // ---------------------------------------
+
+      if (nomeCliente) {
+        const resultadoOcultas = calcularTendenciasOcultas(nomeCliente);
+
+        doc.addPage();
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(22);
+        doc.text("Tendências Ocultas", 105, 30, { align: "center" }); 
+
+        let y = 55;
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
+
+        const intro = [
+          "As Tendências Ocultas revelam padrões repetitivos que aparecem no seu nome quando",
+          "cada letra é convertida para um número. Quando um número se repete três vezes ou mais,",
+          "ele indica uma força latente, um impulso interno que influencia atitudes, escolhas e reações.",
+          "Mesmo que não seja sempre visível, essa vibração atua nos bastidores da sua personalidade."
+        ];
+
+        intro.forEach(linha => {
+          doc.text(linha, 20, y);
+          y += 7;
+        });
+
+        y += 15;
+
+        // MOSTRA O RESULTADO DOS NÚMEROS ENCONTRADOS
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(16);
+
+        doc.text(`Tendências encontradas: ${resultadoOcultas}`, 20, y);
+        y += 12;
+
+        // Se não tiver nenhuma tendência
+        if (resultadoOcultas === "Nenhuma") {
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(12);
+
+          const textoNeutro = [
+            "Nenhuma sequência significativa de repetição foi encontrada no seu nome.",
+            "Isso indica que suas energias são equilibradas e não há impulsos ocultos dominantes.",
+            "Sua personalidade opera de forma mais aberta e transparente."
+          ];
+
+          textoNeutro.forEach(linha => {
+            if (y > doc.internal.pageSize.height - 20) {
+              doc.addPage();
+              y = 20;
+            }
+            doc.text(linha, 20, y);
+            y += 7;
+          });
+
+          y += 10;
+
+        } else {
+          // Se houver números, detalhar cada tendência
+          const numeros = resultadoOcultas.split(",").map(n => n.trim());
+
+          numeros.forEach(numero => {
+            const titulo = `Número ${numero}`;
+
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(14);
+
+            if (y > doc.internal.pageSize.height - 30) {
+              doc.addPage();
+              y = 20;
+            }
+
+            doc.text(titulo, 20, y);
+            y += 8;
+
+            // Pega o texto descritivo do seu dicionário
+            const texto = tendenciaOculta[numero];
+
+            if (texto) {
+              doc.setFont("helvetica", "normal");
+              doc.setFontSize(12);
+
+              const linhas = doc.splitTextToSize(texto, 170);
+
+              linhas.forEach(l => {
+                if (y > doc.internal.pageSize.height - 20) {
+                  doc.addPage();
+                  y = 20;
+                }
+                doc.text(l, 20, y);
+                y += 7;
+              });
+
+              y += 10;
+            }
+          });
+        }
+      }
+      // ---------------------------------------
+      // PÁGINA - SUBCONSCIENTE
+      // ---------------------------------------
+
+      if (nomeCliente) {
+
+        // Calcula lições kármicas REALMENTE
+        const licoes = calcularLicoesCarmicas(nomeCliente);
+
+        // Agora sim calcula o subconsciente certo
+        const valorSubconsciente = calcularSubconsciente(licoes);
+
+        doc.addPage();
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(22);
+        doc.text("Subconsciente", 105, 30, { align: "center" });
+
+        let y = 55;
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
+
+        const intro = [
+          "O Subconsciente representa sua força interna instintiva, ligada à autoconfiança,",
+          "intuição, impulsos naturais e capacidade de reagir automaticamente aos desafios.",
+          "Ele é calculado subtraindo o número de lições kármicas do valor 9.",
+          "Quanto menor o número de lições, mais forte é o seu subconsciente."
+        ];
+
+        intro.forEach(linha => {
+          doc.text(linha, 20, y);
+          y += 7;
+        });
+
+        y += 15;
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(16);
+        doc.text(`Seu número do Subconsciente: ${valorSubconsciente}`, 20, y);
+        y += 12;
+
+        const textoDescricao = respostaSubconsciente[valorSubconsciente];
+
+        if (textoDescricao) {
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(12);
+
+          const linhas = doc.splitTextToSize(textoDescricao, 170);
+
+          linhas.forEach(l => {
+            if (y > doc.internal.pageSize.height - 20) {
+              doc.addPage();
+              y = 20;
+            }
+            doc.text(l, 20, y);
+            y += 7;
+          });
+        }
+
+        y += 10;
+      }
+
+
+
+      // ---------------------------------------
+      // PÁGINA - NÚMERO HARMÔNICO
+      // ---------------------------------------
+
+      if (dataNascimento) {
+        const resultadoHarmonico = calcularNumeroHarmonico(dataNascimento);
+
+        doc.addPage();
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(22);
+        doc.text("Número Harmônico", 105, 30, { align: "center" });
+
+        let y = 55;
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
+
+        const intro = [
+          "O Número Harmônico é derivado do dia do seu nascimento.",
+          "Ele representa a vibração essencial que acompanha suas ações,",
+          "indicando como você lida com situações, pessoas e desafios do cotidiano."
+        ];
+
+        intro.forEach(linha => {
+          doc.text(linha, 20, y);
+          y += 7;
+        });
+
+        y += 15;
+
+        // Mostra o valor encontrado
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(16);
+        doc.text(`Seu Número Harmônico:`, 20, y);
+        y += 10;
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(20);
+
+        const valorStr = Array.isArray(resultadoHarmonico)
+          ? resultadoHarmonico.join(", ")
+          : resultadoHarmonico;
+
+        doc.text(valorStr || "—", 20, y);
+        y += 15;    // Texto explicativo do número harmônico
+
+        y += 10;
+      }
+
+      const numeroExpressao = calcularExpressao(nomeCliente);
+
+      if (numeroExpressao) {
+
+        // Pega as cores diretamente do seu cálculo
+        const listaCores = calcularCoresFavoraveis(numeroExpressao);
+
+        doc.addPage();
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(22);
+        doc.text("Cores Favoráveis", 105, 30, { align: "center" });
+
+        let y = 55;
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
+
+        const intro = [
+          "As cores favoráveis refletem as vibrações energéticas associadas ao seu",
+          "Número de Expressão. Elas funcionam como catalisadores emocionais e",
+          "psicológicos, reforçando seus potenciais naturais e equilibrando seus",
+          "pontos mais sensíveis.",
+          "Usá-las em roupas, detalhes pessoais ou ambientes ajuda a alinhar sua",
+          "frequência interna com o melhor da sua própria numerologia."
+        ];
+
+        intro.forEach(linha => {
+          doc.text(linha, 20, y);
+          y += 7;
+        });
+
+        y += 15;
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(16);
+
+        y += 12;
+
+        doc.text("Cores recomendadas:", 20, y);
+        y += 10;
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(13);
+
+        const blocoCores = doc.splitTextToSize(listaCores, 170);
+
+        blocoCores.forEach(linha => {
+          if (y > doc.internal.pageSize.height - 20) {
+            doc.addPage();
+            y = 20;
+          }
+          doc.text(linha, 20, y);
+          y += 7;
+        });
+
+        y += 15;
+
+        const explicacaoFinal = [
+          "Essas cores fortalecem seu campo emocional, ampliam sua presença e",
+          "harmonizam sua energia pessoal. Quanto mais você as utiliza, mais sente",
+          "clareza, foco e equilíbrio nos seus movimentos diários.",
+          "Trata-se de uma ferramenta simples, mas poderosa, de alinhamento vibracional."
+        ];
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
+
+        explicacaoFinal.forEach(linha => {
+          if (y > doc.internal.pageSize.height - 20) {
+            doc.addPage();
+            y = 20;
+          }
+          doc.text(linha, 20, y);
+          y += 7;
+        });
+
+        y += 10;
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
