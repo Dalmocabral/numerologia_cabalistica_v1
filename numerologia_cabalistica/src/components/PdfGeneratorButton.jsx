@@ -24,6 +24,10 @@ import { calcularTendenciasOcultas } from "./CalculoTendenciasOcultas";
 import { calcularSubconsciente } from "./CalculoSubconsciente";
 import { calcularNumeroHarmonico } from "./CalculoHarmonico";
 import { calcularCoresFavoraveis } from "./CalculoCoresFavoraveis";
+import { calcularCicloVida } from "./CalculoCicloVida";
+import { calcularDesafios } from "./CalculoDesafios";
+import { calcularMomentosDecisivos } from "./CalcularMomentosDecisivos";
+import { calcularHarmoniaConjugal } from "./CalculoHarmoniaConjugal";
 
 // Tabelas e Textos (Stubs)
 import {
@@ -42,20 +46,99 @@ import {
  * @param {string} imgBase64 - Imagem em Base64 (logo).
  */
 const addWatermark = (doc, imgBase64) => {
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
 
-    doc.saveGraphicsState();
-    doc.setGState(new doc.GState({ opacity: 0.1 }));
+  doc.saveGraphicsState();
+  doc.setGState(new doc.GState({ opacity: 0.1 }));
 
-    const wmWidth = pageWidth * 0.7;
-    const wmHeight = wmWidth;
+  const wmWidth = pageWidth * 0.7;
+  const wmHeight = wmWidth;
 
-    const x = (pageWidth - wmWidth) / 2;
-    const y = (pageHeight - wmHeight) / 2;
+  const x = (pageWidth - wmWidth) / 2;
+  const y = (pageHeight - wmHeight) / 2;
 
-    doc.addImage(imgBase64, "PNG", x, y, wmWidth, wmHeight);
-    doc.restoreGraphicsState();
+  doc.addImage(imgBase64, "PNG", x, y, wmWidth, wmHeight);
+  doc.restoreGraphicsState();
+};
+
+
+/**
+ * Renderiza uma tabela no PDF
+ * @param {jsPDF} doc - Instância do jsPDF
+ * @param {Array} headers - Cabeçalhos da tabela
+ * @param {Array} data - Dados da tabela
+ * @param {number} startY - Posição Y inicial
+ * @param {number} margin - Margem da página
+ * @returns {number} - Nova posição Y
+ */
+
+const renderTable = (doc, headers, data, startY, margin = 20) => {
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const tableWidth = pageWidth - (margin * 2);
+  const colCount = headers.length;
+  const colWidth = tableWidth / colCount;
+
+  let yPosition = startY;
+
+  // Configurações da tabela
+  doc.setFontSize(10);
+  doc.setDrawColor(0);
+  doc.setLineWidth(0.1);
+
+  // Cabeçalho
+  doc.setFont("helvetica", "bold");
+  doc.setFillColor(240, 240, 240);
+
+  let xPosition = margin;
+  headers.forEach((header, index) => {
+    doc.rect(xPosition, yPosition, colWidth, 10, 'F');
+    doc.text(header, xPosition + 2, yPosition + 6);
+    xPosition += colWidth;
+  });
+
+  yPosition += 10;
+
+  // Dados
+  doc.setFont("helvetica", "normal");
+  data.forEach((row, rowIndex) => {
+    // Quebra de página se necessário
+    if (yPosition > doc.internal.pageSize.getHeight() - 20) {
+      doc.addPage();
+      addWatermark(doc, logo);
+      yPosition = margin;
+
+      // Redesenha cabeçalho em nova página
+      doc.setFont("helvetica", "bold");
+      doc.setFillColor(240, 240, 240);
+      xPosition = margin;
+      headers.forEach((header) => {
+        doc.rect(xPosition, yPosition, colWidth, 10, 'F');
+        doc.text(header, xPosition + 2, yPosition + 6);
+        xPosition += colWidth;
+      });
+      yPosition += 10;
+      doc.setFont("helvetica", "normal");
+    }
+
+    xPosition = margin;
+    Object.values(row).forEach((cell, cellIndex) => {
+      const lines = doc.splitTextToSize(String(cell), colWidth - 4);
+      const cellHeight = Math.max(10, lines.length * 5);
+
+      doc.text(lines, xPosition + 2, yPosition + 6);
+      doc.rect(xPosition, yPosition, colWidth, cellHeight);
+      xPosition += colWidth;
+    });
+
+    // Ajusta Y para a maior célula da linha
+    const maxLines = Math.max(...Object.values(row).map(cell =>
+      doc.splitTextToSize(String(cell), colWidth - 4).length
+    ));
+    yPosition += Math.max(10, maxLines * 5);
+  });
+
+  return yPosition + 10;
 };
 
 /**
@@ -160,7 +243,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       // 2. SEGUNDA PÁGINA - DADOS DO CLIENTE
       // =================================================================
       doc.addPage();
-      
+
       const startY = pageHeight / 2 - 30;
       doc.setFontSize(20);
       doc.text("DADOS DO CLIENTE", 105, startY, { align: "center" });
@@ -212,7 +295,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       if (nomeCliente) {
         doc.addPage();
         addWatermark(doc, logo);
-        
+
         yPosition = renderNomeNumerologia(doc, nomeCliente, 30);
 
         // Título Motivação
@@ -272,7 +355,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       if (nomeCliente) {
         doc.addPage();
         addWatermark(doc, logo);
-        
+
         yPosition = renderNomeNumerologia(doc, nomeCliente, 30);
 
         // Título Impressão
@@ -332,7 +415,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       if (nomeCliente) {
         doc.addPage();
         addWatermark(doc, logo);
-        
+
         yPosition = renderNomeNumerologia(doc, nomeCliente, 30);
 
         // Título Expressão
@@ -392,7 +475,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       if (dataNascimento) {
         doc.addPage();
         addWatermark(doc, logo);
-        
+
         // Título Destino
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
@@ -450,7 +533,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       if (nomeCliente && dataNascimento) {
         doc.addPage();
         addWatermark(doc, logo);
-        
+
         // Título Missão
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
@@ -508,7 +591,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       if (nomeCliente && dataNascimento) {
         doc.addPage();
         addWatermark(doc, logo);
-        
+
         // Título Dívidas Cármicas
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
@@ -590,7 +673,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       if (nomeCliente) {
         doc.addPage();
         addWatermark(doc, logo);
-        
+
         // Título Lições Cármicas
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
@@ -800,7 +883,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
         addWatermark(doc, logo);
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
-        doc.text("Tendências Ocultas", 105, 30, { align: "center" }); 
+        doc.text("Tendências Ocultas", 105, 30, { align: "center" });
 
         let y = 55;
 
@@ -1092,6 +1175,203 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
         y += 10;
       }
 
+      // =================================================================
+      // 17. PÁGINA - CICLO DE VIDA
+      // =================================================================
+      if (dataNascimento && nomeCliente) {
+        const destino = calcularDestino(dataNascimento);
+        const ciclosVida = calcularCicloVida(dataNascimento, destino);
+
+        if (ciclosVida) {
+          doc.addPage();
+          addWatermark(doc, logo);
+
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(22);
+          doc.text("Ciclo de Vida", 105, 30, { align: "center" });
+
+          yPosition = 50;
+
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(12);
+
+          const introCiclos = [
+            "Os Ciclos de Vida representam fases energéticas distintas que influenciam",
+            "diferentes períodos da sua existência. Cada ciclo traz aprendizados,",
+            "oportunidades e desafios específicos para seu desenvolvimento pessoal.",
+            " "
+          ];
+
+          introCiclos.forEach(linha => {
+            doc.text(linha, margin, yPosition);
+            yPosition += 7;
+          });
+
+          yPosition += 10;
+
+          // Renderizar tabela de ciclos de vida
+          const headersCiclos = ["Ciclo", "Idade", "Período", "Energia"];
+          const dataCiclos = ciclosVida.map(ciclo => ({
+            ciclo: ciclo.ciclo,
+            idade: ciclo.idade,
+            periodo: ciclo.periodo,
+            energia: ciclo.energia.toString()
+          }));
+
+          yPosition = renderTable(doc, headersCiclos, dataCiclos, yPosition, margin);
+        }
+      }
+
+      // =================================================================
+      // 18. PÁGINA - DESAFIOS
+      // =================================================================
+      if (dataNascimento && nomeCliente) {
+        const destino = calcularDestino(dataNascimento);
+        const ciclosVida = calcularCicloVida(dataNascimento, destino);
+        const desafios = calcularDesafios(dataNascimento, ciclosVida);
+
+        if (desafios && desafios.length > 0) {
+          doc.addPage();
+          addWatermark(doc, logo);
+
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(22);
+          doc.text("Desafios", 105, 30, { align: "center" });
+
+          yPosition = 50;
+
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(12);
+
+          const introDesafios = [
+            "Os Desafios Numerológicos representam lições específicas que você",
+            "precisa aprender em cada fase da vida. Eles indicam áreas que",
+            "requerem mais atenção e desenvolvimento para seu crescimento pessoal.",
+            " "
+          ];
+
+          introDesafios.forEach(linha => {
+            doc.text(linha, margin, yPosition);
+            yPosition += 7;
+          });
+
+          yPosition += 10;
+
+          // Renderizar tabela de desafios
+          const headersDesafios = ["Desafio", "Valor", "Período"];
+          const dataDesafios = desafios.map(desafio => ({
+            desafio: desafio.nome,
+            valor: desafio.valor.toString(),
+            periodo: desafio.periodo
+          }));
+
+          yPosition = renderTable(doc, headersDesafios, dataDesafios, yPosition, margin);
+        }
+      }
+
+      // =================================================================
+      // 19. PÁGINA - MOMENTOS DECISIVOS
+      // =================================================================
+      if (dataNascimento && nomeCliente) {
+        const destino = calcularDestino(dataNascimento);
+        const momentos = calcularMomentosDecisivos(dataNascimento, destino);
+
+        if (momentos) {
+          doc.addPage();
+          addWatermark(doc, logo);
+
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(22);
+          doc.text("Momentos Decisivos", 105, 30, { align: "center" });
+
+          yPosition = 50;
+
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(12);
+
+          const introMomentos = [
+            "Os Momentos Decisivos são períodos específicos onde importantes",
+            "escolhas e transformações ocorrem. Estes são momentos-chave que",
+            "definem o rumo da sua jornada pessoal e espiritual.",
+            " "
+          ];
+
+          introMomentos.forEach(linha => {
+            doc.text(linha, margin, yPosition);
+            yPosition += 7;
+          });
+
+          yPosition += 10;
+
+          // Renderizar tabela de momentos decisivos
+          const headersMomentos = ["Energia", "Idade", "Período"];
+          const dataMomentos = momentos.map((momento, index) => {
+            const idadeInicio = index === 0 ? 0 : momentos[index - 1].fim - new Date(dataNascimento).getFullYear();
+            const idadeFim = momento.fim === '...' ? 'em diante' : `${idadeInicio + (momento.fim - momento.inicio)} anos`;
+
+            return {
+              energia: momento.momento.toString(),
+              idade: `${idadeInicio} até ${idadeFim}`,
+              periodo: `${momento.inicio} até ${momento.fim}`
+            };
+          });
+
+          yPosition = renderTable(doc, headersMomentos, dataMomentos, yPosition, margin);
+        }
+      }
+
+      // =================================================================
+      // 20. PÁGINA - HARMONIA CONJUGAL
+      // =================================================================
+      if (nomeCliente && dataNascimento) {
+        const missao = calcularMissao(nomeCliente, dataNascimento);
+        const harmonia = calcularHarmoniaConjugal(missao);
+
+        if (harmonia) {
+          doc.addPage();
+          addWatermark(doc, logo);
+
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(22);
+          doc.text("Harmonia Conjugal", 105, 30, { align: "center" });
+
+          yPosition = 50;
+
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(12);
+
+          const introHarmonia = [
+            "A Harmonia Conjugal revela suas compatibilidades e desafios nos",
+            "relacionamentos. Mostra com quais energias você vibra melhor,",
+            "quais atraí naturalmente e quais requerem mais atenção.",
+            " "
+          ];
+
+          introHarmonia.forEach(linha => {
+            doc.text(linha, margin, yPosition);
+            yPosition += 7;
+          });
+
+          yPosition += 15;
+
+          // Número base
+          doc.setFont("helvetica", "bold");
+          doc.text(`Número de Harmonia: ${harmonia.numero}`, margin, yPosition);
+          yPosition += 10;
+
+          // Renderizar tabela de harmonia conjugal
+          const headersHarmonia = ["Tipo", "Números"];
+          const dataHarmonia = [
+            { tipo: "Vibra com", numeros: harmonia.vibraCom.toString() },
+            { tipo: "Atrai", numeros: harmonia.atrai },
+            { tipo: "É oposto", numeros: harmonia.oposto },
+            { tipo: "É passivo em relação a", numeros: harmonia.passivo }
+          ];
+
+          yPosition = renderTable(doc, headersHarmonia, dataHarmonia, yPosition, margin);
+        }
+      }
+
 
       // =================================================================
       // FIM
@@ -1103,6 +1383,14 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       // alert("Ocorreu um erro ao gerar o PDF. Por favor, tente novamente.");
     }
   };
+
+
+
+
+
+
+
+
 
   // =================================================================
   // RENDERIZAÇÃO DO COMPONENTE
