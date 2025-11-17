@@ -24,6 +24,33 @@ import { calcularNumeroHarmonico } from "./CalculoHarmonico";
 import { calcularCoresFavoraveis } from "./CalculoCoresFavoraveis";
 
 
+const addWatermark = (doc, imgBase64) => {
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    // Salva estado atual
+    doc.saveGraphicsState();
+
+    // Aplica opacidade **apenas no bloco da marca d’água**
+    doc.setGState(new doc.GState({ opacity: 0.1 }));
+
+    // Tamanho da marca d'água
+    const wmWidth = pageWidth * 0.7;
+    const wmHeight = wmWidth;
+
+    const x = (pageWidth - wmWidth) / 2;
+    const y = (pageHeight - wmHeight) / 2;
+
+    // Adiciona a imagem
+    doc.addImage(imgBase64, "PNG", x, y, wmWidth, wmHeight);
+
+    // Restaura estado anterior (opacidade volta ao normal)
+    doc.restoreGraphicsState();
+};
+
+
+
+
 const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode }) => {
   // Função para calcular valor com acento (copiada do NomeNumerologia)
   const calcularValorComAcento = (letra) => {
@@ -85,7 +112,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
 
     return yPosition + 15; // Retorna a posição Y para continuar escrevendo
   };
-
+  
   const generatePDF = async () => {
     const doc = new jsPDF();
 
@@ -104,6 +131,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
 
       // SEGUNDA PÁGINA - DADOS DO CLIENTE
       doc.addPage();
+      
       const pageHeight = doc.internal.pageSize.height;
       const startY = pageHeight / 2 - 30;
       doc.setFontSize(20);
@@ -117,6 +145,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
 
       // TERCEIRA PÁGINA - NUMEROLOGIA CABALÍSTICA
       doc.addPage();
+      // Marca d’água 
+        addWatermark(doc, logo);
       doc.setFontSize(22);
       doc.text("Numerologia Cabalística", 105, 30, { align: "center" });
       doc.setFontSize(12);
@@ -149,8 +179,11 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
 
       // QUARTA PÁGINA - NOME E MOTIVAÇÃO
       if (nomeCliente) {
+        
         doc.addPage();
 
+        // Marca d’água 
+        addWatermark(doc, logo);
         // Renderiza o nome numerológico
         yPosition = renderNomeNumerologia(doc, nomeCliente, 30);
 
@@ -196,7 +229,12 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
 
           for (let i = 0; i < lines.length; i++) {
             if (yPosition > pageHeight) {
+              
               doc.addPage();
+              // Marca d’água 
+        addWatermark(doc, logo);
+              
+              
               yPosition = 20;
             }
             doc.text(lines[i], 20, yPosition);
@@ -208,7 +246,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       // QUINTA PÁGINA - IMPRESSÃO
       if (nomeCliente) {
         doc.addPage();
-
+        // Marca d’água 
+        addWatermark(doc, logo);
         // Renderiza o nome numerológico (opcional)
         yPosition = renderNomeNumerologia(doc, nomeCliente, 30);
 
@@ -266,7 +305,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       // SEXTA PÁGINA - EXPRESSÃO
       if (nomeCliente) {
         doc.addPage();
-
+        // Marca d’água 
+        addWatermark(doc, logo);
         // Renderiza o nome numerológico (opcional)
         yPosition = renderNomeNumerologia(doc, nomeCliente, 30);
 
@@ -313,6 +353,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
           for (let i = 0; i < lines.length; i++) {
             if (yPosition > pageHeight) {
               doc.addPage();
+              // Marca d’água 
+        addWatermark(doc, logo);
               yPosition = 20;
             }
             doc.text(lines[i], 20, yPosition);
@@ -324,7 +366,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       // SÉTIMA PÁGINA - DESTINO
       if (dataNascimento) {
         doc.addPage();
-
+        // Marca d’água 
+        addWatermark(doc, logo);
         // Título Destino
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
@@ -377,6 +420,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
           for (let i = 0; i < lines.length; i++) {
             if (yPosition > pageHeight) {
               doc.addPage();
+              // Marca d’água 
+        addWatermark(doc, logo);
               yPosition = 20;
             }
             doc.text(lines[i], 20, yPosition);
@@ -388,7 +433,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       // OITAVA PÁGINA - MISSÃO
       if (nomeCliente && dataNascimento) {
         doc.addPage();
-
+        // Marca d’água 
+        addWatermark(doc, logo);
         // Título Missão
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
@@ -449,6 +495,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
           for (let i = 0; i < lines.length; i++) {
             if (yPosition > pageHeight) {
               doc.addPage();
+              // Marca d’água 
+        addWatermark(doc, logo);
               yPosition = 20;
             }
             doc.text(lines[i], 20, yPosition);
@@ -459,7 +507,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       // NONA PÁGINA - DÍVIDAS CÁRMICAS
       if (nomeCliente && dataNascimento) {
         doc.addPage();
-
+        // Marca d’água 
+        addWatermark(doc, logo);
         // Título Dívidas Cármicas
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
@@ -524,6 +573,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
               for (let i = 0; i < lines.length; i++) {
                 if (yPosition > pageHeight) {
                   doc.addPage();
+                  // Marca d’água 
+        addWatermark(doc, logo);
                   yPosition = 20;
                 }
                 doc.text(lines[i], 25, yPosition);
@@ -537,7 +588,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
       // DÉCIMA PÁGINA - LIÇÕES CÁRMICAS (LAYOUT ATUALIZADO)
       if (nomeCliente) {
         doc.addPage();
-
+        // Marca d’água 
+        addWatermark(doc, logo);
         // Título Lições Cármicas
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
@@ -598,6 +650,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
               for (let i = 0; i < lines.length; i++) {
                 if (yPosition > pageHeight) {
                   doc.addPage();
+                  // Marca d’água 
+        addWatermark(doc, logo);
                   yPosition = 20;
                 }
                 doc.text(lines[i], 25, yPosition, { maxWidth: 165 });
@@ -617,7 +671,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
         const anoPessoal = calcularAnoPessoal(dataNascimento); // sua função existente
 
         doc.addPage();
-
+        // Marca d’água 
+        addWatermark(doc, logo);
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
         doc.text("Ano Pessoal", 105, 30, { align: "center" });
@@ -658,6 +713,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
           linhas.forEach(l => {
             if (y > doc.internal.pageSize.height - 20) {
               doc.addPage();
+              // Marca d’água 
+        addWatermark(doc, logo);
               y = 20;
             }
             doc.text(l, 20, y);
@@ -674,7 +731,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
         const mesesLista = calcularMesesPessoaisRestantes(dataNascimento);
 
         doc.addPage();
-
+        // Marca d’água 
+        addWatermark(doc, logo);
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
         doc.text("Mês Pessoal", 105, 30, { align: "center" });
@@ -708,6 +766,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
 
           if (y > pageHeight) {
             doc.addPage();
+            // Marca d’água 
+        addWatermark(doc, logo);
             y = 20;
           }
 
@@ -725,6 +785,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
             linhas.forEach(l => {
               if (y > pageHeight) {
                 doc.addPage();
+                // Marca d’água 
+        addWatermark(doc, logo);
                 y = 20;
               }
               doc.text(l, 20, y);
@@ -745,7 +807,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
         const resultadoOcultas = calcularTendenciasOcultas(nomeCliente);
 
         doc.addPage();
-
+        // Marca d’água 
+        addWatermark(doc, logo);
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
         doc.text("Tendências Ocultas", 105, 30, { align: "center" }); 
@@ -790,6 +853,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
           textoNeutro.forEach(linha => {
             if (y > doc.internal.pageSize.height - 20) {
               doc.addPage();
+              // Marca d’água 
+        addWatermark(doc, logo);
               y = 20;
             }
             doc.text(linha, 20, y);
@@ -810,6 +875,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
 
             if (y > doc.internal.pageSize.height - 30) {
               doc.addPage();
+              // Marca d’água 
+        addWatermark(doc, logo);
               y = 20;
             }
 
@@ -828,6 +895,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
               linhas.forEach(l => {
                 if (y > doc.internal.pageSize.height - 20) {
                   doc.addPage();
+                  // Marca d’água 
+        addWatermark(doc, logo);
                   y = 20;
                 }
                 doc.text(l, 20, y);
@@ -852,7 +921,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
         const valorSubconsciente = calcularSubconsciente(licoes);
 
         doc.addPage();
-
+        // Marca d’água 
+        addWatermark(doc, logo);
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
         doc.text("Subconsciente", 105, 30, { align: "center" });
@@ -892,6 +962,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
           linhas.forEach(l => {
             if (y > doc.internal.pageSize.height - 20) {
               doc.addPage();
+              // Marca d’água 
+        addWatermark(doc, logo);
               y = 20;
             }
             doc.text(l, 20, y);
@@ -912,7 +984,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
         const resultadoHarmonico = calcularNumeroHarmonico(dataNascimento);
 
         doc.addPage();
-
+        // Marca d’água 
+        addWatermark(doc, logo);
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
         doc.text("Número Harmônico", 105, 30, { align: "center" });
@@ -962,7 +1035,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
         const listaCores = calcularCoresFavoraveis(numeroExpressao);
 
         doc.addPage();
-
+        // Marca d’água 
+        addWatermark(doc, logo);
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
         doc.text("Cores Favoráveis", 105, 30, { align: "center" });
@@ -1004,6 +1078,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
         blocoCores.forEach(linha => {
           if (y > doc.internal.pageSize.height - 20) {
             doc.addPage();
+            // Marca d’água 
+        addWatermark(doc, logo);
             y = 20;
           }
           doc.text(linha, 20, y);
@@ -1025,6 +1101,8 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
         explicacaoFinal.forEach(linha => {
           if (y > doc.internal.pageSize.height - 20) {
             doc.addPage();
+            // Marca d’água 
+        addWatermark(doc, logo);
             y = 20;
           }
           doc.text(linha, 20, y);
