@@ -1,10 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { findSequences } from './generateInvertedPyramid';
-import { negativeSequenceTriangleNumberRepeat } from '../components/TabelaNumerologia';
+import { sequenciaNegativa } from '../components/TabelaNumerologia'; // Alterado para sequenciaNegativa
 import DialogNomeSocial from './DialogNomeSocial';
-
 
 const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -22,7 +20,7 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
     );
   }
 
-  // Encontrar e agrupar sequências únicas
+  // Encontrar e agrupar sequências únicas usando sequenciaNegativa
   const sequencesFound = {};
   dados.forEach(row => {
     if (row.type === 'numbers') {
@@ -30,9 +28,10 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
       sequences.forEach(index => {
         if (index % 3 === 0) { // Pegar cada sequência apenas uma vez
           const num = row.data[index];
-          const sequenceKey = `${num} ${num} ${num}`;
+          const sequenceKey = `${num}${num}${num}`; // Formato "111", "222", etc.
           if (!sequencesFound[sequenceKey]) {
-            sequencesFound[sequenceKey] = negativeSequenceTriangleNumberRepeat[num - 1] || '';
+            // Buscar no sequenciaNegativa
+            sequencesFound[sequenceKey] = sequenciaNegativa[sequenceKey] || `Sequência ${num} ${num} ${num} encontrada, mas interpretação não disponível.`;
           }
         }
       });
@@ -113,8 +112,6 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
         </Box>
       ))}
 
-
-
       {/* Exibição simplificada das sequências */}
       {Object.keys(sequencesFound).length > 0 && (
         <Box sx={{
@@ -131,7 +128,10 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
           {Object.entries(sequencesFound).map(([sequence, description], index) => (
             <Box key={index} sx={{ mb: 2 }}>
               <Typography variant="body1" component="div">
-                <Box component="span" sx={{ fontWeight: 'bold' }}>{sequence}</Box> - {description}
+                {/* Formatar a exibição: de "111" para "1 1 1" */}
+                <Box component="span" sx={{ fontWeight: 'bold' }}>
+                  {sequence.charAt(0)} {sequence.charAt(1)} {sequence.charAt(2)}
+                </Box> - {description}
               </Typography>
             </Box>
           ))}

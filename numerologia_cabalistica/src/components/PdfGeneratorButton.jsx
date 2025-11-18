@@ -28,11 +28,13 @@ import { calcularCicloVida } from "./CalculoCicloVida";
 import { calcularDesafios } from "./CalculoDesafios";
 import { calcularMomentosDecisivos } from "./CalcularMomentosDecisivos";
 import { calcularHarmoniaConjugal } from "./CalculoHarmoniaConjugal";
+import { generateInvertedPyramid, findSequences } from "./generateInvertedPyramid";
+import { negativeSequenceTriangleNumberRepeat } from "./TabelaNumerologia";
 
 // Tabelas e Textos (Stubs)
 import {
   tabelaNumeros, tabelaAcentos, motivacaoTextos, impressaoTextos, expressaoTextos, destinoTextos, missaoTextos, dividasCarmicasTextos, licoesCarmicasTexto,
-  anoPessoalDescritivo, tendenciaOculta, respostaSubconsciente, coresFavoraveis, mesesPessoal
+  anoPessoalDescritivo, tendenciaOculta, respostaSubconsciente,  mesesPessoal, sequenciaNegativa
 } from "./TabelaNumerologia";
 
 
@@ -215,7 +217,166 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
 
     return yPosition + 15; // Retorna a posição Y para continuar escrevendo
   };
+/**
+ * Renderiza a pirâmide invertida no PDF de forma compacta
+ */
+const renderPiramideInvertida = (doc, nome, startY, margin = 20) => {
+  if (!nome) return startY;
 
+  const pyramidData = generateInvertedPyramid(nome);
+  if (!pyramidData || pyramidData.length === 0) return startY;
+
+  let yPosition = startY;
+
+  // Título
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
+  doc.text("Pirâmide Invertida", 105, yPosition, { align: "center" });
+  yPosition += 15;
+
+  // Nome do cliente
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  doc.text(`Nome: ${nome}`, margin, yPosition);
+  yPosition += 10;
+
+  // Configurações compactas
+  const cellWidth = 8;
+  const cellHeight = 6;
+  const verticalSpacing = 4;
+
+  // Renderizar a pirâmide de forma compacta
+  pyramidData.forEach((row, rowIndex) => {
+    if (yPosition > doc.internal.pageSize.getHeight() - 20) {
+      doc.addPage();
+      addWatermark(doc, logo);
+      yPosition = margin + 10;
+    }
+
+    const rowLength = row.data.length;
+    const totalRowWidth = rowLength * cellWidth;
+    const startX = (doc.internal.pageSize.width - totalRowWidth) / 2;
+
+    const sequences = row.type === 'numbers' ? findSequences(row.data) : [];
+
+    row.data.forEach((item, itemIndex) => {
+      const x = startX + (itemIndex * cellWidth);
+      
+      if (row.type === 'letters') {
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(0, 0, 0);
+        doc.rect(x, yPosition, cellWidth, cellHeight);
+        doc.text(item, x + (cellWidth / 2), yPosition + (cellHeight / 2) + 1, { align: "center" });
+      } else {
+        const isSequence = sequences.includes(itemIndex);
+        
+        doc.setFontSize(7);
+        doc.setFont("helvetica", isSequence ? "bold" : "normal");
+        
+        if (isSequence) {
+          doc.setTextColor(255, 0, 0);
+        } else {
+          doc.setTextColor(0, 0, 0);
+        }
+        
+        doc.rect(x, yPosition, cellWidth, cellHeight);
+        doc.text(item.toString(), x + (cellWidth / 2), yPosition + (cellHeight / 2) + 1, { align: "center" });
+        
+        doc.setTextColor(0, 0, 0);
+      }
+    });
+
+    yPosition += cellHeight + 2;
+  });
+
+  yPosition += 8;
+
+  // Importar o sequenciaNegativa (você precisa importar no topo do arquivo)
+  // import { sequenciaNegativa } from "./TabelaNumerologia";
+
+  // Encontrar e exibir interpretações das sequências usando sequenciaNegativa
+  const sequencesFound = {};
+  pyramidData.forEach(row => {
+    if (row.type === 'numbers') {
+      const sequences = findSequences(row.data);
+      sequences.forEach(index => {
+        if (index % 3 === 0) {
+          const num = row.data[index];
+          const sequenceKey = `${num}${num}${num}`; // Formato "111", "222", etc.
+          
+          // Buscar no sequenciaNegativa usando a chave no formato "111", "222", etc.
+          if (sequenciaNegativa && sequenciaNegativa[sequenceKey]) {
+            sequencesFound[sequenceKey] = sequenciaNegativa[sequenceKey];
+          } else {
+            // Fallback caso não encontre no sequenciaNegativa
+            sequencesFound[sequenceKey] = `Sequência ${num} ${num} ${num} encontrada, mas interpretação não disponível.`;
+          }
+        }
+      });
+    }
+  });
+
+  // Exibir interpretações se houver sequências
+  if (Object.keys(sequencesFound).length > 0) {
+    if (yPosition > doc.internal.pageSize.getHeight() - 50) {
+      doc.addPage();
+      addWatermark(doc, logo);
+      yPosition = margin;
+    }
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.setTextColor(255, 0, 0);
+    doc.text("Interpretação das Sequências:", margin, yPosition);
+    yPosition += 10;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(0, 0, 0);
+
+    Object.entries(sequencesFound).forEach(([sequence, description]) => {
+      if (yPosition > doc.internal.pageSize.getHeight() - 15) {
+        doc.addPage();
+        addWatermark(doc, logo);
+        yPosition = margin;
+      }
+
+      // Formatar a chave para exibição (de "111" para "111 - Sequência Negativa 111")
+      const displaySequence = `${sequence.charAt(0)} ${sequence.charAt(1)} ${sequence.charAt(2)}`;
+      
+      // Sequência em negrito e vermelho
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(255, 0, 0);
+      doc.text(`${displaySequence} -`, margin, yPosition);
+      
+      // Descrição em preto
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(0, 0, 0);
+      
+      const lines = doc.splitTextToSize(description, 170);
+      
+      lines.forEach((line, lineIndex) => {
+        if (yPosition > doc.internal.pageSize.getHeight() - 10) {
+          doc.addPage();
+          addWatermark(doc, logo);
+          yPosition = margin;
+        }
+        
+        if (lineIndex === 0) {
+          doc.text(line, margin + 25, yPosition);
+        } else {
+          doc.text(line, margin, yPosition);
+        }
+        yPosition += 4;
+      });
+      
+      yPosition += 6;
+    });
+  }
+
+  return yPosition + 10;
+};
   /**
    * Função principal para gerar o PDF.
    */
@@ -1372,6 +1533,14 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode 
         }
       }
 
+      // =================================================================
+      // 4. PÁGINA - PIRÂMIDE INVERTIDA
+      // =================================================================
+      if (nomeCliente) {
+        doc.addPage();
+        addWatermark(doc, logo);
+        yPosition = renderPiramideInvertida(doc, nomeCliente, margin);
+      }
 
       // =================================================================
       // FIM
