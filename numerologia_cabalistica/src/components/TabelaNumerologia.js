@@ -2840,3 +2840,441 @@ export const arcanos = {
     descricao: "Significa muito dinheiro e riqueza material"
   }
 };
+
+
+export const CicloVida = {
+  1: `Ciclo de Vida 1
+O Número 1 (um) no primeiro Ciclo de Vida indica um período difícil. Quando criança
+precisa aprender a desenvolver a sua individualidade. Caso não a tenha
+desenvolvido, certamente na juventude e adolescência, ou mesmo até à entrada do
+2º Ciclo de Vida terá dificuldades emocionais, e também para se estabilizar
+profissionalmente. O ideal é que a criança nesse Ciclo de Vida seja educada dentro
+de limites que lhe dão liberdade bem dosada, nem restrita demais nem solta demais,
+afim de que possa se desenvolver harmoniosamente. Caso seja adulto, maior de 18
+anos, e ainda esteja no primeiro Ciclo de Vida e tenha sido reprimido (a), ou seja, não
+tenha tido educação condizente, precisa absorver esses ensinamentos e os colocar
+em prática imediatamente. Este é um palco que apresenta pessoas independentes e
+até autoritárias. A sua necessidade, neste período da vida é de buscar aquilo que
+deseja. Iniciativa e ambição presentes neste Ciclo de Vida de Vida. Figura masculina
+em evidência.`,
+
+  2: `Ciclo de Vida 2
+O Número 2 (dois) no primeiro Ciclo de Vida mostra uma criança muito mimada que,
+possivelmente, recebeu grande influência da mãe ou dos avós. É natural que na
+adolescência, em vista da forte influência familiar pense em se casar o mais cedo
+possível, e isso é muito comum, principalmente entre os homens. Esse é um palco
+que apresenta submissão, afeição e amizade. A bondade e o serviço estão
+presentes. Aparece certa insegurança e necessidade de se auto posicionar. Figura
+feminina em evidência.`,
+
+  3: `Ciclo de Vida 3
+O Número 3 (três) no primeiro Ciclo de Vida mostra uma infância e adolescência
+feliz, despreocupada e com muitos amigos. Período importante para se auto
+expressar em alguma atividade criativa. Possibilidade de sucesso artístico na
+escola. Pode não ser um período particularmente favorável aos estudos, mas com
+certeza muitas oportunidades surgirão para expressar ideias e emoções através das
+artes, da música, do teatro ou da escrita. Não é um bom período para casamento
+devido às facilidades para diversão. É um palco que apresenta amigos e parentes
+em volta. Há uma necessidade de buscar alegria. Apresenta abertura para a vida.
+Lado social em evidência.`,
+
+  4: `Ciclo de Vida 4
+O Número 4 (quatro) no primeiro Ciclo de Vida é uma indicação de restrições
+familiares, de disciplina e trabalho duro na escola. Certamente essa criança tem, ou
+teve, pais e parentes de certa maneira severos impondo seu comando e não
+admitindo contestações. Estudos trabalhosos; a criança precisa, ou precisou, lutar
+para se libertar de influências repressoras. Um ciclo bastante duro e limitado sujeito
+a pouca criatividade, limitando-se a obedecer. Isso pode levar a ter relacionamentos
+por vezes difíceis, onde, normalmente o cônjuge é que manda e dita as regras. Esse
+é um palco que apresenta trabalho, estrutura e busca de bases. Aparece disposição
+de buscar segurança e há uma necessidade sentir-se buscando o que já é
+concretizado pelos outros. Lado material em evidência.`,
+
+  5: `Ciclo de Vida 5
+O Número 5 (cinco) no primeiro Ciclo de Vida indica um período de muitas
+mudanças e liberdade, que às vezes é demasiada grande para que se possa lidar
+com ela de maneira construtiva, especialmente na fase criança e adolescente. Sem
+orientação adequada, nesse período, o jovem pode ter problemas causados por
+envolvimentos precoces com sexo, álcool e drogas. É um período não pouco
+favorável para o casamento, e normalmente quando isso acontece dura pouco. No
+lado profissional também aparece alguma dificuldade de se assentar, mudando
+continuamente de emprego ou atividade. A estabilidade tende a acontecer somente
+com a entrada no segundo Ciclo de Vida. É um palco que apresenta muitos
+movimentos, mudanças e transformações. Há uma necessidade de situações
+inovadoras. Este Ciclo de Vida apresenta dinamismo. Lado físico em evidência.`,
+
+  6: `Ciclo de Vida 6
+O Número 6 (seis) no primeiro Ciclo de Vida mostra uma infância cheia de deveres e
+responsabilidades pesadas demais para a criança suportar. Os pais devem cuidar de
+não sobrecarregar o filho com responsabilidades demais. No todo, um período
+restritivo até que quando a pressão tende a diminuir e um casamento ou aventura
+amorosa pode acontecer. Surge ainda dificuldade em se ajustar à sociedade, pois é
+incompreendido (a) nos seus planos e objetivos. Esse é um palco que apresenta a
+família e o círculo social em primeiro lugar. A sua necessidade é de viver em grupo e
+com a família. Apresenta necessidade de vivenciar a união familiar e os amigos.
+Responsabilidade em evidência.`,
+
+  7: `Ciclo de Vida 7
+O Número 7 (sete) no primeiro Ciclo de Vida mostra um período muito difícil. A
+criança e o jovem conserva-se retraído e pode sofrer com a falta de compreensão
+dos pais, professores e amigos. Tal incompreensão leva, invariavelmente, ao
+isolamento, retraimento e até medo de encarar a vida nessa fase. No final da
+adolescência, por volta dos 20/21 anos de idade, em virtude dessa retração, pode
+desenvolver complexos de culpa e falta de autoconfiança, dificultando o seu
+progresso pessoal e profissional. O palco apresenta espiritualidade, religiosidade e
+introspecção. Necessidade de autoconhecimento. Aparece a necessidade de ser
+motivado a se expressar. O interior em evidência.`,
+
+  8: `Ciclo de Vida 8
+O Número 8 (oito) no primeiro Ciclo de Vida mostra um período de realizações e de
+enriquecimento intelectual. Um período forte demais para uma criança. É
+extraordinário para o aprendizado acerca dos aspectos materiais da vida, de poder e
+justiça. É nesse período que se forjam os homens de negócios, políticos, advogados
+e todos aqueles que pensam mais no lado material da vida. Nesse palco se
+apresenta o lado material da vida, a busca de realização, a intelectualidade.
+Necessidade de buscar equilíbrio entre os vários aspectos da vida. O exterior em
+evidência.`,
+
+  9: `Ciclo de Vida 9
+O Número 9 (nove) é o mais difícil dentre todos os primeiros Ciclos de Vida. Quando
+criança surge boas oportunidades educacionais, mas também muita tensão. Na
+adolescência sente-se confuso (a), assustado (a), nervoso (a) e tem grandes
+dificuldades de concentração. Um período de muita sensibilidade e espiritualidade.
+Normalmente a criança, ou jovem, sente-se incompreendido pelos que o cercam.
+Não é recomendável casar cedo, e caso o faça, normalmente não dura muito.
+Profissionalmente poderá enfrentar problemas de relacionamento e por isso pode
+permanecer inativo por longo período até a chegada o segundo Ciclo de Vida,
+quando então, poderá por em prática todas as suas potencialidades. Esse é um
+palco que apresenta movimentos, transformações, inovações, altos e baixos,
+exigindo adaptação e aceitação. Necessidade de trabalhar a paciência e o amor.
+Apresenta abertura ao saber. A vida em si está em evidência.`,
+
+  11: `Ciclo de Vida 11
+O Número 11 (onze) no primeiro Ciclo de Vida indica um período complexo e muito
+difícil para uma criança suportar, devido a grande inspiração que traz e uma energia
+espiritual muito intensa. Por ser forte, normalmente a criança/adolescente, recebe
+uma proteção maior de alguém da família, mãe ou avó, pois, por ser diferenciado (a),
+poderá sofrer discriminações por parte de colegas ou outras pessoas. Um palco que
+apresenta fortes emoções. Necessidade de trabalhar o autocentramento.`
+};
+
+
+export const desafios = {
+  0: `Desafio 0
+Pode escolher entre enfrentar todos os obstáculos que existem, ou não ter desafio
+algum a vencer. Seu Eu Superior saberá orientá-lo (a), pois a sua alma possui a
+inteligência do significado de todos os números, e conhece os meios de superar
+todas as fraquezas. O desafio zero indica ser uma alma que conserva latentes os
+conhecimentos trazidos de outros ciclos da existência. Pode também ser o mais
+penoso de todos os desafios para quem não cultiva o amor, a compreensão, o
+autoconhecimento. É o desafio da escolha. É provável que tenha dificuldade em agir
+conforme suas preferências. O desafio zero indica que poderá ser evoluído (a) para
+tomar suas próprias decisões. Deve atentar para todos os desafios sem uma ênfase
+especial em qualquer deles. Fique atento (a) para quais armadilhas a vida lhe
+reserva. Para encarar o desafio zero é preciso ter controle de todos os outros
+desafios: a independência do 1, a diplomacia do 2, o otimismo do 3, a aplicação do
+4, a compreensão do 5, o ajuste e sincronia do 6, a sabedoria do 7, o poder
+construtivo do 8.`,
+
+  1: `Desafio 1
+Falta de iniciativa e dificuldade para decidir. Tendência para a solidão ou para a
+independência extrema. Precisa desenvolver a força de vontade, a coragem e o
+caráter, ou estará sujeito (a) a ser dominado (a) e mantido (a) em humildade diante
+dos outros, principalmente dos próprios parentes. Surgirão divergências, das quais
+deve se libertar, sem imputar culpa aos outros ou ressentir-se e se tornar
+beligerante. Pode se achar vacilante e voltar-se em todas as direções para agradar
+aos outros. Sofrerá a intromissão de estranhos e não agradará a ninguém nem a si
+próprio enquanto for fraco (a) e indeciso (a). Precisa persistir e se tornar
+determinado (a) a exigir respeito dos outros, respeitando-se, antes, a si mesmo (a).
+Precisa confiar em suas ideias criativas e originais. Deve avaliar seus planos antes
+de executá-los, assegurando-se de que são viáveis, plausíveis e racionais. Certo (a) e
+seguro (a) do que vai fazer, deve seguir em frente com firmeza e decisão.`,
+
+  2: `Desafio 2
+Dualidade, vacilação, extrema sensibilidade; falta de autoconfiança. Precisa
+desenvolver a confiança em si próprio (a) ou se tornará muito inibido (a). É muito
+sensível e vulnerável, por isso se magoa e acha difícil perdoar. Se acalentar um
+complexo de inferioridade, poderá se tornar capacho dos outros. Deve se fortalecer
+a fim de não se sentir ofendido (a) pela menor provocação ou por fatos criados pela
+sua própria imaginação. É importante que cultive um ponto de vista mais amplo e
+pare de voltar tudo para si próprio (a), não se deixar levar pela tendência a copiar os
+outros e usar seus próprios talentos. Não deve sacrificar sua sinceridade só por
+gostar de preservar a paz, nem evitar a verdade por querer harmonia, para ser
+amável, ou apenas para dar boa impressão.`,
+
+  3: `Desafio 3
+Tendência para o desperdício de energia e a falar em excesso, ou emudecer demais.
+Precisa aprender a não dispersar seus talentos, pois tende a fazer muitas coisas ao
+mesmo tempo. Aprenda a tolerar críticas, a enfrentá-las; cultive amigos e viva em
+sociedade, pois se temer as críticas poderá se tornar recluso (a). Precisa aprender a
+não ser extravagante impelido pelo desejo de ser diferente das outras pessoas. Evite
+falatórios e mexericos, pois sempre acabarão sendo atribuídos a si próprio (a),
+causando-lhe aborrecimentos. Não se deixe dominar pela melancolia ou
+autocomiseração, tais sentimentos são nocivos e destrutivos. Exponha seus
+talentos, pois assim estará proporcionando alegria a todos, melhorando o mundo e
+se realizando pessoalmente.`,
+
+  4: `Desafio 4
+Tendência para a falta de organização ou para o excesso de normas; para a
+preguiça ou preocupação excessiva com pouca coisa. Precisa aprender a
+disciplinar-se com relação a ser metódico (a), pontual e sistemático (a), para
+encontrar facilidade no seu progresso, desenvolvendo, assim, o grande senso de
+valores que possui. Deve evitar ser preguiçoso (a), teimoso (a) e dogmático (a), ou
+negligente com os detalhes e a não se importar com os compromissos ou encontros
+marcados. É prudente que procure dominar essas inclinações que são poderosos
+obstáculos ao seu progresso. Em geral, esse desafio mostra sua tendência para não
+gostar do trabalho e da poupança e, com frequência, a adiar o que tem a fazer ou
+fazê-lo de modo negligente. Está sujeito (a) a mudanças e inquietações constantes
+que criam uma tendência a se preocupar desnecessariamente. Para vencer esse
+desafio deve inspirar segurança e solidez. Persistindo na negatividade mostra
+irresponsabilidade e fecha as portas à sua frente. Terá sucesso se desenvolver o
+lado prático de sua natureza e confiar no seu raciocínio lógico.`,
+
+  5: `Desafio 5
+Excesso ou falta de atividade; instabilidade emocional e material. Fuga da
+responsabilidade, sexualidade intensa, impulsividade excessiva que pode implicar
+em adiamentos. Precisa aprender a conter o desejo por liberdade a qualquer preço;
+se não conseguir refrear esse desejo, dificilmente conseguirá construir um alicerce
+sólido na vida. Não deve se deixar levar por caprichos inconsequentes, provocando
+mudanças só para satisfazer seus desejos sensoriais, ou materiais, ou atraído por
+novas experiências. A busca por liberdade é um desejo natural, porém, deve refletir e
+analisar se o querer ser livre não é na realidade pretexto para fugir de
+responsabilidades. É essencial, para conquistar a liberdade realmente, aprender a se
+desprender de pessoas e coisas somente por motivos importantes, cultivar um tipo
+sadio de mudança sabendo discernir quando e o que deve ser descartado, pois
+assim encontrará o sucesso. A curiosidade no que se refere ao sexo e aos sentidos
+físicos pode torná-lo (a) inconstante e causar a infelicidade sua e de outras pessoas.
+Pode se tornar impulsivo (a) demais e querer tentar tudo ao mesmo tempo o que o
+(a) levará a perder estabilidade.`,
+
+  6: `Desafio 6
+Excesso de responsabilidade familiar; prepotência. Seja idealista e não dominador
+(a). Evite influir na vida dos outros sem ser convidado (a), evitando aconselhar ou
+criticar fuera de propósito. Não queira que todos vivam pelos seus princípios ou pela
+sua maneira de pensar, e não seja positivo (a) demais sobre o que considera certo
+ou errado. Precisa evitar discutir com qualquer um que esteja em desacordo com as
+regras que elaborou. Terá mais sucesso ficando ligado (a) aos seus ideais e tentar
+materializá-los; não se agarre às pessoas para isso. Conseguirá equilibrar a sua
+felicidade ao aprender que os outros têm direito às suas próprias ideias e padrões.
+Evite ser intransigente com colegas, sócios ou auxiliares. Evite o egoísmo, a
+dominação e falta de compreensão. Para vencer este desafio cultive o amor, a
+compreensão e o respeito pelas opiniões dos outros. Cuidado com hipocrisia e
+falsidades.`,
+
+  7: `Desafio 7
+Arrogância e excesso de vaidade e falta de autoanálise. Escapismo, medo de
+pobreza, medo de ficar só e de rejeição, falta de fé. Mostra-se rebelde contra os
+tipos de pressão e tiranias e as hipocrisias morais, enfim, contra as condições e a
+situação prevalecente da vida em sociedade. Com isso tende a não fazer esforço
+algum para alterá-las ou melhorá-las, nem trabalhará para promover algo,
+revoltando-se consigo mesmo (a). Seu momento é um teste de repressão. Excesso
+ou falta de orgulho, insociabilidade e reserva, são capas para as frustrações.
+Esconde seus verdadeiros sentimentos sob aparente agressividade. Precisa de boa
+orientação educacional, a fim de desenvolver análise aguda e habilidades técnicas,
+audácia e perseverança. Podem surgir crises de melancolia que, se não as controlar,
+podem debilitar a sua saúde. Não se permita sufocar pela amargura, buscando no
+recurso da bebida uma rota de fuga, só porque se sente incompreendido (a) pelos o
+(a) cercam. Isso pode se tornar um hábito. Reduza o tempo que fica respirando suas
+limitações e desenvolva suas qualidades espirituais. Este é um desafio difícil e
+trágico de suportar, pois vê e conhece o que está errado no mundo, nas pessoas, e
+sabe que não pode corrigir tudo. Estude bem as suas possibilidades e faça só o que
+estiver ao seu alcance e puder.`,
+
+  8: `Desafio 8
+Cuidado com desperdício, preocupação excessiva com dinheiro, sede de poder e
+medo da invalidez. Liberdade pessoal baseada em posses materiais é seu principal
+objetivo de, habitualmente, lutar por dinheiro e poder. Teme carência, perdas ou
+limitações e acaba atraindo-as. É um desafio de grande tensão; precisa desenvolver
+uma mentalidade filosófica para ver os dois lados de cada situação: querer dinheiro
+para seu conforto ou ser dominado por ele, querendo cada vez mais, como ideia fixa.
+Precisa cultivar o bom senso e o equilíbrio, tendo em vista sempre que o dinheiro
+existe para servir e não para escravizar. Vencendo este desafio da ambição
+desmedida e insensata terá oportunidade de crescimento, promoção e
+reconhecimento. Seus motivos para acumular fortuna devem ser razoáveis e fora de
+qualquer censura.`
+};
+
+
+export const momentosDecisivos = {
+  1: `Decisivo 1:
+É um período difícil, em que muitas vezes será necessário enorme esforço para
+manter-se firme em si próprio (a), dependendo apenas de si próprio para o sucesso.
+Exige coragem, determinação e muita força de vontade. Inúmeros acasos e
+situações inesperadas o (a) forçarão a enfrentar a vida pensando e agindo por si
+mesmo (a). O Momento Decisivo 1 gera uma inclinação por independência; desejo
+de expressar a individualidade por ideias originais; de conduzir e dirigir os outros, de
+atingir suas realizações e ser reconhecido (a) por isso.
+O Primeiro Momento Decisivo 1 indica uma juventude, incluindo infância e
+adolescência, na maior parte do tempo, provavelmente, voltada para aprender como
+usar suas ideias originais, como se conduzir sem se deixar levar pelo egoísmo, pela
+teimosia, pela centralização em si ou dominação. Este é um período para aprender
+sobre liderança e pode não produzir as oportunidades que se esperava. É,
+principalmente, um período de aprendizagem. Um Momento Decisivo 1 no primeiro
+Ciclo de Vida, indica uma criança agitada, voluntariosa e por vezes complicada, que
+será difícil controlar e compreender.`,
+
+  2: `Decisivo 2:
+Este é o momento que demanda cooperação e diplomacia. Traz consigo a
+oportunidade para cultivar o tato e a compreensão. Se for amigo (a) e companheiro
+(a) atencioso (a) com seus semelhantes, este será um período de amizades sinceras
+e de relacionamentos duradouros. Excelente fase para o casamento. Se for
+impaciente e desatencioso (a) poderá ser uma fase de relacionamentos difíceis, de
+incompreensões, brigas, discussões, em que poderá causar prejuízos às pessoas
+que o (a) cercam. A ênfase geral desse Momento Decisivo é para a cooperação e
+harmonia. Você estará propenso (a) a se tornar uma pessoa muito sensível durante
+este período, até mesmo se isso não faz parte do seu temperamento básico. Um
+período para desenvolver ações em parceria, cooperação e diplomacia. Período de
+trabalho e, relativamente, pouco reconhecimento.
+Decisivo 2 indica uma criança sensível, que pode se ferir
+facilmente ou se ofender. Algumas dificuldades de expressão verbal ou emocional
+se fazem sentir nesse período. Influência feminina, que pode ser da mãe, avó ou
+alguma tia especial tornando muitas vezes a criança mimada demais. Um Momento
+Decisivo 2 no primeiro Ciclo de Vida, é indício de uma mãe forte e dominadora, ou
+pai ausente – por motivo de trabalho, morte ou separação. A criança, nesse caso,
+pode se tornar excessivamente sensível e ter reflexos dessa sensibilidade na
+juventude e adolescência, dificultando dessa maneira, as possibilidades de
+progresso.`,
+
+  3: `Decisivo 3:
+É o momento de expandir a vida social e cultivar os próprios talentos. Trata-se de
+uma fase apropriada para a autoexpressão, novas amizades, romance e fertilidade.
+A manifestação descuidada das emoções poderá ter consequências desagradáveis,
+pois existe, nesse estado, tendência ao desmando, vícios, brigas e discórdias.
+Cuidado com os amigos, pois apesar de serem necessários, por vezes são más
+companhias. O efeito geral deste período é o de luz e atividades agradáveis.
+Qualquer talento artístico ou criativo oculto é o momento de manifestar agora. A
+vida parece fluir em sua direção neste período; seus pensamentos estão mais no
+presente que no futuro ou no passado. Estar com pessoas e se divertir é essencial.
+Atitudes cheias de jovialidade – as coisas vêm fácil e vão fácil. É provável que o seu
+trabalho ocorra como um divertimento ou um jogo.
+O Primeiro Momento Decisivo 3 indica algumas dificuldades em selecionar das
+muitas oportunidades as melhores. Haverá muitas oportunidades para desenvolver
+seus talentos artísticos e criativos, ainda que não possa reconhecer ou esteja
+querendo trabalhar tão duro quanto possa ser requerido para o desenvolvimento
+dessas oportunidades. Há uma tendência para dispersar energias e trabalho em
+ideias erradas. Poderá estar muito ocupado com o divertimento para se preocupar
+com o futuro. Um Momento Decisivo 3 no primeiro Ciclo de Vida, geralmente indica
+uma criança com dificuldade de se adaptar aos estudos. Indica, também,
+oportunidades artísticas que se não alimentadas e direcionadas condizentemente,
+poderão ser desperdiçadas, fazendo com que a pessoa já adulta venha a se
+lamentar dessa negligência dos pais ou educadores.`,
+
+  4: `Decisivo 4:
+Este Momento Decisivo traz a oportunidade de se construir um sólido alicerce para
+o futuro. É um período de trabalho duro e até de algumas restrições, e é importante
+cultivar a paciência e os bons hábitos de trabalho. Neste período poderá haver
+alguns problemas econômicos, que serão superados com inteligência, trabalho e
+dedicação ao projeto final. A família e os parentes por afinidade podem se
+apresentar na forma de oportunidade para a prática do auxílio humanitário, tanto na
+parte financeira, como prestando ajuda em uma doença, por exemplo. As
+recompensas sempre aparecem a partir da aplicação dos preceitos corretos de vida
+e do esforço para se obter os resultados positivos. A influência geral de um
+Momento Decisivo 4 é de uma visão realista e prática das coisas.
+O Primeiro Momento Decisivo 4 indica que este pode ser um período exigente, que
+solicitará trabalhar devido as circunstâncias econômicas, ou no qual você é uma
+pessoa altamente motivada na busca por sua educação. Um Momento Decisivo 4 no
+primeiro Ciclo de Vida, frequentemente indica que a pessoa poderá começar a
+trabalhar muito nova e a assumir grandes responsabilidades ainda na juventude.`,
+
+  5: `Decisivo 5:
+Traz oportunidades para viagens, para experimentar novas sensações, novos
+empreendimentos e para se livrar de tudo que está obsoleto ou que já não faz falta.
+É uma fase de liberdade, de mudanças, muitas vezes súbitas e inesperadas, e de
+desenvolvimento pessoal, principalmente se vier após um Momento Decisivo 4 ou 6.
+A influência geral no Momento Decisivo 5 é a de liberdade e diminuição de
+responsabilidade. As circunstâncias financeiras poderão mudar rapidamente, para
+cima ou para baixo, como tudo neste período.
+O Primeiro Momento Decisivo 5 indica um período difícil por ser complicado achar
+estabilidade para construção de uma fundação satisfatória para a vida futura. É
+provável que ocorram muitas mudanças, de escola, de amigos, de interesses. Este é
+um período em que a pessoa estará mais diligente que os outros de sua idade, mas
+isso também pode lhe trazer mais dificuldades que para eles. Impulsividade e um
+desejo de independência são fortes em sua natureza durante este período. Um
+Momento Decisivo 5 no primeiro Ciclo de Vida, indica uma criança ousada, inquieta,
+esperta e pouco constante. Geralmente empreende mudanças súbitas, ora gostando
+disto, ora daquilo, sem esperar as recompensas resultantes de um esforço ou
+trabalho empreendido.`,
+
+  6: `Decisivo 6:
+É um período para os ajustes das responsabilidades familiares. Caso tenha
+consciência disso, este é o momento de grande afetividade, de amor e de felicidade
+doméstica, além de sucesso e segurança material. Do contrário, ou seja, caso seja
+dispersivo ou inconstante, poderá ser um período de desgostos, discussões, brigas
+e graves problemas domésticos e até indício de separação, caso seja casado (a) ou
+mantenha um relacionamento estável. Inclinação para servir, ensinando,
+aconselhando, promovendo harmonia.
+O Primeiro Momento Decisivo 6 indica que, ainda jovem poderá assumir alguma
+responsabilidade relacionado à casa e família. Poderá ocorrer forte sentimento de
+limitação devido a essas pressões. É um período para atender às suas demandas,
+as da sua família, dos seus amigos íntimos, em vez de só satisfazer seu ego.
+Frequentemente um primeiro Momento Decisivo 6 sugere uma pessoa que está sob
+as ordens íntimas de um pai ou de alguma figura de autoridade. Um Momento
+Decisivo 6 no primeiro Ciclo de Vida, geralmente indica casamento precoce ou a
+responsabilidade de tomar conta dos pais ou de algum familiar.`,
+
+  7: `Decisivo 7:
+É uma fase de introspecção, de meditação e estudo do significado mais profundo da
+vida, de investigação e desenvolvimento de habilidades. Caso não esteja casado (a),
+este pode não é o momento melhor para casamento. Isso não significa, no entanto,
+que não possa se casar. Velhos relacionamentos que não produzem mais frutos
+podem e devem ser deixados para trás. Normalmente sentirá vontade de se retirar
+para dentro de si para desenvolver os seus recursos internos, o que de certa forma
+poderá causar problemas de relacionamento, tanto a nível pessoal como familiar.
+Poderá surgir certo desinteresse por assuntos materiais e pouca preocupação com
+negócios práticos, acarretando um pouco de escassez financeira.
+O Primeiro Momento Decisivo 7 indica que o circulo de amizades não será grande. A
+pessoa estará mais ocupada em estudar, motivada para aprender mediante desejos
+internos. Sua juventude poderá ser um tempo difícil e confuso. Um Momento
+Decisivo 7 no primeiro Ciclo de Vida indica uma criança retraída, solitária, pensativa
+e muito estudiosa. Quando os pais são excessivamente rígidos e severos, a criança
+poderá contrair algum tipo de doença psicossomática ou mesmo depressão, ser
+temperamental e desenvolver algum tipo de complexo.`,
+
+  8: `Decisivo 8:
+É um período de grandes realizações no mundo dos negócios. As despesas poderão
+ser altas, porém, é uma excelente fase para correr atrás dos objetivos, de conquistar
+poder, fama e sucesso material. Com dedicação, estudo, organização e trabalho
+sistemático, com objetivo definido e colaboradores aptos e interessados,
+dificilmente deixará de conseguir tudo o que deseja.
+O Primeiro Momento decisivo 8 indica um período caracterizado por envolvimento
+em negócios ou atividade comercial em idade precoce, ou pode ter que enfrentar
+alguma restrição neste sentido. Um Momento Decisivo 8 no primeiro Ciclo de Vida,
+indica que a pessoa começará ainda jovem a se dedicar aos negócios, a trabalhar
+para se sustentar e também sustentar algum membro da família.`,
+
+  9: `Decisivo 9:
+Traz a oportunidade para cultivar o amor, a solidariedade, o altruísmo e para
+viagens. Poderá haver algum tipo de perda ou desapontamento, principalmente
+entre amigos. Um bom investimento é fazer obras humanitárias durante esse
+período, pois os frutos dessa plantação são certos, e o sucesso e a fama se farão
+presentes. A atitude nesse período da vida será mais humanista, solidária e
+emocional.
+Decisivo 9 indica um período de vida em que o tom será o da
+abnegação, porém não será nada fácil para uma pessoa ainda jovem detectar e
+praticar isso. Poderá ser o (a) amigo (a) dos que têm poucos amigos, solidário (a) e
+protetor (a) dos desamparados. Enquanto amadurece tende a abraçar causas e
+ideais políticos humanitários. Um Momento Decisivo 9 no primeiro Ciclo de Vida,
+normalmente não é dos mais afortunados, pois quase sempre a criança é
+incompreendida por colegas, amigos e até familiares, que por causa dessa
+incompreensão exigem muito e retribuem pouco, o que faz com que o jovem se
+retraia e fique tímido e introspectivo.`,
+
+  11: `Decisivo 11:
+Por ser um número altamente espiritual e elevado, nesse período a pessoa se sente
+tensa e muito nervosa, principalmente durante o Primeiro Ciclo de Vida. É uma
+excelente fase para estudar esoterismo, espiritualismo e expandir os horizontes.
+Esse momento traz inspiração, iluminação e, quase sempre, fama e prestígio
+nacional e até internacional. Não faça nada nem diga por trás o que não teria
+coragem de dizer ou fazer na frente das pessoas.
+O Primeiro Momento Decisivo 11 indica um período da vida de muita inspiração e
+também ansiedade. Na infância e adolescência pode ter se sentido um pouco
+incompreendido (a) e pressionado (a) a fazer coisas que não estariam em acordo
+com suas inspirações.`,
+
+  22: `Decisivo 22:
+É, sem dúvida alguma, o Momento mais poderoso. A pessoa se sente altamente
+criativa, e nesse estado torna-se possível quase todas as realizações. É uma fase de
+interesses pelos problemas mundiais e de grande expansão da consciência. O
+Momento Decisivo 22 é tão poderoso que não pode acontecer no primeiro ciclo da
+vida.`
+};

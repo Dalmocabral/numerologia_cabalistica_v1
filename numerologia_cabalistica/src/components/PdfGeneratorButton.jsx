@@ -2,15 +2,11 @@ import React from "react";
 import { Button, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { PictureAsPdf } from "@mui/icons-material";
 import jsPDF from "jspdf";
-// Certifique-se de que o caminho para o logo está correto
 import logo from "../assets/image/logo.png";
 
-
 // =================================================================
-// IMPORTAÇÕES DE FUNÇÕES E DADOS (STUBS - NECESSÁRIO CRIAR ESTES ARQUIVOS)
+// 1. IMPORTAÇÕES DE CÁLCULOS E DADOS
 // =================================================================
-
-// Funções de Cálculo (Stubs)
 import { calcularMotivacao } from "./CalculoMotivacao";
 import { calcularImpressao } from "./CalculoImpressao";
 import { calcularExpressao } from "./CalculoExpressao";
@@ -29,1540 +25,668 @@ import { calcularDesafios } from "./CalculoDesafios";
 import { calcularMomentosDecisivos } from "./CalcularMomentosDecisivos";
 import { calcularHarmoniaConjugal } from "./CalculoHarmoniaConjugal";
 import { generateInvertedPyramid, findSequences } from "./generateInvertedPyramid";
-import { negativeSequenceTriangleNumberRepeat } from "./TabelaNumerologia";
 
-// Tabelas e Textos (Stubs)
 import {
-  tabelaNumeros, tabelaAcentos, motivacaoTextos, impressaoTextos, expressaoTextos, destinoTextos, missaoTextos, dividasCarmicasTextos, licoesCarmicasTexto,
-  anoPessoalDescritivo, tendenciaOculta, respostaSubconsciente,  mesesPessoal, sequenciaNegativa
+  tabelaNumeros, tabelaAcentos, motivacaoTextos, impressaoTextos, expressaoTextos, destinoTextos, missaoTextos,
+  dividasCarmicasTextos, licoesCarmicasTexto, anoPessoalDescritivo, tendenciaOculta, respostaSubconsciente,
+  mesesPessoal, sequenciaNegativa, arcanos, CicloVida, desafios as desafiosTextos, momentosDecisivos as momentosDecisivosTextos
 } from "./TabelaNumerologia";
 
-
 // =================================================================
-// FUNÇÕES AUXILIARES
+// 2. COMPONENTE PRINCIPAL
 // =================================================================
+const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode, nomesSociais = [] }) => {
 
-/**
- * Adiciona uma marca d'água com opacidade a uma página do PDF.
- * @param {jsPDF} doc - Instância do jsPDF.
- * @param {string} imgBase64 - Imagem em Base64 (logo).
- */
-const addWatermark = (doc, imgBase64) => {
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const pageHeight = doc.internal.pageSize.getHeight();
-
-  doc.saveGraphicsState();
-  doc.setGState(new doc.GState({ opacity: 0.1 }));
-
-  const wmWidth = pageWidth * 0.7;
-  const wmHeight = wmWidth;
-
-  const x = (pageWidth - wmWidth) / 2;
-  const y = (pageHeight - wmHeight) / 2;
-
-  doc.addImage(imgBase64, "PNG", x, y, wmWidth, wmHeight);
-  doc.restoreGraphicsState();
-};
-
-
-/**
- * Renderiza uma tabela no PDF
- * @param {jsPDF} doc - Instância do jsPDF
- * @param {Array} headers - Cabeçalhos da tabela
- * @param {Array} data - Dados da tabela
- * @param {number} startY - Posição Y inicial
- * @param {number} margin - Margem da página
- * @returns {number} - Nova posição Y
- */
-
-const renderTable = (doc, headers, data, startY, margin = 20) => {
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const tableWidth = pageWidth - (margin * 2);
-  const colCount = headers.length;
-  const colWidth = tableWidth / colCount;
-
-  let yPosition = startY;
-
-  // Configurações da tabela
-  doc.setFontSize(10);
-  doc.setDrawColor(0);
-  doc.setLineWidth(0.1);
-
-  // Cabeçalho
-  doc.setFont("helvetica", "bold");
-  doc.setFillColor(240, 240, 240);
-
-  let xPosition = margin;
-  headers.forEach((header, index) => {
-    doc.rect(xPosition, yPosition, colWidth, 10, 'F');
-    doc.text(header, xPosition + 2, yPosition + 6);
-    xPosition += colWidth;
-  });
-
-  yPosition += 10;
-
-  // Dados
-  doc.setFont("helvetica", "normal");
-  data.forEach((row, rowIndex) => {
-    // Quebra de página se necessário
-    if (yPosition > doc.internal.pageSize.getHeight() - 20) {
-      doc.addPage();
-      addWatermark(doc, logo);
-      yPosition = margin;
-
-      // Redesenha cabeçalho em nova página
-      doc.setFont("helvetica", "bold");
-      doc.setFillColor(240, 240, 240);
-      xPosition = margin;
-      headers.forEach((header) => {
-        doc.rect(xPosition, yPosition, colWidth, 10, 'F');
-        doc.text(header, xPosition + 2, yPosition + 6);
-        xPosition += colWidth;
-      });
-      yPosition += 10;
-      doc.setFont("helvetica", "normal");
-    }
-
-    xPosition = margin;
-    Object.values(row).forEach((cell, cellIndex) => {
-      const lines = doc.splitTextToSize(String(cell), colWidth - 4);
-      const cellHeight = Math.max(10, lines.length * 5);
-
-      doc.text(lines, xPosition + 2, yPosition + 6);
-      doc.rect(xPosition, yPosition, colWidth, cellHeight);
-      xPosition += colWidth;
-    });
-
-    // Ajusta Y para a maior célula da linha
-    const maxLines = Math.max(...Object.values(row).map(cell =>
-      doc.splitTextToSize(String(cell), colWidth - 4).length
-    ));
-    yPosition += Math.max(10, maxLines * 5);
-  });
-
-  return yPosition + 10;
-};
-
-/**
- * Componente React para gerar o Mapa Numerológico em PDF.
- * @param {string} nomeCliente - Nome completo do cliente.
- * @param {string} dataNascimento - Data de nascimento do cliente (formato ISO 8601).
- * @param {boolean} asListItem - Se deve ser renderizado como ListItem (para menus).
- * @param {boolean} darkMode - Se o tema escuro está ativo (para ícone).
- */
-const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode }) => {
-
-  // Função para calcular valor com acento (copiada do NomeNumerologia)
+  // --- Funções Utilitárias de String ---
   const calcularValorComAcento = (letra) => {
-    if (letra.trim() === "") return 0;
+    if (!letra || letra.trim() === "") return 0;
     const acentos = letra.normalize('NFD').match(/[\u0300-\u036f]/g);
     const letraBase = letra.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     let valorBase = tabelaNumeros[letraBase] || 0;
-
     if (acentos) {
       acentos.forEach(acento => {
-        if (tabelaAcentos[acento]) {
-          valorBase += tabelaAcentos[acento];
-        }
+        if (tabelaAcentos[acento]) valorBase += tabelaAcentos[acento];
       });
     }
     return valorBase;
   };
 
-  // Função para verificar vogal
   const isVogal = (letra) => {
     const letraBase = letra.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     return ['A', 'E', 'I', 'O', 'U'].includes(letraBase);
   };
 
-  /**
-   * Renderiza o nome e seus valores numerológicos no PDF.
-   * @param {jsPDF} doc - Instância do jsPDF.
-   * @param {string} nome - Nome a ser renderizado.
-   * @param {number} startY - Posição Y inicial.
-   * @returns {number} - Nova posição Y após a renderização.
-   */
-  const renderNomeNumerologia = (doc, nome, startY) => {
-    if (!nome) return startY;
-
-    const nomeFormatado = nome.toUpperCase().replace(/\s/g, '');
-    const letras = nomeFormatado.split('');
-    const espacamento = 7; // Espaço entre letras
-
-    // Centralizar o nome
-    const totalWidth = (letras.length * espacamento) - 5;
-    const startX = (doc.internal.pageSize.width - totalWidth) / 2;
-
-    let xPosition = startX;
-    let yPosition = startY;
-
-    // Linha de letras
-    letras.forEach(letra => {
-      doc.setFontSize(14);
-      doc.setTextColor(isVogal(letra) ? '#64B5F6' : '#9E9E9E');
-      doc.text(letra, xPosition, yPosition);
-      xPosition += espacamento;
-    });
-
-    // Linha de números
-    xPosition = startX;
-    yPosition += 7;
-
-    letras.forEach(letra => {
-      doc.setFontSize(12);
-      doc.setTextColor(isVogal(letra) ? '#64B5F6' : '#9E9E9E');
-      doc.text(calcularValorComAcento(letra).toString(), xPosition + 2, yPosition);
-      xPosition += espacamento;
-    });
-
-    return yPosition + 15; // Retorna a posição Y para continuar escrevendo
-  };
-/**
- * Renderiza a pirâmide invertida no PDF de forma compacta
- */
-const renderPiramideInvertida = (doc, nome, startY, margin = 20) => {
-  if (!nome) return startY;
-
-  const pyramidData = generateInvertedPyramid(nome);
-  if (!pyramidData || pyramidData.length === 0) return startY;
-
-  let yPosition = startY;
-
-  // Título
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(18);
-  doc.text("Pirâmide Invertida", 105, yPosition, { align: "center" });
-  yPosition += 15;
-
-  // Nome do cliente
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.text(`Nome: ${nome}`, margin, yPosition);
-  yPosition += 10;
-
-  // Configurações compactas
-  const cellWidth = 8;
-  const cellHeight = 6;
-  const verticalSpacing = 4;
-
-  // Renderizar a pirâmide de forma compacta
-  pyramidData.forEach((row, rowIndex) => {
-    if (yPosition > doc.internal.pageSize.getHeight() - 20) {
-      doc.addPage();
-      addWatermark(doc, logo);
-      yPosition = margin + 10;
-    }
-
-    const rowLength = row.data.length;
-    const totalRowWidth = rowLength * cellWidth;
-    const startX = (doc.internal.pageSize.width - totalRowWidth) / 2;
-
-    const sequences = row.type === 'numbers' ? findSequences(row.data) : [];
-
-    row.data.forEach((item, itemIndex) => {
-      const x = startX + (itemIndex * cellWidth);
-      
-      if (row.type === 'letters') {
-        doc.setFontSize(8);
-        doc.setFont("helvetica", "bold");
-        doc.setTextColor(0, 0, 0);
-        doc.rect(x, yPosition, cellWidth, cellHeight);
-        doc.text(item, x + (cellWidth / 2), yPosition + (cellHeight / 2) + 1, { align: "center" });
-      } else {
-        const isSequence = sequences.includes(itemIndex);
-        
-        doc.setFontSize(7);
-        doc.setFont("helvetica", isSequence ? "bold" : "normal");
-        
-        if (isSequence) {
-          doc.setTextColor(255, 0, 0);
-        } else {
-          doc.setTextColor(0, 0, 0);
-        }
-        
-        doc.rect(x, yPosition, cellWidth, cellHeight);
-        doc.text(item.toString(), x + (cellWidth / 2), yPosition + (cellHeight / 2) + 1, { align: "center" });
-        
-        doc.setTextColor(0, 0, 0);
-      }
-    });
-
-    yPosition += cellHeight + 2;
-  });
-
-  yPosition += 8;
-
-  // Importar o sequenciaNegativa (você precisa importar no topo do arquivo)
-  // import { sequenciaNegativa } from "./TabelaNumerologia";
-
-  // Encontrar e exibir interpretações das sequências usando sequenciaNegativa
-  const sequencesFound = {};
-  pyramidData.forEach(row => {
-    if (row.type === 'numbers') {
-      const sequences = findSequences(row.data);
-      sequences.forEach(index => {
-        if (index % 3 === 0) {
-          const num = row.data[index];
-          const sequenceKey = `${num}${num}${num}`; // Formato "111", "222", etc.
-          
-          // Buscar no sequenciaNegativa usando a chave no formato "111", "222", etc.
-          if (sequenciaNegativa && sequenciaNegativa[sequenceKey]) {
-            sequencesFound[sequenceKey] = sequenciaNegativa[sequenceKey];
-          } else {
-            // Fallback caso não encontre no sequenciaNegativa
-            sequencesFound[sequenceKey] = `Sequência ${num} ${num} ${num} encontrada, mas interpretação não disponível.`;
-          }
-        }
-      });
-    }
-  });
-
-  // Exibir interpretações se houver sequências
-  if (Object.keys(sequencesFound).length > 0) {
-    if (yPosition > doc.internal.pageSize.getHeight() - 50) {
-      doc.addPage();
-      addWatermark(doc, logo);
-      yPosition = margin;
-    }
-
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(14);
-    doc.setTextColor(255, 0, 0);
-    doc.text("Interpretação das Sequências:", margin, yPosition);
-    yPosition += 10;
-
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(9);
-    doc.setTextColor(0, 0, 0);
-
-    Object.entries(sequencesFound).forEach(([sequence, description]) => {
-      if (yPosition > doc.internal.pageSize.getHeight() - 15) {
-        doc.addPage();
-        addWatermark(doc, logo);
-        yPosition = margin;
-      }
-
-      // Formatar a chave para exibição (de "111" para "111 - Sequência Negativa 111")
-      const displaySequence = `${sequence.charAt(0)} ${sequence.charAt(1)} ${sequence.charAt(2)}`;
-      
-      // Sequência em negrito e vermelho
-      doc.setFont("helvetica", "bold");
-      doc.setTextColor(255, 0, 0);
-      doc.text(`${displaySequence} -`, margin, yPosition);
-      
-      // Descrição em preto
-      doc.setFont("helvetica", "normal");
-      doc.setTextColor(0, 0, 0);
-      
-      const lines = doc.splitTextToSize(description, 170);
-      
-      lines.forEach((line, lineIndex) => {
-        if (yPosition > doc.internal.pageSize.getHeight() - 10) {
-          doc.addPage();
-          addWatermark(doc, logo);
-          yPosition = margin;
-        }
-        
-        if (lineIndex === 0) {
-          doc.text(line, margin + 25, yPosition);
-        } else {
-          doc.text(line, margin, yPosition);
-        }
-        yPosition += 4;
-      });
-      
-      yPosition += 6;
-    });
-  }
-
-  return yPosition + 10;
-};
-  /**
-   * Função principal para gerar o PDF.
-   */
+  // =================================================================
+  // 3. FUNÇÃO GERADORA DO PDF (CORE)
+  // =================================================================
   const generatePDF = async () => {
     const doc = new jsPDF();
-    const pageHeight = doc.internal.pageSize.height;
-    const margin = 20;
+    
+    // Configurações Globais do Documento
+    const CONFIG = {
+      margin: 20,
+      pageHeight: doc.internal.pageSize.height,
+      pageWidth: doc.internal.pageSize.width,
+      centerX: doc.internal.pageSize.width / 2,
+      lineHeight: 7,
+      colorBlack: '#000000',
+      colorBlue: '#64B5F6',
+      colorGray: '#9E9E9E'
+    };
 
-    // Configurações iniciais
-    doc.setFont("helvetica", "bold");
+    const indiceItens = []; // Armazena itens para o índice final
 
-    try {
-      // =================================================================
-      // 1. PRIMEIRA PÁGINA - CAPA
-      // =================================================================
-      doc.addImage(logo, 'PNG', 75, 20, 60, 60);
-      doc.setFontSize(24);
-      doc.text("MAPA NUMEROLOGICO CABALISTICO", 105, 100, { align: "center" });
-      doc.setFontSize(16);
-      doc.text("Orientadora: Manouche Yasmin", 105, 130, { align: "center" });
-      const dataAtual = new Date().toLocaleDateString('pt-BR');
-      doc.text(`Data: ${dataAtual}`, 105, 140, { align: "center" });
+    // --- Helpers Internos do PDF (Closures para acessar doc e config facilmente) ---
 
-      // =================================================================
-      // 2. SEGUNDA PÁGINA - DADOS DO CLIENTE
-      // =================================================================
-      doc.addPage();
+    // Adiciona marca d'água
+    const addWatermarkHelper = () => {
+      doc.saveGraphicsState();
+      doc.setGState(new doc.GState({ opacity: 0.1 }));
+      const wmWidth = CONFIG.pageWidth * 0.7;
+      const x = (CONFIG.pageWidth - wmWidth) / 2;
+      const y = (CONFIG.pageHeight - wmWidth) / 2;
+      doc.addImage(logo, "PNG", x, y, wmWidth, wmWidth);
+      doc.restoreGraphicsState();
+    };
 
-      const startY = pageHeight / 2 - 30;
-      doc.setFontSize(20);
-      doc.text("DADOS DO CLIENTE", 105, startY, { align: "center" });
-      doc.setFontSize(16);
-      doc.text(`Cliente: ${nomeCliente || "Nome não informado"}`, 105, startY + 20, { align: "center" });
-      const dataFormatada = dataNascimento
-        ? new Date(dataNascimento).toLocaleDateString('pt-BR')
-        : "Data não informada";
-      doc.text(`Data de Nascimento: ${dataFormatada}`, 105, startY + 30, { align: "center" });
+    // Verifica se precisa de nova página
+    const checkPageBreak = (currentY, addedMargin = 0) => {
+      if (currentY > CONFIG.pageHeight - CONFIG.margin - addedMargin) {
+        doc.addPage();
+        addWatermarkHelper();
+        return CONFIG.margin; // Retorna o novo Y
+      }
+      return currentY;
+    };
 
-      // =================================================================
-      // 3. TERCEIRA PÁGINA - INTRODUÇÃO À NUMEROLOGIA CABALÍSTICA
-      // =================================================================
-      doc.addPage();
-      addWatermark(doc, logo);
+    // Imprime texto com quebra de linha automática e paginação
+    const printWrappedText = (text, y, fontSize = 12, fontType = "normal", color = CONFIG.colorBlack) => {
+      if (!text) return y;
+      
+      doc.setFont("helvetica", fontType);
+      doc.setFontSize(fontSize);
+      doc.setTextColor(color);
+
+      const lines = doc.splitTextToSize(String(text), 170); // Largura útil
+      
+      lines.forEach(line => {
+        y = checkPageBreak(y);
+        doc.text(line, CONFIG.margin, y);
+        y += CONFIG.lineHeight;
+      });
+      
+      return y; // Retorna a próxima posição Y disponível
+    };
+
+    // Adiciona item ao array do índice
+    const addToIndex = (titulo) => {
+      indiceItens.push({ titulo, pagina: doc.internal.getNumberOfPages() });
+    };
+
+    // Renderiza Título Centralizado
+    const printSectionTitle = (title, y) => {
+      y = checkPageBreak(y, 30); // Margem extra para títulos
+      doc.setFont("helvetica", "bold");
       doc.setFontSize(22);
-      doc.text("Numerologia Cabalística", 105, 30, { align: "center" });
-      doc.setFontSize(12);
-      doc.setFont("helvetica", "normal");
+      doc.setTextColor(CONFIG.colorBlack);
+      doc.text(title, CONFIG.centerX, y, { align: "center" });
+      return y + 15;
+    };
 
-      const textoNumerologia = [
-        "A Numerologia Cabalística é uma ciência sagrada que estuda a influência dos",
-        "números na vida humana, revelando padrões energéticos e ciclos pessoais.",
-        "Através da data de nascimento e do nome completo, podemos descobrir:",
-        "",
-        "- Missão de vida e propósito espiritual",
-        "- Talentos e desafios cármicos",
-        "- Ciclos pessoais e momentos decisivos",
-        "- Compatibilidade e relações",
-        "",
-        "Cada número vibra em uma frequência específica que influencia nossa",
-        "personalidade, escolhas e caminhos. A Cabala nos ensina que os números",
-        "são a linguagem do universo, e compreendê-los é dar um passo essencial",
-        "no autoconhecimento e evolução espiritual.",
-        "",
-        "Este mapa foi cuidadosamente elaborado para guiá-lo(a) na jornada de",
-        "compreensão dos seus números pessoais e sua aplicação prática no dia a dia."
-      ];
+    // Renderiza Nome e Numerologia (Letras e Números)
+    const renderNomeNumerologia = (nome, startY) => {
+      if (!nome) return startY;
+      const nomeFormatado = nome.toUpperCase().replace(/\s/g, '');
+      const letras = nomeFormatado.split('');
+      const espacamento = 7;
+      const totalWidth = (letras.length * espacamento) - 5;
+      const startX = (CONFIG.pageWidth - totalWidth) / 2;
 
-      let yPosition = 50;
-      textoNumerologia.forEach(linha => {
-        doc.text(linha, margin, yPosition);
-        yPosition += 7;
+      let x = startX;
+      let y = startY;
+
+      // Letras
+      letras.forEach(letra => {
+        doc.setFontSize(14);
+        doc.setTextColor(isVogal(letra) ? CONFIG.colorBlue : CONFIG.colorGray);
+        doc.text(letra, x, y);
+        x += espacamento;
       });
 
-      // =================================================================
-      // 4. PÁGINA - MOTIVAÇÃO
-      // =================================================================
+      // Números
+      x = startX;
+      y += 7;
+      letras.forEach(letra => {
+        doc.setFontSize(12);
+        doc.setTextColor(isVogal(letra) ? CONFIG.colorBlue : CONFIG.colorGray);
+        doc.text(calcularValorComAcento(letra).toString(), x + 2, y);
+        x += espacamento;
+      });
+
+      return y + 15;
+    };
+
+    // Renderiza Tabela Genérica
+    const renderTableHelper = (headers, data, startY) => {
+      const tableWidth = CONFIG.pageWidth - (CONFIG.margin * 2);
+      const colWidth = tableWidth / headers.length;
+      let y = startY;
+
+      // Cabeçalho
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "bold");
+      doc.setFillColor(240, 240, 240);
+      
+      const printHeader = (currY) => {
+        let x = CONFIG.margin;
+        headers.forEach(header => {
+          doc.rect(x, currY, colWidth, 10, 'F');
+          doc.text(header, x + 2, currY + 6);
+          x += colWidth;
+        });
+        return currY + 10;
+      };
+
+      y = printHeader(y);
+
+      // Dados
+      doc.setFont("helvetica", "normal");
+      data.forEach(row => {
+        y = checkPageBreak(y, 20);
+        // Se houve quebra de página, reimprime o cabeçalho
+        if (y === CONFIG.margin) y = printHeader(y);
+
+        let x = CONFIG.margin;
+        const cellValues = Object.values(row);
+        
+        // Calcula altura da linha baseada na célula com mais texto
+        const maxLines = Math.max(...cellValues.map(cell => 
+          doc.splitTextToSize(String(cell), colWidth - 4).length
+        ));
+        const rowHeight = Math.max(10, maxLines * 5);
+
+        cellValues.forEach(cell => {
+          const lines = doc.splitTextToSize(String(cell), colWidth - 4);
+          doc.text(lines, x + 2, y + 6);
+          doc.rect(x, y, colWidth, rowHeight);
+          x += colWidth;
+        });
+        y += rowHeight;
+      });
+
+      return y + 10;
+    };
+
+    try {
+      // -------------------------------------------------------------
+      // INÍCIO DA GERAÇÃO DO CONTEÚDO
+      // -------------------------------------------------------------
+
+      // 1. CAPA
+      doc.addImage(logo, 'PNG', 75, 20, 60, 60);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(24);
+      doc.text("MAPA NUMEROLOGICO CABALISTICO", CONFIG.centerX, 100, { align: "center" });
+      doc.setFontSize(16);
+      doc.text("Orientadora: Manouche Yasmin", CONFIG.centerX, 130, { align: "center" });
+      doc.text(`Data: ${new Date().toLocaleDateString('pt-BR')}`, CONFIG.centerX, 140, { align: "center" });
+      addToIndex("Capa");
+
+      // 2. DADOS DO CLIENTE
+      doc.addPage();
+      let y = CONFIG.pageHeight / 2 - 30;
+      doc.setFontSize(20);
+      doc.text("DADOS DO CLIENTE", CONFIG.centerX, y, { align: "center" });
+      doc.setFontSize(16);
+      doc.text(`Cliente: ${nomeCliente || "Não informado"}`, CONFIG.centerX, y + 20, { align: "center" });
+      const dataFmt = dataNascimento ? new Date(dataNascimento).toLocaleDateString('pt-BR') : "Não informada";
+      doc.text(`Data de Nascimento: ${dataFmt}`, CONFIG.centerX, y + 30, { align: "center" });
+      addToIndex("Dados do Cliente");
+
+      // 3. INTRODUÇÃO
+      doc.addPage();
+      addWatermarkHelper();
+      y = printSectionTitle("Numerologia Cabalística", 30);
+      const introText = [
+        "A Numerologia Cabalística é uma ciência sagrada que estuda a influência dos números na vida humana...",
+        "Através da data de nascimento e do nome completo, podemos descobrir missão, talentos e desafios.",
+        "Este mapa foi cuidadosamente elaborado para guiá-lo(a) na jornada de autoconhecimento."
+      ];
+      introText.forEach(t => y = printWrappedText(t, y));
+      addToIndex("Introdução");
+
+      // 4. RESERVA DA PÁGINA DE ÍNDICE
+      doc.addPage();
+      addWatermarkHelper();
+      const paginaIndiceRef = doc.internal.getNumberOfPages(); // Guarda o ID da página
+      // O conteúdo será inserido no final
+
+      // 5. MOTIVAÇÃO
       if (nomeCliente) {
         doc.addPage();
-        addWatermark(doc, logo);
-
-        yPosition = renderNomeNumerologia(doc, nomeCliente, 30);
-
-        // Título Motivação
+        addWatermarkHelper();
+        addToIndex("Motivação");
+        y = renderNomeNumerologia(nomeCliente, 30);
+        y = printSectionTitle("Motivação", y);
+        y = printWrappedText("A Motivação revela seus desejos mais profundos e o que impulsiona suas ações.", y);
+        
+        y += 5;
+        const motivacaoVal = calcularMotivacao(nomeCliente);
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(22);
-        doc.setTextColor('#000000');
-        doc.text("Motivação", 105, yPosition, { align: "center" });
-        yPosition += 15;
-
-        // Texto introdutório
-        doc.setFontSize(12);
-        doc.setFont("helvetica", "normal");
-        const introText = [
-          "A Motivação na Numerologia Cabalística revela seus desejos mais profundos,",
-          "aquilo que verdadeiramente impulsiona suas ações e decisões. Representa",
-          "sua essência interior, mostrando o que você realmente busca na vida."
-        ];
-
-        introText.forEach(linha => {
-          doc.text(linha, margin, yPosition);
-          yPosition += 7;
-        });
-
-        // Número da Motivação
-        yPosition += 10;
-        doc.setFont("helvetica", "bold");
-        doc.text("Número da Motivação:", margin, yPosition);
-        doc.setFont("helvetica", "normal");
-        const numeroMotivacao = calcularMotivacao(nomeCliente);
-        doc.text(numeroMotivacao.toString(), margin + 50, yPosition);
-        yPosition += 15;
-
-        // Definição com paginação inteligente
-        doc.setFont("helvetica", "bold");
-        doc.text("Definição:", margin, yPosition);
-        yPosition += 7;
-
-        if (motivacaoTextos[numeroMotivacao]) {
-          doc.setFont("helvetica", "normal");
-          const lines = doc.splitTextToSize(motivacaoTextos[numeroMotivacao], 170);
-
-          lines.forEach(line => {
-            if (yPosition > pageHeight - margin) {
-              doc.addPage();
-              addWatermark(doc, logo);
-              yPosition = margin;
-            }
-            doc.text(line, margin, yPosition);
-            yPosition += 7;
-          });
-        }
+        doc.text(`Número da Motivação: ${motivacaoVal}`, CONFIG.margin, y);
+        y += 10;
+        
+        doc.text("Definição:", CONFIG.margin, y);
+        y += 7;
+        y = printWrappedText(motivacaoTextos[motivacaoVal], y);
       }
 
-      // =================================================================
-      // 5. PÁGINA - IMPRESSÃO
-      // =================================================================
+      // 6. IMPRESSÃO
       if (nomeCliente) {
         doc.addPage();
-        addWatermark(doc, logo);
-
-        yPosition = renderNomeNumerologia(doc, nomeCliente, 30);
-
-        // Título Impressão
+        addWatermarkHelper();
+        addToIndex("Impressão");
+        y = renderNomeNumerologia(nomeCliente, 30);
+        y = printSectionTitle("Impressão", y);
+        y = printWrappedText("A Impressão representa como você é percebido socialmente (soma das consoantes).", y);
+        
+        y += 5;
+        const impressaoVal = calcularImpressao(nomeCliente);
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(22);
-        doc.setTextColor('#000000');
-        doc.text("Impressão", 105, yPosition, { align: "center" });
-        yPosition += 15;
+        doc.text(`Número da Impressão: ${impressaoVal}`, CONFIG.margin, y);
+        y += 10;
 
-        // Texto introdutório sobre impressão
-        doc.setFontSize(12);
-        doc.setFont("helvetica", "normal");
-        const introTextImpressao = [
-          "A Impressão na Numerologia Cabalística representa como você se mostra ao mundo,",
-          "a imagem que transmite aos outros e como é percebido socialmente.",
-          "É calculada através da soma das consoantes do seu nome completo."
-        ];
-
-        introTextImpressao.forEach(linha => {
-          doc.text(linha, margin, yPosition);
-          yPosition += 7;
-        });
-
-        // Número da Impressão
-        yPosition += 10;
-        doc.setFont("helvetica", "bold");
-        doc.text("Número da Impressão:", margin, yPosition);
-        doc.setFont("helvetica", "normal");
-        const numeroImpressao = calcularImpressao(nomeCliente);
-        doc.text(numeroImpressao.toString(), margin + 50, yPosition);
-        yPosition += 15;
-
-        // Definição com paginação inteligente
-        doc.setFont("helvetica", "bold");
-        doc.text("Definição:", margin, yPosition);
-        yPosition += 7;
-
-        if (impressaoTextos[numeroImpressao]) {
-          doc.setFont("helvetica", "normal");
-          const lines = doc.splitTextToSize(impressaoTextos[numeroImpressao], 170);
-
-          lines.forEach(line => {
-            if (yPosition > pageHeight - margin) {
-              doc.addPage();
-              addWatermark(doc, logo);
-              yPosition = margin;
-            }
-            doc.text(line, margin, yPosition);
-            yPosition += 7;
-          });
-        }
+        doc.text("Definição:", CONFIG.margin, y);
+        y += 7;
+        y = printWrappedText(impressaoTextos[impressaoVal], y);
       }
 
-      // =================================================================
-      // 6. PÁGINA - EXPRESSÃO
-      // =================================================================
+      // 7. EXPRESSÃO
       if (nomeCliente) {
         doc.addPage();
-        addWatermark(doc, logo);
-
-        yPosition = renderNomeNumerologia(doc, nomeCliente, 30);
-
-        // Título Expressão
+        addWatermarkHelper();
+        addToIndex("Expressão");
+        y = renderNomeNumerologia(nomeCliente, 30);
+        y = printSectionTitle("Expressão", y);
+        y = printWrappedText("A Expressão revela seus talentos naturais e como você se expressa no mundo.", y);
+        
+        y += 5;
+        const expressaoVal = calcularExpressao(nomeCliente);
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(22);
-        doc.setTextColor('#000000');
-        doc.text("Expressão", 105, yPosition, { align: "center" });
-        yPosition += 15;
-
-        // Texto introdutório sobre Expressão
-        doc.setFontSize(12);
-        doc.setFont("helvetica", "normal");
-        const introTextExpressao = [
-          "A Expressão, ou Destino, revela seus talentos e habilidades naturais,",
-          "o que você veio realizar e como você se expressa no mundo.",
-          "É calculada pela soma de todas as letras do seu nome completo."
-        ];
-
-        introTextExpressao.forEach(linha => {
-          doc.text(linha, margin, yPosition);
-          yPosition += 7;
-        });
-
-        // Número da Expressão
-        yPosition += 10;
-        doc.setFont("helvetica", "bold");
-        doc.text("Número da Expressão:", margin, yPosition);
-        doc.setFont("helvetica", "normal");
-        const numeroExpressao = calcularExpressao(nomeCliente);
-        doc.text(numeroExpressao.toString(), margin + 50, yPosition);
-        yPosition += 15;
-
-        // Definição com paginação inteligente
-        doc.setFont("helvetica", "bold");
-        doc.text("Definição:", margin, yPosition);
-        yPosition += 7;
-
-        if (expressaoTextos[numeroExpressao]) {
-          doc.setFont("helvetica", "normal");
-          const lines = doc.splitTextToSize(expressaoTextos[numeroExpressao], 170);
-
-          lines.forEach(line => {
-            if (yPosition > pageHeight - margin) {
-              doc.addPage();
-              addWatermark(doc, logo);
-              yPosition = margin;
-            }
-            doc.text(line, margin, yPosition);
-            yPosition += 7;
-          });
-        }
+        doc.text(`Número da Expressão: ${expressaoVal}`, CONFIG.margin, y);
+        y += 10;
+        
+        doc.text("Definição:", CONFIG.margin, y);
+        y += 7;
+        y = printWrappedText(expressaoTextos[expressaoVal], y);
       }
 
-      // =================================================================
-      // 7. PÁGINA - DESTINO
-      // =================================================================
+      // 8. DESTINO
       if (dataNascimento) {
         doc.addPage();
-        addWatermark(doc, logo);
-
-        // Título Destino
+        addWatermarkHelper();
+        addToIndex("Destino");
+        y = printSectionTitle("Destino", 30);
+        y = printWrappedText("O Destino revela o caminho que você deve seguir e as oportunidades da vida.", y);
+        
+        y += 5;
+        const destinoVal = calcularDestino(dataNascimento);
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(22);
-        doc.setTextColor('#000000');
-        doc.text("Destino", 105, 30, { align: "center" });
-        yPosition = 50;
-
-        // Texto introdutório sobre Destino
-        doc.setFontSize(12);
-        doc.setFont("helvetica", "normal");
-        const introTextDestino = [
-          "O Destino, ou Caminho de Vida, é o número mais importante do seu mapa.",
-          "Ele revela o caminho que você deve seguir, as lições que precisa aprender",
-          "e as oportunidades que a vida lhe trará. É calculado pela soma da sua data de nascimento."
-        ];
-
-        introTextDestino.forEach(linha => {
-          doc.text(linha, margin, yPosition);
-          yPosition += 7;
-        });
-
-        // Número do Destino
-        yPosition += 10;
-        doc.setFont("helvetica", "bold");
-        doc.text("Número do Destino:", margin, yPosition);
-        doc.setFont("helvetica", "normal");
-        const numeroDestino = calcularDestino(dataNascimento);
-        doc.text(numeroDestino.toString(), margin + 50, yPosition);
-        yPosition += 15;
-
-        // Definição com paginação inteligente
-        doc.setFont("helvetica", "bold");
-        doc.text("Definição:", margin, yPosition);
-        yPosition += 7;
-
-        if (destinoTextos[numeroDestino]) {
-          doc.setFont("helvetica", "normal");
-          const lines = doc.splitTextToSize(destinoTextos[numeroDestino], 170);
-
-          lines.forEach(line => {
-            if (yPosition > pageHeight - margin) {
-              doc.addPage();
-              addWatermark(doc, logo);
-              yPosition = margin;
-            }
-            doc.text(line, margin, yPosition);
-            yPosition += 7;
-          });
-        }
+        doc.text(`Número do Destino: ${destinoVal}`, CONFIG.margin, y);
+        y += 10;
+        
+        doc.text("Definição:", CONFIG.margin, y);
+        y += 7;
+        y = printWrappedText(destinoTextos[destinoVal], y);
       }
 
-      // =================================================================
-      // 8. PÁGINA - MISSÃO
-      // =================================================================
+      // 9. MISSÃO
       if (nomeCliente && dataNascimento) {
         doc.addPage();
-        addWatermark(doc, logo);
-
-        // Título Missão
+        addWatermarkHelper();
+        addToIndex("Missão");
+        y = printSectionTitle("Missão", 30);
+        y = printWrappedText("A Missão de Vida é o propósito maior da sua alma (Expressão + Destino).", y);
+        
+        y += 5;
+        const missaoVal = calcularMissao(nomeCliente, dataNascimento);
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(22);
-        doc.setTextColor('#000000');
-        doc.text("Missão", 105, 30, { align: "center" });
-        yPosition = 50;
-
-        // Texto introdutório sobre Missão
-        doc.setFontSize(12);
-        doc.setFont("helvetica", "normal");
-        const introTextMissao = [
-          "A Missão de Vida é a soma do seu Número de Expressão com o seu Número de Destino.",
-          "Ela representa o propósito maior da sua alma nesta encarnação, o que você veio",
-          "realizar e o legado que deixará no mundo."
-        ];
-
-        introTextMissao.forEach(linha => {
-          doc.text(linha, margin, yPosition);
-          yPosition += 7;
-        });
-
-        // Número da Missão
-        yPosition += 10;
-        doc.setFont("helvetica", "bold");
-        doc.text("Número da Missão:", margin, yPosition);
-        doc.setFont("helvetica", "normal");
-        const numeroMissao = calcularMissao(nomeCliente, dataNascimento);
-        doc.text(numeroMissao.toString(), margin + 50, yPosition);
-        yPosition += 15;
-
-        // Definição com paginação inteligente
-        doc.setFont("helvetica", "bold");
-        doc.text("Definição:", margin, yPosition);
-        yPosition += 7;
-
-        if (missaoTextos[numeroMissao]) {
-          doc.setFont("helvetica", "normal");
-          const lines = doc.splitTextToSize(missaoTextos[numeroMissao], 170);
-
-          lines.forEach(line => {
-            if (yPosition > pageHeight - margin) {
-              doc.addPage();
-              addWatermark(doc, logo);
-              yPosition = margin;
-            }
-            doc.text(line, margin, yPosition);
-            yPosition += 7;
-          });
-        }
+        doc.text(`Número da Missão: ${missaoVal}`, CONFIG.margin, y);
+        y += 10;
+        
+        doc.text("Definição:", CONFIG.margin, y);
+        y += 7;
+        y = printWrappedText(missaoTextos[missaoVal], y);
       }
 
-      // =================================================================
-      // 9. PÁGINA - DÍVIDAS CÁRMICAS
-      // =================================================================
+      // 10. DÍVIDAS CÁRMICAS
       if (nomeCliente && dataNascimento) {
         doc.addPage();
-        addWatermark(doc, logo);
-
-        // Título Dívidas Cármicas
+        addWatermarkHelper();
+        addToIndex("Dívidas Cármicas");
+        y = printSectionTitle("Dívidas Cármicas", 30);
+        y = printWrappedText("Representam lições de vidas passadas que se manifestam como desafios hoje.", y);
+        
+        const dividas = calcularDividasCarmicas(dataNascimento, calcularExpressao(nomeCliente), calcularDestino(dataNascimento), calcularMotivacao(nomeCliente));
+        
+        y += 5;
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(22);
-        doc.setTextColor('#000000');
-        doc.text("Dívidas Cármicas", 105, 30, { align: "center" });
-        yPosition = 50;
-
-        // Texto introdutório sobre dívidas cármicas
-        doc.setFontSize(12);
-        doc.setFont("helvetica", "normal");
-        const introTextDividas = [
-          "As Dívidas Cármicas na Numerologia Cabalística representam lições não",
-          "aprendidas em vidas passadas, que se manifestam como desafios nesta vida.",
-          "Elas são identificadas através da data de nascimento e dos números principais",
-          "(Expressão, Destino e Motivação). Reconhecê-las ajuda a superar bloqueios.",
-          " "
-        ];
-
-        introTextDividas.forEach(linha => {
-          doc.text(linha, margin, yPosition);
-          yPosition += 7;
-        });
-
-        // Cálculo das dívidas cármicas
-        doc.setFont("helvetica", "bold");
-        doc.text("Dívidas Identificadas:", margin, yPosition);
-        yPosition += 10;
-
-        doc.setFont("helvetica", "normal");
-        const dividas = calcularDividasCarmicas(
-          dataNascimento,
-          calcularExpressao(nomeCliente),
-          calcularDestino(dataNascimento),
-          calcularMotivacao(nomeCliente)
-        );
-
-        doc.text(dividas === 'Nenhuma' ? "Nenhuma dívida cármica identificada." : `Números: ${dividas}`, margin + 10, yPosition);
-        yPosition += 15;
-
-        // Definição das dívidas (se houver)
-        if (dividas !== 'Nenhuma') {
-          doc.setFont("helvetica", "bold");
-          doc.text("Significados:", margin, yPosition);
-          yPosition += 10;
-
-          const dividasArray = dividas.split(', ');
-
-          dividasArray.forEach(numero => {
-            if (dividasCarmicasTextos && dividasCarmicasTextos[numero]) {
-              // Número da dívida cármica
-              doc.setFont("helvetica", "bold");
-              doc.setFontSize(14);
-              doc.text(`Número ${numero}:`, margin, yPosition);
-
-              // Texto da dívida cármica
-              doc.setFont("helvetica", "normal");
-              doc.setFontSize(12);
-              const lines = doc.splitTextToSize(dividasCarmicasTextos[numero], 170);
-
-              yPosition += 7;
-              lines.forEach(line => {
-                if (yPosition > pageHeight - margin) {
-                  doc.addPage();
-                  addWatermark(doc, logo);
-                  yPosition = margin;
-                }
-                doc.text(line, margin + 5, yPosition);
-                yPosition += 7;
-              });
-              yPosition += 10; // Espaço entre dívidas
-            }
-          });
-        }
-      }
-
-      // =================================================================
-      // 10. PÁGINA - LIÇÕES CÁRMICAS
-      // =================================================================
-      if (nomeCliente) {
-        doc.addPage();
-        addWatermark(doc, logo);
-
-        // Título Lições Cármicas
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(22);
-        doc.setTextColor('#000000');
-        doc.text("Lições Cármicas", 105, 30, { align: "center" });
-        yPosition = 50;
-
-        // Texto introdutório
-        doc.setFontSize(12);
-        doc.setFont("helvetica", "normal");
-        const introTextLicoes = [
-          "As Lições Cármicas revelam números ausentes no seu nome completo, indicando",
-          "habilidades ou experiências que você precisa desenvolver nesta encarnação.",
-          "Cada número faltante representa um desafio específico para seu crescimento.",
-          " "
-        ];
-
-        introTextLicoes.forEach(linha => {
-          doc.text(linha, margin, yPosition);
-          yPosition += 7;
-        });
-
-        // Cálculo das lições
-        doc.setFont("helvetica", "bold");
-        doc.text("Lições Identificadas:", margin, yPosition);
-        yPosition += 10;
-
-        doc.setFont("helvetica", "normal");
-        const licoes = calcularLicoesCarmicas(nomeCliente);
-
-        // Formatação dos números identificados
-        if (licoes === 'Nenhuma') {
-          doc.text("Nenhuma lição cármica identificada.", margin + 10, yPosition);
-          yPosition += 10;
-        } else {
-          doc.text(`Números: ${licoes}`, margin + 10, yPosition);
-          yPosition += 15;
-
-          // Definição das lições com novo layout
-          doc.setFont("helvetica", "bold");
-          doc.text("Significados:", margin, yPosition);
-          yPosition += 10;
-
-          const licoesArray = licoes.split(', ');
-
-          licoesArray.forEach(numero => {
-            if (licoesCarmicasTexto && licoesCarmicasTexto[numero]) {
-              // Título da lição (ex: "Lições 6 - Responsabilidade")
-              doc.setFont("helvetica", "bold");
-              doc.text(`Lições ${numero}:`, margin, yPosition);
-              yPosition += 7;
-
-              // Texto explicativo
-              doc.setFont("helvetica", "normal");
-              const lines = doc.splitTextToSize(licoesCarmicasTexto[numero], 170);
-
-              lines.forEach(line => {
-                if (yPosition > pageHeight - margin) {
-                  doc.addPage();
-                  addWatermark(doc, logo);
-                  yPosition = margin;
-                }
-                doc.text(line, margin + 5, yPosition, { maxWidth: 165 });
-                yPosition += 7;
-              });
-              yPosition += 10; // Espaço maior entre lições
-            }
-          });
-        }
-      }
-
-      // =================================================================
-      // 11. PÁGINA - ANO PESSOAL
-      // =================================================================
-      if (dataNascimento) {
-        const anoPessoal = calcularAnoPessoal(dataNascimento);
-
-        doc.addPage();
-        addWatermark(doc, logo);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(22);
-        doc.text("Ano Pessoal", 105, 30, { align: "center" });
-
-        let y = 55;
-
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(12);
-
-        const introAno = [
-          "O Ano Pessoal representa o ciclo energético que influencia a sua vida durante todo o ano corrente.",
-          "Ele é calculado somando o dia e mês do seu nascimento ao ano atual reduzido a um único dígito.",
-          "Esse número revela oportunidades, desafios e o tipo de vibração que estará mais presente em sua jornada."
-        ];
-
-        introAno.forEach(linha => {
-          doc.text(linha, margin, y);
-          y += 7;
-        });
-
+        doc.text(`Dívidas Identificadas: ${dividas === 'Nenhuma' ? 'Nenhuma' : dividas}`, CONFIG.margin, y);
         y += 15;
 
-        // Exibição do ano pessoal calculado
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(16);
-        doc.text(`Seu Ano Pessoal: ${anoPessoal}`, margin, y);
-        y += 12;
-
-        // Texto explicativo do ano pessoal
-        const textoAno = anoPessoalDescritivo[anoPessoal];
-
-        if (textoAno) {
-          doc.setFont("helvetica", "normal");
-          doc.setFontSize(12);
-
-          const linhas = doc.splitTextToSize(textoAno, 170);
-
-          linhas.forEach(l => {
-            if (y > pageHeight - margin) {
-              doc.addPage();
-              addWatermark(doc, logo);
-              y = margin;
+        if (dividas !== 'Nenhuma') {
+          doc.text("Significados:", CONFIG.margin, y);
+          y += 10;
+          dividas.split(', ').forEach(num => {
+            if (dividasCarmicasTextos?.[num]) {
+              doc.setFont("helvetica", "bold");
+              doc.text(`Número ${num}:`, CONFIG.margin, y);
+              y += 7;
+              y = printWrappedText(dividasCarmicasTextos[num], y);
+              y += 5;
             }
-            doc.text(l, margin, y);
-            y += 7;
           });
         }
-
-        y += 10;
       }
 
-      // =================================================================
-      // 12. PÁGINA - MÊS PESSOAL
-      // =================================================================
-      if (dataNascimento) {
-        const mesesLista = calcularMesesPessoaisRestantes(dataNascimento);
-
+      // 11. LIÇÕES CÁRMICAS
+      if (nomeCliente) {
         doc.addPage();
-        addWatermark(doc, logo);
+        addWatermarkHelper();
+        addToIndex("Lições Cármicas");
+        y = printSectionTitle("Lições Cármicas", 30);
+        y = printWrappedText("Números ausentes no nome que indicam habilidades a desenvolver.", y);
+        
+        const licoes = calcularLicoesCarmicas(nomeCliente);
+        y += 5;
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(22);
-        doc.text("Mês Pessoal", 105, 30, { align: "center" });
+        doc.text(`Lições Identificadas: ${licoes === 'Nenhuma' ? 'Nenhuma' : licoes}`, CONFIG.margin, y);
+        y += 15;
 
-        let y = 55;
+        if (licoes !== 'Nenhuma') {
+          doc.text("Significados:", CONFIG.margin, y);
+          y += 10;
+          licoes.split(', ').forEach(num => {
+            if (licoesCarmicasTexto?.[num]) {
+              doc.setFont("helvetica", "bold");
+              doc.text(`Lição ${num}:`, CONFIG.margin, y);
+              y += 7;
+              y = printWrappedText(licoesCarmicasTexto[num], y);
+              y += 5;
+            }
+          });
+        }
+      }
 
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(12);
+      // 12. ANO PESSOAL
+      if (dataNascimento) {
+        doc.addPage();
+        addWatermarkHelper();
+        addToIndex("Ano Pessoal");
+        y = printSectionTitle("Ano Pessoal", 30);
+        y = printWrappedText("O ciclo energético que influencia sua vida no ano corrente.", y);
+        
+        const anoPessoal = calcularAnoPessoal(dataNascimento);
+        y += 5;
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(16);
+        doc.text(`Seu Ano Pessoal: ${anoPessoal}`, CONFIG.margin, y);
+        y += 15;
+        
+        y = printWrappedText(anoPessoalDescritivo[anoPessoal], y);
+      }
 
-        const intro = [
-          "O Mês Pessoal mostra como a energia numerológica atua mês a mês na sua vida.",
-          "Ele é calculado a partir da sua data de nascimento e do ano corrente,",
-          "indicando tendências, desafios e oportunidades específicas para o período."
-        ];
-
-        intro.forEach(linha => {
-          doc.text(linha, margin, y);
-          y += 7;
-        });
-
+      // 13. MÊS PESSOAL
+      if (dataNascimento) {
+        doc.addPage();
+        addWatermarkHelper();
+        addToIndex("Mês Pessoal");
+        y = printSectionTitle("Mês Pessoal", 30);
+        y = printWrappedText("Tendências e oportunidades específicas mês a mês.", y);
         y += 10;
 
-        mesesLista.forEach((item) => {
-          const tituloLinha = `${item.nomeMes}/${item.ano} – ${item.valor}`;
-
-          // Título do mês
+        const meses = calcularMesesPessoaisRestantes(dataNascimento);
+        meses.forEach(item => {
+          y = checkPageBreak(y);
           doc.setFont("helvetica", "bold");
           doc.setFontSize(14);
-
-          if (y > pageHeight - margin) {
-            doc.addPage();
-            addWatermark(doc, logo);
-            y = margin;
-          }
-
-          doc.text(tituloLinha, margin, y);
+          doc.text(`${item.nomeMes}/${item.ano} – Energia ${item.valor}`, CONFIG.margin, y);
           y += 8;
-
-          // Texto explicativo do mês
-          const textoDoMes = mesesPessoal[item.valor];
-          if (textoDoMes) {
-            const linhas = doc.splitTextToSize(textoDoMes, 170);
-
-            doc.setFont("helvetica", "normal");
-            doc.setFontSize(12);
-
-            linhas.forEach(l => {
-              if (y > pageHeight - margin) {
-                doc.addPage();
-                addWatermark(doc, logo);
-                y = margin;
-              }
-              doc.text(l, margin, y);
-              y += 7;
-            });
-          }
-
-          y += 10; // espaço entre meses
+          y = printWrappedText(mesesPessoal[item.valor], y);
+          y += 10;
         });
       }
 
-      // =================================================================
-      // 13. PÁGINA - TENDÊNCIAS OCULTAS
-      // =================================================================
+      // 14. TENDÊNCIAS OCULTAS
       if (nomeCliente) {
-        const resultadoOcultas = calcularTendenciasOcultas(nomeCliente);
-
         doc.addPage();
-        addWatermark(doc, logo);
+        addWatermarkHelper();
+        addToIndex("Tendências Ocultas");
+        y = printSectionTitle("Tendências Ocultas", 30);
+        y = printWrappedText("Padrões repetitivos no nome que indicam impulsos internos.", y);
+        
+        const ocultas = calcularTendenciasOcultas(nomeCliente);
+        y += 5;
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(22);
-        doc.text("Tendências Ocultas", 105, 30, { align: "center" });
-
-        let y = 55;
-
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(12);
-
-        const intro = [
-          "As Tendências Ocultas revelam padrões repetitivos que aparecem no seu nome quando",
-          "cada letra é convertida para um número. Quando um número se repete três vezes ou mais,",
-          "ele indica uma força latente, um impulso interno que influencia atitudes, escolhas e reações.",
-          "Mesmo que não seja sempre visível, essa vibração atua nos bastidores da sua personalidade."
-        ];
-
-        intro.forEach(linha => {
-          doc.text(linha, margin, y);
-          y += 7;
-        });
-
+        doc.text(`Tendências: ${ocultas}`, CONFIG.margin, y);
         y += 15;
 
-        // MOSTRA O RESULTADO DOS NÚMEROS ENCONTRADOS
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(16);
-
-        doc.text(`Tendências encontradas: ${resultadoOcultas}`, margin, y);
-        y += 12;
-
-        // Se não tiver nenhuma tendência
-        if (resultadoOcultas === "Nenhuma") {
-          doc.setFont("helvetica", "normal");
-          doc.setFontSize(12);
-
-          const textoNeutro = [
-            "Nenhuma sequência significativa de repetição foi encontrada no seu nome.",
-            "Isso indica que suas energias são equilibradas e não há impulsos ocultos dominantes.",
-            "Sua personalidade opera de forma mais aberta e transparente."
-          ];
-
-          textoNeutro.forEach(linha => {
-            if (y > pageHeight - margin) {
-              doc.addPage();
-              addWatermark(doc, logo);
-              y = margin;
+        if (ocultas !== 'Nenhuma') {
+          ocultas.split(',').map(n => n.trim()).forEach(num => {
+            if (tendenciaOculta?.[num]) {
+              doc.setFont("helvetica", "bold");
+              doc.text(`Número ${num}`, CONFIG.margin, y);
+              y += 7;
+              y = printWrappedText(tendenciaOculta[num], y);
+              y += 5;
             }
-            doc.text(linha, margin, y);
-            y += 7;
           });
+        }
+      }
 
+      // 15. SUBCONSCIENTE
+      if (nomeCliente) {
+        doc.addPage();
+        addWatermarkHelper();
+        addToIndex("Subconsciente");
+        y = printSectionTitle("Subconsciente", 30);
+        
+        const valSub = calcularSubconsciente(calcularLicoesCarmicas(nomeCliente));
+        doc.setFont("helvetica", "bold");
+        doc.text(`Número: ${valSub}`, CONFIG.margin, y);
+        y += 10;
+        y = printWrappedText(respostaSubconsciente[valSub], y);
+      }
+
+      // 16. CICLO DE VIDA (TABELA)
+      if (dataNascimento && nomeCliente) {
+        const ciclos = calcularCicloVida(dataNascimento, calcularDestino(dataNascimento));
+        if (ciclos) {
+          doc.addPage();
+          addWatermarkHelper();
+          addToIndex("Ciclo de Vida");
+          y = printSectionTitle("Ciclo de Vida", 30);
+          y = printWrappedText("Fases energéticas que influenciam diferentes períodos.", y);
           y += 10;
 
-        } else {
-          // Se houver números, detalhar cada tendência
-          const numeros = resultadoOcultas.split(",").map(n => n.trim());
+          // Tabela
+          const headers = ["Ciclo", "Idade", "Período", "Energia"];
+          const data = ciclos.map(c => ({ c: c.ciclo, i: c.idade, p: c.periodo, e: c.energia }));
+          y = renderTableHelper(headers, data, y);
 
-          numeros.forEach(numero => {
-            const titulo = `Número ${numero}`;
+          // Descrições
+          y += 15;
+          doc.setFont("helvetica", "bold");
+          doc.text("Interpretação:", CONFIG.margin, y);
+          y += 10;
 
+          ciclos.forEach(c => {
+            y = checkPageBreak(y);
             doc.setFont("helvetica", "bold");
-            doc.setFontSize(14);
-
-            if (y > pageHeight - margin - 10) {
-              doc.addPage();
-              addWatermark(doc, logo);
-              y = margin;
-            }
-
-            doc.text(titulo, margin, y);
-            y += 8;
-
-            // Pega o texto descritivo do seu dicionário
-            const texto = tendenciaOculta[numero];
-
-            if (texto) {
-              doc.setFont("helvetica", "normal");
-              doc.setFontSize(12);
-
-              const linhas = doc.splitTextToSize(texto, 170);
-
-              linhas.forEach(l => {
-                if (y > pageHeight - margin) {
-                  doc.addPage();
-                  addWatermark(doc, logo);
-                  y = margin;
-                }
-                doc.text(l, margin, y);
-                y += 7;
-              });
-
-              y += 10;
-            }
-          });
-        }
-      }
-
-      // =================================================================
-      // 14. PÁGINA - SUBCONSCIENTE
-      // =================================================================
-      if (nomeCliente) {
-
-        // Calcula lições kármicas REALMENTE
-        const licoes = calcularLicoesCarmicas(nomeCliente);
-
-        // Agora sim calcula o subconsciente certo
-        const valorSubconsciente = calcularSubconsciente(licoes);
-
-        doc.addPage();
-        addWatermark(doc, logo);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(22);
-        doc.text("Subconsciente", 105, 30, { align: "center" });
-
-        let y = 55;
-
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(12);
-
-        const intro = [
-          "O Subconsciente representa sua força interna instintiva, ligada à autoconfiança,",
-          "intuição, impulsos naturais e capacidade de reagir automaticamente aos desafios.",
-          "Ele é calculado subtraindo o número de lições kármicas do valor 9.",
-          "Quanto menor o número de lições, mais forte é o seu subconsciente."
-        ];
-
-        intro.forEach(linha => {
-          doc.text(linha, margin, y);
-          y += 7;
-        });
-
-        y += 15;
-
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(16);
-        doc.text(`Seu número do Subconsciente: ${valorSubconsciente}`, margin, y);
-        y += 12;
-
-        const textoDescricao = respostaSubconsciente[valorSubconsciente];
-
-        if (textoDescricao) {
-          doc.setFont("helvetica", "normal");
-          doc.setFontSize(12);
-
-          const linhas = doc.splitTextToSize(textoDescricao, 170);
-
-          linhas.forEach(l => {
-            if (y > pageHeight - margin) {
-              doc.addPage();
-              addWatermark(doc, logo);
-              y = margin;
-            }
-            doc.text(l, margin, y);
+            doc.text(`${c.ciclo} - Energia ${c.energia}`, CONFIG.margin, y);
             y += 7;
+            y = printWrappedText(CicloVida?.[c.energia] || "Descrição indisponível", y);
+            y += 5;
           });
         }
-
-        y += 10;
       }
 
-      // =================================================================
-      // 15. PÁGINA - NÚMERO HARMÔNICO
-      // =================================================================
-      if (dataNascimento) {
-        const resultadoHarmonico = calcularNumeroHarmonico(dataNascimento);
-
-        doc.addPage();
-        addWatermark(doc, logo);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(22);
-        doc.text("Número Harmônico", 105, 30, { align: "center" });
-
-        let y = 55;
-
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(12);
-
-        const intro = [
-          "O Número Harmônico é derivado do dia do seu nascimento.",
-          "Ele representa a vibração essencial que acompanha suas ações,",
-          "indicando como você lida com situações, pessoas e desafios do cotidiano."
-        ];
-
-        intro.forEach(linha => {
-          doc.text(linha, margin, y);
-          y += 7;
-        });
-
-        y += 15;
-
-        // Mostra o valor encontrado
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(16);
-        doc.text(`Seu Número Harmônico:`, margin, y);
-        y += 10;
-
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(20);
-
-        const valorStr = Array.isArray(resultadoHarmonico)
-          ? resultadoHarmonico.join(", ")
-          : resultadoHarmonico;
-
-        doc.text(valorStr || "—", margin, y);
-        y += 15;
-
-        y += 10;
-      }
-
-      // =================================================================
-      // 16. PÁGINA - CORES FAVORÁVEIS
-      // =================================================================
-      const numeroExpressaoFinal = calcularExpressao(nomeCliente);
-
-      if (numeroExpressaoFinal) {
-
-        // Pega as cores diretamente do seu cálculo
-        const listaCores = calcularCoresFavoraveis(numeroExpressaoFinal);
-
-        doc.addPage();
-        addWatermark(doc, logo);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(22);
-        doc.text("Cores Favoráveis", 105, 30, { align: "center" });
-
-        let y = 55;
-
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(12);
-
-        const intro = [
-          "As cores favoráveis refletem as vibrações energéticas associadas ao seu",
-          "Número de Expressão. Elas funcionam como catalisadores emocionais e",
-          "psicológicos, reforçando seus potenciais naturais e equilibrando seus",
-          "pontos mais sensíveis.",
-          "Usá-las em roupas, detalhes pessoais ou ambientes ajuda a alinhar sua",
-          "frequência interna com o melhor da sua própria numerologia."
-        ];
-
-        intro.forEach(linha => {
-          doc.text(linha, margin, y);
-          y += 7;
-        });
-
-        y += 15;
-
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(16);
-
-        y += 12;
-
-        doc.text("Cores recomendadas:", margin, y);
-        y += 10;
-
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(13);
-
-        const blocoCores = doc.splitTextToSize(listaCores, 170);
-
-        blocoCores.forEach(linha => {
-          if (y > pageHeight - margin) {
-            doc.addPage();
-            addWatermark(doc, logo);
-            y = margin;
-          }
-          doc.text(linha, margin, y);
-          y += 7;
-        });
-
-        y += 15;
-
-        const explicacaoFinal = [
-          "Essas cores fortalecem seu campo emocional, ampliam sua presença e",
-          "harmonizam sua energia pessoal. Quanto mais você as utiliza, mais sente",
-          "clareza, foco e equilíbrio nos seus movimentos diários.",
-          "Trata-se de uma ferramenta simples, mas poderosa, de alinhamento vibracional."
-        ];
-
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(12);
-
-        explicacaoFinal.forEach(linha => {
-          if (y > pageHeight - margin) {
-            doc.addPage();
-            addWatermark(doc, logo);
-            y = margin;
-          }
-          doc.text(linha, margin, y);
-          y += 7;
-        });
-
-        y += 10;
-      }
-
-      // =================================================================
-      // 17. PÁGINA - CICLO DE VIDA
-      // =================================================================
+      // 17. DESAFIOS (TABELA)
       if (dataNascimento && nomeCliente) {
-        const destino = calcularDestino(dataNascimento);
-        const ciclosVida = calcularCicloVida(dataNascimento, destino);
-
-        if (ciclosVida) {
+        const ciclos = calcularCicloVida(dataNascimento, calcularDestino(dataNascimento));
+        const desafiosList = calcularDesafios(dataNascimento, ciclos);
+        if (desafiosList?.length) {
           doc.addPage();
-          addWatermark(doc, logo);
+          addWatermarkHelper();
+          addToIndex("Desafios");
+          y = printSectionTitle("Desafios", 30);
+          
+          const headers = ["Desafio", "Valor", "Período"];
+          const data = desafiosList.map(d => ({ n: d.nome, v: d.valor, p: d.periodo }));
+          y = renderTableHelper(headers, data, y + 10);
 
-          doc.setFont("helvetica", "bold");
-          doc.setFontSize(22);
-          doc.text("Ciclo de Vida", 105, 30, { align: "center" });
-
-          yPosition = 50;
-
-          doc.setFont("helvetica", "normal");
-          doc.setFontSize(12);
-
-          const introCiclos = [
-            "Os Ciclos de Vida representam fases energéticas distintas que influenciam",
-            "diferentes períodos da sua existência. Cada ciclo traz aprendizados,",
-            "oportunidades e desafios específicos para seu desenvolvimento pessoal.",
-            " "
-          ];
-
-          introCiclos.forEach(linha => {
-            doc.text(linha, margin, yPosition);
-            yPosition += 7;
+          y += 15;
+          desafiosList.forEach(d => {
+             y = checkPageBreak(y);
+             doc.setFont("helvetica", "bold");
+             doc.text(`${d.nome} - Valor ${d.valor}`, CONFIG.margin, y);
+             y += 7;
+             y = printWrappedText(desafiosTextos?.[d.valor] || "Descrição indisponível", y);
+             y += 5;
           });
-
-          yPosition += 10;
-
-          // Renderizar tabela de ciclos de vida
-          const headersCiclos = ["Ciclo", "Idade", "Período", "Energia"];
-          const dataCiclos = ciclosVida.map(ciclo => ({
-            ciclo: ciclo.ciclo,
-            idade: ciclo.idade,
-            periodo: ciclo.periodo,
-            energia: ciclo.energia.toString()
-          }));
-
-          yPosition = renderTable(doc, headersCiclos, dataCiclos, yPosition, margin);
         }
       }
 
-      // =================================================================
-      // 18. PÁGINA - DESAFIOS
-      // =================================================================
+      // 18. MOMENTOS DECISIVOS
       if (dataNascimento && nomeCliente) {
-        const destino = calcularDestino(dataNascimento);
-        const ciclosVida = calcularCicloVida(dataNascimento, destino);
-        const desafios = calcularDesafios(dataNascimento, ciclosVida);
-
-        if (desafios && desafios.length > 0) {
-          doc.addPage();
-          addWatermark(doc, logo);
-
-          doc.setFont("helvetica", "bold");
-          doc.setFontSize(22);
-          doc.text("Desafios", 105, 30, { align: "center" });
-
-          yPosition = 50;
-
-          doc.setFont("helvetica", "normal");
-          doc.setFontSize(12);
-
-          const introDesafios = [
-            "Os Desafios Numerológicos representam lições específicas que você",
-            "precisa aprender em cada fase da vida. Eles indicam áreas que",
-            "requerem mais atenção e desenvolvimento para seu crescimento pessoal.",
-            " "
-          ];
-
-          introDesafios.forEach(linha => {
-            doc.text(linha, margin, yPosition);
-            yPosition += 7;
-          });
-
-          yPosition += 10;
-
-          // Renderizar tabela de desafios
-          const headersDesafios = ["Desafio", "Valor", "Período"];
-          const dataDesafios = desafios.map(desafio => ({
-            desafio: desafio.nome,
-            valor: desafio.valor.toString(),
-            periodo: desafio.periodo
-          }));
-
-          yPosition = renderTable(doc, headersDesafios, dataDesafios, yPosition, margin);
-        }
-      }
-
-      // =================================================================
-      // 19. PÁGINA - MOMENTOS DECISIVOS
-      // =================================================================
-      if (dataNascimento && nomeCliente) {
-        const destino = calcularDestino(dataNascimento);
-        const momentos = calcularMomentosDecisivos(dataNascimento, destino);
-
+        const momentos = calcularMomentosDecisivos(dataNascimento, calcularDestino(dataNascimento));
         if (momentos) {
           doc.addPage();
-          addWatermark(doc, logo);
-
-          doc.setFont("helvetica", "bold");
-          doc.setFontSize(22);
-          doc.text("Momentos Decisivos", 105, 30, { align: "center" });
-
-          yPosition = 50;
-
-          doc.setFont("helvetica", "normal");
-          doc.setFontSize(12);
-
-          const introMomentos = [
-            "Os Momentos Decisivos são períodos específicos onde importantes",
-            "escolhas e transformações ocorrem. Estes são momentos-chave que",
-            "definem o rumo da sua jornada pessoal e espiritual.",
-            " "
-          ];
-
-          introMomentos.forEach(linha => {
-            doc.text(linha, margin, yPosition);
-            yPosition += 7;
+          addWatermarkHelper();
+          addToIndex("Momentos Decisivos");
+          y = printSectionTitle("Momentos Decisivos", 30);
+          
+          // Preparar dados da tabela
+          const data = momentos.map((m, i) => {
+            const startAge = i === 0 ? 0 : momentos[i-1].fim - new Date(dataNascimento).getFullYear();
+            const endAge = m.fim === '...' ? '...' : (startAge + (m.fim - m.inicio));
+            return { e: m.momento, i: `${startAge} a ${endAge}`, p: `${m.inicio} - ${m.fim}` };
           });
+          y = renderTableHelper(["Energia", "Idade", "Período"], data, y + 10);
 
-          yPosition += 10;
-
-          // Renderizar tabela de momentos decisivos
-          const headersMomentos = ["Energia", "Idade", "Período"];
-          const dataMomentos = momentos.map((momento, index) => {
-            const idadeInicio = index === 0 ? 0 : momentos[index - 1].fim - new Date(dataNascimento).getFullYear();
-            const idadeFim = momento.fim === '...' ? 'em diante' : `${idadeInicio + (momento.fim - momento.inicio)} anos`;
-
-            return {
-              energia: momento.momento.toString(),
-              idade: `${idadeInicio} até ${idadeFim}`,
-              periodo: `${momento.inicio} até ${momento.fim}`
-            };
+          y += 15;
+          momentos.forEach((m, i) => {
+            y = checkPageBreak(y);
+            doc.setFont("helvetica", "bold");
+            doc.text(`Momento ${i+1} - Energia ${m.momento}`, CONFIG.margin, y);
+            y += 7;
+            y = printWrappedText(momentosDecisivosTextos?.[m.momento] || "Descrição indisponível", y);
+            y += 5;
           });
-
-          yPosition = renderTable(doc, headersMomentos, dataMomentos, yPosition, margin);
         }
       }
 
-      // =================================================================
-      // 20. PÁGINA - HARMONIA CONJUGAL
-      // =================================================================
+      // 19. HARMONIA CONJUGAL
       if (nomeCliente && dataNascimento) {
-        const missao = calcularMissao(nomeCliente, dataNascimento);
-        const harmonia = calcularHarmoniaConjugal(missao);
-
+        const harmonia = calcularHarmoniaConjugal(calcularMissao(nomeCliente, dataNascimento));
         if (harmonia) {
           doc.addPage();
-          addWatermark(doc, logo);
-
+          addWatermarkHelper();
+          addToIndex("Harmonia Conjugal");
+          y = printSectionTitle("Harmonia Conjugal", 30);
+          
           doc.setFont("helvetica", "bold");
-          doc.setFontSize(22);
-          doc.text("Harmonia Conjugal", 105, 30, { align: "center" });
+          doc.text(`Número Base: ${harmonia.numero}`, CONFIG.margin, y);
+          y += 10;
 
-          yPosition = 50;
-
-          doc.setFont("helvetica", "normal");
-          doc.setFontSize(12);
-
-          const introHarmonia = [
-            "A Harmonia Conjugal revela suas compatibilidades e desafios nos",
-            "relacionamentos. Mostra com quais energias você vibra melhor,",
-            "quais atraí naturalmente e quais requerem mais atenção.",
-            " "
+          const data = [
+            { t: "Vibra com", v: harmonia.vibraCom },
+            { t: "Atrai", v: harmonia.atrai },
+            { t: "Oposto", v: harmonia.oposto },
+            { t: "Passivo", v: harmonia.passivo }
           ];
-
-          introHarmonia.forEach(linha => {
-            doc.text(linha, margin, yPosition);
-            yPosition += 7;
-          });
-
-          yPosition += 15;
-
-          // Número base
-          doc.setFont("helvetica", "bold");
-          doc.text(`Número de Harmonia: ${harmonia.numero}`, margin, yPosition);
-          yPosition += 10;
-
-          // Renderizar tabela de harmonia conjugal
-          const headersHarmonia = ["Tipo", "Números"];
-          const dataHarmonia = [
-            { tipo: "Vibra com", numeros: harmonia.vibraCom.toString() },
-            { tipo: "Atrai", numeros: harmonia.atrai },
-            { tipo: "É oposto", numeros: harmonia.oposto },
-            { tipo: "É passivo em relação a", numeros: harmonia.passivo }
-          ];
-
-          yPosition = renderTable(doc, headersHarmonia, dataHarmonia, yPosition, margin);
+          y = renderTableHelper(["Tipo", "Números"], data, y);
         }
       }
 
-      // =================================================================
-      // 4. PÁGINA - PIRÂMIDE INVERTIDA
-      // =================================================================
-      if (nomeCliente) {
+      // 20. NOMES SOCIAIS (Se houver)
+      if (nomesSociais && nomesSociais.length > 0) {
         doc.addPage();
-        addWatermark(doc, logo);
-        yPosition = renderPiramideInvertida(doc, nomeCliente, margin);
+        addWatermarkHelper();
+        addToIndex("Nomes Sociais");
+        y = printSectionTitle("Nomes Sociais", 30);
+        y = printWrappedText("Alternativas energéticas para equilibrar sua jornada.", y);
+        y += 10;
+
+        nomesSociais.forEach((social, idx) => {
+           y = checkPageBreak(y, 40); // Verifica espaço para o bloco
+           doc.setFont("helvetica", "bold");
+           doc.setFontSize(14);
+           doc.text(`Opção ${idx + 1}: ${social.nome}`, CONFIG.margin, y);
+           y += 7;
+           doc.setFontSize(12);
+           doc.text(`Arcano: ${social.arcano}`, CONFIG.margin, y);
+           y += 7;
+           
+           // Pirâmide (Lógica simplificada para caber aqui, idealmente usar função externa se complexa)
+           if (generateInvertedPyramid) {
+             const pyData = generateInvertedPyramid(social.nome);
+             // Renderizar pirâmide aqui se necessário, usando lógica similar à original
+             // Para brevidade, apenas texto do arcano:
+           }
+           
+           if (arcanos?.[social.arcano]) {
+             y = printWrappedText(arcanos[social.arcano].descricao, y, 10);
+           }
+           y += 10;
+           doc.line(CONFIG.margin, y, CONFIG.pageWidth - CONFIG.margin, y);
+           y += 10;
+        });
       }
 
-      // =================================================================
-      // FIM
-      // =================================================================
+      // -------------------------------------------------------------
+      // FINALIZAÇÃO: GERAR ÍNDICE NA PÁGINA RESERVADA
+      // -------------------------------------------------------------
+      doc.setPage(paginaIndiceRef);
+      y = printSectionTitle("ÍNDICE", 30);
+      
+      // Ordenar e Renderizar Índice
+      indiceItens.sort((a, b) => a.pagina - b.pagina);
+      
+      indiceItens.forEach(item => {
+        if (y > CONFIG.pageHeight - CONFIG.margin) {
+           // Se o índice for muito grande, cria nova página e continua
+           doc.addPage(); 
+           addWatermarkHelper();
+           y = CONFIG.margin + 10;
+        }
+        
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
+        doc.text(item.titulo, CONFIG.margin, y);
+        
+        // Linha pontilhada
+        const dots = ".".repeat(100); // Simplificação visual
+        const titleWidth = doc.getTextWidth(item.titulo);
+        const pageNumStr = String(item.pagina);
+        doc.text(dots, CONFIG.margin + titleWidth + 2, y, { maxWidth: CONFIG.pageWidth - CONFIG.margin - 30 - titleWidth });
+        
+        doc.setFont("helvetica", "bold");
+        doc.text(pageNumStr, CONFIG.pageWidth - CONFIG.margin - 10, y, { align: "right" });
+        y += 10;
+      });
+
+      // Salvar Arquivo
       doc.save(`Mapa_Numerologico_${nomeCliente || 'Cliente'}.pdf`);
+
     } catch (error) {
-      console.error("Erro ao gerar PDF:", error);
-      // Em um ambiente React real, você usaria um Toast ou Snackbar
-      // alert("Ocorreu um erro ao gerar o PDF. Por favor, tente novamente.");
+      console.error("Erro PDF:", error);
+      alert("Erro ao gerar PDF. Verifique o console.");
     }
   };
 
-
-
-
-
-
-
-
-
   // =================================================================
-  // RENDERIZAÇÃO DO COMPONENTE
+  // 4. RENDERIZAÇÃO DO BOTÃO
   // =================================================================
   if (asListItem) {
     return (

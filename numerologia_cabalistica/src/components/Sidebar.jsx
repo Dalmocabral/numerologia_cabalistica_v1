@@ -10,12 +10,19 @@ import {
   Typography,
   Divider
 } from '@mui/material';
-import { Add, DarkMode, LightMode, PictureAsPdf } from '@mui/icons-material';
+import { Add, DarkMode, LightMode } from '@mui/icons-material';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import NovoMapaDialog from './NovoMapaDialog';
-import PdfGeneratorButton from './PdfGeneratorButton'; // Importe o componente novamente
+import PdfGeneratorButton from './PdfGeneratorButton';
 
-const Sidebar = ({ darkMode, toggleDarkMode, onSalvarNome, nomeCliente, dataNascimento }) => {
+const Sidebar = ({ 
+  darkMode, 
+  toggleDarkMode, 
+  onSalvarNome, 
+  nomeCliente, 
+  dataNascimento,
+  nomesSociais = [] // ← NOVA PROP
+}) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleOpenDialog = () => {
@@ -83,12 +90,13 @@ const Sidebar = ({ darkMode, toggleDarkMode, onSalvarNome, nomeCliente, dataNasc
               <ListItemText primary="Calcular Mapa" />
             </ListItem>
 
-            {/* Botão de PDF estilizado como ListItem mas usando o componente PdfGeneratorButton */}
+            {/* Botão de PDF - AGORA COM NOMES SOCIAIS */}
             <PdfGeneratorButton
               nomeCliente={nomeCliente}
               dataNascimento={dataNascimento}
-              asListItem={true} // Nova prop para renderizar como ListItem
-              darkMode={darkMode} // Passar o tema para estilização
+              nomesSociais={nomesSociais} // ← PASSA OS NOMES SOCIAIS
+              asListItem={true}
+              darkMode={darkMode}
             />
           </List>
         </Box>

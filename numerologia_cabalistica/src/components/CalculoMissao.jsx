@@ -1,37 +1,82 @@
-//src/components/Calculo/missao.jsx
+// src/components/CalculoExpressao.jsx
 
-import { calcularValorComAcento } from "./CalculoExpressao";
+import { tabelaNumeros, tabelaAcentos } from './TabelaNumerologia';
 
-const normalizar = (nome) => {
+// ---------------------------------------------
+// NORMALIZAÇÃO DO NOME
+// ---------------------------------------------
+const normalizarNome = (nome) => {
     return nome
-        .normalize("NFC")
+        .normalize('NFC')
         .replace(/’/g, "'")
         .toUpperCase();
 };
 
-const reduzir = (n) => {
-    while (n >= 10 && n !== 11 && n !== 22) {
-        n = n.toString().split("").reduce((s, d) => s + Number(d), 0);
+// ---------------------------------------------
+// VALOR DE LETRA + ACENTOS
+// ---------------------------------------------
+export const calcularValorComAcento = (letra) => {
+    if (!letra.trim()) return 0;
+
+    // Apóstrofo isolado
+    if (letra === "'") {
+        return tabelaAcentos["'"] || 0;
     }
-    return n;
+
+    const acentos = letra.normalize('NFD').match(/[\u0300-\u036f]/g);
+    const letraBase = letra.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+    let valorBase = tabelaNumeros[letraBase] || 0;
+
+    if (acentos) {
+        acentos.forEach(acento => {
+            if (tabelaAcentos[acento]) {
+                valorBase += tabelaAcentos[acento];
+            }
+        });
+    }
+
+    return valorBase;
 };
 
-// MISSÃO = último sobrenome reduzido
-export const calcularMissao = (nome) => {
-    if (!nome) return "";
+// ---------------------------------------------
+// EXPRESSÃO = soma total reduzida
+// ---------------------------------------------
+export const calcularExpressao = (nome) => {
+    if (!nome) return '';
 
-    const nomeNorm = normalizar(nome);
+    const nomeNormalizado = normalizarNome(nome);
 
-    // separa por espaços e apóstrofo
-    const partes = nomeNorm.split(/[\s']/).filter(Boolean);
+    const letrasValidas = nomeNormalizado.split('').filter(c =>
+        /[A-ZÇÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕÄËÏÖÜ']/.test(c)
+    );
 
-    const sobrenome = partes[partes.length - 1];
+    const somaTotal = letrasValidas.reduce((acc, letra) =>
+        acc + calcularValorComAcento(letra), 0
+    );
 
-    const valores = sobrenome
-        .split("")
-        .map((letra) => calcularValorComAcento(letra));
+    const reduzir = (n) => {
+        while (n >= 10 && n !== 11 && n !== 22) {
+            n = n.toString().split('').reduce((s, d) => s + Number(d), 0);
+        }
+        return n;
+    };
 
-    const soma = valores.reduce((a, b) => a + b, 0);
+    return reduzir(somaTotal);
+};
 
-    return reduzir(soma);
+// ---------------------------------------------
+// MISSÃO = Destino + Expressão (reduzido)
+// ---------------------------------------------
+export const calcularMissao = (destino, expressao) => {
+    if (!destino || !expressao) return '';
+
+    let soma = destino + expressao;
+
+    // Redução mantendo 11 e 22
+    while (soma >= 10 && soma !== 11 && soma !== 22) {
+        soma = soma.toString().split('').reduce((s, d) => s + Number(d), 0);
+    }
+
+    return soma;
 };

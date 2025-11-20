@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react';
+// src/components/PiramideInvertida.jsx
+import React, { useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { findSequences } from './generateInvertedPyramid';
-import { sequenciaNegativa } from '../components/TabelaNumerologia'; // Alterado para sequenciaNegativa
+import { sequenciaNegativa } from '../components/TabelaNumerologia';
 import DialogNomeSocial from './DialogNomeSocial';
 
 const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
-
-  // Limpa o diálogo quando novos dados são recebidos
-  useEffect(() => {
-    setDialogOpen(false);
-  }, [dados]);
 
   if (!dados || dados.length === 0) {
     return (
@@ -26,17 +22,21 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
     if (row.type === 'numbers') {
       const sequences = findSequences(row.data);
       sequences.forEach(index => {
-        if (index % 3 === 0) { // Pegar cada sequência apenas uma vez
+        if (index % 3 === 0) {
           const num = row.data[index];
-          const sequenceKey = `${num}${num}${num}`; // Formato "111", "222", etc.
+          const sequenceKey = `${num}${num}${num}`;
           if (!sequencesFound[sequenceKey]) {
-            // Buscar no sequenciaNegativa
             sequencesFound[sequenceKey] = sequenciaNegativa[sequenceKey] || `Sequência ${num} ${num} ${num} encontrada, mas interpretação não disponível.`;
           }
         }
       });
     }
   });
+
+  const handleSaveNomeSocial = (nomeSocial, arcano) => {
+    onNomeSocialChange(nomeSocial, arcano); // Chama a função do App.jsx
+    setDialogOpen(false); // Fecha o diálogo
+  };
 
   return (
     <Box sx={{
@@ -128,7 +128,6 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
           {Object.entries(sequencesFound).map(([sequence, description], index) => (
             <Box key={index} sx={{ mb: 2 }}>
               <Typography variant="body1" component="div">
-                {/* Formatar a exibição: de "111" para "1 1 1" */}
                 <Box component="span" sx={{ fontWeight: 'bold' }}>
                   {sequence.charAt(0)} {sequence.charAt(1)} {sequence.charAt(2)}
                 </Box> - {description}
@@ -147,13 +146,11 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
         Criar Nome Social
       </Button>
 
+      {/* Dialog para criar nome social - AGORA ESTÁ AQUI */}
       <DialogNomeSocial
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
-        onSave={(nomeSocial, arcano) => {
-          onNomeSocialChange(nomeSocial, arcano);
-          setDialogOpen(false);
-        }}
+        onSave={handleSaveNomeSocial}
       />
     </Box>
   );
