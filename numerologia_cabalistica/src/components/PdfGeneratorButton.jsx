@@ -349,14 +349,29 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         y = printWrappedText("A Missão de Vida é o propósito maior da sua alma (Expressão + Destino).", y);
         
         y += 5;
-        const missaoVal = calcularMissao(nomeCliente, dataNascimento);
+
+        // --- CORREÇÃO AQUI ---
+        // 1. Calcula os valores prévios necessários
+        const valorDestino = calcularDestino(dataNascimento);
+        const valorExpressao = calcularExpressao(nomeCliente);
+
+        // 2. Passa os valores corretos para calcular a missão
+        const missaoVal = calcularMissao(valorDestino, valorExpressao);
+        // ---------------------
+
         doc.setFont("helvetica", "bold");
         doc.text(`Número da Missão: ${missaoVal}`, CONFIG.margin, y);
         y += 10;
         
         doc.text("Definição:", CONFIG.margin, y);
         y += 7;
-        y = printWrappedText(missaoTextos[missaoVal], y);
+        
+        // Verifica se o texto existe antes de imprimir
+        if (missaoTextos && missaoTextos[missaoVal]) {
+            y = printWrappedText(missaoTextos[missaoVal], y);
+        } else {
+            y = printWrappedText("Descrição não disponível para este número.", y);
+        }
       }
 
       // 10. DÍVIDAS CÁRMICAS
