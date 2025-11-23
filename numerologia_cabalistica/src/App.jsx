@@ -26,7 +26,7 @@ import { calcularNumeroHarmonico } from "./components/CalculoHarmonico";
 import { calcularCoresFavoraveis } from './components/CalculoCoresFavoraveis';
 import { generateInvertedPyramid } from "./components/generateInvertedPyramid";
 import { arcanos } from './components/TabelaNumerologia';
-
+import { calcularArcanoPessoal, calcularArcanoCabalistico } from './components/CalculoArcano';
 import PiramideInvertida from "./components/PiramideInvertida";
 
 // Estilos personalizados para as células da tabela
@@ -62,7 +62,9 @@ const App = () => {
   const [piramide, setPiramide] = useState([]);
   const [nomeSocial, setNomeSocial] = useState('');
   const [arcano, setArcano] = useState('');
-  
+  const arcanoPessoal = calcularArcanoPessoal(dataNascimento);
+  const arcanoCabalistico = calcularArcanoCabalistico(nome);
+
   // Estado para armazenar múltiplos nomes sociais
   const [nomesSociais, setNomesSociais] = useState([]);
 
@@ -169,7 +171,7 @@ const missao = calcularMissao(destino, expressao);
                   <TextField label="Lições Cármicas" value={calcularLicoesCarmicas(nome)} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Tendências Ocultas" value={calcularTendenciasOcultas(nome)} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Ano Pessoal" value={calcularAnoPessoal(dataNascimento)} disabled fullWidth sx={{ mt: 2 }} />
-                  <TextField label="Mês Pessoal" value={calcularMesPessoal(dataNascimento, mesInteresse)} disabled fullWidth sx={{ mt: 2 }} />
+                  
                   <TextField label="Dia Pessoal" value={calcularDiaPessoal(dataNascimento, mesInteresse, diaInteresse)} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Subconsciente" value={calcularSubconsciente(calcularLicoesCarmicas(nome))} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Número Harmônico" value={harmonicos.length ? harmonicos.join(", ") : "Nenhum"} disabled fullWidth sx={{ mt: 2 }} />
@@ -190,7 +192,8 @@ const missao = calcularMissao(destino, expressao);
                 <Box sx={{ display: "flex", gap: 2 }}>
                   <TextField label="Cores Favoráveis" value={calcularCoresFavoraveis(numeroExpressao)} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Nome social" value={nomeSocial} disabled fullWidth sx={{ mt: 2 }} />
-                  <TextField label="Arcano" value={arcano} disabled fullWidth sx={{ mt: 2 }} />
+                  <TextField label="Arcano Taro" value={arcanoPessoal} disabled  fullWidth sx={{ mt: 2 }} />
+                  <TextField label="Arcano Cabalística" value={arcanoCabalistico} disabled  fullWidth sx={{ mt: 2 }} />
                 </Box>
 
                 {/* SEÇÃO: Lista de Nomes Sociais Salvos */}

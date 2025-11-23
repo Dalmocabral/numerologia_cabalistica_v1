@@ -170,22 +170,47 @@ const DialogNomeSocial = ({ open, onClose, onSave }) => {
               <Box sx={{ flex: 1 }}>
                 <Card variant="outlined" sx={{ bgcolor: 'success.light' }}>
                   <CardContent>
-                    <Typography variant="h6" gutterBottom sx={{ color: 'success.dark' }}>
+                    {/* Imagem do Arcano */}
+                    {arcanoInfo.image && (
+                      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                        <img 
+                          src={arcanoInfo.image} 
+                          alt={arcanoInfo.titulo}
+                          style={{
+                            maxWidth: '200px',
+                            maxHeight: '200px',
+                            width: 'auto',
+                            height: 'auto',
+                            borderRadius: '8px',
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                          }}
+                          onError={(e) => {
+                            // Fallback caso a imagem não carregue
+                            e.target.style.display = 'none';
+                          }}
+                        />
+                      </Box>
+                    )}
+                    
+                    <Typography variant="h6" gutterBottom sx={{ color: 'success.dark', textAlign: 'center' }}>
                       {arcanoInfo.titulo} - Número {arcanoNumber}
                     </Typography>
+                    
                     <Typography 
                       variant="body2" 
                       sx={{ 
                         color: 'text.primary',
                         lineHeight: 1.6,
-                        maxHeight: '300px',
-                        overflow: 'auto'
+                        maxHeight: '200px',
+                        overflow: 'auto',
+                        textAlign: 'justify'
                       }}
                     >
                       {arcanoInfo.descricao}
                     </Typography>
+                    
                     <Box sx={{ mt: 2, p: 1, bgcolor: 'success.main', borderRadius: 1 }}>
-                      <Typography variant="body2" sx={{ color: 'white', fontWeight: 'bold' }}>
+                      <Typography variant="body2" sx={{ color: 'white', fontWeight: 'bold', textAlign: 'center' }}>
                         Este será o seu Arcano pessoal com este nome social
                       </Typography>
                     </Box>

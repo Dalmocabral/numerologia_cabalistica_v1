@@ -66,14 +66,7 @@ const NovoMapaDialog = ({ open, onClose, onSalvarNome }) => {
               value={dataNascimento}
               onChange={(e) => setDataNascimento(e.target.value)}
             />
-            <TextField
-              margin="dense"
-              label="Mês de Interesse (1-12)"
-              type="number"
-              fullWidth
-              value={mesInteresse}
-              onChange={(e) => setMesInteresse(e.target.value)}
-            />
+            
             <TextField
               margin="dense"
               label="Dia de Interesse (1-31)"
@@ -87,7 +80,7 @@ const NovoMapaDialog = ({ open, onClose, onSalvarNome }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} disabled={loading}>Cancelar</Button>
-        <Button onClick={handleSalvar} disabled={loading}>Salvar</Button>
+        <Button onClick={handleSalvar} disabled={loading}>Calcular Mapa</Button>
       </DialogActions>
     </Dialog>
   );

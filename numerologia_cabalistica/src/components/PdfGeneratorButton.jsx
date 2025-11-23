@@ -56,12 +56,33 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
     return ['A', 'E', 'I', 'O', 'U'].includes(letraBase);
   };
 
+  // Função para converter URL de imagem em Base64
+  const loadImage = (url) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.src = url;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        resolve(canvas.toDataURL('image/png'));
+      };
+      img.onerror = (e) => {
+        console.warn("Erro ao carregar imagem:", url);
+        resolve(null);
+      };
+    });
+  };
+
   // =================================================================
   // 3. FUNÇÃO GERADORA DO PDF (CORE)
   // =================================================================
   const generatePDF = async () => {
     const doc = new jsPDF();
-    
+
     // Configurações Globais do Documento
     const CONFIG = {
       margin: 20,
@@ -74,11 +95,10 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       colorGray: '#9E9E9E'
     };
 
-    const indiceItens = []; // Armazena itens para o índice final
+    const indiceItens = [];
 
-    // --- Helpers Internos do PDF (Closures para acessar doc e config facilmente) ---
+    // --- Helpers Internos ---
 
-    // Adiciona marca d'água
     const addWatermarkHelper = () => {
       doc.saveGraphicsState();
       doc.setGState(new doc.GState({ opacity: 0.1 }));
@@ -89,43 +109,35 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       doc.restoreGraphicsState();
     };
 
-    // Verifica se precisa de nova página
     const checkPageBreak = (currentY, addedMargin = 0) => {
       if (currentY > CONFIG.pageHeight - CONFIG.margin - addedMargin) {
         doc.addPage();
         addWatermarkHelper();
-        return CONFIG.margin; // Retorna o novo Y
+        return CONFIG.margin;
       }
       return currentY;
     };
 
-    // Imprime texto com quebra de linha automática e paginação
-    const printWrappedText = (text, y, fontSize = 12, fontType = "normal", color = CONFIG.colorBlack) => {
+    const printWrappedText = (text, y, fontSize = 12, fontType = "normal", color = CONFIG.colorBlack, x = CONFIG.margin, maxWidth = 170) => {
       if (!text) return y;
-      
       doc.setFont("helvetica", fontType);
       doc.setFontSize(fontSize);
       doc.setTextColor(color);
-
-      const lines = doc.splitTextToSize(String(text), 170); // Largura útil
-      
+      const lines = doc.splitTextToSize(String(text), maxWidth);
       lines.forEach(line => {
         y = checkPageBreak(y);
-        doc.text(line, CONFIG.margin, y);
+        doc.text(line, x, y);
         y += CONFIG.lineHeight;
       });
-      
-      return y; // Retorna a próxima posição Y disponível
+      return y;
     };
 
-    // Adiciona item ao array do índice
     const addToIndex = (titulo) => {
       indiceItens.push({ titulo, pagina: doc.internal.getNumberOfPages() });
     };
 
-    // Renderiza Título Centralizado
     const printSectionTitle = (title, y) => {
-      y = checkPageBreak(y, 30); // Margem extra para títulos
+      y = checkPageBreak(y, 30);
       doc.setFont("helvetica", "bold");
       doc.setFontSize(22);
       doc.setTextColor(CONFIG.colorBlack);
@@ -133,7 +145,87 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       return y + 15;
     };
 
-    // Renderiza Nome e Numerologia (Letras e Números)
+    // --- HELPER DA PIRÂMIDE (NOVO) ---
+    // --- HELPER DA PIRÂMIDE (COM AUTO-AJUSTE DE TAMANHO) ---
+    const drawPyramid = (nomeParaPiramide, startY) => {
+        const pyramidData = generateInvertedPyramid(nomeParaPiramide);
+        if (!pyramidData || pyramidData.length === 0) return startY;
+
+        let y = startY;
+
+        // =====================================================
+        // LÓGICA DE AUTO-DIMENSIONAMENTO
+        // =====================================================
+        
+        // 1. Largura disponível na página (descontando margens)
+        const availableWidth = CONFIG.pageWidth - (CONFIG.margin * 2);
+
+        // 2. Quantos blocos tem a linha mais longa (a primeira)?
+        const maxCells = pyramidData[0].data.length;
+
+        // 3. Definir tamanho MÁXIMO desejado (para nomes curtos não ficarem gigantes)
+        const maxPreferredSize = 12; 
+
+        // 4. Calcular o tamanho ideal
+        // Divide o espaço disponível pelo número de células.
+        // Se o resultado for maior que 12, usa 12. Se for menor, usa o calculado.
+        let cellWidth = Math.min(maxPreferredSize, availableWidth / maxCells);
+
+        // 5. A altura será proporcional à largura (ex: 70% da largura)
+        let cellHeight = cellWidth * 0.7;
+
+        // 6. O tamanho da fonte também deve ser proporcional (ex: 50% da largura)
+        let fontSizeBase = cellWidth * 0.5;
+
+        // =====================================================
+
+        pyramidData.forEach((row) => {
+            // Verificar quebra de página dentro da pirâmide
+            if (y > CONFIG.pageHeight - CONFIG.margin) {
+                doc.addPage();
+                addWatermarkHelper();
+                y = CONFIG.margin + 10;
+            }
+
+            const rowLength = row.data.length;
+            const totalRowWidth = rowLength * cellWidth;
+            // Centraliza baseada na largura total desta linha específica
+            const startX = (CONFIG.pageWidth - totalRowWidth) / 2;
+            
+            const sequences = row.type === 'numbers' ? findSequences(row.data) : [];
+
+            row.data.forEach((item, itemIndex) => {
+                const x = startX + (itemIndex * cellWidth);
+                const isSequence = sequences.includes(itemIndex);
+
+                // Desenha o retângulo
+                doc.setDrawColor(0);
+                doc.rect(x, y, cellWidth, cellHeight);
+
+                // Configura a fonte baseada no tamanho calculado
+                if (row.type === 'letters') {
+                    // Letras podem ser um pouco maiores que números
+                    doc.setFontSize(fontSizeBase * 1.2); 
+                    doc.setFont("helvetica", "bold");
+                    doc.setTextColor(0, 0, 0);
+                } else {
+                    doc.setFontSize(fontSizeBase);
+                    doc.setFont("helvetica", isSequence ? "bold" : "normal");
+                    // Sequências em vermelho
+                    doc.setTextColor(isSequence ? 255 : 0, isSequence ? 0 : 0, 0);
+                }
+
+                // Centralização fina do texto dentro do retângulo
+                // O ajuste '+ 1' ou '+ 0.5' ajuda a alinhar verticalmente visualmente
+                doc.text(item.toString(), x + (cellWidth / 2), y + (cellHeight / 2) + (cellHeight * 0.25), { align: "center" });
+            });
+
+            y += cellHeight; // Removemos o +1 extra para ficar mais compacto se o nome for longo
+        });
+
+        return { nextY: y + 10, data: pyramidData };
+    };
+
     const renderNomeNumerologia = (nome, startY) => {
       if (!nome) return startY;
       const nomeFormatado = nome.toUpperCase().replace(/\s/g, '');
@@ -141,19 +233,14 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       const espacamento = 7;
       const totalWidth = (letras.length * espacamento) - 5;
       const startX = (CONFIG.pageWidth - totalWidth) / 2;
-
       let x = startX;
       let y = startY;
-
-      // Letras
       letras.forEach(letra => {
         doc.setFontSize(14);
         doc.setTextColor(isVogal(letra) ? CONFIG.colorBlue : CONFIG.colorGray);
         doc.text(letra, x, y);
         x += espacamento;
       });
-
-      // Números
       x = startX;
       y += 7;
       letras.forEach(letra => {
@@ -162,21 +249,16 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         doc.text(calcularValorComAcento(letra).toString(), x + 2, y);
         x += espacamento;
       });
-
       return y + 15;
     };
 
-    // Renderiza Tabela Genérica
     const renderTableHelper = (headers, data, startY) => {
       const tableWidth = CONFIG.pageWidth - (CONFIG.margin * 2);
       const colWidth = tableWidth / headers.length;
       let y = startY;
-
-      // Cabeçalho
       doc.setFontSize(10);
       doc.setFont("helvetica", "bold");
       doc.setFillColor(240, 240, 240);
-      
       const printHeader = (currY) => {
         let x = CONFIG.margin;
         headers.forEach(header => {
@@ -186,25 +268,17 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         });
         return currY + 10;
       };
-
       y = printHeader(y);
-
-      // Dados
       doc.setFont("helvetica", "normal");
       data.forEach(row => {
         y = checkPageBreak(y, 20);
-        // Se houve quebra de página, reimprime o cabeçalho
         if (y === CONFIG.margin) y = printHeader(y);
-
         let x = CONFIG.margin;
         const cellValues = Object.values(row);
-        
-        // Calcula altura da linha baseada na célula com mais texto
-        const maxLines = Math.max(...cellValues.map(cell => 
+        const maxLines = Math.max(...cellValues.map(cell =>
           doc.splitTextToSize(String(cell), colWidth - 4).length
         ));
         const rowHeight = Math.max(10, maxLines * 5);
-
         cellValues.forEach(cell => {
           const lines = doc.splitTextToSize(String(cell), colWidth - 4);
           doc.text(lines, x + 2, y + 6);
@@ -213,13 +287,12 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         });
         y += rowHeight;
       });
-
       return y + 10;
     };
 
     try {
       // -------------------------------------------------------------
-      // INÍCIO DA GERAÇÃO DO CONTEÚDO
+      // INÍCIO DA GERAÇÃO
       // -------------------------------------------------------------
 
       // 1. CAPA
@@ -258,8 +331,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       // 4. RESERVA DA PÁGINA DE ÍNDICE
       doc.addPage();
       addWatermarkHelper();
-      const paginaIndiceRef = doc.internal.getNumberOfPages(); // Guarda o ID da página
-      // O conteúdo será inserido no final
+      const paginaIndiceRef = doc.internal.getNumberOfPages();
 
       // 5. MOTIVAÇÃO
       if (nomeCliente) {
@@ -269,13 +341,11 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         y = renderNomeNumerologia(nomeCliente, 30);
         y = printSectionTitle("Motivação", y);
         y = printWrappedText("A Motivação revela seus desejos mais profundos e o que impulsiona suas ações.", y);
-        
         y += 5;
         const motivacaoVal = calcularMotivacao(nomeCliente);
         doc.setFont("helvetica", "bold");
         doc.text(`Número da Motivação: ${motivacaoVal}`, CONFIG.margin, y);
         y += 10;
-        
         doc.text("Definição:", CONFIG.margin, y);
         y += 7;
         y = printWrappedText(motivacaoTextos[motivacaoVal], y);
@@ -288,14 +358,12 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         addToIndex("Impressão");
         y = renderNomeNumerologia(nomeCliente, 30);
         y = printSectionTitle("Impressão", y);
-        y = printWrappedText("A Impressão representa como você é percebido socialmente (soma das consoantes).", y);
-        
+        y = printWrappedText("A Impressão representa como você é percebido socialmente.", y);
         y += 5;
         const impressaoVal = calcularImpressao(nomeCliente);
         doc.setFont("helvetica", "bold");
         doc.text(`Número da Impressão: ${impressaoVal}`, CONFIG.margin, y);
         y += 10;
-
         doc.text("Definição:", CONFIG.margin, y);
         y += 7;
         y = printWrappedText(impressaoTextos[impressaoVal], y);
@@ -309,13 +377,11 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         y = renderNomeNumerologia(nomeCliente, 30);
         y = printSectionTitle("Expressão", y);
         y = printWrappedText("A Expressão revela seus talentos naturais e como você se expressa no mundo.", y);
-        
         y += 5;
         const expressaoVal = calcularExpressao(nomeCliente);
         doc.setFont("helvetica", "bold");
         doc.text(`Número da Expressão: ${expressaoVal}`, CONFIG.margin, y);
         y += 10;
-        
         doc.text("Definição:", CONFIG.margin, y);
         y += 7;
         y = printWrappedText(expressaoTextos[expressaoVal], y);
@@ -327,14 +393,12 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         addWatermarkHelper();
         addToIndex("Destino");
         y = printSectionTitle("Destino", 30);
-        y = printWrappedText("O Destino revela o caminho que você deve seguir e as oportunidades da vida.", y);
-        
+        y = printWrappedText("O Destino revela o caminho que você deve seguir.", y);
         y += 5;
         const destinoVal = calcularDestino(dataNascimento);
         doc.setFont("helvetica", "bold");
         doc.text(`Número do Destino: ${destinoVal}`, CONFIG.margin, y);
         y += 10;
-        
         doc.text("Definição:", CONFIG.margin, y);
         y += 7;
         y = printWrappedText(destinoTextos[destinoVal], y);
@@ -346,32 +410,17 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         addWatermarkHelper();
         addToIndex("Missão");
         y = printSectionTitle("Missão", 30);
-        y = printWrappedText("A Missão de Vida é o propósito maior da sua alma (Expressão + Destino).", y);
-        
+        y = printWrappedText("A Missão de Vida é o propósito maior da sua alma.", y);
         y += 5;
-
-        // --- CORREÇÃO AQUI ---
-        // 1. Calcula os valores prévios necessários
         const valorDestino = calcularDestino(dataNascimento);
         const valorExpressao = calcularExpressao(nomeCliente);
-
-        // 2. Passa os valores corretos para calcular a missão
         const missaoVal = calcularMissao(valorDestino, valorExpressao);
-        // ---------------------
-
         doc.setFont("helvetica", "bold");
         doc.text(`Número da Missão: ${missaoVal}`, CONFIG.margin, y);
         y += 10;
-        
         doc.text("Definição:", CONFIG.margin, y);
         y += 7;
-        
-        // Verifica se o texto existe antes de imprimir
-        if (missaoTextos && missaoTextos[missaoVal]) {
-            y = printWrappedText(missaoTextos[missaoVal], y);
-        } else {
-            y = printWrappedText("Descrição não disponível para este número.", y);
-        }
+        y = printWrappedText(missaoTextos[missaoVal] || "Descrição não disponível.", y);
       }
 
       // 10. DÍVIDAS CÁRMICAS
@@ -380,15 +429,12 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         addWatermarkHelper();
         addToIndex("Dívidas Cármicas");
         y = printSectionTitle("Dívidas Cármicas", 30);
-        y = printWrappedText("Representam lições de vidas passadas que se manifestam como desafios hoje.", y);
-        
+        y = printWrappedText("Representam lições de vidas passadas.", y);
         const dividas = calcularDividasCarmicas(dataNascimento, calcularExpressao(nomeCliente), calcularDestino(dataNascimento), calcularMotivacao(nomeCliente));
-        
         y += 5;
         doc.setFont("helvetica", "bold");
-        doc.text(`Dívidas Identificadas: ${dividas === 'Nenhuma' ? 'Nenhuma' : dividas}`, CONFIG.margin, y);
+        doc.text(`Dívidas: ${dividas === 'Nenhuma' ? 'Nenhuma' : dividas}`, CONFIG.margin, y);
         y += 15;
-
         if (dividas !== 'Nenhuma') {
           doc.text("Significados:", CONFIG.margin, y);
           y += 10;
@@ -410,14 +456,11 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         addWatermarkHelper();
         addToIndex("Lições Cármicas");
         y = printSectionTitle("Lições Cármicas", 30);
-        y = printWrappedText("Números ausentes no nome que indicam habilidades a desenvolver.", y);
-        
         const licoes = calcularLicoesCarmicas(nomeCliente);
         y += 5;
         doc.setFont("helvetica", "bold");
-        doc.text(`Lições Identificadas: ${licoes === 'Nenhuma' ? 'Nenhuma' : licoes}`, CONFIG.margin, y);
+        doc.text(`Lições: ${licoes === 'Nenhuma' ? 'Nenhuma' : licoes}`, CONFIG.margin, y);
         y += 15;
-
         if (licoes !== 'Nenhuma') {
           doc.text("Significados:", CONFIG.margin, y);
           y += 10;
@@ -439,15 +482,11 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         addWatermarkHelper();
         addToIndex("Ano Pessoal");
         y = printSectionTitle("Ano Pessoal", 30);
-        y = printWrappedText("O ciclo energético que influencia sua vida no ano corrente.", y);
-        
         const anoPessoal = calcularAnoPessoal(dataNascimento);
         y += 5;
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(16);
         doc.text(`Seu Ano Pessoal: ${anoPessoal}`, CONFIG.margin, y);
         y += 15;
-        
         y = printWrappedText(anoPessoalDescritivo[anoPessoal], y);
       }
 
@@ -457,14 +496,11 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         addWatermarkHelper();
         addToIndex("Mês Pessoal");
         y = printSectionTitle("Mês Pessoal", 30);
-        y = printWrappedText("Tendências e oportunidades específicas mês a mês.", y);
         y += 10;
-
         const meses = calcularMesesPessoaisRestantes(dataNascimento);
         meses.forEach(item => {
           y = checkPageBreak(y);
           doc.setFont("helvetica", "bold");
-          doc.setFontSize(14);
           doc.text(`${item.nomeMes}/${item.ano} – Energia ${item.valor}`, CONFIG.margin, y);
           y += 8;
           y = printWrappedText(mesesPessoal[item.valor], y);
@@ -478,14 +514,11 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         addWatermarkHelper();
         addToIndex("Tendências Ocultas");
         y = printSectionTitle("Tendências Ocultas", 30);
-        y = printWrappedText("Padrões repetitivos no nome que indicam impulsos internos.", y);
-        
         const ocultas = calcularTendenciasOcultas(nomeCliente);
         y += 5;
         doc.setFont("helvetica", "bold");
         doc.text(`Tendências: ${ocultas}`, CONFIG.margin, y);
         y += 15;
-
         if (ocultas !== 'Nenhuma') {
           ocultas.split(',').map(n => n.trim()).forEach(num => {
             if (tendenciaOculta?.[num]) {
@@ -505,7 +538,6 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         addWatermarkHelper();
         addToIndex("Subconsciente");
         y = printSectionTitle("Subconsciente", 30);
-        
         const valSub = calcularSubconsciente(calcularLicoesCarmicas(nomeCliente));
         doc.setFont("helvetica", "bold");
         doc.text(`Número: ${valSub}`, CONFIG.margin, y);
@@ -513,7 +545,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         y = printWrappedText(respostaSubconsciente[valSub], y);
       }
 
-      // 16. CICLO DE VIDA (TABELA)
+      // 16. CICLO DE VIDA
       if (dataNascimento && nomeCliente) {
         const ciclos = calcularCicloVida(dataNascimento, calcularDestino(dataNascimento));
         if (ciclos) {
@@ -523,30 +555,22 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
           y = printSectionTitle("Ciclo de Vida", 30);
           y = printWrappedText("Fases energéticas que influenciam diferentes períodos.", y);
           y += 10;
-
-          // Tabela
           const headers = ["Ciclo", "Idade", "Período", "Energia"];
           const data = ciclos.map(c => ({ c: c.ciclo, i: c.idade, p: c.periodo, e: c.energia }));
           y = renderTableHelper(headers, data, y);
-
-          // Descrições
           y += 15;
-          doc.setFont("helvetica", "bold");
-          doc.text("Interpretação:", CONFIG.margin, y);
-          y += 10;
-
           ciclos.forEach(c => {
             y = checkPageBreak(y);
             doc.setFont("helvetica", "bold");
             doc.text(`${c.ciclo} - Energia ${c.energia}`, CONFIG.margin, y);
             y += 7;
-            y = printWrappedText(CicloVida?.[c.energia] || "Descrição indisponível", y);
+            y = printWrappedText(CicloVida?.[c.energia], y);
             y += 5;
           });
         }
       }
 
-      // 17. DESAFIOS (TABELA)
+      // 17. DESAFIOS
       if (dataNascimento && nomeCliente) {
         const ciclos = calcularCicloVida(dataNascimento, calcularDestino(dataNascimento));
         const desafiosList = calcularDesafios(dataNascimento, ciclos);
@@ -555,19 +579,17 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
           addWatermarkHelper();
           addToIndex("Desafios");
           y = printSectionTitle("Desafios", 30);
-          
           const headers = ["Desafio", "Valor", "Período"];
           const data = desafiosList.map(d => ({ n: d.nome, v: d.valor, p: d.periodo }));
           y = renderTableHelper(headers, data, y + 10);
-
           y += 15;
           desafiosList.forEach(d => {
-             y = checkPageBreak(y);
-             doc.setFont("helvetica", "bold");
-             doc.text(`${d.nome} - Valor ${d.valor}`, CONFIG.margin, y);
-             y += 7;
-             y = printWrappedText(desafiosTextos?.[d.valor] || "Descrição indisponível", y);
-             y += 5;
+            y = checkPageBreak(y);
+            doc.setFont("helvetica", "bold");
+            doc.text(`${d.nome} - Valor ${d.valor}`, CONFIG.margin, y);
+            y += 7;
+            y = printWrappedText(desafiosTextos?.[d.valor], y);
+            y += 5;
           });
         }
       }
@@ -580,22 +602,19 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
           addWatermarkHelper();
           addToIndex("Momentos Decisivos");
           y = printSectionTitle("Momentos Decisivos", 30);
-          
-          // Preparar dados da tabela
           const data = momentos.map((m, i) => {
-            const startAge = i === 0 ? 0 : momentos[i-1].fim - new Date(dataNascimento).getFullYear();
+            const startAge = i === 0 ? 0 : momentos[i - 1].fim - new Date(dataNascimento).getFullYear();
             const endAge = m.fim === '...' ? '...' : (startAge + (m.fim - m.inicio));
             return { e: m.momento, i: `${startAge} a ${endAge}`, p: `${m.inicio} - ${m.fim}` };
           });
           y = renderTableHelper(["Energia", "Idade", "Período"], data, y + 10);
-
           y += 15;
           momentos.forEach((m, i) => {
             y = checkPageBreak(y);
             doc.setFont("helvetica", "bold");
-            doc.text(`Momento ${i+1} - Energia ${m.momento}`, CONFIG.margin, y);
+            doc.text(`Momento ${i + 1} - Energia ${m.momento}`, CONFIG.margin, y);
             y += 7;
-            y = printWrappedText(momentosDecisivosTextos?.[m.momento] || "Descrição indisponível", y);
+            y = printWrappedText(momentosDecisivosTextos?.[m.momento], y);
             y += 5;
           });
         }
@@ -609,11 +628,9 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
           addWatermarkHelper();
           addToIndex("Harmonia Conjugal");
           y = printSectionTitle("Harmonia Conjugal", 30);
-          
           doc.setFont("helvetica", "bold");
           doc.text(`Número Base: ${harmonia.numero}`, CONFIG.margin, y);
           y += 10;
-
           const data = [
             { t: "Vibra com", v: harmonia.vibraCom },
             { t: "Atrai", v: harmonia.atrai },
@@ -624,74 +641,370 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         }
       }
 
-      // 20. NOMES SOCIAIS (Se houver)
+  // --- HELPER DA PIRÂMIDE (RESTAURADO PARA O FORMATO COMPACTO) ---
+    const drawPyramid = (nomeParaPiramide, startY) => {
+        const pyramidData = generateInvertedPyramid(nomeParaPiramide);
+        if (!pyramidData || pyramidData.length === 0) return { nextY: startY, data: [] };
+
+        let y = startY;
+        
+        // Configurações compactas (como era antes)
+        const cellWidth = 6;  
+        const cellHeight = 4; 
+
+        pyramidData.forEach((row) => {
+            if (y > CONFIG.pageHeight - CONFIG.margin) {
+                doc.addPage();
+                addWatermarkHelper();
+                y = CONFIG.margin + 10;
+            }
+
+            const rowLength = row.data.length;
+            const totalRowWidth = rowLength * cellWidth;
+            const startX = (CONFIG.pageWidth - totalRowWidth) / 2;
+            
+            const sequences = row.type === 'numbers' ? findSequences(row.data) : [];
+
+            row.data.forEach((item, itemIndex) => {
+                const x = startX + (itemIndex * cellWidth);
+                const isSequence = sequences.includes(itemIndex);
+
+                doc.setDrawColor(0);
+                doc.rect(x, y, cellWidth, cellHeight);
+
+                if (row.type === 'letters') {
+                    doc.setFontSize(6);
+                    doc.setFont("helvetica", "bold");
+                    doc.setTextColor(0, 0, 0);
+                } else {
+                    doc.setFontSize(5);
+                    doc.setFont("helvetica", isSequence ? "bold" : "normal");
+                    doc.setTextColor(isSequence ? 255 : 0, isSequence ? 0 : 0, 0);
+                }
+
+                doc.text(item.toString(), x + (cellWidth / 2), y + (cellHeight / 2) + 1, { align: "center" });
+            });
+
+            y += cellHeight + 1;
+        });
+
+        return { nextY: y + 5, data: pyramidData };
+    };
+
+      // =================================================================
+      // 20. PIRÂMIDE INVERTIDA (PRINCIPAL)
+      // =================================================================
+      if (nomeCliente) {
+        doc.addPage();
+        addWatermarkHelper();
+        addToIndex("Pirâmide Invertida");
+        y = printSectionTitle("Pirâmide Invertida", 30);
+        
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(12);
+        doc.setTextColor(CONFIG.colorBlack);
+        doc.text(`Nome: ${nomeCliente}`, CONFIG.margin, y);
+        y += 10;
+
+        // 1. Desenha a pirâmide
+        // Precisamos passar o nome tratado (sem acentos) para a pirâmide ficar correta matematicamente
+        const nomeTratado = nomeCliente.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase();
+        const pyResult = drawPyramid(nomeTratado, y);
+        y = pyResult.nextY + 10;
+
+        // 2. Identificar o Arcano da Ponta (Último número)
+        let pontaPiramide = null;
+        if (pyResult.data.length > 0) {
+            const ultimaLinha = pyResult.data[pyResult.data.length - 1];
+            if (ultimaLinha.data.length === 1) {
+                pontaPiramide = ultimaLinha.data[0];
+            }
+        }
+
+        // 3. Exibir o Arcano Cabalístico (Imagem + Texto)
+        if (pontaPiramide !== null && arcanos?.[pontaPiramide]) {
+            
+            y = checkPageBreak(y, 60); // Verifica espaço
+            
+            const arcanoInfo = arcanos[pontaPiramide];
+            
+            // Config Layout
+            const imgWidth = 35;
+            const imgHeight = 55;
+            const gap = 5;
+            const textX = CONFIG.margin + imgWidth + gap;
+            const textMaxWidth = CONFIG.pageWidth - CONFIG.margin - textX;
+            
+            const startBlockY = y; // Marca onde começa o bloco
+
+            // Título do Arcano
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(14);
+            doc.setTextColor(CONFIG.colorBlack); // Preto
+            doc.text(`Arcano Cabalístico: ${pontaPiramide} - ${arcanoInfo.titulo}`, CONFIG.margin, y);
+            y += 10;
+
+            // Tenta carregar imagem
+            let imageAdded = false;
+            if (arcanoInfo.image) {
+                try {
+                    const imgBase64 = await loadImage(arcanoInfo.image);
+                    if (imgBase64) {
+                        // Desenha imagem abaixo do título
+                        doc.addImage(imgBase64, 'PNG', CONFIG.margin, y, imgWidth, imgHeight);
+                        imageAdded = true;
+                    }
+                } catch (err) {
+                    console.error("Erro img piramide:", err);
+                }
+            }
+
+            // Renderiza Texto
+            let currentTextY = y;
+            const currentX = imageAdded ? textX : CONFIG.margin;
+            const currentMaxW = imageAdded ? textMaxWidth : 170;
+
+            // Descrição
+            currentTextY = printWrappedText(
+                arcanoInfo.descricao,
+                currentTextY,
+                10,
+                "normal",
+                CONFIG.colorBlack,
+                currentX,
+                currentMaxW
+            );
+
+            // Calcula novo Y final
+            const imageEndY = y + imgHeight;
+            y = Math.max(currentTextY, imageAdded ? imageEndY : currentTextY);
+            y += 10;
+        }
+
+        // 4. Análise de Sequências (Ex: 333, 555)
+        const sequencesFound = {};
+        pyResult.data.forEach(row => {
+            if (row.type === 'numbers') {
+                const seqs = findSequences(row.data);
+                seqs.forEach(index => {
+                    if (index % 3 === 0) {
+                        const num = row.data[index];
+                        const key = `${num}${num}${num}`;
+                        if (sequenciaNegativa && sequenciaNegativa[key]) {
+                            sequencesFound[key] = sequenciaNegativa[key];
+                        }
+                    }
+                });
+            }
+        });
+
+        if (Object.keys(sequencesFound).length > 0) {
+            y = checkPageBreak(y, 40);
+            doc.setDrawColor(200, 200, 200);
+            doc.line(CONFIG.margin, y, CONFIG.pageWidth - CONFIG.margin, y);
+            y += 10;
+
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(14);
+            doc.setTextColor(255, 0, 0);
+            doc.text("Interpretação das Sequências:", CONFIG.margin, y);
+            y += 10;
+
+            Object.entries(sequencesFound).forEach(([seq, desc]) => {
+                y = checkPageBreak(y);
+                doc.setFont("helvetica", "bold");
+                doc.setTextColor(255, 0, 0);
+                doc.text(`${seq.charAt(0)} ${seq.charAt(1)} ${seq.charAt(2)} -`, CONFIG.margin, y);
+                y += 6;
+                
+                y = printWrappedText(desc, y);
+                y += 5;
+            });
+        }
+      }
+      // =================================================================
+      // 21. NOMES SOCIAIS (Com Pirâmide + Imagem + Texto)
+      // =================================================================
       if (nomesSociais && nomesSociais.length > 0) {
         doc.addPage();
         addWatermarkHelper();
         addToIndex("Nomes Sociais");
         y = printSectionTitle("Nomes Sociais", 30);
-        y = printWrappedText("Alternativas energéticas para equilibrar sua jornada.", y);
-        y += 10;
+        y = printWrappedText(
+    "O Nome Social representa a vibração que a pessoa escolhe expressar no presente. Ele simboliza a identidade assumida por vontade própria, refletindo como ela deseja ser vista, reconhecida e tratada pelo mundo. \n\n" +
+    "Ao contrário do nome de nascimento, que revela tendências profundas, missão e aspectos estruturais da alma, o nome social traduz o eu construído conscientemente, funcionando como uma assinatura energética que pode reforçar, suavizar ou redirecionar padrões da personalidade. \n\n" +
+    "Sua análise mostra a energia vibracional ativada quando alguém usa o nome social no dia a dia — seja socialmente, profissionalmente ou emocionalmente — e revela a forma como a pessoa quer se posicionar, ser percebida e influenciar o ambiente. " +
+    "Quando harmônico com o nome de origem, o nome social amplia a fluidez e fortalece a expressão pessoal. Quando há contraste entre eles, o nome social pode atuar como ajuste, proteção, afirmação ou correção vibracional.",
+    y
+);
+y += 10;
 
-        nomesSociais.forEach((social, idx) => {
-           y = checkPageBreak(y, 40); // Verifica espaço para o bloco
-           doc.setFont("helvetica", "bold");
-           doc.setFontSize(14);
-           doc.text(`Opção ${idx + 1}: ${social.nome}`, CONFIG.margin, y);
-           y += 7;
-           doc.setFontSize(12);
-           doc.text(`Arcano: ${social.arcano}`, CONFIG.margin, y);
-           y += 7;
-           
-           // Pirâmide (Lógica simplificada para caber aqui, idealmente usar função externa se complexa)
-           if (generateInvertedPyramid) {
-             const pyData = generateInvertedPyramid(social.nome);
-             // Renderizar pirâmide aqui se necessário, usando lógica similar à original
-             // Para brevidade, apenas texto do arcano:
-           }
-           
-           if (arcanos?.[social.arcano]) {
-             y = printWrappedText(arcanos[social.arcano].descricao, y, 10);
-           }
-           y += 10;
-           doc.line(CONFIG.margin, y, CONFIG.pageWidth - CONFIG.margin, y);
-           y += 10;
-        });
+
+        const uniqueNomes = nomesSociais.filter((item, index, self) =>
+          index === self.findIndex((t) => (
+            t.nome.toLowerCase().trim() === item.nome.toLowerCase().trim()
+          ))
+        );
+
+        for (const [idx, social] of uniqueNomes.entries()) {
+          // 1. Configurações de Layout
+          const imgWidth = 35;
+          const imgHeight = 55;
+          const gap = 5;
+          const textX = CONFIG.margin + imgWidth + gap;
+          const textMaxWidth = CONFIG.pageWidth - CONFIG.margin - textX;
+
+          // Verificar espaço para o Título + Pirâmide mínima
+          y = checkPageBreak(y, 60);
+
+          // 2. Título
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(14);
+          doc.setTextColor(CONFIG.colorBlack);
+          doc.text(`Opção ${idx + 1}: ${social.nome}`, CONFIG.margin, y);
+          y += 10;
+
+          // 3. DESENHAR A PIRÂMIDE DO NOME SOCIAL
+          const pyResult = drawPyramid(social.nome, y);
+          y = pyResult.nextY + 5; // Atualiza Y para abaixo da pirâmide
+
+          // 4. Preparar bloco Imagem/Texto
+          const startBlockY = y; // Ponto onde começa a imagem e o texto
+
+          // Verificar se cabe a imagem, senão quebra página
+          y = checkPageBreak(y, imgHeight);
+          // Se houve quebra, reseta o startBlockY para o novo topo
+          const effectiveBlockY = (y === CONFIG.margin) ? y : startBlockY;
+
+          // 5. Tenta carregar e desenhar a imagem
+          let imageAdded = false;
+          if (arcanos?.[social.arcano]?.image) {
+            try {
+              const imgBase64 = await loadImage(arcanos[social.arcano].image);
+              if (imgBase64) {
+                doc.addImage(imgBase64, 'PNG', CONFIG.margin, effectiveBlockY, imgWidth, imgHeight);
+                imageAdded = true;
+              }
+            } catch (err) {
+              console.error("Erro imagem:", err);
+            }
+          }
+
+          // 6. Renderiza o Texto (Lado direito ou normal)
+          let currentTextY = effectiveBlockY;
+          const currentX = imageAdded ? textX : CONFIG.margin;
+          const currentMaxW = imageAdded ? textMaxWidth : 170;
+
+          // Título do Arcano
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(12);
+          doc.setTextColor(CONFIG.colorBlack);
+          doc.text(`Arcano: ${social.arcano} - ${arcanos?.[social.arcano]?.titulo || ''}`, currentX, currentTextY + 5);
+          currentTextY += 10;
+
+          // Descrição
+          if (arcanos?.[social.arcano]) {
+            currentTextY = printWrappedText(
+              arcanos[social.arcano].descricao,
+              currentTextY,
+              10,
+              "normal",
+              CONFIG.colorBlack,
+              currentX,
+              currentMaxW
+            );
+          }
+
+          // 7. Calcular novo Y final (maior entre texto e imagem)
+          const imageEndY = effectiveBlockY + imgHeight;
+          y = Math.max(currentTextY, imageAdded ? imageEndY : currentTextY);
+
+          y += 10;
+          doc.setDrawColor(200, 200, 200);
+          doc.line(CONFIG.margin, y, CONFIG.pageWidth - CONFIG.margin, y);
+          y += 10;
+        }
       }
 
+      // =================================================================
+      // 25. MENSAGEM FINAL / DEDICATÓRIA
+      // =================================================================
+      doc.addPage();
+      addWatermarkHelper();
+      
+      // Centraliza verticalmente
+      let yFinal = CONFIG.pageHeight / 4; // Começa um pouco mais pra cima
+
+      // --- Título da Mensagem ---
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(18);
+      doc.setTextColor(CONFIG.colorBlack);
+      doc.text("Uma Nota Pessoal", CONFIG.centerX, yFinal, { align: "center" });
+      yFinal += 20;
+
+      // --- Texto Humanizado ---
+      doc.setFont("helvetica", "normal"); // Fonte de leitura agradável
+      doc.setFontSize(12);
+      
+      // Texto concatenado com o nome do cliente para dar o toque pessoal
+      const mensagem = 
+        `Este Mapa Numerológico foi preparado especialmente para você, ${nomeCliente || ''}, com atenção às suas vibrações, aos caminhos que se abrem diante da sua jornada e às forças que dançam na sua data de nascimento e no seu nome.\n\n` +
+        "Cada número aqui não fala de destino fechado, mas de potenciais, talentos e desafios que fazem parte da sua história única.\n\n" +
+        "Que este material sirva como um espelho gentil, revelando aspectos profundos do seu ser e iluminando passos que talvez estivessem adormecidos. Agradeço de coração por confiar seu mapa às minhas mãos.\n\n" +
+        "Que a leitura traga clareza, força e direção — e que você se reconheça, com verdade e acolhimento, em cada página.";
+
+      // Imprime o texto com margens laterais maiores (40) para parecer uma carta centralizada
+      yFinal = printWrappedText(mensagem, yFinal, 12, "normal", CONFIG.colorBlack, 40, 130);
+
+      yFinal += 10;
+      doc.text("Com carinho,", 40, yFinal); // Alinhado com a margem do texto
+
+      // --- ASSINATURA "MANUSCRITA" ---
+      yFinal += 25; // Espaço para a assinatura
+
+      // Truque para parecer assinatura: Usar fonte Times, Itálico e tamanho maior
+      doc.setFont("times", "italic"); 
+      doc.setFontSize(30); 
+      doc.setTextColor(CONFIG.colorBlack); 
+      
+      // Desenha a assinatura levemente inclinada para a direita (simulando escrita manual)
+      doc.text("Manouche Yasmin", CONFIG.centerX, yFinal, { align: "center" });
+      
+      // Linha fina abaixo (opcional, estilo documento oficial)
+      // doc.setLineWidth(0.2);
+      // doc.line(CONFIG.centerX - 40, yFinal + 2, CONFIG.centerX + 40, yFinal + 2);
+
+      // Cargo abaixo da assinatura
+      yFinal += 10;
+      doc.setFont("helvetica", "normal"); // Volta para fonte normal
+      doc.setFontSize(10);
+      doc.setTextColor(CONFIG.colorGray);
+      doc.text("Numeróloga Cabalística", CONFIG.centerX, yFinal, { align: "center" });
+
       // -------------------------------------------------------------
-      // FINALIZAÇÃO: GERAR ÍNDICE NA PÁGINA RESERVADA
+      // FINALIZAÇÃO
       // -------------------------------------------------------------
       doc.setPage(paginaIndiceRef);
       y = printSectionTitle("ÍNDICE", 30);
-      
-      // Ordenar e Renderizar Índice
       indiceItens.sort((a, b) => a.pagina - b.pagina);
-      
       indiceItens.forEach(item => {
         if (y > CONFIG.pageHeight - CONFIG.margin) {
-           // Se o índice for muito grande, cria nova página e continua
-           doc.addPage(); 
-           addWatermarkHelper();
-           y = CONFIG.margin + 10;
+          doc.addPage();
+          addWatermarkHelper();
+          y = CONFIG.margin + 10;
         }
-        
         doc.setFont("helvetica", "normal");
         doc.setFontSize(12);
         doc.text(item.titulo, CONFIG.margin, y);
-        
-        // Linha pontilhada
-        const dots = ".".repeat(100); // Simplificação visual
+        const dots = ".".repeat(100);
         const titleWidth = doc.getTextWidth(item.titulo);
         const pageNumStr = String(item.pagina);
         doc.text(dots, CONFIG.margin + titleWidth + 2, y, { maxWidth: CONFIG.pageWidth - CONFIG.margin - 30 - titleWidth });
-        
         doc.setFont("helvetica", "bold");
         doc.text(pageNumStr, CONFIG.pageWidth - CONFIG.margin - 10, y, { align: "right" });
         y += 10;
       });
 
-      // Salvar Arquivo
       doc.save(`Mapa_Numerologico_${nomeCliente || 'Cliente'}.pdf`);
 
     } catch (error) {
@@ -728,4 +1041,4 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
   );
 };
 
-export default PdfGeneratorButton;
+export default PdfGeneratorButton;  

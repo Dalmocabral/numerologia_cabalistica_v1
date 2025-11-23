@@ -2444,91 +2444,113 @@ pelos períodos de estagnação. Tudo isto pode afetar o sistema nervoso e o cor
 
 export const arcanos = {
   1: {
-    titulo: "Arcano 1",
+    image: "https://i.ibb.co/PbRw50V/1-O-mago.jpg",
+    titulo: "ARCANO PESSOAL 1 - O MAGO ou ",
     descricao: "Aponta para os dons e para o potencial criativo que ainda não se manifestaram. Pode surgir como um pressentimento, uma intuição, uma súbita rajada de energia com relação a novas oportunidades. Indica um momento de clareza e de identificação das possibilidades inexploradas. O Mago vem indicar que agora a viagem será possível, e que ele tem consciência de suas reais possibilidades e de sua capacidade, ainda que não desenvolvida. A atenção deve se voltar para a intuição e os pressentimentos, pois podem revelar as novas oportunidades que poderão surgir de modo inesperado. Representa a atividade mental consciente, a convicção e a direção e prontidão; a inteligência materializada pela vontade."
   },
   2: {
-    titulo: "Arcano 2",
+    image: "https://i.ibb.co/1G16HZRQ/2-A-Sacerdotisa.jpg",
+    titulo: "ARCANO PESSOAL 2 - A PAPISA ou A SACERDOTISA",
     descricao: "Indica força e intuição e sugere o encontro com o mundo interior. O indivíduo pode estar sendo conduzido para esse mundo sem qualquer explicação por intermédio de seu interesse pelas coisas ocultas, pelo esoterismo, ou, talvez, pelos efeitos de algum sonho perturbador. Enfim, por algo que de alguma forma lhe diga que existem forças superiores que atuam na vida das pessoas. Denota percepção das próprias necessidades espirituais e sentimento religioso. Representa a atividade mental intuitiva; a sensibilidade aflorada, a sabedoria e o mistério, os planos futuros, os estudos, o silêncio e a espera."
   },
   3: {
-    titulo: "Arcano 3",
+    image: "https://i.ibb.co/ZpYxKKCK/3-A-Imperatriz.jpg",
+    titulo: "ARCANO PESSOAL 3 - A IMPERATRIZ ou A EMPERATRIZ",
     descricao: "Significa criatividade, produtividade, maternidade, abundância, boas colheitas, êxito em um ambiente seguro e isento de perigos. Fertilidade tanto mental como física. Indica uma fase da vida mais ligada às coisas terrenas. Um casamento, ou mesmo o nascimento de uma criança podem estar prestes a acontecer. A Imperatriz mostra ainda o êxito nas empresas, e nos empreendimentos, se a pessoa for firme e reta nos pensamentos e ações. Representa o poder da imaginação, a visualização criativa, as emoções saudáveis e o amor; a materialização do desejo; comunicação, inovação, fertilidade, expansão e crescimento."
   },
   4: {
-    titulo: "Arcano 4",
+    image: "https://i.ibb.co/pjLnJvFZ/4-O-Imperador.jpg",
+    titulo: "ARCANO PESSOAL 4 - O IMPERADOR ou O EMPERADOR",
     descricao: "Significa liderança, atividade mental, dominação, domínio, paternidade. Ditadura; paixão, mas sempre controlada pela inteligência. É a majestade e o poder. Mostra manifestação de autoridade ou necessidade de consulta a uma autoridade ou superior hierárquico. Confronto com o princípio paternal, tanto no seu aspecto positivo quanto negativo. Representa o poder e a autoridade, a faculdade da razão, a lógica e o raciocínio indutivo; atividade, força e poder; a realidade estruturada e lógica, a disciplina, o anseio por estabilidade e seriedade; os planos seguros."
   },
   5: {
-    titulo: "Arcano 5",
+    image: "https://i.ibb.co/4whHbnMy/5-O-Papa.jpg",
+    titulo: "ARCANO PESSOAL 5 - O PAPA ou O HIEROFANTE",
     descricao: "Significa ortodoxia, apego às formas externas, ao convencional, ao credo e ao ritual. Tradicionalismo; necessidade de seguir as normas socialmente aceitas; disposição para o dever, a consciência, a generosidade, o perdão, a compaixão e a busca por respostas de ordem filosófica. O Hierofante pode surgir na forma de um psicoterapeuta, um conselheiro, um mestre ou mentor espiritual a quem nos dirigimos em busca de auxilio e orientação. Pode estar indicando que há necessidade de começar a buscar algumas respostas de ordem filosófica. Esse questionamento pode se traduzir no estudo aprofundado de alguma filosofia, ou de um sistema religioso, ou crença, ou mesmo na forma de um profundo comprometimento com relação ao sentido da vida. Representa a compreensão racional das coisas percebidas intuitivamente; as trocas de experiências para aprender e ensinar, as mudanças, a responsabilidade e a moralidade."
   },
   6: {
-    titulo: "Arcano 6",
+    image: "https://i.ibb.co/CpxBP6dk/6-Os-namorados.jpg",
+    titulo: "ARCANO PESSOAL 6 - OS ENAMORADOS ou OS AMANTES",
     descricao: "Significa escolha, eleição, tentação, atração. A luta entre o sagrado e o profano nas relações amorosas. Harmonia dos aspectos interior e exterior da vida; amor puro na sua expressão mais elevada; altruísmo. No mundo divino é a ciência do bem e do mal; no mundo intelectual é o equilíbrio da necessidade e da liberdade; no mundo físico é o antagonismo das forças naturais, o encadeamento das causas aos efeitos. Indica necessidade de escolhas, quase sempre no plano amoroso. Pode também indicar a necessidade de estabilizar as emoções. Representa as escolhas seletivas, as faculdades discriminativas da mente; a busca pelo equilíbrio e estabilidade emocional; as uniões, as relações e situações felizes."
   },
   7: {
-    titulo: "Arcano 7",
+    image: "https://i.ibb.co/qvzb51v/7-O-carro.jpg",
+    titulo: "ARCANO PESSOAL 7 - O CARRO",
     descricao: "Significa triunfo, êxito, vitória. Controle sobre as forças da natureza. Recuperação da saúde, vitória sobre as penúrias econômicas ou sobre inimigos de qualquer tipo. É o arcano que representa o alcance de algo grande; conflito e luta que, por sua vez, resultam em crescimento e fortalecimento da personalidade. Pode também significar viagens agradáveis e cômodas. Representa poder e vontade; triunfo, avanço e progresso; novas experiências, confiança, novidades, agilidade."
   },
   8: {
-    titulo: "Arcano 8",
-    descricao: "(A Justiça)."
+    image: "https://i.ibb.co/xK8pscqY/11-a-justi-a.jpg",
+    titulo: "ARCANO PESSOAL 8 - A FORÇA",
+    descricao: "A Força, como Arcano Pessoal, representa a necessidade de confrontar desafios com inteligência e sabedoria. A pessoa deve lidar de maneira equilibrada com aspectos práticos e espirituais da vida, relaxar e acreditar em suas capacidades, usando seu carisma e influência positivamente."
   },
   9: {
-    titulo: "Arcano 9",
-    descricao: "(O Eremita)."
+    image: "https://i.ibb.co/Ng7Kmyw2/9-heremita.jpg",
+    titulo: "ARCANO PESSOAL 9 - O EREMITA ou O HERMITÃO",
+    descricao: "O Eremita, como Arcano Pessoal, encoraja a viver uma vida de reflexão e autoconhecimento. A pessoa deve buscar a serenidade em seu próprio espaço, evitar a dependência dos outros, e transmitir sabedoria, sempre atenta para não se doar em excesso, lembrando que cada coisa tem seu tempo."
   },
   10: {
-    titulo: "Arcano 10",
+    image: "https://i.ibb.co/0j3vY6c/10-Roda-da-fortuna.jpg",
+    titulo: "ARCANO PESSOAL 10 - A RODA DA FORTUNA",
     descricao: "Significa êxito, golpe de sorte inesperado; mudança para melhor. Evolução favorável, segundo as leis do acaso; prenuncia alguma mudança brusca na vida, que tanto pode ser boa como ruim. De qualquer forma, a virada da roda sempre traz o crescimento e inaugura uma nova fase da vida. Representa a riqueza, as trocas favoráveis e a expansão; mudanças e boa fortuna; adverte sobre o tempo e a instabilidade, a falta de planos e a lei do retorno; indica que é tempo de aprender para crescer."
   },
   11: {
-    titulo: "Arcano 11",
+    image: "https://i.ibb.co/wNGxwn8f/8-A-justi-a.jpg",
+    titulo: "ARCANO PESSOAL 11 - A JUSTIÇA",
     descricao: "Significa força de caráter; o poder espiritual vencendo o poder material e as forças impulsivas das paixões físicas e emocionais. O amor triunfando sobre o ódio. Vitória da natureza superior sobre os desejos mundanos e carnais; uma situação onde a colisão com o leão interior é inevitável, em que a administração bem conduzida da própria raiva e de todas as emoções é altamente benéfica. A coragem, a força e a autodisciplina são necessárias para dominar a situação. Representa a energia que atua transformando a matéria; a força da mente e o domínio sobre o ambiente."
   },
   12: {
-    titulo: "Arcano 12",
+    image: "https://i.ibb.co/XZJFJQNK/12-Enforcado.jpg",
+    titulo: "ARCANO PESSOAL 12 - O PENDURADO ou O ENFORCADO",
     descricao: "Significa renúncia ou sacrifício por motivos superiores; desenvolvimento das faculdades psíquicas; domínio da tentação material; transformação da personalidade através da renúncia ou do sacrifício; necessidade do sacrifício voluntário com o propósito de atingir algo muito mais valioso. Representa a abnegação e o sacrifício voluntário por uma causa justa."
   },
   13: {
-    titulo: "Arcano 13",
+    image: "https://i.ibb.co/qLt8BTmY/13-Morte.jpg",
+    titulo: "ARCANO PESSOAL 13 - A MORTE",
     descricao: "Significa transformação, mudança e destruição seguidas de renovação; morte de uma parte de si, para o nascimento de novas ideias e de novas oportunidades; uma transformação inevitável, um renascimento do ser interior, desde que se consiga abrir mão da parte de nós que não somos mais. Se essa experiência será dolorosa ou não, vai depender da nossa capacidade em aceitar e reconhecer a necessidade dos fechamentos. Representa as transformações profundas que a vida exige de nós; renovação e mudanças radicais."
   },
   14: {
-    titulo: "Arcano 14",
+    image: "https://i.ibb.co/0Jt0y2c/14-Temperan-a.jpg",
+    titulo: "ARCANO PESSOAL 14 - A TEMPERANÇA",
     descricao: "Significa moderação, adaptação, compreensão, cooperação e trabalho em harmonia com os demais; boa administração; o que imagina ocorrerá; conseguirá combinações de êxito; paz interior; necessidade de um redirecionamento no fluxo dos sentimentos e dos relacionamentos. Representa as provas a serem superadas e o otimismo e a confiança necessários para isso; adaptação."
   },
   15: {
-    titulo: "Arcano 15",
+    image: "https://i.ibb.co/0Jt0y2c/15-O-diabo.jpg",
+    titulo: "ARCANO PESSOAL 15 - O DIABO",
     descricao: "(O Diabo)."
   },
   16: {
-    titulo: "Arcano 16",
+    image: "https://i.ibb.co/0Jt0y2c/16-A-torre.jpg",
+    titulo: "ARCANO PESSOAL 16 - A TORRE",
     descricao: "(A Torre)."
   },
   17: {
-    titulo: "Arcano 17",
+    image: "https://i.ibb.co/0Jt0y2c/17-A-estrela.jpg",
+    titulo: "ARCANO PESSOAL 17 - A ESTRELA",
     descricao: "Significa inspiração, visão, esperança, idealismo; ajuda desinteressada; dons espirituais em desenvolvimento; grande amor em evidência; esperança e fé em meio às atribulações; renascimento da alegria e do amor; influência, ascendência, criatividade, contato com alguma pessoa que trará inspiração. Representa ideia ou conceito de esperança; caminhos abertos, reinício, ação e projetos favoráveis."
   },
   18: {
-    titulo: "Arcano 18",
+    image: "https://i.ibb.co/0Jt0y2c/18-O-lua.jpg",
+    titulo: "ARCANO PESSOAL 18 - A LUA",
     descricao: "Significa inspiração, imaginação, intuição; desenvolvimento das faculdades psíquicas latentes; viagem astral; o mundo subconsciente dos sonhos; as trevas; um período de confusão, de flutuação e de incertezas. Representa o inconsciente misterioso e oculto; inimigos ocultos, feitiçaria, escuridão, medo, intrigas e fofocas."
   },
   19: {
-    titulo: "Arcano 19",
+    image: "https://i.ibb.co/0Jt0y2c/19-O-sol.jpg",
+    titulo: "ARCANO PESSOAL 19 - O SOL",
     descricao: "Significa paz, amor e felicidade; uma vida bem vivida; um trabalho bem feito; despertar e renovação; assuntos legais favoráveis; alegria e prosperidade; cumulação no plano espiritual; um período de clareza, dinamismo e confiança renovada. Representa a luz presente em cada ser humano, sua sabedoria, generosidade, confiança e caráter; saúde e bem-estar."
   },
   20: {
-    titulo: "Arcano 20",
+    image: "https://i.ibb.co/0Jt0y2c/20-O-julgamento.jpg",
+    titulo: "ARCANO PESSOAL 20 - O JULGAMENTO",
     descricao: "Significa renascimento de uma nova vida; que coisas maravilhosas vão ocorrer; poderá vislumbrar o que lhe prepara o futuro; transformação; verá tudo sob uma nova luz; rompimento com o convencional; propõe um período de recompensas pelos esforços empreendidos anteriormente. Representa o julgamento ou síntese que permitem a compreensão da realidade final e o transcender da mente; aproveitar as experiências passadas, renascer para vida nova; troca de ideias, popularidade, fama."
   },
   21: {
-    titulo: "Arcano 21",
+    image: "https://i.ibb.co/0Jt0y2c/21-O-mundo.jpg",
+    titulo: "ARCANO PESSOAL 21 - O MUNDO",
     descricao: "Significa liberdade para ir em qualquer direção que desejar; conclusão de um trabalho bem feito; triunfo em qualquer coisa que se empreenda; um período de realizações e de totalização; o momento do sucesso, da finalização positiva de um processo ou de uma questão; o instante de alcançarmos um objetivo, de atingirmos um ideal pelo qual lutamos durante muito tempo. Representa os poderes paranormais, a dominação sobre as leis físicas e a matéria; sucesso, viagens, plenitude."
   },
   22: {
-    titulo: "Arcano 22",
+    image: "https://i.ibb.co/0Jt0y2c/22-O-louco.jpg",
+    titulo: "ARCANO PESSOAL 22 - O LOUCO",
     descricao: "Significa decisão importante; encontrar-se diante de uma escolha que deve ser decidida com cuidado, mas também com coragem e, sobretudo, atendendo a intuição e aos impulsos interiores; anuncia o advento de um novo capítulo da vida. Existe o risco, mas existe também o desejo de saltar no desconhecido. Representa as inteligências sobre-humanas, a espontaneidade, o espiritual atuando no material, o risco."
   },
   23: {
