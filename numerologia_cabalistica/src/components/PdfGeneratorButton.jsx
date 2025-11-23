@@ -312,10 +312,21 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       doc.text("DADOS DO CLIENTE", CONFIG.centerX, y, { align: "center" });
       doc.setFontSize(16);
       doc.text(`Cliente: ${nomeCliente || "Não informado"}`, CONFIG.centerX, y + 20, { align: "center" });
-      const dataFmt = dataNascimento ? new Date(dataNascimento).toLocaleDateString('pt-BR') : "Não informada";
+      
+      // --- CORREÇÃO AQUI ---
+      let dataFmt = "Não informada";
+      if (dataNascimento) {
+        // dataNascimento vem como "1983-12-08"
+        const partes = dataNascimento.split('-'); 
+        // partes[0] = ano, partes[1] = mes, partes[2] = dia
+        if (partes.length === 3) {
+           dataFmt = `${partes[2]}/${partes[1]}/${partes[0]}`;
+        }
+      }
+      // ---------------------
+
       doc.text(`Data de Nascimento: ${dataFmt}`, CONFIG.centerX, y + 30, { align: "center" });
       addToIndex("Dados do Cliente");
-
       // 3. INTRODUÇÃO
       doc.addPage();
       addWatermarkHelper();
