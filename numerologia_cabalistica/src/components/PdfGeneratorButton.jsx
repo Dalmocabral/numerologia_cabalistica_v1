@@ -14,7 +14,7 @@ import { calcularDestino } from "./CalculoDestino";
 import { calcularMissao } from "./CalculoMissao";
 import { calcularDividasCarmicas } from "./CalculoDividasCarmicas";
 import { calcularLicoesCarmicas } from "./CalculoLicoesCarmicas";
-import { calcularMesesPessoaisRestantes } from "./CalculoMesDiaPessoal";
+import { calcularMesesPessoaisRestantes, calcularDiaPessoal } from "./CalculoMesDiaPessoal";
 import { calcularAnoPessoal } from "./CalculoAnoPessoal";
 import { calcularTendenciasOcultas } from "./CalculoTendenciasOcultas";
 import { calcularSubconsciente } from "./CalculoSubconsciente";
@@ -27,16 +27,19 @@ import { calcularHarmoniaConjugal } from "./CalculoHarmoniaConjugal";
 import { generateInvertedPyramid, findSequences } from "./generateInvertedPyramid";
 
 
+
 import {
   tabelaNumeros, tabelaAcentos, motivacaoTextos, impressaoTextos, expressaoTextos, destinoTextos, missaoTextos,
   dividasCarmicasTextos, licoesCarmicasTexto, anoPessoalDescritivo, tendenciaOculta, respostaSubconsciente,
-  mesesPessoal, sequenciaNegativa, arcanos, CicloVida, desafios as desafiosTextos, momentosDecisivos as momentosDecisivosTextos
+  mesesPessoal, sequenciaNegativa, arcanos, CicloVida, segundoCicloVida, terceiroCicloVida, desafios as desafiosTextos, momentosDecisivos, segundoMomentoDecisivo,
+  terceiroMomentoDecisivo, quartoMomentoDecisivo, diaPessoal as diaPessoalTextos,
+  caracteristicasDiaNascimento
 } from "./TabelaNumerologia";
 
 // =================================================================
 // 2. COMPONENTE PRINCIPAL
 // =================================================================
-const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode, nomesSociais = [] }) => {
+const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode, nomesSociais = [], mesInteresse, diaInteresse }) => {
 
   // --- Funções Utilitárias ---
   const calcularValorComAcento = (letra) => {
@@ -74,17 +77,44 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
     });
   };
 
+  // Função para carregar a imagem JÁ com opacidade aplicada (Fix definitivo para mobile)
+  const prepareWatermarkImage = (url, opacity = 0.1) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.src = url;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+
+        // A MÁGICA ACONTECE AQUI:
+        // Define a transparência no Canvas antes de desenhar
+        ctx.globalAlpha = opacity;
+        ctx.drawImage(img, 0, 0);
+
+        // Retorna a imagem já processada como PNG transparente
+        resolve(canvas.toDataURL('image/png'));
+      };
+      img.onerror = () => {
+        console.warn("Erro ao processar marca d'água");
+        resolve(null);
+      };
+    });
+  };
+
   // =================================================================
   // 3. FUNÇÃO GERADORA DO PDF (CORE)
   // =================================================================
   const generatePDF = async () => {
     const doc = new jsPDF();
 
-    // Configurações Globais
+    // ... (suas configurações CONFIG permanecem iguais) ...
     const CONFIG = {
       margin: 20,
-      pageHeight: doc.internal.pageSize.height, // A4 Altura ~297
-      pageWidth: doc.internal.pageSize.width,   // A4 Largura ~210
+      pageHeight: doc.internal.pageSize.height,
+      pageWidth: doc.internal.pageSize.width,
       centerX: doc.internal.pageSize.width / 2,
       lineHeight: 7,
       colorBlack: '#000000',
@@ -92,20 +122,24 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       colorGray: '#9E9E9E'
     };
 
-    // Variável Mestra de Controle Vertical (Y)
     let y = CONFIG.margin;
     const indiceItens = [];
 
-    // --- Helpers de Controle de Página ---
+    // 1. PREPARAR A MARCA D'ÁGUA (Carrega ela já transparente)
+    // Passamos 0.08 (8%) de opacidade para ficar bem suave
+    const watermarkBase64 = await prepareWatermarkImage(logo, 0.08);
 
+    // --- Helper ATUALIZADO (Sem setGState) ---
     const addWatermarkHelper = () => {
-      doc.saveGraphicsState();
-      doc.setGState(new doc.GState({ opacity: 0.1 }));
-      const wmWidth = CONFIG.pageWidth * 0.7;
-      const x = (CONFIG.pageWidth - wmWidth) / 2;
-      const wmY = (CONFIG.pageHeight - wmWidth) / 2;
-      doc.addImage(logo, "PNG", x, wmY, wmWidth, wmWidth);
-      doc.restoreGraphicsState();
+      if (watermarkBase64) {
+        const wmWidth = CONFIG.pageWidth * 0.7;
+        const x = (CONFIG.pageWidth - wmWidth) / 2;
+        const wmY = (CONFIG.pageHeight - wmWidth) / 2;
+
+        // NÃO USAMOS MAIS setGState AQUI
+        // A imagem 'watermarkBase64' já é transparente por natureza
+        doc.addImage(watermarkBase64, "PNG", x, wmY, wmWidth, wmWidth);
+      }
     };
 
     // Verifica se o elemento que queremos desenhar cabe na página.
@@ -126,17 +160,17 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       // Se já tem muito conteúdo na página (> 1/3 usada), força quebra para destaque.
       // Ou se não cabe o título + um pouco de texto (40px).
       if (y > CONFIG.margin + 10) {
-         y = checkPageBreak(y, 200); // Força quebra se não estiver no topo
-         // Se checkPageBreak não quebrou (pq cabe), forçamos addPage para organização
-         if (y > CONFIG.margin) {
-             doc.addPage();
-             addWatermarkHelper();
-             y = CONFIG.margin;
-         }
+        y = checkPageBreak(y, 200); // Força quebra se não estiver no topo
+        // Se checkPageBreak não quebrou (pq cabe), forçamos addPage para organização
+        if (y > CONFIG.margin) {
+          doc.addPage();
+          addWatermarkHelper();
+          y = CONFIG.margin;
+        }
       }
-      
+
       // Desenha o título
-      y += 10; 
+      y += 10;
       doc.setFont("helvetica", "bold");
       doc.setFontSize(22);
       doc.setTextColor(CONFIG.colorBlack);
@@ -149,9 +183,9 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       doc.setFont("helvetica", fontType);
       doc.setFontSize(fontSize);
       doc.setTextColor(color);
-      
+
       const lines = doc.splitTextToSize(String(text), maxWidth);
-      
+
       // Antes de imprimir, verifica se o bloco inteiro cabe? Não, linha a linha.
       lines.forEach(line => {
         currentY = checkPageBreak(currentY, CONFIG.lineHeight);
@@ -171,13 +205,13 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       if (!pyramidData || pyramidData.length === 0) return { nextY: startY, data: [] };
 
       let currentY = startY;
-      const cellWidth = 6;  
-      const cellHeight = 4; 
+      const cellWidth = 6;
+      const cellHeight = 4;
 
       pyramidData.forEach((row) => {
         // Verifica se a próxima linha da pirâmide cabe
         currentY = checkPageBreak(currentY, cellHeight + 2);
-        
+
         const rowLength = row.data.length;
         const totalRowWidth = rowLength * cellWidth;
         const startX = (CONFIG.pageWidth - totalRowWidth) / 2;
@@ -186,7 +220,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         row.data.forEach((item, itemIndex) => {
           const x = startX + (itemIndex * cellWidth);
           const isSequence = sequences.includes(itemIndex);
-          
+
           doc.setDrawColor(0);
           doc.rect(x, currentY, cellWidth, cellHeight);
 
@@ -209,7 +243,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
 
     const renderNomeNumerologia = (nome, startY) => {
       if (!nome) return startY;
-      
+
       // Verifica espaço para as duas linhas do nome (aprox 20px)
       let currentY = checkPageBreak(startY, 30);
 
@@ -219,14 +253,14 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       const totalWidth = (letras.length * espacamento) - 5;
       const startX = (CONFIG.pageWidth - totalWidth) / 2;
       let x = startX;
-      
+
       letras.forEach(letra => {
         doc.setFontSize(14);
         doc.setTextColor(isVogal(letra) ? CONFIG.colorBlue : CONFIG.colorGray);
         doc.text(letra, x, currentY);
         x += espacamento;
       });
-      
+
       x = startX;
       currentY += 7;
       letras.forEach(letra => {
@@ -241,7 +275,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
     const renderTableHelper = (headers, data, startY) => {
       const colWidth = (CONFIG.pageWidth - (CONFIG.margin * 2)) / headers.length;
       let currentY = checkPageBreak(startY, 20); // Garante espaço pro header
-      
+
       const printHeader = (curr) => {
         doc.setFontSize(10);
         doc.setFont("helvetica", "bold");
@@ -257,7 +291,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
 
       currentY = printHeader(currentY);
       doc.setFont("helvetica", "normal");
-      
+
       data.forEach(row => {
         const cellValues = Object.values(row);
         const maxLines = Math.max(...cellValues.map(cell => doc.splitTextToSize(String(cell), colWidth - 4).length));
@@ -267,9 +301,9 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         currentY = checkPageBreak(currentY, rowHeight);
         // Se mudou de página (voltou pro topo), reimprime o header
         if (currentY === CONFIG.margin) {
-            currentY = printHeader(currentY);
+          currentY = printHeader(currentY);
         }
-        
+
         let x = CONFIG.margin;
         cellValues.forEach(cell => {
           const lines = doc.splitTextToSize(String(cell), colWidth - 4);
@@ -304,10 +338,10 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       doc.text("DADOS DO CLIENTE", CONFIG.centerX, y, { align: "center" });
       doc.setFontSize(16);
       doc.text(`Cliente: ${nomeCliente || "Não informado"}`, CONFIG.centerX, y + 20, { align: "center" });
-      
+
       let dataFmt = "Não informada";
       if (dataNascimento) {
-        const partes = dataNascimento.split('-'); 
+        const partes = dataNascimento.split('-');
         if (partes.length === 3) dataFmt = `${partes[2]}/${partes[1]}/${partes[0]}`;
       }
       doc.text(`Data de Nascimento: ${dataFmt}`, CONFIG.centerX, y + 30, { align: "center" });
@@ -318,7 +352,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       doc.addPage(); // Força página para intro
       addWatermarkHelper();
       y = CONFIG.margin;
-      
+
       y = printSectionTitle("Numerologia Cabalística");
       const introText = [
         "A Numerologia Cabalística é uma ciência sagrada que estuda a influência dos números na vida humana...",
@@ -332,16 +366,16 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       doc.addPage(); // Página 4 física (reservada)
       addWatermarkHelper();
       const paginaIndiceRef = doc.internal.getNumberOfPages();
-      y = CONFIG.margin; 
-      
+      y = CONFIG.margin;
+
       // Aqui forçamos uma página nova para começar o conteúdo real (Página 5)
-      doc.addPage(); 
+      doc.addPage();
       addWatermarkHelper();
       y = CONFIG.margin;
 
       // 5. MOTIVAÇÃO
       if (nomeCliente) {
-        y = printSectionTitle("Motivação"); 
+        y = printSectionTitle("Motivação");
         addToIndex("Motivação");
         y = renderNomeNumerologia(nomeCliente, y);
         y = printWrappedText("A Motivação revela seus desejos mais profundos e o que impulsiona suas ações.", y);
@@ -400,6 +434,46 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         doc.text("Definição:", CONFIG.margin, y);
         y += 7;
         y = printWrappedText(destinoTextos[destinoVal], y);
+      }
+
+      // =================================================================
+      // 8-B. DIA DO NASCIMENTO (NOVA SEÇÃO)
+      // =================================================================
+      if (dataNascimento) {
+        // 1. Extrai apenas o dia da string "YYYY-MM-DD"
+        // O split pega a 3ª parte (índice 2) que é o dia.
+        const partesData = dataNascimento.split('-');
+
+        if (partesData.length === 3) {
+          const diaNasc = parseInt(partesData[2], 10); // Converte para número inteiro (tira zeros à esquerda)
+
+          y = printSectionTitle("Dia do Nascimento");
+          addToIndex("Dia do Nascimento");
+          addWatermarkHelper();
+
+          // Texto introdutório (Opcional)
+          y = printWrappedText(
+            "O Dia do Nascimento registra as qualidades inatas, os talentos naturais e as características que a pessoa traz consigo desde o primeiro momento de vida. Ele revela como você se vê e como instintivamente reage ao mundo.",
+            y
+          );
+          y += 10;
+
+          // Exibe o Dia
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(14);
+          doc.setTextColor(CONFIG.colorBlack);
+          doc.text(`Nascido(a) no dia: ${diaNasc}`, CONFIG.margin, y);
+          y += 10;
+
+          // Exibe a Descrição
+          if (caracteristicasDiaNascimento && caracteristicasDiaNascimento[diaNasc]) {
+            y = printWrappedText(caracteristicasDiaNascimento[diaNasc], y);
+          } else {
+            y = printWrappedText("Descrição não disponível para este dia.", y);
+          }
+
+          y += 5; // Espaço extra
+        }
       }
 
       // 9. MISSÃO
@@ -500,6 +574,70 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         });
       }
 
+      // =================================================================
+      // 13-B. DIA PESSOAL (Refatorado e Tolerante)
+      // =================================================================
+      if (dataNascimento) {
+
+        // 1. Tratamento de Valores (Fallback para HOJE se estiver vazio)
+        let diaCalc, mesCalc;
+        let isDataPadrao = false;
+
+        if (diaInteresse && mesInteresse) {
+          // Se o usuário preencheu, usa os dados dele
+          diaCalc = parseInt(diaInteresse, 10);
+          mesCalc = parseInt(mesInteresse, 10);
+        } else {
+          // Se faltou algum dado, usa a data de HOJE
+          const hoje = new Date();
+          diaCalc = hoje.getDate();
+          mesCalc = hoje.getMonth() + 1; // Janeiro é 0
+          isDataPadrao = true;
+        }
+
+        // 2. Executa o cálculo com os valores tratados
+        const diaPessoalValor = calcularDiaPessoal(dataNascimento, mesCalc, diaCalc);
+
+        // 3. Renderização (Só se o cálculo for um número válido)
+        if (diaPessoalValor && !isNaN(diaPessoalValor) && diaPessoalValor !== '—') {
+
+          // Verifica se cabe na página (Título + Texto)
+          y = checkPageBreak(y, 80);
+
+          y = printSectionTitle("Dia Pessoal");
+          addToIndex("Dia Pessoal");
+          // Não chamamos addWatermarkHelper aqui para não duplicar se printSectionTitle já chamou
+
+          // Texto introdutório
+          const introText = isDataPadrao
+            ? "Como nenhuma data específica foi selecionada, calculamos o Dia Pessoal para a data de hoje. Ele revela as vibrações específicas deste momento."
+            : "O Dia Pessoal revela as vibrações específicas para a data escolhida, orientando a melhor forma de agir e aproveitar as oportunidades daquele momento.";
+
+          y = printWrappedText(introText, y);
+          y += 10;
+
+          // Subtítulo
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(14);
+          doc.setTextColor(CONFIG.colorBlack);
+
+          // Formata a data para exibição (DD/MM)
+          const dataFormatada = `${diaCalc.toString().padStart(2, '0')}/${mesCalc.toString().padStart(2, '0')}`;
+
+          doc.text(`Dia Pessoal ${diaPessoalValor} (Data: ${dataFormatada})`, CONFIG.margin, y);
+          y += 10;
+
+          // Texto do Dicionário
+          if (diaPessoalTextos && diaPessoalTextos[diaPessoalValor]) {
+            y = printWrappedText(diaPessoalTextos[diaPessoalValor], y);
+          } else {
+            y = printWrappedText("Descrição não disponível para este dia.", y);
+          }
+
+          y += 5; // Espaço extra após a seção
+        }
+      }
+
       // 14. TENDÊNCIAS OCULTAS
       if (nomeCliente) {
         y = printSectionTitle("Tendências Ocultas");
@@ -534,24 +672,54 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         y = printWrappedText(respostaSubconsciente[valSub], y);
       }
 
-      // 16. CICLO DE VIDA
+      // =================================================================
+      // 16. CICLO DE VIDA (CORRIGIDO COM DICIONÁRIOS SEPARADOS)
+      // =================================================================
       if (dataNascimento && nomeCliente) {
         const ciclos = calcularCicloVida(dataNascimento, calcularDestino(dataNascimento));
+
         if (ciclos) {
           y = printSectionTitle("Ciclo de Vida");
+          addWatermarkHelper();
           addToIndex("Ciclo de Vida");
-          y = printWrappedText("Fases energéticas que influenciam diferentes períodos.", y);
+
+          y = printWrappedText("Fases energéticas que influenciam diferentes períodos da sua vida.", y);
           y += 10;
+
+          // Renderiza a Tabela
           const headers = ["Ciclo", "Idade", "Período", "Energia"];
           const data = ciclos.map(c => ({ c: c.ciclo, i: c.idade, p: c.periodo, e: c.energia }));
           y = renderTableHelper(headers, data, y);
           y += 15;
-          ciclos.forEach(c => {
+
+          // Renderiza as Descrições
+          // O parâmetro 'index' nos diz qual é o ciclo (0 = 1º, 1 = 2º, 2 = 3º)
+          ciclos.forEach((c, index) => {
             y = checkPageBreak(y, 30);
+
             doc.setFont("helvetica", "bold");
             doc.text(`${c.ciclo} - Energia ${c.energia}`, CONFIG.margin, y);
             y += 7;
-            y = printWrappedText(CicloVida?.[c.energia], y);
+
+            // Lógica de Seleção do Dicionário Correto
+            let textoDescricao = "";
+
+            switch (index) {
+              case 0: // Primeiro Ciclo
+                textoDescricao = CicloVida?.[c.energia];
+                break;
+              case 1: // Segundo Ciclo
+                textoDescricao = segundoCicloVida?.[c.energia];
+                break;
+              case 2: // Terceiro Ciclo
+                textoDescricao = terceiroCicloVida?.[c.energia];
+                break;
+              default:
+                textoDescricao = "Descrição não disponível.";
+            }
+
+            // Imprime o texto selecionado
+            y = printWrappedText(textoDescricao || "Descrição indisponível para este número.", y);
             y += 5;
           });
         }
@@ -579,25 +747,63 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         }
       }
 
-      // 18. MOMENTOS DECISIVOS
+      // =================================================================
+      // 18. MOMENTOS DECISIVOS (CORRIGIDO COM DICIONÁRIOS SEPARADOS)
+      // =================================================================
       if (dataNascimento && nomeCliente) {
         const momentos = calcularMomentosDecisivos(dataNascimento, calcularDestino(dataNascimento));
+        
         if (momentos) {
           y = printSectionTitle("Momentos Decisivos");
           addToIndex("Momentos Decisivos");
+          addWatermarkHelper();
+          
+          // Texto introdutório opcional (se quiser adicionar)
+          y = printWrappedText("Os Momentos Decisivos marcam as etapas de maturidade e as influências predominantes em cada fase da sua jornada.", y);
+          y += 10;
+
+          // Preparação dos dados da tabela
           const data = momentos.map((m, i) => {
             const startAge = i === 0 ? 0 : momentos[i - 1].fim - new Date(dataNascimento).getFullYear();
             const endAge = m.fim === '...' ? '...' : (startAge + (m.fim - m.inicio));
-            return { e: m.momento, i: `${startAge} a ${endAge}`, p: `${m.inicio} - ${m.fim}` };
+            return { e: m.momento, i: `${startAge} a ${endAge} anos`, p: `${m.inicio} - ${m.fim}` };
           });
-          y = renderTableHelper(["Energia", "Idade", "Período"], data, y + 10);
+          
+          // Renderiza a Tabela
+          y = renderTableHelper(["Energia", "Idade", "Período"], data, y);
           y += 15;
+
+          // Renderiza as Descrições
           momentos.forEach((m, i) => {
             y = checkPageBreak(y, 30);
+            
             doc.setFont("helvetica", "bold");
-            doc.text(`Momento ${i + 1} - Energia ${m.momento}`, CONFIG.margin, y);
+            // i + 1 transforma o índice 0 em "Momento 1"
+            doc.text(`${i + 1}º Momento Decisivo - Energia ${m.momento}`, CONFIG.margin, y);
             y += 7;
-            y = printWrappedText(momentosDecisivosTextos?.[m.momento], y);
+
+            // Lógica de Seleção do Dicionário Correto
+            let textoDescricao = "";
+
+            switch (i) {
+                case 0: // Primeiro Momento (índice 0)
+                    textoDescricao = momentosDecisivos?.[m.momento];
+                    break;
+                case 1: // Segundo Momento (índice 1)
+                    textoDescricao = segundoMomentoDecisivo?.[m.momento];
+                    break;
+                case 2: // Terceiro Momento (índice 2)
+                    textoDescricao = terceiroMomentoDecisivo?.[m.momento];
+                    break;
+                case 3: // Quarto Momento (índice 3)
+                    textoDescricao = quartoMomentoDecisivo?.[m.momento];
+                    break;
+                default:
+                    textoDescricao = "Descrição não disponível.";
+            }
+
+            // Imprime o texto selecionado
+            y = printWrappedText(textoDescricao || "Descrição indisponível para este número.", y);
             y += 5;
           });
         }
@@ -626,7 +832,7 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       if (nomeCliente) {
         y = printSectionTitle("Pirâmide Invertida");
         addToIndex("Pirâmide Invertida");
-        
+
         doc.setFont("helvetica", "bold");
         doc.setFontSize(12);
         doc.setTextColor(CONFIG.colorBlack);
@@ -641,84 +847,84 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         // Arcano Cabalístico (Ponta)
         let pontaPiramide = null;
         if (pyResult.data.length > 0) {
-            const ultimaLinha = pyResult.data[pyResult.data.length - 1];
-            if (ultimaLinha.data.length === 1) pontaPiramide = ultimaLinha.data[0];
+          const ultimaLinha = pyResult.data[pyResult.data.length - 1];
+          if (ultimaLinha.data.length === 1) pontaPiramide = ultimaLinha.data[0];
         }
 
         // Exibir Arcano (Com Imagem)
         if (pontaPiramide !== null && arcanos?.[pontaPiramide]) {
-            y = checkPageBreak(y, 60);
-            const arcanoInfo = arcanos[pontaPiramide];
-            const imgWidth = 35;
-            const imgHeight = 55;
-            const gap = 5;
-            const textX = CONFIG.margin + imgWidth + gap;
-            const textMaxWidth = CONFIG.pageWidth - CONFIG.margin - textX;
-            const startBlockY = y;
+          y = checkPageBreak(y, 60);
+          const arcanoInfo = arcanos[pontaPiramide];
+          const imgWidth = 35;
+          const imgHeight = 55;
+          const gap = 5;
+          const textX = CONFIG.margin + imgWidth + gap;
+          const textMaxWidth = CONFIG.pageWidth - CONFIG.margin - textX;
+          const startBlockY = y;
 
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(14);
-            doc.setTextColor(CONFIG.colorBlack);
-            doc.text(`Arcano Cabalístico: ${pontaPiramide} - ${arcanoInfo.titulo}`, CONFIG.margin, y);
-            y += 10;
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(14);
+          doc.setTextColor(CONFIG.colorBlack);
+          doc.text(`Arcano Cabalístico: ${pontaPiramide} - ${arcanoInfo.titulo}`, CONFIG.margin, y);
+          y += 10;
 
-            let imageAdded = false;
-            if (arcanoInfo.image) {
-                try {
-                    const imgBase64 = await loadImage(arcanoInfo.image);
-                    if (imgBase64) {
-                        doc.addImage(imgBase64, 'PNG', CONFIG.margin, y, imgWidth, imgHeight);
-                        imageAdded = true;
-                    }
-                } catch (err) { console.error(err); }
-            }
+          let imageAdded = false;
+          if (arcanoInfo.image) {
+            try {
+              const imgBase64 = await loadImage(arcanoInfo.image);
+              if (imgBase64) {
+                doc.addImage(imgBase64, 'PNG', CONFIG.margin, y, imgWidth, imgHeight);
+                imageAdded = true;
+              }
+            } catch (err) { console.error(err); }
+          }
 
-            let currentTextY = y;
-            const currentX = imageAdded ? textX : CONFIG.margin;
-            const currentMaxW = imageAdded ? textMaxWidth : 170;
+          let currentTextY = y;
+          const currentX = imageAdded ? textX : CONFIG.margin;
+          const currentMaxW = imageAdded ? textMaxWidth : 170;
 
-            currentTextY = printWrappedText(arcanoInfo.descricao, currentTextY, 10, "normal", CONFIG.colorBlack, currentX, currentMaxW);
-            const imageEndY = y + imgHeight;
-            y = Math.max(currentTextY, imageAdded ? imageEndY : currentTextY);
-            y += 10;
+          currentTextY = printWrappedText(arcanoInfo.descricao, currentTextY, 10, "normal", CONFIG.colorBlack, currentX, currentMaxW);
+          const imageEndY = y + imgHeight;
+          y = Math.max(currentTextY, imageAdded ? imageEndY : currentTextY);
+          y += 10;
         }
 
         // Sequências
         const sequencesFound = {};
         pyResult.data.forEach(row => {
-            if (row.type === 'numbers') {
-                const seqs = findSequences(row.data);
-                seqs.forEach(index => {
-                    if (index % 3 === 0) {
-                        const num = row.data[index];
-                        const key = `${num}${num}${num}`;
-                        if (sequenciaNegativa && sequenciaNegativa[key]) {
-                            sequencesFound[key] = sequenciaNegativa[key];
-                        }
-                    }
-                });
-            }
+          if (row.type === 'numbers') {
+            const seqs = findSequences(row.data);
+            seqs.forEach(index => {
+              if (index % 3 === 0) {
+                const num = row.data[index];
+                const key = `${num}${num}${num}`;
+                if (sequenciaNegativa && sequenciaNegativa[key]) {
+                  sequencesFound[key] = sequenciaNegativa[key];
+                }
+              }
+            });
+          }
         });
 
         if (Object.keys(sequencesFound).length > 0) {
-            y = checkPageBreak(y, 40);
-            doc.setDrawColor(200, 200, 200);
-            doc.line(CONFIG.margin, y, CONFIG.pageWidth - CONFIG.margin, y);
-            y += 10;
+          y = checkPageBreak(y, 40);
+          doc.setDrawColor(200, 200, 200);
+          doc.line(CONFIG.margin, y, CONFIG.pageWidth - CONFIG.margin, y);
+          y += 10;
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(14);
+          doc.setTextColor(255, 0, 0);
+          doc.text("Interpretação das Sequências:", CONFIG.margin, y);
+          y += 10;
+          Object.entries(sequencesFound).forEach(([seq, desc]) => {
+            y = checkPageBreak(y);
             doc.setFont("helvetica", "bold");
-            doc.setFontSize(14);
             doc.setTextColor(255, 0, 0);
-            doc.text("Interpretação das Sequências:", CONFIG.margin, y);
-            y += 10;
-            Object.entries(sequencesFound).forEach(([seq, desc]) => {
-                y = checkPageBreak(y);
-                doc.setFont("helvetica", "bold");
-                doc.setTextColor(255, 0, 0);
-                doc.text(`${seq.charAt(0)} ${seq.charAt(1)} ${seq.charAt(2)} -`, CONFIG.margin, y);
-                y += 6;
-                y = printWrappedText(desc, y);
-                y += 5;
-            });
+            doc.text(`${seq.charAt(0)} ${seq.charAt(1)} ${seq.charAt(2)} -`, CONFIG.margin, y);
+            y += 6;
+            y = printWrappedText(desc, y);
+            y += 5;
+          });
         }
       }
 
@@ -726,14 +932,14 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
       if (nomesSociais && nomesSociais.length > 0) {
         y = printSectionTitle("Nomes Sociais");
         addToIndex("Nomes Sociais");
-         y = printWrappedText(
-    "O Nome Social representa a vibração que a pessoa escolhe expressar no presente. Ele simboliza a identidade assumida por vontade própria, refletindo como ela deseja ser vista, reconhecida e tratada pelo mundo. \n\n" +
-    "Ao contrário do nome de nascimento, que revela tendências profundas, missão e aspectos estruturais da alma, o nome social traduz o eu construído conscientemente, funcionando como uma assinatura energética que pode reforçar, suavizar ou redirecionar padrões da personalidade. \n\n" +
-    "Sua análise mostra a energia vibracional ativada quando alguém usa o nome social no dia a dia — seja socialmente, profissionalmente ou emocionalmente — e revela a forma como a pessoa quer se posicionar, ser percebida e influenciar o ambiente. " +
-    "Quando harmônico com o nome de origem, o nome social amplia a fluidez e fortalece a expressão pessoal. Quando há contraste entre eles, o nome social pode atuar como ajuste, proteção, afirmação ou correção vibracional.",
-    y
-);
-y += 10;
+        y = printWrappedText(
+          "O Nome Social representa a vibração que a pessoa escolhe expressar no presente. Ele simboliza a identidade assumida por vontade própria, refletindo como ela deseja ser vista, reconhecida e tratada pelo mundo. \n\n" +
+          "Ao contrário do nome de nascimento, que revela tendências profundas, missão e aspectos estruturais da alma, o nome social traduz o eu construído conscientemente, funcionando como uma assinatura energética que pode reforçar, suavizar ou redirecionar padrões da personalidade. \n\n" +
+          "Sua análise mostra a energia vibracional ativada quando alguém usa o nome social no dia a dia — seja socialmente, profissionalmente ou emocionalmente — e revela a forma como a pessoa quer se posicionar, ser percebida e influenciar o ambiente. " +
+          "Quando harmônico com o nome de origem, o nome social amplia a fluidez e fortalece a expressão pessoal. Quando há contraste entre eles, o nome social pode atuar como ajuste, proteção, afirmação ou correção vibracional.",
+          y
+        );
+        y += 10;
 
         const uniqueNomes = nomesSociais.filter((item, index, self) =>
           index === self.findIndex((t) => (t.nome.toLowerCase().trim() === item.nome.toLowerCase().trim()))
@@ -747,7 +953,7 @@ y += 10;
           const textMaxWidth = CONFIG.pageWidth - CONFIG.margin - textX;
 
           // Verifica espaço para todo o bloco inicial (título + pirâmide mínima)
-          y = checkPageBreak(y, 80); 
+          y = checkPageBreak(y, 80);
 
           doc.setFont("helvetica", "bold");
           doc.setFontSize(14);
@@ -799,7 +1005,7 @@ y += 10;
       // 25. MENSAGEM FINAL
       doc.addPage(); // Força última página limpa
       addWatermarkHelper();
-      let yFinal = CONFIG.pageHeight / 4; 
+      let yFinal = CONFIG.pageHeight / 4;
 
       doc.setFont("helvetica", "bold");
       doc.setFontSize(18);
@@ -807,9 +1013,9 @@ y += 10;
       doc.text("Uma Nota Pessoal", CONFIG.centerX, yFinal, { align: "center" });
       yFinal += 20;
 
-      doc.setFont("helvetica", "normal"); 
+      doc.setFont("helvetica", "normal");
       doc.setFontSize(12);
-      const mensagem = 
+      const mensagem =
         `Este Mapa Numerológico foi preparado especialmente para você, ${nomeCliente || ''}, com atenção às suas vibrações, aos caminhos que se abrem diante da sua jornada.\n\n` +
         "Cada número aqui não fala de destino fechado, mas de potenciais, talentos e desafios que fazem parte da sua história única.\n\n" +
         "Que este material sirva como um espelho gentil, revelando aspectos profundos do seu ser. Agradeço de coração por confiar seu mapa às minhas mãos.\n\n" +
@@ -817,16 +1023,16 @@ y += 10;
 
       yFinal = printWrappedText(mensagem, yFinal, 12, "normal", CONFIG.colorBlack, 40, 130);
       yFinal += 10;
-      doc.text("Com carinho,", 40, yFinal); 
+      doc.text("Com carinho,", 40, yFinal);
 
-      yFinal += 25; 
-      doc.setFont("times", "italic"); 
-      doc.setFontSize(30); 
-      doc.setTextColor(CONFIG.colorBlack); 
+      yFinal += 25;
+      doc.setFont("times", "italic");
+      doc.setFontSize(30);
+      doc.setTextColor(CONFIG.colorBlack);
       doc.text("Manouche Yasmin", CONFIG.centerX, yFinal, { align: "center" });
-      
-      yFinal += 15; 
-      doc.setFont("helvetica", "normal"); 
+
+      yFinal += 15;
+      doc.setFont("helvetica", "normal");
       doc.setFontSize(10);
       doc.setTextColor(CONFIG.colorGray);
       doc.text("Numeróloga Cabalística", CONFIG.centerX, yFinal, { align: "center" });
@@ -836,7 +1042,7 @@ y += 10;
       // -------------------------------------------------------------
       doc.setPage(paginaIndiceRef);
       y = CONFIG.margin;
-      
+
       doc.setFont("helvetica", "bold");
       doc.setFontSize(20);
       doc.setTextColor(CONFIG.colorBlack);
@@ -844,7 +1050,7 @@ y += 10;
       y += 25;
 
       indiceItens.sort((a, b) => a.pagina - b.pagina);
-      
+
       indiceItens.forEach(item => {
         if (y > CONFIG.pageHeight - CONFIG.margin) {
           doc.addPage();

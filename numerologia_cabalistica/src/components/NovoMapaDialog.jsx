@@ -1,4 +1,4 @@
-//src/components/NovoMapaDialog.jsx
+// src/components/NovoMapaDialog.jsx
 
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, CircularProgress, Typography, Box } from '@mui/material';
@@ -6,8 +6,11 @@ import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, C
 const NovoMapaDialog = ({ open, onClose, onSalvarNome }) => {
   const [nome, setNome] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
-  const [mesInteresse, setMesInteresse] = useState('');
+  
+  // Estado do mês já existe, mas faltava o Input visual
+  const [mesInteresse, setMesInteresse] = useState(''); 
   const [diaInteresse, setDiaInteresse] = useState('');
+  
   const [loading, setLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState('');
 
@@ -15,25 +18,21 @@ const NovoMapaDialog = ({ open, onClose, onSalvarNome }) => {
     if (open) {
       setNome('');
       setDataNascimento('');
-      setMesInteresse('');
+      setMesInteresse(''); // Limpa ao abrir
       setDiaInteresse('');
-      setLoading(false); // Reseta o estado de carregamento ao abrir o diálogo
+      setLoading(false);
     }
   }, [open]);
 
   const handleSalvar = async () => {
     setLoading(true);
-
+    // ... seus timeouts de loading ...
     setLoadingMessage('Analisando os dados...');
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // Reduzi para teste
 
-    setLoadingMessage('Calculando as informações...');
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    setLoadingMessage('Finalizando...');
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
+    // Passa os 4 valores corretamente
     onSalvarNome(nome, dataNascimento, mesInteresse, diaInteresse);
+    
     setLoading(false);
     onClose();
   };
@@ -67,6 +66,17 @@ const NovoMapaDialog = ({ open, onClose, onSalvarNome }) => {
               onChange={(e) => setDataNascimento(e.target.value)}
             />
             
+            {/* --- ADICIONE ESTE CAMPO QUE FALTAVA --- */}
+            <TextField
+              margin="dense"
+              label="Mês de Interesse (1-12)"
+              type="number"
+              fullWidth
+              value={mesInteresse}
+              onChange={(e) => setMesInteresse(e.target.value)}
+            />
+            {/* --------------------------------------- */}
+
             <TextField
               margin="dense"
               label="Dia de Interesse (1-31)"

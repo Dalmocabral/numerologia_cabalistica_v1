@@ -2980,6 +2980,217 @@ poderá sofrer discriminações por parte de colegas ou outras pessoas. Um palco
 apresenta fortes emoções. Necessidade de trabalhar o autocentramento.`
 };
 
+export const segundoCicloVida = {
+  1: `Segundo Ciclo de Vida 1 
+O Número 1 (um) no segundo Ciclo de Vida mostra um período de ambições, grande 
+desejo de realizações e também de sucesso relativo. Precisa desenvolver seus 
+próprios recursos, estudando e se dedicando ao máximo possível, além de 
+esforçar-se para tornar-se independente e chegar ao terceiro Ciclo de Vida já com 
+definição profissional, social e financeira. Este Ciclo de Vida revela disposição para 
+realizar; denota autonomia, energia e construção. Deve buscar realizações e 
+independência, mas não deve sacrificar os outros para realização de seus próprios 
+desejos. Energia, realizações, êxitos dos esforços!`,
+
+  2: `Segundo Ciclo de Vida 2 
+O Número 2 (dois) no segundo Ciclo de Vida é indicador de sociabilidade e 
+receptividade. É necessário cultivar a paciência, o tato, a diplomacia e a capacidade 
+de perceber os sentimentos alheios. Pode indicar ainda, uma carreira diplomática, 
+ser juiz, médico (a), professor (a) ou consultor (a). A sua disposição está para 
+associações, cooperação e trabalho em equipe. Pode ocorrer certa submissão, o 
+que pode não ser ruim se isso significar ser cooperativo (a). É um período para 
+trocar, colaborar e ter solidariedade. A família e o casamento serão favorecidos. 
+Evitar colocar-se demasiadamente à frente.`,
+
+  3: `Segundo Ciclo de Vida 3 
+O Número 3 (três) no segundo Ciclo de Vida mostra uma fase agradável da vida, 
+com certa despreocupação. É a fase da sociabilidade, na qual a criatividade e a 
+originalidade podem se exteriorizar pelas ideias e sentimentos através de algum tipo 
+de arte: pintura, música, teatro, escrita, etc. É um magnífico período para 
+desenvolver a criatividade, porém, não deve despender demasiada energia em 
+coisas fúteis. A sua disposição está voltada para buscar felicidade, amigos, sucesso 
+e realizações. Deve criar, expressar, ter alegria de viver. É o mais agradável de todos 
+os ciclos.`,
+
+  4: `Segundo Ciclo de Vida 4 
+O Número 4 (quatro) no segundo Ciclo de Vida é sinônimo de trabalho duro, de 
+produtividade e de construção do alicerce no qual se apoiará no futuro. É um 
+período em que surge a necessidade de aprender a aceitar a rotina e a trabalhar em 
+algo produtivo, sólido e a fazer economia. A sua disposição neste Ciclo de Vida é 
+para construir, trabalhar, produzir, plantar. Poucas viagens, a não ser de trabalho, e 
+férias destinadas a se refazer para continuar. Deve construir estrutura e segurança.`,
+
+  5: `Segundo Ciclo de Vida 5 
+O Número 5 (cinco) no segundo Ciclo de Vida é indicativo de um período de 
+expansão de horizontes, época propícia para viagens, mudanças, romances, 
+liberdade, novas atividades e também novos amigos. Quase sempre, neste período, 
+a pessoa encontrará as suas melhores oportunidades longe de casa. Precisa 
+aprender a se adaptar, a procurar novas maneiras de ver as coisas e a evitar a 
+tendência para fixar-se por muito tempo num determinado lugar. Em resumo, é um 
+período de grande movimentação, de grandes mudanças e de novos horizontes. 
+Grande disposição para inovações, mudanças, atividades variadas e dinamismo. 
+Reviravoltas inesperadas poderão acontecer, por isso deve aprender a lidar e 
+trabalhar com as mudanças e o dinamismo.`,
+
+  6: `Segundo Ciclo de Vida 6  
+O Número 6 (seis) no segundo Ciclo de Vida mostra um período de ajustes e de 
+responsabilidades nos assuntos domésticos em geral. É um bom momento para o 
+casamento ou firmar-se num relacionamento, ter filhos e solidificar a família. Em 
+suma, é um período familiar, de colocar a casa em ordem, de viver mais para a 
+família, e deixar de ser tanto individualista. A sua disposição é para enfrentar 
+grandes responsabilidades, viver em família, conciliar e ajudar os outros. Adaptação 
+tanto no plano familiar quanto profissional, confrontação com problemas diversos, 
+às vezes relativos a outros. Vida familiar feliz. Deve servir a família e grupos e não 
+perseguir a perfeição.`,
+
+  7: `Segundo Ciclo de Vida 7 
+O Número 7 (sete) no segundo Ciclo de Vida indica um período de crescimento 
+tranquilo, de estudos e reflexões. A sua disposição está voltada para estudar, 
+pesquisar, refletir, se autoconhecer, crescer. Deve buscar no autoconhecimento a 
+sua essência e a sua espiritualidade, sua própria verdade e sua legitimidade. 
+Casamento pouco provável; se vier a acontecer deve ser fruto de criteriosa escolha. 
+Isto, é claro, não significa que não deva se casar, apenas que deve prestar muita 
+atenção nos seus sentimentos, pois poderá haver alguma dificuldade no 
+relacionamento devido a uma tendência a se interiorizar demais. Não há 
+necessidade de procurar as oportunidades, elas se apresentarão. Mas não basta só 
+esperar, é preciso estar atento (a) a elas e saber agarrá-las. Um período em que a fé 
+pode desabrochar.`,
+
+  8: `Segundo Ciclo de Vida 8 
+O Número 8 (oito) no segundo Ciclo de Vida mostra um período de preocupação 
+com os aspectos materiais e financeiros da vida. Este período promete assuntos 
+importantes no mundo dos negócios e das finanças. Terá êxito material, se agir 
+construtivamente, com boas possibilidades de realizações no mundo dos negócios 
+e de ganhar muito dinheiro com o trabalho e também através de especulações. Terá 
+de se esforçar para atenuar as tensões existentes. Deve resgatar o seu próprio 
+poder pessoal.`,
+
+  9: `Segundo Ciclo de Vida 9 
+O Número 9 (nove) no segundo Ciclo de Vida traz a possibilidade de sucesso na vida 
+pública. É um período altamente espiritual e é preciso aprender a cultivar a 
+tolerância, o amor à humanidade, o altruísmo e o controle emocional. Probabilidade 
+de haver dificuldades no casamento devido à tendência a dedicar-se e a dar mais 
+amor à humanidade que à própria família. É, também, indício de alguma perda, seja 
+ela material, afetiva ou social. Disposição voltada para a busca de sabedoria 
+espiritual, para aprender o desapego, o desprendimento e a doar-se. Tendências 
+espirituais que levam ao sucesso na vida pública, com poucos fracassos se os 
+esforços necessários forem feitos. Deve trabalhar o perdão e o desapego.`,
+
+  11: `Segundo Ciclo de Vida 11 
+O Número 11 (onze) no segundo Ciclo de Vida mostra um período de revelações, de 
+ideais e grandeza, e, possivelmente de fama. Não é um bom momento para 
+empreendimentos comerciais ou de especulações, sejam elas financeiras ou 
+imobiliárias. É o momento de desenvolver a mente, de se especializar em alguma 
+coisa, de estudar, ensinar e também de inspirar as outras pessoas através do seu 
+próprio exemplo. Disposição voltada para as questões espirituais, sensoriais e 
+intuitivas. Deve desenvolver a intuição e aproveitá-la bem neste Ciclo de Vida.`,
+
+  22: `Segundo Ciclo de Vida 22 
+O Número 22 (vinte e dois) no segundo Ciclo de Vida é indício de grandes 
+realizações e de liderança em alto nível. O objetivo primordial neste Ciclo de Vida 
+deve ser o de beneficiar a humanidade como um todo. Em virtude do grande poder 
+deste número, os nervos e as emoções serão testados durante todo o período e a 
+pessoa deve manter-se o mais calma possível e seguir a orientação da sua intuição. 
+Disposição fortemente inclinada para grandes realizações, autoridade e comando. 
+Deve direcionar toda a sua energia para realizações que beneficiem a humanidade.`
+};
+
+export const terceiroCicloVida = {
+  1: `Terceiro Ciclo de Vida 1 
+O Número 1 (um) no terceiro Ciclo de Vida indica uma fase final da vida de certa 
+maneira solitário, porém com grande vitalidade, intensa atividade cerebral e vontade 
+de buscar novos objetivos. É importante se manter ativo (a) e independente e contar 
+com seus próprios recursos. Será impossível pensar em aposentadoria. 
+Positivo: Com disposição para agir, autorrealizado. 
+Negativo: Sensação de ter falhado na vida.`,
+
+  2: `Terceiro Ciclo de Vida 2 
+O Número 2 (dois) no terceiro Ciclo de Vida mostra um período de amor sincero e de 
+amigos íntimos. Um período agradável para amizade calorosa e terna, para estar 
+bem consigo mesmo (a). Poderá sentir-se impelido (a) a colecionar coisas, tais 
+como selos, moedas, antiguidades ou qualquer coisa extravagante. Pode ser um 
+período de influência feminina no casamento. 
+Positivo: Atingindo a serenidade, com o afetivo tranquilo. 
+Negativo: Sente-se vitimizado (a), com dificuldade de aceitar o que passou na vida.`,
+
+  3: `Terceiro Ciclo de Vida 3 
+O Número 3 (três) no terceiro Ciclo de Vida indica um período de expressão de 
+ideias e sentimentos através de diversas formas de arte, música, teatro ou literatura. 
+O período é de expansão, atividades agradáveis e contatos com pessoas. A 
+criatividade continua a se desenvolver. Possibilidade de muitas amizades e grande 
+atividade social. 
+Positivo: Viverá com muitos amigos e atividades prazerosas, sentindo que viveu 
+sempre com alegria. 
+Negativo: Comporta-se como adolescente, irresponsável e inconveniente.`,
+
+  4: `Terceiro Ciclo de Vida 4 
+O Número 4 (quatro) no terceiro Ciclo de Vida mostra que, mesmo aposentado (a) 
+legalmente, tende a continuar trabalhando, seja por necessidade, seja por escolha. 
+Mesmo sendo o terceiro Ciclo de Vida, será um período para trabalhar e produzir, por 
+opção ou necessidade. Aposentadoria improvável. 
+Positivo: Está estruturado e sente que tem base. 
+Negativo: Sente-se desestruturado em todos os sentidos.`,
+
+  5: `Terceiro Ciclo de Vida 5 
+O Número 5 (cinco) no terceiro Ciclo de Vida revela um período de liberdade pessoal, 
+bom para viagens e mudanças, para novas atividades e variedades, seja de amigos 
+ou de residência. Aposentadoria incerta. Atividades novas até o último momento, 
+viagens e mudanças agradáveis. 
+Positivo: Sente-se com muita vontade de viver. 
+Negativo: Sente-se instável em todos os sentidos, corpo sem energia.`,
+
+  6: `Terceiro Ciclo de Vida 6 
+O Número 6 (seis) no terceiro Ciclo de Vida poderá ser o mais agradável de todos - 
+uma fase de felicidade e harmonia no lar - se tiver aprendido a adaptar-se e assumir 
+responsabilidades. Caso não tenha aprendido poderá ser sobrecarregado (a) com 
+problemas domésticos e responsabilidades imprevistas; será preciso que as aceite 
+com alegria. Segurança, mas talvez com restrições. A família estará presente. 
+Positivo: Sente-se protegido (a) pela família e comunidade. 
+Negativo: Sente que é um peso para a família ou estará sem família.`,
+
+  7: `Terceiro Ciclo de Vida 7 
+O Número 7 (sete) no terceiro Ciclo de Vida indica um período agradável e 
+repousante, quando os estudos poderão ser feitos em casa.  Aposentadoria não 
+garantida. Será um período de poucas atividades, poucas saídas ou viagens, mas 
+agradável, de tranquilidade e sensatez. Boa fase para aprimorar o 
+autoconhecimento. 
+Positivo: Sente-se conectado ao Eu Superior. 
+Negativo: Sentimento de rejeição, de abandono, com doenças da alma e 
+desconectado de Deus.`,
+
+  8: `Terceiro Ciclo de Vida 8 
+O Número 8 (oito) no terceiro Ciclo de Vida mostra que ainda há muitas coisas a 
+realizar durante este período. A pessoa é impelida para o dinheiro, o poder, o êxito. 
+Possibilidade de ficar rico, e ainda frutificar abundantemente em seus negócios ou 
+atividades profissionais. Aposentadoria pouco provável. 
+Positivo: Sente-se com todo seu poder pessoal, com dinheiro e sucesso. 
+Negativo: Tem a energia da morte, doenças físicas e degenerativas.`,
+
+  9: `Terceiro Ciclo de Vida 9 
+O Número 9 (nove) no terceiro Ciclo de Vida mostra um período de retiro, estudos e 
+reflexões. Precisa cultivar a tolerância e o amor pela humanidade. Neste Ciclo de 
+Vida geralmente há alguma espécie de perda. Aposentadoria provável. 
+Positivo: Profundo sentido de desapego da Terra. 
+Negativo: Sente que não conquistou nada e se apega à vida.`,
+
+  11: `Terceiro Ciclo de Vida 11 
+O Número 11 (onze) no terceiro Ciclo de Vida indica um período de isolamento, de 
+inspiração, de leitura, de alguma incursão na arte de escrever e, possivelmente, de 
+fama. Período de provável aposentadoria. Bom período para reflexões sobre o lado 
+metafísico da vida. 
+Positivo: Sente que valeu a pena viver. 
+Negativo: Sensação de frustração e pouco amor pela vida.`,
+
+  22: `Terceiro Ciclo de Vida 22 
+O Número 22 (vinte e dois) no terceiro ciclo de vida talvez torne a pessoa tensa e 
+nervosa. Deve procurar manter-se ativo (a) durante esse período e dedicar-se a um 
+hobby, tal como a escultura, a pintura, as artes divinatórias, etc. Aposentadoria 
+improvável. Deve aproveitar até o último momento da vida realizando, construindo, 
+melhorando o mundo, porque as vibrações são fortes. Prevenir o nervosismo 
+mantendo uma atividade física apropriada. 
+Positivo: Sente-se realizado (a) por tudo o que fez. 
+Negativo: Sente-se frustrado (a) por ter perdido oportunidades.`
+};
+
 
 export const desafios = {
   0: `Desafio 0
@@ -3300,3 +3511,1595 @@ interesses pelos problemas mundiais e de grande expansão da consciência. O
 Momento Decisivo 22 é tão poderoso que não pode acontecer no primeiro ciclo da
 vida.`
 };
+
+export const segundoMomentoDecisivo = {
+  1: `Segundo Momento Decisivo 1 
+É um período difícil, em que muitas vezes será necessário enorme esforço para 
+manter-se firme em si próprio (a), dependendo apenas de si próprio para o sucesso. 
+Exige coragem, determinação e muita força de vontade. Inúmeros acasos e 
+situações inesperadas o (a) forçarão a enfrentar a vida pensando e agindo por si 
+mesmo (a). O Momento Decisivo 1 gera uma inclinação por independência; desejo 
+de expressar a individualidade por ideias originais; de conduzir e dirigir os outros, de 
+atingir suas realizações e ser reconhecido (a) por isso. 
+O Segundo Momento Decisivo 1 indica certo grau de agressividade em seu 
+comportamento. Não necessariamente voltada para os outros. Sua habilidade para 
+seguir em frente e desenvolver seus talentos depende somente de você; de sua 
+iniciativa. Suas realizações ficam mais aparentes ao público e uma sensação de 
+independência lhe permite assumir algum papel de liderança.`,
+
+  2: `Segundo Momento Decisivo 2 
+Este é o momento que demanda cooperação e diplomacia. Traz consigo a 
+oportunidade para cultivar o tato e a compreensão. Se for amigo (a) e companheiro 
+(a) atencioso (a) com seus semelhantes, este será um período de amizades sinceras 
+e de relacionamentos duradouros. Excelente fase para o casamento. Se for 
+impaciente e desatencioso (a) poderá ser uma fase de relacionamentos difíceis, de 
+incompreensões, brigas, discussões, em que poderá causar prejuízos às pessoas 
+que o (a) cercam. A ênfase geral desse Momento Decisivo é para a cooperação e 
+harmonia. Você estará propenso (a) a se tornar uma pessoa muito sensível durante 
+este período, até mesmo se isso não faz parte do seu temperamento básico. Um 
+período para desenvolver ações em parceria, cooperação e diplomacia. Período de 
+trabalho e, relativamente, pouco reconhecimento. 
+O Segundo Momento decisivo 2 indica que durante este período produtivo de sua 
+vida, as realizações dependerão grandemente de suas habilidades para trabalhar 
+com outras pessoas, promover harmonia, mostrar paciência e voluntariedade para 
+esperar pelos créditos baseados em suas contribuições. Você pode se tornar muito 
+detalhista e exigente no seu trabalho durante esse período.`,
+
+  3: `Segundo Momento Decisivo 3 
+É o momento de expandir a vida social e cultivar os próprios talentos. Trata-se de 
+uma fase apropriada para a autoexpressão, novas amizades, romance e fertilidade. 
+A manifestação descuidada das emoções poderá ter consequências desagradáveis, 
+pois existe, nesse estado, tendência ao desmando, vícios, brigas e discórdias. 
+Cuidado com os amigos, pois apesar de serem necessários, por vezes são más 
+companhias. O efeito geral deste período é o de luz e atividades agradáveis. 
+Qualquer talento artístico ou criativo oculto é o momento de manifestar agora. A 
+vida parece fluir em sua direção neste período; seus pensamentos estão mais no 
+presente que no futuro ou no passado. Estar com pessoas e se divertir é essencial. 
+Atitudes cheias de jovialidade – as coisas vêm fácil e vão fácil. É provável que o seu 
+trabalho ocorra como um divertimento ou um jogo. 
+O Segundo Momento Decisivo 3 indica um período de responsabilidades e 
+realizações muito dependentes do comportamento social e influências gerais. Este 
+período poderá evocar oportunidade para escrever, falar em público, ou alguma 
+forma de participação nas artes de entretenimento. São estimulados sentimentos e 
+imaginação.`,
+
+  4: `Segundo Momento Decisivo 4 
+Este Momento Decisivo traz a oportunidade de se construir um sólido alicerce para 
+o futuro. É um período de trabalho duro e até de algumas restrições, e é importante 
+cultivar a paciência e os bons hábitos de trabalho. Neste período poderá haver 
+alguns problemas econômicos, que serão superados com inteligência, trabalho e 
+dedicação ao projeto final. A família e os parentes por afinidade podem se 
+apresentar na forma de oportunidade para a prática do auxílio humanitário, tanto na 
+parte financeira, como prestando ajuda em uma doença, por exemplo. As 
+recompensas sempre aparecem a partir da aplicação dos preceitos corretos de vida 
+e do esforço para se obter os resultados positivos. A influência geral de um 
+Momento Decisivo 4 é de uma visão realista e prática das coisas. 
+O Segundo Momento Decisivo 4 indica que sua habilidade para seguir em frente e 
+realizar estará associada indubitável e diretamente à sua habilidade de trabalhar 
+externamente a competição. Às vezes, este Momento Decisivo traz uma sensação 
+de limitação econômica. É provável que este seja um período de crescimento e de 
+realizações concretas.`,
+
+  5: `Segundo Momento Decisivo 5 
+Traz oportunidades para viagens, para experimentar novas sensações, novos 
+empreendimentos e para se livrar de tudo que está obsoleto ou que já não faz falta. 
+É uma fase de liberdade, de mudanças, muitas vezes súbitas e inesperadas, e de 
+desenvolvimento pessoal, principalmente se vier após um Momento Decisivo 4 ou 6. 
+A influência geral no Momento Decisivo 5 é a de liberdade e diminuição de 
+responsabilidade. As circunstâncias financeiras poderão mudar rapidamente, para 
+cima ou para baixo, como tudo neste período. 
+O Segundo Momento Decisivo 5 indica que neste período a sua habilidade para 
+progredir e atingir os objetivos pode estar ligada à sua capacidade de funcionar 
+confortavelmente num ambiente flutuante. A sensação de liberdade que tem agora é 
+muito significativa. A precaução aqui é não queimar mais cartuchos por causa de 
+seu desejo de liberdade, viagens e aventuras. Poderá precisar daquele trabalho, ou 
+da família, mais tarde.`,
+
+  6: `Segundo Momento Decisivo 6 
+É um período para os ajustes das responsabilidades familiares. Caso tenha 
+consciência disso, este é o momento de grande afetividade, de amor e de felicidade 
+doméstica, além de sucesso e segurança material. Do contrário, ou seja, caso seja 
+dispersivo ou inconstante, poderá ser um período de desgostos, discussões, brigas 
+e graves problemas domésticos e até indício de separação, caso seja casado (a) ou 
+mantenha um relacionamento estável. Inclinação para servir, ensinando, 
+aconselhando, promovendo harmonia. 
+O Segundo Momento Decisivo 6 indica possibilidade de progresso e realização pela 
+aceitação de responsabilidades crescentes e por atos diplomáticos. Porém, casa e 
+família geralmente têm precedência sobre os negócios. É um período para trabalhar 
+atendendo às demandas da família, dos amigos íntimos, do grupo social a que 
+pertence, e não somente as suas satisfações pessoais.`,
+
+  7: `Segundo Momento Decisivo 7 
+É uma fase de introspecção, de meditação e estudo do significado mais profundo da 
+vida, de investigação e desenvolvimento de habilidades. Caso não esteja casado (a), 
+este pode não é o momento melhor para casamento. Isso não significa, no entanto, 
+que não possa se casar. Velhos relacionamentos que não produzem mais frutos 
+podem e devem ser deixados para trás. Normalmente sentirá vontade de se retirar 
+para dentro de si para desenvolver os seus recursos internos, o que de certa forma 
+poderá causar problemas de relacionamento, tanto a nível pessoal como familiar. 
+Poderá surgir certo desinteresse por assuntos materiais e pouca preocupação com 
+negócios práticos, acarretando um pouco de escassez financeira. 
+O Segundo Momento Decisivo 7 indica possibilidades de boa evolução nos assuntos 
+financeiros, bem como nos assuntos relacionados à ciência, porém, é um período 
+permeado de buscas religiosas, espirituais, filosóficas ou esotéricas que poderão 
+influenciar sua vida e tornar mais lento o seu progresso material. Os benefícios 
+deste Momento decisivo serão muito mais profundos e interiores.`,
+
+  8: `Segundo Momento Decisivo 8 
+É um período de grandes realizações no mundo dos negócios. As despesas poderão 
+ser altas, porém, é uma excelente fase para correr atrás dos objetivos, de conquistar 
+poder, fama e sucesso material. Com dedicação, estudo, organização e trabalho 
+sistemático, com objetivo definido e colaboradores aptos e interessados, 
+dificilmente deixará de conseguir tudo o que deseja. 
+O Segundo Momento Decisivo 8 indica um período de sua vida em que estará 
+inclinado (a) a se tornar profundamente envolvido (a) em ser um (a) executivo (a), ou 
+talvez estar casada (o) com um (a). A maturidade o (a) levará a confiar mais em 
+sentimentos racionais do que emocionais. Será mais ambicioso (a) e orientado (a) 
+para o sucesso.`,
+
+  9: `Segundo Momento Decisivo 9 
+Traz a oportunidade para cultivar o amor, a solidariedade, o altruísmo e para 
+viagens. Poderá haver algum tipo de perda ou desapontamento, principalmente 
+entre amigos. Um bom investimento é fazer obras humanitárias durante esse 
+período, pois os frutos dessa plantação são certos, e o sucesso e a fama se farão 
+presentes. A atitude nesse período da vida será mais humanista, solidária e 
+emocional. 
+O Segundo Momento Decisivo 9 indica um período da vida em que a pessoa 
+expressará ideias humanitárias muito emocionais e dramáticas. Cultive a tolerância 
+e a compaixão. Poderá desenvolver uma visão universal do mundo e trabalhar de 
+modo a beneficiar o ser humano.`,
+
+  11: `Segundo Momento Decisivo 11 
+Por ser um número altamente espiritual e elevado, nesse período a pessoa se sente 
+tensa e muito nervosa, principalmente durante o Primeiro Ciclo de Vida. É uma 
+excelente fase para estudar esoterismo, espiritualismo e expandir os horizontes. 
+Esse momento traz inspiração, iluminação e, quase sempre, fama e prestígio 
+nacional e até internacional. Não faça nada nem diga por trás o que não teria 
+coragem de dizer ou fazer na frente das pessoas. 
+O Segundo Momento Decisivo 11 indica um período de trabalho inspirado e 
+oportunidades para desenvolver o lado espiritual, aplicando nas suas atividades 
+cotidianas as ideias inspiradas ou intuídas. Possibilidade de reconhecimento e 
+sucesso em sua vida.`,
+
+  22: `Segundo Momento Decisivo 22 
+É, sem dúvida alguma, o Momento mais poderoso. A pessoa se sente altamente 
+criativa, e nesse estado torna-se possível quase todas as realizações. É uma fase de 
+interesses pelos problemas mundiais e de grande expansão da consciência. O 
+Momento Decisivo 22 é tão poderoso que não pode acontecer no primeiro ciclo da 
+vida. 
+O Segundo Momento Decisivo 22 indica um período de grandes realizações em sua 
+vida. Pode ser que se perca entre as suas ambiciosas pretensões, achando que 
+pode tudo. É um período de trabalhar os aspectos altruístas das conquistas 
+materiais, aplicando parte do seu tempo e recursos em ações que beneficiem a 
+humanidade.`
+};
+
+export const terceiroMomentoDecisivo = {
+  1: `Terceiro Momento Decisivo 1 
+É um período difícil, em que muitas vezes será necessário enorme esforço para 
+manter-se firme em si próprio (a), dependendo apenas de si próprio para o sucesso. 
+Exige coragem, determinação e muita força de vontade. Inúmeros acasos e 
+situações inesperadas o (a) forçarão a enfrentar a vida pensando e agindo por si 
+mesmo (a). O Momento Decisivo 1 gera uma inclinação por independência; desejo 
+de expressar a individualidade por ideias originais; de conduzir e dirigir os outros, de 
+atingir suas realizações e ser reconhecido (a) por isso. 
+O Terceiro Momento Decisivo 1 indica certo grau de agressividade em seu 
+comportamento. Não necessariamente voltada para os outros. Sua habilidade para 
+seguir em frente e desenvolver seus talentos depende somente de você; de sua 
+iniciativa. Suas realizações ficam mais aparentes ao público e uma sensação de 
+independência lhe permite assumir algum papel de liderança.`,
+
+  2: `Terceiro Momento Decisivo 2 
+Este é o momento que demanda cooperação e diplomacia. Traz consigo a 
+oportunidade para cultivar o tato e a compreensão. Se for amigo (a) e companheiro 
+(a) atencioso (a) com seus semelhantes, este será um período de amizades sinceras 
+e de relacionamentos duradouros. Excelente fase para o casamento. Se for 
+impaciente e desatencioso (a) poderá ser uma fase de relacionamentos difíceis, de 
+incompreensões, brigas, discussões, em que poderá causar prejuízos às pessoas 
+que o (a) cercam. A ênfase geral desse Momento Decisivo é para a cooperação e 
+harmonia. Você estará propenso (a) a se tornar uma pessoa muito sensível durante 
+este período, até mesmo se isso não faz parte do seu temperamento básico. Um 
+período para desenvolver ações em parceria, cooperação e diplomacia. Período de 
+trabalho e, relativamente, pouco reconhecimento. 
+O Terceiro Momento decisivo 2 indica que durante este período produtivo de sua 
+vida, as realizações dependerão grandemente de suas habilidades para trabalhar 
+com outras pessoas, promover harmonia, mostrar paciência e voluntariedade para 
+esperar pelos créditos baseados em suas contribuições. Você pode se tornar muito 
+detalhista e exigente no seu trabalho durante esse período.`,
+
+  3: `Terceiro Momento Decisivo 3 
+É o momento de expandir a vida social e cultivar os próprios talentos. Trata-se de 
+uma fase apropriada para a autoexpressão, novas amizades, romance e fertilidade. 
+A manifestação descuidada das emoções poderá ter consequências desagradáveis, 
+pois existe, nesse estado, tendência ao desmando, vícios, brigas e discórdias. 
+Cuidado com os amigos, pois apesar de serem necessários, por vezes são más 
+companhias. O efeito geral deste período é o de luz e atividades agradáveis. 
+Qualquer talento artístico ou criativo oculto é o momento de manifestar agora. A 
+vida parece fluir em sua direção neste período; seus pensamentos estão mais no 
+presente que no futuro ou no passado. Estar com pessoas e se divertir é essencial. 
+Atitudes cheias de jovialidade – as coisas vêm fácil e vão fácil. É provável que o seu 
+trabalho ocorra como um divertimento ou um jogo. 
+O Terceiro Momento Decisivo 3 indica um período de responsabilidades e 
+realizações muito dependentes do comportamento social e influências gerais. Este 
+período poderá evocar oportunidade para escrever, falar em público, ou alguma 
+forma de participação nas artes de entretenimento. São estimulados sentimentos e 
+imaginação.`,
+
+  4: `Terceiro Momento Decisivo 4 
+Este Momento Decisivo traz a oportunidade de se construir um sólido alicerce para 
+o futuro. É um período de trabalho duro e até de algumas restrições, e é importante 
+cultivar a paciência e os bons hábitos de trabalho. Neste período poderá haver 
+alguns problemas econômicos, que serão superados com inteligência, trabalho e 
+dedicação ao projeto final. A família e os parentes por afinidade podem se 
+apresentar na forma de oportunidade para a prática do auxílio humanitário, tanto na 
+parte financeira, como prestando ajuda em uma doença, por exemplo. As 
+recompensas sempre aparecem a partir da aplicação dos preceitos corretos de vida 
+e do esforço para se obter os resultados positivos. A influência geral de um 
+Momento Decisivo 4 é de uma visão realista e prática das coisas. 
+O Terceiro Momento Decisivo 4 indica que sua habilidade para seguir em frente e 
+realizar estará associada indubitável e diretamente à sua habilidade de trabalhar 
+externamente a competição. Às vezes, este Momento Decisivo traz uma sensação 
+de limitação econômica. É provável que este seja um período de crescimento e de 
+realizações concretas.`,
+
+  5: `Terceiro Momento Decisivo 5 
+Traz oportunidades para viagens, para experimentar novas sensações, novos 
+empreendimentos e para se livrar de tudo que está obsoleto ou que já não faz falta. 
+É uma fase de liberdade, de mudanças, muitas vezes súbitas e inesperadas, e de 
+desenvolvimento pessoal, principalmente se vier após um Momento Decisivo 4 ou 6. 
+A influência geral no Momento Decisivo 5 é a de liberdade e diminuição de 
+responsabilidade. As circunstâncias financeiras poderão mudar rapidamente, para 
+cima ou para baixo, como tudo neste período. 
+O Terceiro Momento Decisivo 5 indica que neste período a sua habilidade para 
+progredir e atingir os objetivos pode estar ligada à sua capacidade de funcionar 
+confortavelmente num ambiente flutuante. A sensação de liberdade que tem agora é 
+muito significativa. A precaução aqui é não queimar mais cartuchos por causa de 
+seu desejo de liberdade, viagens e aventuras. Poderá precisar daquele trabalho, ou 
+da família, mais tarde.`,
+
+  6: `Terceiro Momento Decisivo 6 
+É um período para os ajustes das responsabilidades familiares. Caso tenha 
+consciência disso, este é o momento de grande afetividade, de amor e de felicidade 
+doméstica, além de sucesso e segurança material. Do contrário, ou seja, caso seja 
+dispersivo ou inconstante, poderá ser um período de desgostos, discussões, brigas 
+e graves problemas domésticos e até indício de separação, caso seja casado (a) ou 
+mantenha um relacionamento estável. Inclinação para servir, ensinando, 
+aconselhando, promovendo harmonia. 
+O Terceiro Momento Decisivo 6 indica possibilidade de progresso e realização pela 
+aceitação de responsabilidades crescentes, e por atos diplomáticos. Porém, casa e 
+família geralmente têm precedência sobre os negócios. É um período para trabalhar 
+atendendo às demandas da família, dos amigos íntimos, do grupo social a que 
+pertence, e não somente as suas satisfações pessoais.`,
+
+  7: `Terceiro Momento Decisivo 7 
+É uma fase de introspecção, de meditação e estudo do significado mais profundo da 
+vida, de investigação e desenvolvimento de habilidades. Caso não esteja casado (a), 
+este pode não é o momento melhor para casamento. Isso não significa, no entanto, 
+que não possa se casar. Velhos relacionamentos que não produzem mais frutos 
+podem e devem ser deixados para trás. Normalmente sentirá vontade de se retirar 
+para dentro de si para desenvolver os seus recursos internos, o que de certa forma 
+poderá causar problemas de relacionamento, tanto a nível pessoal como familiar. 
+Poderá surgir certo desinteresse por assuntos materiais e pouca preocupação com 
+negócios práticos, acarretando um pouco de escassez financeira. 
+O Terceiro Momento Decisivo 7 indica possibilidades de boa evolução nos assuntos 
+financeiros, bem como nos assuntos relacionados à ciência, porém, é um período 
+permeado de buscas religiosas, espirituais, filosóficas ou esotéricas que poderão 
+influenciar sua vida e tornar mais lento o seu progresso material. Os benefícios 
+deste Momento decisivo serão muito mais profundos e interiores.`,
+
+  8: `Terceiro Momento Decisivo 8 
+É um período de grandes realizações no mundo dos negócios. As despesas poderão 
+ser altas, porém, é uma excelente fase para correr atrás dos objetivos, de conquistar 
+poder, fama e sucesso material. Com dedicação, estudo, organização e trabalho 
+sistemático, com objetivo definido e colaboradores aptos e interessados, 
+dificilmente deixará de conseguir tudo o que deseja. 
+O Terceiro Momento Decisivo 8 indica um período de sua vida em que estará 
+inclinado a se tornar profundamente envolvido (a) em ser um (a) executivo (a), ou 
+talvez estar casada(o) com um (a). A maturidade o (a) levará a confiar mais em 
+sentimentos racionais do que emocionais. Será mais ambicioso (a) e orientado (a) 
+para o sucesso.`,
+
+  9: `Terceiro Momento Decisivo 9 
+Traz a oportunidade para cultivar o amor, a solidariedade, o altruísmo e para 
+viagens. Poderá haver algum tipo de perda ou desapontamento, principalmente 
+entre amigos. Um bom investimento é fazer obras humanitárias durante esse 
+período, pois os frutos dessa plantação são certos, e o sucesso e a fama se farão 
+presentes. A atitude nesse período da vida será mais humanista, solidária e 
+emocional. 
+O Terceiro Momento Decisivo 9 indica um período da vida em que a pessoa 
+expressará ideias humanitárias muito emocionais e dramáticas. Cultive a tolerância 
+e a compaixão. Poderá desenvolver uma visão universal do mundo e trabalhar de 
+modo a beneficiar o ser humano.`,
+
+  11: `Terceiro Momento Decisivo 11 
+Por ser um número altamente espiritual e elevado, nesse período a pessoa se sente 
+tensa e muito nervosa, principalmente durante o Primeiro Ciclo de Vida. É uma 
+excelente fase para estudar esoterismo, espiritualismo e expandir os horizontes. 
+Esse momento traz inspiração, iluminação e, quase sempre, fama e prestígio 
+nacional e até internacional. Não faça nada nem diga por trás o que não teria 
+coragem de dizer ou fazer na frente das pessoas. 
+O Terceiro Momento Decisivo 11 indica um período de trabalho inspirado e 
+oportunidades para desenvolver o lado espiritual, aplicando nas suas atividades 
+cotidianas as ideias inspiradas ou intuídas. Possibilidade de reconhecimento e 
+sucesso em sua vida.`,
+
+  22: `Terceiro Momento Decisivo 22 
+É, sem dúvida alguma, o Momento mais poderoso. A pessoa se sente altamente 
+criativa, e nesse estado torna-se possível quase todas as realizações. É uma fase de 
+interesses pelos problemas mundiais e de grande expansão da consciência. O 
+Momento Decisivo 22 é tão poderoso que não pode acontecer no primeiro ciclo da 
+vida. 
+O Terceiro Momento Decisivo 22 indica um período de grandes realizações em sua 
+vida e com certa estabilidade. A maturidade o ajudará a centrar seu foco em 
+objetivos mais altruístas. A sua visão de mundo estará mais aguçada e abrangente. 
+É um período de trabalhar os aspectos altruístas das conquistas materiais, 
+aplicando parte do seu tempo e recursos em ações que beneficiem a humanidade.`
+};
+
+export const quartoMomentoDecisivo = {
+  1: `Quarto Momento Decisivo 1: 
+É um período difícil, em que muitas vezes será necessário enorme esforço para 
+manter-se firme em si próprio (a), dependendo apenas de si próprio para o sucesso. 
+Exige coragem, determinação e muita força de vontade. Inúmeros acasos e 
+situações inesperadas o (a) forçarão a enfrentar a vida pensando e agindo por si 
+mesmo (a). O Momento Decisivo 1 gera uma inclinação por independência; desejo 
+de expressar a individualidade por ideias originais; de conduzir e dirigir os outros, de 
+atingir suas realizações e ser reconhecido (a) por isso. 
+O Quarto Momento Decisivo 1 indica que qualquer desejo de aposentadoria ou de 
+reduzir a velocidade não será possível. Desafios e mudanças marcarão esta fase 
+final da sua vida. Responsabilidades e realizações estarão baseadas na sua 
+habilidade para conduzir, dirigir, e expressar a sua própria individualidade e ideias 
+originais.`,
+
+  2: `Quarto Momento Decisivo 2: 
+Este é o momento que demanda cooperação e diplomacia. Traz consigo a 
+oportunidade para cultivar o tato e a compreensão. Se for amigo (a) e companheiro 
+(a) atencioso (a) com seus semelhantes, este será um período de amizades sinceras 
+e de relacionamentos duradouros. Excelente fase para o casamento. Se for 
+impaciente e desatencioso (a) poderá ser uma fase de relacionamentos difíceis, de 
+incompreensões, brigas, discussões, em que poderá causar prejuízos às pessoas 
+que o (a) cercam. A ênfase geral desse Momento Decisivo é para a cooperação e 
+harmonia. Você estará propenso (a) a se tornar uma pessoa muito sensível durante 
+este período, até mesmo se isso não faz parte do seu temperamento básico. Um 
+período para desenvolver ações em parceria, cooperação e diplomacia. Período de 
+trabalho e, relativamente, pouco reconhecimento. 
+O Quarto Momento Decisivo 2 indica que sua vida terá um longo período de 
+harmonia, estando aposentado (a) ou não. A chave para a realização será a 
+paciência, o tato, e a cooperação, e será compelido (a) a controlar a tendência para a 
+sensibilidade.`,
+
+  3: `Quarto Momento Decisivo 3: 
+É o momento de expandir a vida social e cultivar os próprios talentos. Trata-se de 
+uma fase apropriada para a autoexpressão, novas amizades, romance e fertilidade. 
+A manifestação descuidada das emoções poderá ter consequências desagradáveis, 
+pois existe, nesse estado, tendência ao desmando, vícios, brigas e discórdias. 
+Cuidado com os amigos, pois apesar de serem necessários, por vezes são más 
+companhias. O efeito geral deste período é o de luz e atividades agradáveis. 
+Qualquer talento artístico ou criativo oculto é o momento de manifestar agora. A 
+vida parece fluir em sua direção neste período; seus pensamentos estão mais no 
+presente que no futuro ou no passado. Estar com pessoas e se divertir é essencial. 
+Atitudes cheias de jovialidade – as coisas vêm fácil e vão fácil. É provável que o seu 
+trabalho ocorra como um divertimento ou um jogo.  
+O Quarto Momento Decisivo 3 indica possibilidade de viagens, atividades sociais e 
+entretenimento. Este Momento Decisivo promete, normalmente, liberdade e 
+despreocupação financeira nos anos vindouros. Enquanto há uma tendência para 
+vaguear no relativo conforto, este é um tempo em que você poderá estar no auge de 
+sua criatividade.`,
+
+  4: `Quarto Momento Decisivo 4: 
+Este Momento Decisivo traz a oportunidade de se construir um sólido alicerce para 
+o futuro. É um período de trabalho duro e até de algumas restrições, e é importante 
+cultivar a paciência e os bons hábitos de trabalho. Neste período poderá haver 
+alguns problemas econômicos, que serão superados com inteligência, trabalho e 
+dedicação ao projeto final. A família e os parentes por afinidade podem se 
+apresentar na forma de oportunidade para a prática do auxílio humanitário, tanto na 
+parte financeira, como prestando ajuda em uma doença, por exemplo. As 
+recompensas sempre aparecem a partir da aplicação dos preceitos corretos de vida 
+e do esforço para se obter os resultados positivos. A influência geral de um 
+Momento Decisivo 4 é de uma visão realista e prática das coisas. 
+O Quarto Momento Decisivo 4 indica, provavelmente, que qualquer desejo para se 
+aposentar ou reduzir seu passo pode não ser cumprido. Poderá deixar de relaxar e 
+desfrutar de atividades de lazer para trabalhar. É importante trabalhar e sentir a 
+sensação de realização pelo trabalho. Em alguns casos desafortunados, as 
+condições econômicas retardam a tendência para se aposentar e desfrutar a vida.`,
+
+  5: `Quarto Momento Decisivo 5: 
+Traz oportunidades para viagens, para experimentar novas sensações, novos 
+empreendimentos e para se livrar de tudo que está obsoleto ou que já não faz falta. 
+É uma fase de liberdade, de mudanças, muitas vezes súbitas e inesperadas, e de 
+desenvolvimento pessoal, principalmente se vier após um Momento Decisivo 4 ou 6. 
+A influência geral no Momento Decisivo 5 é a de liberdade e diminuição de 
+responsabilidade. As circunstâncias financeiras poderão mudar rapidamente, para 
+cima ou para baixo, como tudo neste período. 
+O Quarto Momento Decisivo 5 indica que qualquer desejo para se aposentar ou 
+reduzir o passo poderá ser adiado ou não cumprido. Mudanças e variedades 
+continuarão mantendo você cada vez mais ocupado (a). Se você se adaptar, este 
+poderá ser um tempo muito interessante em sua vida. Na maioria dos casos um 
+Momento Decisivo final 5 significa liberdade em relação a preocupações financeiras 
+e domésticas.`,
+
+  6: `Quarto Momento Decisivo 6: 
+É um período para os ajustes das responsabilidades familiares. Caso tenha 
+consciência disso, este é o momento de grande afetividade, de amor e de felicidade 
+doméstica, além de sucesso e segurança material. Do contrário, ou seja, caso seja 
+dispersivo ou inconstante, poderá ser um período de desgostos, discussões, brigas 
+e graves problemas domésticos e até indício de separação, caso seja casado (a) ou 
+mantenha um relacionamento estável. Inclinação para servir, ensinando, 
+aconselhando, promovendo harmonia. 
+O Quarto Momento Decisivo 6 traz para o lar as recompensas e prazeres da família, 
+segurança e um círculo íntimo de amigos. É provável que a pessoa se ache 
+devolvendo algum dos favores e atenção que recebeu num período anterior da vida. 
+Quando o 6 for o último Momento Decisivo, ele poderá trazer o reconhecimento do 
+trabalho já feito. Caso você esteja solteiro (a), este Momento trará a oportunidade 
+para um novo amor, bem como para o conforto material.`,
+
+  7: `Quarto Momento Decisivo 7: 
+É uma fase de introspecção, de meditação e estudo do significado mais profundo da 
+vida, de investigação e desenvolvimento de habilidades. Caso não esteja casado (a), 
+este pode não é o momento melhor para casamento. Isso não significa, no entanto, 
+que não possa se casar. Velhos relacionamentos que não produzem mais frutos 
+podem e devem ser deixados para trás. Normalmente sentirá vontade de se retirar 
+para dentro de si para desenvolver os seus recursos internos, o que de certa forma 
+poderá causar problemas de relacionamento, tanto a nível pessoal como familiar. 
+Poderá surgir certo desinteresse por assuntos materiais e pouca preocupação com 
+negócios práticos, acarretando um pouco de escassez financeira. 
+O Quarto Momento Decisivo 7 traz um tempo quieto quando estiver envolvido, 
+principalmente, com o desenvolvimento e refinamento de seu Eu Superior. Este é um 
+tempo de estudo, desenvolvimento, e pensamento da vida em termos filosóficos e 
+espirituais; talvez científicos.`,
+
+  8: `Quarto Momento Decisivo 8: 
+É um período de grandes realizações no mundo dos negócios. As despesas poderão 
+ser altas, porém, é uma excelente fase para correr atrás dos objetivos, de conquistar 
+poder, fama e sucesso material. Com dedicação, estudo, organização e trabalho 
+sistemático, com objetivo definido e colaboradores aptos e interessados, 
+dificilmente deixará de conseguir tudo o que deseja. 
+O Quarto Momento Decisivo 8 indica que o período final da sua vida será de alguma 
+posição elevada ou importante, e pouco provável que sua aposentadoria aconteça 
+em idade normal. As circunstâncias desses anos poderão ser de uma atmosfera de 
+status e poder.`,
+
+  9: `Quarto Momento Decisivo 9: 
+Traz a oportunidade para cultivar o amor, a solidariedade, o altruísmo e para 
+viagens. Poderá haver algum tipo de perda ou desapontamento, principalmente 
+entre amigos. Um bom investimento é fazer obras humanitárias durante esse 
+período, pois os frutos dessa plantação são certos, e o sucesso e a fama se farão 
+presentes. A atitude nesse período da vida será mais humanista, solidária e 
+emocional. 
+O Quarto Momento Decisivo 9 indica um período final da vida em que o trabalho 
+tenderá a ser filantrópico, ou focado em resultados que beneficiem a humanidade. 
+Certamente terá uma atitude mais atenciosa com o seu semelhante agora, que em 
+tempos anteriores da sua vida. A atitude nesse período final da vida será mais 
+humanista, solidária e emocional.`,
+
+  11: `Quarto Momento Decisivo 11: 
+Por ser um número altamente espiritual e elevado, nesse período a pessoa se sente 
+tensa e muito nervosa, principalmente durante o Primeiro Ciclo de Vida. É uma 
+excelente fase para estudar esoterismo, espiritualismo e expandir os horizontes. 
+Esse momento traz inspiração, iluminação e, quase sempre, fama e prestígio 
+nacional e até internacional. Não faça nada nem diga por trás o que não teria 
+coragem de dizer ou fazer na frente das pessoas. 
+O Quarto Momento Decisivo 11 indica uma fase final de sua vida com agitadas 
+possibilidades de realizações ainda. A paz se estabelecerá em seu interior se tiver 
+cumprido com as prerrogativas de sua alma nos anos anteriores, caso contrário 
+poderá passar por períodos de muitas angústias.`,
+
+  22: `Quarto Momento Decisivo 22: 
+É, sem dúvida alguma, o Momento mais poderoso. A pessoa se sente altamente 
+criativa, e nesse estado torna-se possível quase todas as realizações. É uma fase de 
+interesses pelos problemas mundiais e de grande expansão da consciência. O 
+Momento Decisivo 22 é tão poderoso que não pode acontecer no primeiro ciclo da 
+vida. 
+O Quarto Momento Decisivo 22 indica uma fase final da vida com grandes 
+resultados e grandes realizações. Provavelmente não pensará em parar de trabalhar 
+e ainda sonha construir algo marcante para si e para a humanidade.`
+};
+
+export const diaPessoal = {
+  1: `Dia Pessoal 1 
+É um dia para cultivar a individualidade, a independência e a capacidade de trabalhar 
+sozinho (a). Siga os seus próprios pensamentos e acredite na sua sabedoria interior. 
+Bom para começar algo novo, marcar encontros e fazer transações. Aja com 
+iniciativa e pioneirismo ao tratar dos assuntos do dia.`,
+
+  2: `Dia Pessoal 2 
+É o dia das associações, da harmonia pessoal, de cooperar e apoiar, de ouvir 
+conselhos. Bom para fazer associações e firmar contratos. Cultive a paciência e 
+espere o momento certo para falar ou agir no trato dos assuntos do dia.`,
+
+  3: `Dia Pessoal 3 
+Dia benéfico para se expressar sob todas as formas. Seja criativo (a) e cultive os 
+contatos sociais e a expansão de seus ideais. Seja ousado (a) e exponha suas ideias 
+com clareza e sem rodeios.`,
+
+  4: `Dia Pessoal 4 
+Dia para trabalhar duro e sério, para estruturar a vida material e os conhecimentos, 
+para negociar, para compra e venda. É também um dia para cultivar a paciência, a 
+confiança e a disposição para servir. Seja prudente e prático ao tratar dos assuntos 
+do dia.`,
+
+  5: `Dia Pessoal 5 
+Um dia para renovar e inovar, para movimentar o corpo, para magia. Grande 
+momento para fazer contatos, fazer publicidade, viajar e mudar o que precisa ser 
+mudado. É o dia da adaptabilidade, versatilidade e responsabilidade. Aja com 
+discernimento e responsabilidade no trato dos assuntos do dia.`,
+
+  6: `Dia Pessoal 6 
+Um bom dia para o amor, a família, as relações de grupos. Momento favorável para 
+fazer transações imobiliárias. Não é um bom dia para viajar ou começar o que não 
+pode ser acabado. Mantenha a calma e ouça com atenção o que os outros têm a 
+dizer, ponderando sobre o seu ponto de vista sem alarde ou imposições. Um dia 
+para servir.`,
+
+  7: `Dia Pessoal 7 
+É um dia ideal para o repouso, a meditação, sair com a família, buscar o 
+autoconhecimento e para tratar de assuntos estratégicos. Aja com inteligência e 
+não arrisque fazer piadas no trato dos assuntos do dia.`,
+
+  8: `Dia Pessoal 8  
+Dia bom para tratar dos assuntos financeiros, abrir uma empresa, usar a sua própria 
+força e poder. Evidencia o seu maior grau de eficiência. Fale claramente de seus 
+planos e projetos. Aja com soberania e segurança em si no trato dos assuntos do 
+dia.`,
+
+  9: `Dia Pessoal 9 
+Um dia reservado para as finalizações e libertação daquilo que não serve mais. Não 
+é um bom dia para começar novos projetos, mas é excelente para tratar dos 
+assuntos relativos à humanidade, ao próximo, fazer doações, trabalhos voluntários, 
+estudar, falar em público, aconselhar. Aja com sabedoria e compreensão no trato 
+dos assuntos do dia.`,
+
+  11: `Dia Pessoal 11 
+É um dia de muita energia e poder. Confie na própria intuição e não se deixe levar 
+por conselhos de outras pessoas. Conserve a humildade e a inspiração, e seja 
+exemplo e inspiração para os outros. Bom para viajar, adquirir e conservar amizades, 
+escrever, perdoar, cultivar a paciência e meditar. Aja com elevado idealismo no trato 
+dos assuntos do dia.`,
+
+  22: `Dia Pessoal 22 
+Um dia para ser altruísta e realizar algo que beneficie a humanidade; ouvir as 
+pessoas e praticar a equidade e a justiça. Um dia poderoso para aproveitar o 
+máximo de suas potencialidades. Aja com realismo a praticidade no trato dos 
+assuntos do dia.`
+};
+
+
+export const caracteristicasDiaNascimento = {
+  1: `Dia 1 
+Pioneiro (a), original, criativo (a) e independente. Naturalmente líder, 
+destinado (a) a ter sucesso se viver positivamente e construtivamente. 
+Com tendência a adiar as decisões recorre a desculpas para se justificar 
+e não terminar o que começou. Gosta de dizer aos outros como as 
+coisas devem ser feitas, em vez de fazer pessoalmente. Raciocínio 
+lógico, mente ativa, sabe argumentar com sucesso até sobre assuntos 
+que conhece apenas superficialmente. É importante que cultive visão 
+larga e mente aberta sob pena de se tornar cada vez mais centrado (a) 
+em si mesmo (a) e no objetivo visado, perdendo gradativamente a 
+energia e enfrentando a possibilidade fazer escolhas erradas. Precisa 
+ser independente na ação, pois, mesmo sendo competente no trabalho, 
+não gosta de receber ordens ou conselhos de superiores, e se dá 
+melhor trabalhando por conta própria. Afirmativo (a), autoconfiante e 
+imperioso (a), tem propósitos bem definidos e ambiciona o progresso 
+constante. É prático (a), idealista e individualista, possui natureza 
+criadora e inventiva, muitas vezes obstinada. É bem sucedido (a) em 
+ocupações que o (a) levem a encarar o público ou exijam fazer uso de 
+sua capacidade de iniciativa e liderança. Fica infeliz quando relegado (a) 
+a uma posição secundária; mesmo não admitindo, exaspera com 
+pessoas que considera inferiores e com aqueles que não compreendem 
+seu modo de ver as coisas, exigindo respeito naquilo que faz. Mesmo 
+sendo sensível e profundo em seus sentimentos, não demonstra, sendo 
+muitas vezes considerado (a) como uma pessoa fria e pouco 
+comunicativa. Dificilmente demonstra afeto, contudo, deseja a simpatia, 
+o elogio e o estimulo que o (a) encoraja. Iniciativa, ambição, unidade de 
+pensamento e ação, constância em melhorar o que possui, capacidade 
+de lutar para conseguir o que deseja são suas principais características 
+e expressam o poder que recebeu ao nascer: Eu Quero. Para vencer na 
+vida precisa de reflexão, ponderação, tenacidade e persistência; 
+necessidade de Poder e Saber. Suas frustrações podem afetar sua 
+saúde, alterando seu metabolismo e influindo no sistema nervoso e na 
+pressão arterial.`,
+
+  2: `Dia 2 
+Excelente árbitro (a) e pacificador (a). Delicadeza natural, senso 
+diplomático e habilidade para conciliar e harmonizar interesses e 
+pessoas. Possui desenvolvido senso doméstico e desejo natural de paz 
+e felicidade. Quando solteiro (a) é comum se envolver em problemas 
+românticos, que, geralmente, resultam em complicações. O casamento 
+lhe faz bem, pois aceita e valoriza as opiniões da (o) companheira (o). 
+Precisa estar sempre fazendo alguma coisa para acalmar sua 
+inquietude e nervosismo. Tanto o ócio quanto a solidão não são 
+suportados. De natureza profundamente amorosa, é sentimental e 
+afetuoso (a) e precisa também receber afeto. Compreende os 
+sentimentos dos outros e é incapaz de ferir alguém intencionalmente. 
+Por ser sensível e emotivo (a), sofre demais com a incompreensão ou 
+indiferença de alguém que lhe seja importante. Gosta de música e tem 
+senso de ritmo; possui considerável talento para as artes, a música, a 
+dança, ou escrevendo principalmente poesias. Expressa afeto por sua 
+sensibilidade no campo do sentir, e sua imaginação, brandura de modos 
+e espírito de conciliação são os meios que usa para se expressar. Pode 
+se sujeitar a uma situação passiva, aceitando ficar num segundo plano 
+sem demonstrar revolta, porém, intimamente, planeja todos os passos 
+para triunfar, tanto no amor quanto nos seus interesses materiais. Se for 
+de má índole seus planos podem envolver artimanhas e ciladas, não 
+levando em consideração nem se importando com os meios para 
+alcançar sua meta. Pode até se tornar cruel e inescrupuloso (a) com 
+seus adversários, mas acaba sempre se perdendo e se arruinando. 
+Normalmente é bem estimado (a) por todos e hábil no trato com público. 
+Gosta de conhecer novos lugares, analisar e explorar as coisas 
+complicadas e enigmáticas. Trabalha melhor em grupo, cooperando. É 
+importante se manter firme para vencer suas tendências periódicas para 
+a depressão. Tende a subestimar suas próprias capacidades e corre 
+risco de se tornar capacho dos outros ou de esconder seu sentimento 
+de inferioridade sob uma atitude arrogante ou prepotente. Mas, estando 
+seguro (a) de suas capacidades, mostra-se gentil, dócil, compreensivo 
+(a) e delicado (a). Pode ser bem sucedido (a) em serviço cívico, público, 
+diplomacia, política, como analista, psicólogo (a), professor (a), 
+pesquisador (a), bibliotecário (a), árbitro (a), ou em atividades artísticas. 
+Como resultado de frustrações e insucessos poderá sofrer perturbações 
+no sistema nervoso refletindo no aparelho digestório; também disritmias 
+e reações alérgicas.`,
+
+3: `Dia 3 
+Um (a) idealista, liberal e bem humorado (a) por natureza. Ama o prazer 
+e cultiva a juventude. Gosta da vida por ela mesma, e aceita como ela 
+se apresenta. Aprecia sua popularidade e aproveita todas as 
+oportunidades para se expressar e se aperfeiçoar de maneira que possa 
+progredir com isso. Justo (a), honesto (a) e prestativo (a), porém 
+ambicioso (a), o (a) nascido (a) no dia 3 luta para conseguir altas 
+posições. É dedicado (a) à família e responsável, procurando sempre 
+cumprir suas obrigações, mas sempre de algum modo cômodo e fácil, 
+porém sempre com eficiência. Extremamente bondoso (a) e digno (a) de 
+toda confiança; possui também muitas ideias originais; é intuitivo (a), 
+intelectual e possui dons artísticos. Pode tornar-se impetuoso (a) e 
+violento (a) nos momentos de cólera, porém, não guarda 
+ressentimentos. É um ser popular e sociável, sentindo-se muito bem 
+sempre que está rodeado de pessoas e principalmente de amigos. 
+Geralmente torna-se o centro das atenções por possuir o dom de 
+entreter e alegrar qualquer ambiente, sem causar contrariedades ou 
+provocar críticas. No seu lado negativo, procura chamar a atenção se 
+colocando de vítima; se tornando agressivo (a) e negligente para 
+despertar piedade e carinho dos outros e se sentir mimado (a) e 
+protegido (a). Adora sentir o sabor das novas conquistas e, de alguma 
+maneira, quer ser o ideal e o sonho de alguém. Pode se tornar cruel, 
+crítico (a) e mordaz, manipulando as pessoas para as suas finalidades, 
+às vezes, mesquinhas, por causa de sua constante insegurança afetiva. 
+Se não dominar suas emoções, poderá afastar os amigos e sentir-se só, 
+mesmo no meio da multidão. Pode ocupar-se de várias atividades ao 
+mesmo tempo, no entanto, pode dispersar seus talentos em atividades 
+infrutíferas, com prejuízos financeiros e perda de tempo. Deve focar-se 
+em atividades de efetivo valor. Será bem sucedido (a) quando se 
+dedicar a profissões liberais, aproveitando seus talentos criativos e 
+iniciativa. Só pela auto expressão conseguirá a sua plena realização, 
+em qualquer arte: oratória, escrita, teatro, pintura. A sua saúde pode ser 
+abalada por frustrações de afetos não correspondidos, ou fracassos nos 
+seus planos, afetando o sistema nervoso e a pele, inclusive alterando o 
+equilíbrio do seu metabolismo. Porém, pode recuperar-se rapidamente 
+de qualquer problema com sua saúde.`,
+
+4: `Dia 4 
+Um ser, por natureza, constante, persistente, esforçado, regular, 
+metódico e ordeiro; é a própria expressão da perícia e solidez. É capaz 
+de se adaptar ao trabalho regular e contínuo; capaz de grandes 
+esforços para execução de seus projetos; é mais feliz quando o trabalho 
+exige regularidade, esforço e método. Possui vocação para assuntos 
+científicos e trabalhos mecânicos. A sua natureza é material e o seu 
+mundo é dos negócios, mesmo que muitas vezes, por sua 
+independência e desprezo pelo convencional e tradicional, acabe por 
+prejudicar seu sucesso. É sistemático (a), econômico (a), bondoso (a) e 
+honesto (a). Mesmo sendo de natureza amorosa, disciplina-se a ponto 
+de não demonstrar afeição. No casamento, é dedicado (a) companheiro 
+(a) e amante ardoroso (a), com muito respeito pelo sexo oposto. Pelo 
+seu modo prático, deve formar bons alicerces para a sua vida. É 
+trabalhador (a) incansável e metódico (a), dando atenção aos 
+pormenores; prima por terminar rapidamente o que iniciou e arrasta 
+quem estiver consigo. Seu senso de dedicação ao trabalho faz com que 
+não esmoreça diante de exaustivas jornadas. Não gosta de mudanças, 
+mas gosta de viajar, e deve aprender a divertir-se de vez em quando 
+como terapia restauradora de suas energias. É extremamente leal aos 
+amigos e muito responsável em família e no trabalho, mas se sente 
+ofendido (a) com facilidade, mesmo sendo razoável. Os estudos são de 
+grande importância para si, porém, deve buscar a praticidade de modo 
+que o que aprende tenha utilidade real na sua vida. Está fadado (a) a 
+alcançar o pico de suas aspirações, devido à sua persistência e calma. 
+Poderá ter frequentes dores de cabeça, espáduas e rins, além de 
+estados de melancolia e anemia devido às frustrações que não 
+consegue elaborar.`,
+
+5: `Dia 5 
+O (a) nativo (a) do dia 5 é dotado (a) de notáveis poderes psíquicos e 
+deve aceitar e seguir seus próprios pressentimentos; suas intuições. De 
+fértil imaginação, torna-se um (a) intelectual versátil, sempre interessado 
+(a) em tudo e tudo quer saber. Atrai e sente-se atraído (a) pelo sexo 
+oposto, mas precisa aprender a lidar com isso e receber bem as 
+experiências cultivando um tipo superior de relacionamentos e 
+amizades. Possibilidade de casar-se cedo para se estabilizar, mas pode 
+ser um par difícil, por gostar da liberdade; sente-se mal quando se 
+percebe preso (a) a uma disciplina. Para dar certo, o melhor é escolher 
+um par que também aprecie a liberdade e a vida ativa e goste de viajar. 
+Sente-se atraído (a) por várias pessoas ao mesmo tempo, resultando 
+disso frequentes sentimentos de culpa. Deve aprender a diferenciar a 
+amizade do afeto e do que realmente deseja, sem confundir um 
+sentimento com outro. Pode ser inconstante e volúvel, por isso é 
+importante que se mantenha fiel a si mesmo (a) e aos seus princípios. 
+Não é de sua natureza ficar parado (a), e busca sempre formas até 
+mesmo exóticas de ganhar dinheiro ou de se realizar. Não teme riscos. 
+Apreciador (a) da vida social faz novas amizades com facilidade, porém, 
+quando bem lhe parece as abandona e procura por outras em outros 
+ambientes. Tendência para a teimosia; não descansa enquanto não 
+conseguir o que deseja. É muito importante ser um (a) líder; é capaz de 
+exercer essa liderança com segurança e tranquilidade. Possui 
+privilegiada inteligência, que facilita desenvolver múltiplos 
+conhecimentos e aptidões. Seu ponto fraco está no impulso para 
+mudanças e a tentar coisas novas, sendo impaciente para esperar pelos 
+resultados no devido tempo. Mas se tomar uma determinação positiva 
+de alcançar o sucesso, e se sujeitar a esperar pacientemente pelos 
+resultados, logo perceberá que possui notáveis qualidades de vencedor 
+(a). Para ser bem sucedido (a), melhor dedicar-se a negócios ou 
+trabalhar em empresas que passem por transformações a cada cinco 
+anos sob risco de seus rendimentos diminuírem. Caso não assuma e 
+tenha controle sobre suas emoções, as frustrações e contrariedades 
+poderão lhe causar prostração nervosa, insônia e, conforme seu 
+temperamento, alguma paralisia ou derrame.`,
+
+  6: `Dia 6 
+O (a) nativo (a) do dia seis, de qualquer mês, é um (a) incansável 
+buscador (a) pelo amor; apaixonado (a), prestativo (a), eficiente e 
+cordial, apreciador (a) da ordem e dos métodos. Será sempre mais feliz 
+dedicando-se a qualquer atividade relacionada com a educação, o bem 
+estar, a família, por sua tendência para assumir responsabilidades e 
+estar sempre disposto (a) a servir aos outros, ou aconselhar. Pende 
+para a teimosia, a ser dominador (a), exigente e pouco razoável, 
+sugerindo estar agindo dessa maneira pelo bem da outra pessoa. 
+Normalmente impõe os seus ideais em nome de fazer o bem para os 
+demais. Amante da vida e do ser humano, não encontra razão em viver 
+sem amor. É um (a) sonhador (a) que vive intensamente suas emoções; 
+inclina-se a idealizar as pessoas e, quando se decepciona, investe 
+muito tempo tentando transformá-las na imagem idealizada. Por seu 
+magnetismo torna-se irresistível à atração para as pessoas em geral. O 
+sexo é de vital importância, porém a felicidade é sua meta principal. 
+Gosta da vida social, adora receber visitas e conquista facilmente 
+simpatias à primeira vista. A realização de seus sonhos torna-se difícil, 
+devido à sua indecisão e excesso de exigências, porém, sabe manipular 
+os meios para conseguir o que deseja, e sempre, de um jeito ou de 
+outro, acaba por conseguir seu intento. Caso o seu objetivo envolva 
+sentimentos, com raras exceções, vai direto a ele sem se importar com 
+o que está em seu caminho. Daí o fato de poder às vezes se envolver 
+em mais de um relacionamento amoroso, ou ser envolvido (a) em 
+amizades ou casos comprometedores sem perceber por quê. 
+Extraordinariamente sensível e vulnerável, sofre dramaticamente pela 
+repressão de afetos ou frustrações e fracassos, a ponto de alterar sua 
+vida e afetar sua saúde, quase não encontrando forças para reagir.`,
+
+7: `Dia 7 
+Um (a) especialista, inspirado (a), íntegro (a) e com grande capacidade 
+de concentração. Muito intuitivo (a), sensível e com capacidades 
+psíquicas latentes, é bom que siga sempre seus pressentimentos 
+intuitivos. Será sempre melhor sucedido (a) quando buscar alguma 
+especialização em alguma linha cientifica que seja independente, com 
+plena liberdade de iniciativa, preferencialmente naquilo que leva a 
+valores morais e éticos. Perfeccionista, individualista, possui mente 
+aguda e é bom (a) argumentador (a), capaz de profunda análise mental. 
+Deve prestar atenção em sua insegurança e indecisão nas suas ações, 
+e ao fato de perder muito tempo medindo e avaliando prós e contras, 
+correndo risco de perder oportunidades ou de não resolver o que está 
+em questão. Pelo seu aspecto introspectivo e individualista é melhor 
+que trabalhe sozinho (a), já que não gosta de receber ordens e 
+inclina-se para a autocentralização e teimosia. Deve evitar jogos e 
+especulações, bem como sociedades e negócios por porcentagem. O 
+casamento geralmente acontece mais tarde, após analisar, conhecer e 
+raciocinar muito, pois terá dificuldade para suportar um fracasso 
+sentimental, dificultando ainda, um segundo relacionamento amoroso. 
+Por ser extremamente dedicado (a) à família, acaba assumindo 
+encargos que são dos outros membros. Tende a colocar os parentes 
+acima de seu próprio bem, permitindo que interfiram em sua vida e, 
+desta forma atrapalhando a sua felicidade. Está sempre querendo 
+ajudar os amigos, podendo às vezes ser explorado (a) por eles. Possui 
+tendência a trabalhar demais, havendo necessidade de calma e 
+repouso. É muito sensível às bebidas e drogas, devendo evitar o quanto 
+possível, principalmente quando estiver tenso (a) ou triste, pois tende a 
+viciar-se facilmente. Pela repressão dos afetos, frustrações em seus 
+ideais ou fracassos, tende para a depressão, o desanimo, e poderá 
+desenvolver algum distúrbio no estomago ou fígado.`,
+
+8: `Dia 8 
+O (a) nativo (a) do dia 8, de qualquer mês, é dotado (a) de notável 
+senso de justiça e equanimidade. Possui capacidades para grandes 
+realizações por meio do esforço contínuo, persistência e determinação. 
+Poderá ser bem sucedido (a) no comércio, e nos negócios em geral, 
+graças às suas habilidades e senso econômico. É progressista, criativo 
+(a) e tem capacidade executiva; pertence ao mundo dos negócios por 
+sua própria natureza. O seu desejo é de poder e autoridade, 
+considerando o dinheiro o melhor meio de alcançar. Torna-se um (a) 
+investidor (a) naturalmente, pois emprega os resultados obtidos de seus 
+esforços em novos empreendimentos. Gosta de causar boa impressão. 
+Pela facilidade de ganhar dinheiro dificilmente passará necessidades se 
+viver construtivamente. Sua força é a iniciativa; não teme riscos e 
+raramente pede conselhos, pois sabe que é perfeitamente capaz de 
+cuidar de si mesmo (a) e confia em suas qualidades e capacidades. 
+Essas qualidades inatas, aliadas ao seu senso de equanimidade e 
+justiça, poderão torná-lo (a) um (a) excelente juiz (a). É bom que reflita 
+muito antes de se casar, e a sua escolha é bom que recaia sobre 
+pessoa mais jovem a fim de movimentar sua natureza taciturna, que não 
+passa de máscara já que por debaixo dela se encontra um ser caloroso 
+com quem sempre se pode contar. Seus principais defeitos são a 
+desconfiança, certa malícia, tendência à descrença e ao pessimismo e a 
+dominar os outros. Frequentemente tem impulsos de mau humor; 
+depois se sente solitário (a) e incompreendido (a). Não se deixa abater 
+diante dos obstáculos em sua vida e dificilmente conhece derrotas, pois 
+não se joga cegamente contra eles, e sim os analisa, e sempre 
+consegue contorná-los.`,
+
+9: `Dia 9 
+Capaz de resoluções rápidas e certas, profundamente interessado (a) 
+por tudo e por todos, ativo (a) em seus pensamentos e atos, possui 
+aptidões naturais para tudo que exige energia e esforço. Passa 
+confiança e segurança para os outros. É capaz de realizar quase tudo o 
+que deseja; por essa facilidade, tende a protelar seus atos. Tem 
+facilidade para ganhar dinheiro, por isso, não se preocupa em acumular 
+ou poupar. Dotado (a) de genialidade, generosidade e desapego dos 
+bens materiais, é independente, liberal e audacioso (a), combativo (a) e 
+destemido (a) diante do perigo, não receia derrotas, pois sabe que é 
+capaz de se reerguer com redobrada energia. Do seu jeito, é ardente, 
+apaixonado (a) e agressivo (a) diante dos obstáculos. Seu ponto fraco é 
+a falta de persistência. Consegue se manter calmo (a) e sereno (a) 
+diante de fatos e acontecimentos que o (a) magoam, que ofendem e 
+ferem seu orgulho, porém, às vezes explode em revolta quase 
+incontrolável chegando ao ponto de destruir num só ato o que levou 
+anos para conseguir. No entanto, essas explosões são tão rápidas 
+quanto intensas e não guarda ressentimentos, pois o nove não 
+consegue odiar ou querer mal por muito tempo. Sua alma é 
+essencialmente filantrópica, humanista, artística, intelectual, dramática, 
+e possui incrível presença de espírito. O amor e a afeição são de vital 
+importância e só por esses sentimentos se deixa dominar, pois é 
+independente, decidido (a) e gosta de fazer as coisas por si só sem 
+esperar pelos outros. Ninguém, por razão alguma, pode forçá-lo (a) a 
+fazer algo que não queira. Tende para atrair culpas por 
+desentendimentos e discórdias, mesmo que não esteja presente na 
+ocasião, o que atrapalha a sua tranquilidade e felicidade. Em seu 
+destino haverá muitas viagens e modificações. Poderá sofrer perdas, 
+desapontamentos e separações de pessoas que ama. Para evitar tais 
+sofrimentos, ou pelo menos minimizá-los, é importante que se 
+desapegue das retribuições. As recompensas virão pela via do servir 
+aos outros e não pela vida egocêntrica.`,
+
+10: `Dia 11Dia 10 
+O (a) nascido (a) no dia 10 traz por desígnio o "querer". Quer 
+independência de ação, quer progredir, quer por em prática suas 
+iniciativas e ver aceitas suas ideias, para alcançar o êxito em seus 
+ideais. Independência de ação é de absoluta necessidade, bem como 
+trabalhar sozinho (a), estar à frente de um negócio ou ocupar um cargo 
+de chefia, pois detesta receber ordens e não se conforma com posições 
+secundárias. É original, com muita iniciativa e dotado (a) de espírito 
+criativo. É quase certo que terá sucesso. Liderança, projeção e 
+autoconfiança são qualidades inatas do (a) nativo (a) desse dia. É 
+importante o autoconhecimento e desenvolvimento espiritual para lutar 
+por seus objetivos. Por ter facilidade em adquirir conhecimentos e 
+prestígio, pode facilmente se desinteressar e desistir de seus objetivos 
+diante do primeiro obstáculo, vindo a se entregar a atividades paliativas 
+que não levam a nada. Talvez seja forçado (a) a se manter por seus 
+próprios recursos, recebendo pouco auxílio dos outros, o que o (a) fará 
+sentir-se solitário (a). É amistoso (a), leal, prestativo (a) e sempre pronto 
+(a) para auxiliar os outros, até mesmo os desconhecidos. Esforça-se 
+para não decepcionar aqueles que dependem de sua ajuda e confiam 
+nele (a). O seu maior incentivo vem daqueles que confiam em seus 
+talentos e capacidades, o que o (a) faz triunfar. Normalmente só faz o 
+que seja bom para si e para os demais. Por ser idealista, está 
+constantemente trabalhando para melhorar o ambiente em que vive. É 
+um (a) sonhador (a) visionário (a), ambicioso (a) e impaciente; de rara 
+capacidade mental e grande coragem; desconhece o medo. Dispõe de 
+grande reserva de energia e precisa encontrar meios de se ocupar a fim 
+de extravasá-la. É capaz de se ocupar de várias atividades ao mesmo 
+tempo. Sua personalidade cativante atrai à primeira vista, entretanto, 
+pode despertar antipatias por seu modo de ser um tanto egoísta e por 
+sua tendência à prepotência e possessividade com relação às coisas, 
+amigos, sócios e companheiro (a). É bom que cultive a compreensão, o 
+amor ao próximo, e aprenda a conviver em sociedade como uma 
+pessoa comum e modesta, dominando seu possível sentimento de 
+superioridade e sua tendência para o isolamento. A repressão de seus 
+ideais; as frustrações e fracassos podem trazer perturbações ao 
+coração, sistema circulatório e deficiência visual e auditiva.`,
+
+11: `Dia 11 
+O (a) nativo (a) do dia 11 possui delicadeza natural e muito tato; senso 
+diplomático e procura manter sempre a harmonia onde está. É um ser 
+de grande inspiração. Afetuoso (a) e sentimental precisa de um lar para 
+se sentir seguro (a), pois não suporta a solidão. Carrega de fortes 
+emoções os seus amores e muitas vezes se sente frustrado (a) pela sua 
+disposição de tentar impor seus padrões morais aos outros, o que, em 
+verdade, é uma contradição, pois suas mais nobres qualidades são 
+exatamente as opostas: a compreensão que possui da natureza 
+humana e a simpatia que cultiva por todos. Ás vezes mostra-se passível 
+demais, outras vezes revela indomável espírito de independência e 
+liderança. Na passividade pode se tornar tímido (a) e submisso (a), 
+enquanto que no ímpeto indomável da liderança pode se destacar 
+diante do público. Parece calmo (a) e autocentrado (a), mas na verdade 
+é muito tenso (a) e nervoso (a). Sente necessidade de desenvolver sua 
+agressividade, persistência, determinação e fixidez de propósitos. Gosta 
+de estar sempre ocupado (a) e se sente feliz assim; ama a liberdade. 
+Por sua eficiência e capacidades, pode executar um trabalho mais 
+rapidamente que os outros. Ao invés de ser firme e prático (a) em seus 
+desejos, pode eventualmente vacilar ou adiar indefinidamente nada 
+realizando, ou desanimando e se sentindo pessimista ou a vítima do 
+destino. Alcança seus objetivos através da persuasão, agindo 
+sutilmente, com paciência e persistência, apesar de aparentar ser 
+submisso (a). Se for negativo (a), pode se tornar amargo (a), sem 
+ambições e derrotista, vindo a ser mesmo um (a) joguete de suas 
+próprias emoções e dos outros também. É importante manter a atenção 
+para que seu intelecto não sufoque sua intuição, pois é um ser de 
+consideráveis capacidades psíquicas; deve agir pela primeira intuição, 
+sem vacilar. Um (a) idealista sonhador (a), cheio (a) de aspirações e 
+inspirações, deve dominar a tendência para viver de sonhos como fuga, 
+pois a consciência da realidade é primordial para procurar, dentro de si, 
+a orientação correta para entrar em harmonia e ser feliz. Sua prudência 
+e adaptabilidade facilitarão superar frustrações e repressões de afetos, 
+que podem lhe causar males de difícil diagnóstico, mas também de 
+curas inexplicáveis.`,
+
+12: `Dia 12 
+O (a) nativo (a) desse dia possui o poder da Auto Expressão. É 
+convincente por seu grande poder de comunicação, capaz de vencer 
+seus mais fortes adversários pela argumentação. É eficiente nas 
+atividades que exigem talentos artísticos, destreza na coordenação e 
+execução, temperados de humor e idealismo na busca pelos resultados. 
+Por ser prático (a) está sempre pronto (a) para agir e assume tantos 
+compromissos que se vê continuamente atarefado (a); como 
+consequência desta sua maneira de ser, precisa aprender a não 
+dispersar suas energias. É justo (a) e honesto (a), liberal e respeitador 
+(a) das crenças e da fé, além de ser bom (a) serviçal. Possui caráter 
+leal, franco (a), empreendedor (a) e feliz, natureza altiva, qualidades 
+comerciais e aptidão para mando, que o (a) tornam apto (a) para todas 
+as ocupações que exijam sociabilidade e diplomacia. Sabe aproveitar as 
+oportunidades para se expressar e aperfeiçoar seu modo de ser, a fim 
+de progredir sempre. Gosta de sua popularidade; tem inclinações para a 
+política e para atividades ligadas a interesses sociais. Sente satisfação 
+em alegrar e entreter os outros e procura não causar contrariedades. 
+Por sua natureza excessivamente bondosa às vezes deixa-se explorar 
+pelos outros, ou carrega problemas e preocupações alheios. Por outro 
+lado, em dados momentos assume a condição de vítima, para angariar 
+simpatias e fazer novas conquistas, pois tem necessidade de estar 
+acima de todos, num pedestal, especialmente se lá for colocado (a) por 
+alguém do sexo oposto, e, assim mantém suas presas em contínua 
+ansiedade e insegurança, ora mostrando-se apaixonado (a), ora 
+indiferente e distante. Em suas atividades pode usar de refinado 
+sarcasmo, de crueldade e contrariedade. Nos momentos de cólera fica 
+impetuoso (a), agressivo (a) e, muitas vezes, violento (a), usando de 
+rudeza no falar, atraindo assim inimizades que, por esse motivo, podem 
+bloquear seu sucesso. Muitas vezes é tomado (a) pelo nervosismo e 
+impaciência, ficando sujeito (a), ainda, a crises de depressão. Para 
+evitar a depressão deve ocupar-se em várias frentes e dedicar-se 
+constantemente a atividades intelectuais. Fracassos, decepções e 
+frustrações podem causar afecções no sistema nervoso, originando 
+desequilíbrio no metabolismo, hipertensão e problemas renais.`,
+
+13: `Dia 13 
+O (a) nativo (a) desse dia é naturalmente ordeiro (a) e autoritário (a). 
+Visa a sua própria segurança econômica em primeiro lugar. É 
+sistemático (a), prático (a) e minucioso (a). Trabalha duramente sem se 
+poupar, nem poupar os outros no trabalho. Quando uma ocupação 
+desperta seu interesse a executa com extraordinária habilidade. Sua 
+principal qualidade é a perícia; sua característica mais marcante é o 
+desejo de mudar, reformar, transformar. Mesmo que às vezes se deixe 
+levar por sonhos, seus desejos são reais, sólidos, concretos e bem pé 
+no chão. Pessoa dinâmica, que faz por si mesmo tudo o que pode, sem 
+esperar pelos outros. Habilidoso (a) nas atividades manuais, consertos 
+e reparos, mesmo aqueles que exijam conhecimentos técnicos, os quais 
+adquire pela simples observação. Possui talentos artísticos e gosta de 
+divertir as pessoas. O seu modo de fazer as coisas é bem peculiar. Tem 
+capacidade para mudar regras e regulamentos de acordo com seus 
+interesses que, geralmente, são compatíveis com seus princípios. Se 
+pender para o negativismo torna-se pessimista, mal humorado (a), 
+insociável e se convence de que o mundo está todo errado e todos 
+estão contra si. Seu senso de equidade e justiça o (a) faz sofrer sempre 
+que vê alguém com talentos e merecimentos ser preterido em favor do 
+prestígio de outro. Revolta-se profundamente com a competição desleal. 
+Prefere renunciar e se afastar a participar de alguma situação com a 
+qual não concorda. Sua natureza é fortemente amorosa, mas tem 
+dificuldade para expressar seus sentimentos. É extremamente leal aos 
+amigos, dedicado (a) e prestativo (a), embora sua aparente indiferença, 
+consequente de sua dificuldade em expressar suas emoções, razão 
+pela qual reprime tanto suas alegrias quanto suas decepções. Sua 
+aparência fria e materialista apenas esconde um ser que tem grande 
+necessidade de amor, afeto e compreensão. Um (a) nobre altruísta e 
+compassivo (a), que poucos conhecem realmente, e compreendem. 
+Para ter sucesso necessita de harmonia, porém, o sucesso não vem 
+fácil, embora lute arduamente por ele. Ás vezes pode se acomodar 
+durante algum tempo, mas é persistente e nunca desiste voltando à sua 
+luta com a mesma desenvoltura e vontade que lhe caracteriza. É do 
+mundo dos negócios, e se dá muito bem em ramos como a construção 
+e a indústria. Por seu senso de organização pode ser um (a) bom (a) 
+administrador (a), dedicar-se à política ou fazer carreira na 
+administração pública. As frustrações, decepções e repressões de suas 
+emoções podem causar dores de cabeça, dificuldade na fala ou 
+debilidade física, porém, sua capacidade de recuperação é admirável.`,
+
+14: `Dia 14 
+A sua grande meta é a compreensão; ambiciona compreender fatos, 
+pessoas e coisas. Para isso usa da persuasão, investigação e seleção 
+de valores. Possui o dom de lidar com negócios, dinheiro e atividades 
+especulativas. Adapta-se muito bem em atividades de compra e venda 
+desde que se trate de transações rápidas. Pode comprar terras, ações, 
+para mais tarde revender. Deve fazer o dinheiro e as mercadorias 
+circularem; sem guardar por mais de cinco anos qualquer bem que vise 
+lucro, a menos que faça modificações periódicas neles no transcorrer de 
+suas posses. Detesta ficar parado (a) e sempre encontra um meio de 
+ganhar dinheiro, sem se importar com os riscos que terá de correr. Será 
+sempre mais feliz enquanto houver novidades e movimento; não se 
+conforma em esperar que as coisas aconteçam. Seu desejo de 
+movimento pode trazer instabilidade e incertezas. Se não tem uma boa 
+formação pode tornar-se um (a) aventureiro (a) e oportunista; por sua 
+irreflexão sofrer quedas e perdas. No casamento é bom que escolha 
+uma pessoa que goste de viajar e da vida ativa também. É um ser que 
+não se preocupa tanto com o futuro, procurando viver mais no presente. 
+Quase sempre assume atitude de líder, mesmo que isso não esteja em 
+seus planos. Por sua natureza de certa maneira dupla, consegue 
+apreciar bem os dois lados de uma questão. É versátil e dual em 
+temperamento. De natureza bondosa e emotiva, pode ser tocado (a) 
+facilmente por seus sentimentos. Possui mente intuitiva e capacidades 
+psíquicas, desenvolvidas ou ainda latentes, e deve seguir sempre a sua 
+intuição para ter sucesso. Se conseguir controlar seus impulsos, 
+cultivando a prudência, a paciência, a persistência e se fixar em 
+determinada coisa e lugar, alcançará grande sucesso financeiro e 
+social. Por não saber lidar bem com contrariedades, frustrações, perdas 
+ou desenganos profundos, pode tornar-se hipocondríaco e vir a ter 
+problemas respiratórios ou alérgicos. `, 
+
+15: `Dia 15 
+O (a) nascido (a) nesse dia é dotado (a) de incrível magnetismo 
+pessoal. As pessoas, principalmente do sexo oposto, sentem-se 
+atraídas por ele (a). Dá mais importância às pessoas que ao ambiente, 
+embora seja capaz de melhorar qualquer ambiente. Consegue, com 
+certa facilidade, resolver suas questões financeiras sempre encontrando 
+um meio de ganhar dinheiro. Apega-se com facilidade ao dinheiro, 
+preferindo gastá-lo consigo mesmo (a). Por outro lado, sendo superior 
+nos sentimentos se desapega e recebe mais que os outros, porque não 
+se restringe só a ganhar, mas também a dar sem esperar em troca. 
+Ama a vida, as pessoas e a natureza; consegue fazer com que os 
+outros se sintam à vontade junto de si. É caloroso (a) e vivaz; gosta de 
+receber visitas e não se lamenta pelo gasto em festas e atividades 
+sociais. Apega-se à vida familiar; normalmente por essa razão se casa 
+cedo. No entanto, deve escolher bem com quem casar, pois um 
+casamento infeliz pode causar sofrimento e levar ao isolamento, embora 
+não seja de sua natureza isolar-se. Sendo pouco desenvolvido (a) pode 
+se tornar egoísta, egocentrista e exibicionista, querendo ser o centro 
+das atenções, julgar-se irresistível, tornando-se vulgar, infiel e infeliz. 
+Intimamente gosta de expressar seus ideais através da eficiência, 
+cordialidade, ordem estética, método e reciprocidade, para alcançar 
+seus objetivos. Possui o dom de atrair oportunidades e criar condições 
+harmônicas. Pode vir a ocupar cargos que tratem do bem estar da 
+comunidade, ou que exijam compreensão e mão firme para manter a 
+ordem e a disciplina no grupo, por sua capacidade, responsabilidade e 
+habilidade natural de compreender, unir e harmonizar. Aprende mais 
+pela observação do que pelo estudo e pesquisa. Conserva por toda a 
+vida espírito jovem e ativo. É honesto (a), amável, bondoso (a) e digno 
+(a) de confiança. Sua inclinação artística o (a) leva, muitas vezes, a se 
+sentir atraído (a) pela música, tocando algum instrumento ou cantando. 
+A repressão de suas emoções, a frustração de suas ambições e ideais, 
+podem causar distúrbios na saúde, mais especificamente na garganta, 
+pulmões e fígado.`, 
+
+16: `Dia 16 
+O (a) nascido (a) no dia 16 estará sujeito (a) ao triunfo, e também à 
+ruína. Sendo elevado (a) em consciência e cultivando pensamentos e 
+sentimentos nobres, estará fadado (a) ao sucesso e triunfo, no entanto, 
+se for negativo (a) verá frequentemente ruínas ao seu redor 
+viver isolado (a), porém deseja e necessita de afeição e compreensão. 
+Apesar disso, de sua carência afetiva, não gosta de interferências nos 
+seus planos, mesmo quando adia ou protela o que faz com certa 
+frequência. Deve se precaver contra falsos amigos, perigos de 
+acidentes, descontentamento e ansiedade. Sente-se bem em contato 
+com a natureza: oceanos, lagos, rios e lugares calmos e afastados. 
+Será melhor sucedido (a) em atividades independentes, com liberdade 
+de iniciativa, em negócios de amplitude universal ou que sirvam à 
+educação e à moral. As frustrações podem causar perturbações na 
+digestão e afecções na pele.`, 
+
+17: `Dia 17 
+O (a) nascido neste dia possui acurado senso de perspicácia e 
+liderança, que manifesta através de extraordinário talento humorístico; 
+assim consegue simpatias até daqueles que sofrem suas críticas. 
+Realiza-se no cálculo, na organização e na divisão justa de tudo. É bom 
+que trabalhe, sempre que possível associado (a) a outras pessoas. 
+Mesmo que comece em posição inferior logo assume a direção de modo 
+natural. Sua grande força está na persistência e nas qualidades de 
+análise e compreensão. Não é precipitado (a) nem ousado (a) demais; 
+prefere fazer tudo com boa margem de segurança, prudência e 
+conhecimento real da situação em questão. Está predestinado (a) para 
+realizações importantes por meio de esforço contínuo, persistência e 
+determinação. Será bem sucedido (a) nos negócios, tanto pela 
+economia como pela eficiência. Geralmente conhece suas habilidades e 
+se empenha continuamente em fortalecê-las. Possui capacidade 
+executiva para negócios em geral, seus ou de outros, devido a sua 
+mentalidade prática e bom senso. Essencialmente é uma pessoa 
+honesta; quando percebe que alguém pode ser útil, procura por seus 
+serviços e recompensa com valor justo. Sabe comandar subordinados 
+sob suas ordens e administra bem setores onde os pormenores e a 
+rotina são importantes. Geralmente anda bem humorado (a) e consegue 
+sempre encontrar um modo de disfarçar suas decepções e tristezas. A 
+fama só depende de si próprio (a), pois tem o dom de atrair o público 
+para si. Relaciona-se facilmente com pessoas do sexo oposto; está 
+sempre cercado (a) por pessoas que o (a) admiram, e até mesmo que 
+podem estar secretamente apaixonadas. Sua aparente estabilidade 
+esconde oscilações entre um momento conservador e racional, e, em 
+seguida outro extravagante. Só depende de si para ser bem sucedido 
+(a) e vencer na vida, bastando para isso encarar o mundo e a vida com 
+otimismo e coragem, pois tem os dons necessários para subir ao topo 
+do mundo. Quando reprime suas emoções, ou renuncia aos seus 
+planos, pode sofrer perturbações na saúde, que se refletem em dores 
+de cabeça, problemas no fígado, bílis, na circulação sanguínea, e 
+reumatismo.`,
+
+18: `Dia 18 
+Quem nasce no dia 18 possui grande poder mental e pode elevar-se às 
+mais altas posições ou baixar a um negativismo total. O dia 18 é 
+poderoso, tanto para as coisas positivas quanto negativas. Os nascidos 
+sob esta vibração podem, tendo consciência de seu poder, obter o que 
+quiserem, tanto no campo positivo, como no oposto. É o número dos 
+magos, bruxos, médiuns e líderes religiosos, exigindo, em 
+reciprocidade, grande responsabilidade também. A sua natureza 
+profundamente espiritual facilita os contatos com outras dimensões seja 
+pela vidência, sonhos, intuições ou por outra via mediúnica. Sua 
+sensibilidade aflorada, inteligência extraordinária e mente aguda, o (a) 
+tornam, por consequência, um (a) vencedor (a) nato (a). Seus maiores 
+inimigos, no entanto, são a ambição desmedida e o egocentrismo. Deve 
+manter-se bem alerta com as tendências a se entregar ao pessimismo e 
+ao temor do futuro desconhecido, para evitar o risco de se transformar 
+em joguete da sorte, indo de derrota em derrota até a ruína completa. É 
+importante que seja altruísta e desapegado (a), vivendo e agindo para o 
+bem de todos, quando, assim, tudo lhe virá às mãos com facilidade. É 
+independente, intuitivo (a), intelectual, emotivo (a), requintado (a), 
+prestativo (a) e desinteressado (a); seu humor é variável, gosta de 
+discussões e de criticar os outros. Seu raciocínio lógico o (a) torna 
+eficiente, capaz também de dar conselhos sensatos, mesmo aos mais 
+velhos ou mais cultos. Consegue superar decepções e sofrimentos; é 
+um (a) lutador (a) nato (a) e não teme ninguém e nada. Muito amoroso 
+(a), afetuoso (a) e dedicado (a), careia amizades com grande facilidade; 
+é leal, constante e prestativo (a), mas também é facilmente vulnerável e 
+explosivo (a), porém, não sabe odiar ou guardar rancor. Está destinado 
+(a) a ocupar cargos de liderança por sua energia, firmeza e decisão. As 
+frustrações e contrariedades podem lhe causar sérias enxaquecas, 
+perturbações cardíacas, crises de melancolia e alterações no sistema 
+nervoso.`,
+
+19: `Dia 19 
+Quem nasceu no dia 19 possui grande força de caráter, coragem, 
+natureza intrépida, apaixonada e impulsiva, chegando a atitudes 
+heroicas. Aprecia mudanças, é versátil e deseja sempre as melhores 
+condições. É independente, artístico (a) e original, dotado (a) de espírito 
+de iniciativa e criatividade. O dia 19 rege o sucesso, a felicidade e a 
+prosperidade, porém, quem está sob esta vibração poderá perde-la ao 
+se deixar dominar pela tendência ao egoísmo e teimosia. O 19 é 1 e 9, 
+os dois extremos; o líder e a multidão. O (a) nativo (a) deste dia pode 
+ser tanto o (a) líder carismático (a), amigo (a), compreensivo (a), guia e 
+conselheiro (a), quanto o (a) dominador (a) déspota. Pode ser tão 
+generoso (a) quanto ambicioso (a), ora um (a) altruísta edificante, ora 
+um (a) egocêntrico (a) doentio (a). De grande vitalidade, porém, 
+facilmente irritável e sujeito (a) a crises violentas que podem afetar 
+seriamente sua saúde. De modo geral é nervoso (a) e se deixa tomar de 
+cólera, mas esquece depressa o incidente e não guarda rancor. Não é 
+mau nem vingativo (a) e não compreende aqueles que são. Consegue 
+ser compassivo (a) com o sofrimento alheio, e também ser severo (a) o 
+bastante com os hipócritas, desleais e exploradores. Acredita na 
+regeneração e recapacitação do ser humano e está sempre disposto (a) 
+a dar nova oportunidade. É um (a) sonhador (a) e batalhador (a), que 
+não fica no meio termo: quer impor seus ideais, salvar sua gente, 
+reformar a sociedade, e pode se transformar num (a) ditador (a) com 
+coração de pai. Quer dominar, e consegue através de artimanhas, ou 
+conquistando simpatias e admiração. O desígnio de querer é nato do (a) 
+nativo (a) do dia 19, e para cumpri-lo é capaz de gestos teatrais e 
+atitudes extremas. Não aceita seguir o convencional. Pode ser 
+necessário fazer ajustamentos, já que se recusa a ouvir conselhos dos 
+outros e aprende mais pelas experiências amargas. Por isso, sente 
+necessidade de compreensão e harmonia no casamento, pois pode se 
+sentir solitário (a), mesmo junto à pessoa amada, só com seus 
+pensamentos, ideais e sonhos; seu modo "sui generis" de ser e agir. As 
+decepções, frustrações e fracassos podem causar perturbações 
+cardíacas e circulação sanguínea, ou deficiência visual e auditiva.`,
+
+20: `Dia 20 
+Um ser extremamente sensível. Expressa seus sentimentos por meio da 
+imaginação, brandura de modos e espírito de conciliação. Sujeita-se 
+frequentemente à autocensura; se escravizando por ela. Se adapta 
+facilmente a lugares e pessoas, revelando delicadeza e tato, nem 
+sempre de modo natural. Bom (a) diplomata, procura sempre manter ao 
+seu redor um ambiente que lhe traga harmonia e segurança. Seu 
+instinto doméstico é muito desenvolvido; possui desejo constante de paz 
+e felicidade, mesmo que o seu conceito a respeito disso seja bem 
+diverso do senso comum. Possui imaginação fértil; contenta-se com 
+condições de harmonia temporária, que, por não ser estável pode ser 
+prejudicial ao seu sucesso, porém, de modo insinuante e dócil consegue 
+seus objetivos. Detesta discussões e se esforça por evitá-las. Pode até 
+mesmo se submeter à vontade dos outros, ou se tornar submisso (a), 
+aparentando passividade e comodismo, aguardando e preparando a 
+oportunidade de se impor. Porém, nem sempre tem fibra suficiente para 
+modificar a situação. Apesar de seu temperamento, tem muita 
+satisfação por si mesmo (a) e de suas habilidades e dá muita 
+importância à própria aparência e status. Pode se sujeitar a uma 
+situação de inferioridade, com grande sacrifício, mas sente necessidade 
+de ocupar altos cargos e trabalha incessantemente para esse objetivo. 
+Romântico (a) e afetuoso (a), mas inconstante, sonha sempre com 
+lugares novos, desejando conhecer coisas diferentes e viver novas 
+experiências. No seu lado negativo busca suas metas sem se importar 
+com os meios para isso, podendo mesmo ser cruel e desumano (a) com 
+quem barrar seus passos, passando por cima sem escrúpulos ou ética. 
+Se não anular esta sua faceta negativa poderá enfrentar a ruína material 
+ou espiritual, de modo fatal. Pode ser excelente político (a), por sua 
+grande habilidade no trato com o público. No que se refere a trabalho, 
+pode executar tarefas mais depressa que os outros. Será mais bem 
+sucedido (a) se trabalhar em pequenas empresas ou tiver seu próprio 
+pequeno negócio, pois tem tendência para se acomodar, ou, então, a 
+querer inovações constantes. Do ponto de vista da saúde, a repressão 
+de suas emoções, as decepções, frustrações e contrariedades podem 
+causar graves perturbações nervosas que afetem órgãos importantes de 
+seu organismo.`,
+
+21: `Dia 21 
+Um ser que nasceu para se manifestar e expressar seus sentimentos e 
+ideias. Idealista e liberal é carente de companhia e sente-se feliz em 
+comunhão com os outros. Sua natureza é ambiciosa, conservadora, 
+concentrada e móvel. Tem dificuldade para levar a cabo o que inicia, 
+deixando quase sempre para os outros as finalizações e, na maioria das 
+vezes, deixa também os méritos. Sempre interessado (a) em tantas 
+coisas que precisa ter cuidado para não se dispersar demais 
+prejudicando seus empreendimentos. Com tantas habilidades que 
+possui se interessa por diferentes afazeres e acaba se perdendo sem 
+saber o que fazer e como utilizar seus conhecimentos; com isso fica 
+nervoso (a), extravagante, irrequieto (a) e instável. É dotado (a) de 
+notáveis talentos para as artes em geral e para o entretenimento. 
+Embora seja amoroso (a) e se apaixone com facilidade, nos 
+relacionamentos é mais amigo (a), para manter a paz, a compreensão e 
+harmonia acima de tudo, a ponto de se sacrificar para isso devido a sua 
+importância. Quando dominado (a) pela suspeita e impaciência pode 
+tornar-se muito infeliz. Está sujeito (a) a altos e baixos devido a sua 
+emotividade, porém, deve manter o astral animado e evitar a depressão. 
+Por ser dispersivo (a) na juventude, a vida o (a) força a ser instável 
+pelas dificuldades que enfrenta. O dia 21 garante o sucesso no fim da 
+vida, mas o (a) nativo (a) deste dia deve ter sempre a certeza, nos 
+momentos difíceis, de que, no fim tudo sempre acabará bem. Na 
+primeira fase da sua vida dará grande importância aos prazeres e ao 
+sexo; estará sempre ávido (a) de emoções e experiências diferentes. Se 
+não tiver boa educação que contenha tais impulsos poderá sentir-se 
+desgastado (a) e enojado (a) da vida e das pessoas. Pode sofrer 
+decepções e fracassos, mas poucas vezes deixará transparecer suas 
+dificuldades íntimas, conservando aparente bom humor e alegria. A 
+determinação, força de vontade, equilíbrio e sucesso se fortalecem 
+depois dos trinta anos de idade; seus valores se renovam e se sentirá 
+renascer para nova vida, novo destino, empolgante e digno. O (a) nativo 
+(a) do dia 21 é um ser de sorte. Os aprendizados adquiridos das 
+experiências dos anos de privações serão seu segredo para o sucesso, 
+quando, então, terá alcançado plena consciência de suas múltiplas 
+habilidades e vasto conhecimento. As decepções, frustrações e 
+contrariedades podem causar diversas perturbações psicossomáticas.`,
+
+22: `Dia 22 
+O (a) nativo (a) do dia 22 é um ser adaptado ao trabalho regular e 
+contínuo, capacitado a grandes esforços para execução de seus 
+projetos. Trabalha para o futuro, com isso, e por seu constante desejo 
+de alcançar a perfeição, muitas vezes perde oportunidades imediatas. 
+Por ser muito independente despreza convencionalismos e tradições, o 
+que lhe acarreta algumas dificuldades na vida. Precisa equilibrar as 
+emoções com o lado prático de sua natureza. Suas elevadas ambições 
+vão muito além de ganhar dinheiro; pode estar sujeito ao insucesso e 
+pobreza, não por falta de capacidade, mas por causa de suas outras 
+ambições. A porta do mundo dos negócios está aberta para si, e tem 
+capacidade para conseguir grandes resultados onde os outros nada 
+conseguem. Será bem sucedido (a) ocupando postos de autoridade, 
+organizando e comandando grandes grupos, sendo que será tanto mais 
+eficaz quanto mais estender as fronteiras territoriais, ou até mesmo indo 
+além delas, e quanto maior for o número de pessoas sob sua autoridade 
+e comando. É tenso (a) e nervoso (a) e precisa muito de repouso para 
+se recuperar. Por sua natureza ser tão profunda, em certos momentos, 
+não se entende nem a si próprio (a), sendo necessário que cultive 
+paciência e tolerância no convívio com os outros. É muito intuitivo (a) e 
+deve seguir seus próprios pressentimentos. Geralmente tudo lhe 
+acontece ou vem em dobro, portanto, é importante que viva 
+construtivamente em harmonia. Seu poder é de grande alcance, por 
+isso deve ser universalista e não pensar somente em suas realizações 
+pessoais. Precisa guiar-se sempre pela razão prática, pois sua 
+responsabilidade é imensa, podendo atingir âmbito internacional, como 
+empresário (a), político (a), escritor (a) ou artista. A repressão de suas 
+emoções, bem como as frustrações e fracassos, podem causar 
+distúrbios psíquicos e nervosos, ou alteração do sistema glandular.`,
+
+23: `Dia 23 
+Quem nasceu no dia 23 deve desenvolver sua capacidade de 
+compreensão para se ajustar à vida prática. É dotado (a) de poder de 
+persuasão e habilidade de investigação; com paciência e tenacidade, 
+consegue clarear situações emaranhadas. Raciocínio rápido e vivaz, 
+talento admirável e muito versátil, pode se ocupar de várias atividades 
+ao mesmo tempo. Não consegue ficar parado (a) e não se conforma em 
+esperar que as coisas aconteçam, e não descansa enquanto não 
+consegue o que quer; com certa tendência para a teimosia. O número 
+23 governa o sucesso e o dinheiro, e o (a) nativo (a) desse dia deve 
+seguir caminhos profissionais e não dos negócios. Lutará sempre até 
+alcançar o topo em sua carreira profissional, pois não se conforma com 
+posições subalternas. É um (a) intelectual com notável capacidade e 
+facilidade de aprendizagem. Tem grande capacidade de adaptação e se 
+sente à vontade nos mais diversos ambientes. Possuidor (a) de 
+personalidade encantadora é capaz de tratar melhor as pessoas do 
+sexo oposto. É sociável e gosta reuniões e festas. É importante se 
+orgulhar de suas realizações, por isso, suas metas devem ser altas 
+sempre. Sempre disposto (a) a oferecer conselhos, pode ser ótimo (a) 
+assessor (a), conselheiro (a) ou professor (a). Por sua capacidade de 
+persuasão, pode ser bem sucedido (a) como defensor (a), 
+propagandista, ou político (a), ou, ainda, um (a) excelente médico (a) 
+diagnosticador (a), psiquiatra, psicólogo (a) ou curador (a), e ainda 
+conseguir fama por seus dons artísticos. A repressão de suas emoções 
+pode causar distúrbios nervosos afetando a sua saúde.`,
+
+24: `Dia 24 
+O (a) nativo (a) do dia 24 possui o dom de criar harmonia e unir a todos 
+no amor e na alegria, aplicando seu natural senso prático e diplomacia. 
+É honesto (a), amável, bondoso (a), amante da verdade, tolerante, 
+pacífico (a), altruísta e digno (a) de confiança. A maioria das pessoas se 
+sente naturalmente atraídas por seu calor humano e vivacidade. 
+Relaciona-se com facilidade e conquista amigos à primeira vista. Cultiva 
+por longo tempo suas amizades, cativando por sua eficiência e 
+prontidão em ser útil, por sua sinceridade e lealdade. Romântico (a) e 
+sonhador (a) gosta de estar sempre apaixonado (a) ou deslumbrado (a) 
+por algo, ou por alguém, e o amor é sua força motivadora. Se exagerar 
+no seu romantismo poderá não ser feliz no amor, sentindo-se 
+incompreendido (a) e solitário (a). Está sempre tentando proteger os 
+fracos e se envolve tanto com o sofrimento alheio, que às vezes pode 
+se deixar abater. Não faz julgamento das pessoas pelo que elas 
+possuem, pelo seu nível cultural ou social, pelo lugar de onde elas vêm, 
+aceitando a todos como são. O prazer é importante em sua vida, não 
+suporta solidão ou vida reclusa; sente necessidade de amor, beleza e 
+harmonia, e se ressente profundamente com discórdias e 
+desentendimentos. Extremamente hábil pode se dedicar com sucesso 
+nas tarefas rotineiras, das mais diversas e complicadas, sejam 
+consertos domésticos, mecânicos ou marcenaria. Bom (a) cozinheiro 
+(a), geralmente é quem toma conta da cozinha ou do churrasco, prepara 
+os aperitivos, a arrumação dos pratos e ainda serve a todos. Possui, 
+ainda, grande talento para a música e artes, tem voz agradável, 
+personalidade atraente e é elegante no vestir e nas maneiras. É bom 
+que trate, sempre que possível pessoalmente o que deseja, sem 
+recorrer ao telefone ou a outros meios comunicação, pois assim, com 
+sua presença marcante terá mais sucesso. É importante se dedicar à 
+comunidade e desenvolver trabalhos voluntários e cívicos. Pode ser 
+excelente enfermeiro (a) ou médico (a), por ser sensível, compreensivo 
+(a) e paciente. As crises emocionais podem afetar não só sua saúde, 
+mas também seus projetos. Para vencer necessita saber que alguém 
+acredita, confia e o (a) apoia plenamente.`,
+
+25: `Dia 25 
+O (a) nativo (a) do dia 25, mais que ambições materiais tem um 
+constante desejo de progredir moralmente; busca conhecimentos em 
+todas as fontes ao seu alcance. Profundo (a) pensador (a) pode ser bem 
+sucedido (a) em inventos e estudos científicos, ou na descoberta dos 
+significados ocultos da natureza. É altamente inspirado (a) e pode ser 
+bem sucedido (a) trabalhando por conta própria, ou ocupando cargos 
+independentes, com plena liberdade de iniciativa. Diferentemente dos 
+nascidos nos dias 7 e 16, o (a) nativo (a) do dia 25 (todos são 7; 1+6=7 
+e 2+5=7) é versátil e diplomata. Dispõe de notável perspicácia, rara 
+intuição e desenvolvido senso analítico. Precisa do silêncio, da 
+meditação, para conectar-se com seu Eu Superior e receber 
+inspirações. É perfeccionista impondo altos padrões de exigências para 
+si próprio (a) e para os outros. Seu maior defeito está em subestimar 
+suas próprias qualidades, motivo pelo qual sua primeira reação diante 
+de qualquer proposta é sempre um "não". Deve analisar as coisas 
+profundamente antes de tomar uma decisão. É imprescindível a máxima 
+cautela antes de se firmar num relacionamento, casamento, ou se 
+associar em algum empreendimento, pois é pessoa de difícil 
+convivência devido ao seu alto grau de exigências. Nutre profundo afeto 
+por seu par num relacionamento, ou casamento, mas exige 
+constantemente atenção; está sempre tentando compreender e fazer 
+felizes os que o (a) cercam, e tende a se sacrificar pelas pessoas 
+queridas ou por um ideal. Mesmo sofrendo ingratidões, continua a se 
+sacrificar pelos outros. Para evitar frustrações, desenganos e 
+desilusões, deve manter o diálogo aberto sempre. Por sua extrema 
+bondade, pode vir a ser usado (a) por pessoas pouco recomendáveis, 
+principalmente quando envolve dinheiro; no entanto, não precisa 
+comprar amor e amizade de ninguém, pois sua natureza 
+essencialmente bondosa e sincera já o (a) torna atraente por si só. Deve 
+evitar exageros com bebidas alcoólicas, pois sob seus efeitos é capaz 
+de tudo e pode se envolver em confusões que provavelmente causem 
+sérios prejuízos. Será bem mais feliz se viver perto da água - rios, lagos 
+e mar. Decepções, frustrações e fracassos são enfrentados com 
+admirável estoicismo, no entanto, mesmo assim pode sofrer distúrbios 
+cardíacos e pulmonares, e úlceras gástricas.`,
+
+26: `Dia 26 
+O (a) nativo (a) do dia 26 é, por natureza, um (a) competente 
+organizador (a) e administrador (a), com apurado senso de justiça. Pode 
+ser, por algum tempo, indeciso (a) e cordato (a) demais, no entanto, tem 
+discernimento do que quer e como conseguir e não desiste enquanto 
+não alcançar seu objetivo. Possui o desejo instintivo de expansão e o 
+gosto pelas coisas duradouras. É perseverante, equânime e justo (a). 
+Dotado (a) de grande capacidade executiva, é capaz de gerir bem seu 
+próprio negócio ou de outros; procura meios de fortalecer as suas 
+oportunidades. Tende para o materialismo e egoísmo, luta sempre com 
+metas definidas e, se percebe que seus esforços são perdidos, tem 
+admirável poder de reconstituição. Não se perturba nem desanima 
+diante dos obstáculos, por maiores que se apresentem, mas também 
+não se joga cegamente contra eles; sabe estuda-los e arranjar o meio 
+de contorna-los. Por suas qualidades executivas, pode se julgar superior 
+e querer dominar os outros, tendo como resultado quase sempre 
+inimizades. Embora sensível ao amor e desejoso (a) de paz, pode se 
+prejudicar por se achar o (a) dono (a) da verdade; quando contrariado 
+(a) demonstra mau humor e agressividade. Caso não controle tais 
+impulsos, tende a ser infeliz nos relacionamentos, ou casamento, e 
+também em sociedades de negócios ou outras. Aparenta ser frio (a) 
+pela sua maneira de ser, porém, guarda muito calor humano e está 
+sempre disposto (a) a ajudar os amigos. Geralmente se sente solitário 
+(a) e incompreendido (a). Nasceu para lidar com as finanças e possui 
+magnetismo que atrai dinheiro, gente e o que lhe seja necessário, 
+mesmo que em idade avançada. As vibrações do dia 26 tornam o (a) 
+nativo (a) muito hábil para chefiar, administrar, organizar, gerir 
+empresas e negócios comerciais, artísticos, intelectuais e assuntos 
+relacionados com justiça. É escrupuloso (a) em relação à família e a 
+seus pertences pessoais; gosta de impressionar bem e tende para o 
+exibicionismo. Frustrações podem causar distúrbios biliares, dores de 
+cabeça, reumatismo e problemas na circulação sanguínea.`,
+
+27: `Dia 27 
+Este é um dia positivo; a mais feliz vibração 9 com todo seu carisma. O 
+(a) nativo (a) do dia 27 é devotado (a) naquilo que acredita; é genial e 
+generoso (a). Conhece e tem poderes para o bem e para o mal e, 
+normalmente, já se definiu pelo caminho que deve seguir. Possui senso 
+de resoluções rápidas e deve fortalecer o seu poder de decisão. É muito 
+competente em tudo o que se propõe fazer, e o faz com rapidez visando 
+se livrar logo. Consegue resultados facilmente até naquilo que aos 
+outros parece muito difícil. Sabe focalizar corretamente as suas forças e 
+dirige os seus impulsos para metas definidas, imprimindo em todos os 
+seus atos grande atividade e energia. É fraco (a) na concentração e na 
+persistência e, porque suas ambições lhe parecem fáceis demais, tende 
+à protelar seus atos. Intelectual, respeitado (a) e admirado (a) por todos, 
+psicólogo (a) por natureza, faz uso de seu conhecimento da natureza 
+humana para realizar seu sonho de paz e harmonia entre as pessoas. 
+Pensa com grandeza e não se deixa dominar por preconceitos e 
+mesquinharias; sente necessidade de se sentir livre no pensar e agir. 
+Liberal, audacioso (a), combativo (a), corajoso (a), independente e 
+amante da liberdade, detesta dar satisfações de suas condutas. 
+Trabalha melhor sozinho (a) e ninguém consegue obriga-lo (a) a fazer 
+uma coisa que não queira. Tranquilamente determinado (a) (a), versátil 
+e poderoso (a), raramente se preocupa com falta de dinheiro, porque 
+geralmente tem facilidade para ganhar. Sua mente é universalista e tem 
+elevado senso de fraternidade. Mesmo sabendo ser superior não impõe 
+suas ideias e modo de vida, nem tenta ser compreendido (a); é 
+admiravelmente compreensivo (a), afetuoso (a) e emotivo (a), de certa 
+maneira extravagante e nervoso (a). O amor e a afeição significam 
+muito para o (a) nativo (a) do dia 27, a ponto de ser capaz de grandes 
+sacrifícios pelos que ama. Não é beligerante e jamais procura 
+problemas, mas pode tornar-se impulsivo (a) e violento (a), de uma 
+agressividade sem controle e destrutiva, quando atingido (a) por 
+injustiça, ingratidão ou traições mesquinhas. Frustrações não 
+elaboradas e resolvidas podem causar distúrbios cardíacos e cerebrais.`,
+
+28: `Dia 28 
+O (a) nativo (a) do dia 28 possui um forte desígnio de "Querer", com 
+tendência para timidez, desconfiança, tristeza e a ser queixoso (a), o 
+que muitas vezes o (a) deixa infeliz e até doentio (a). Livre dessa faceta 
+negativa de seu ego, poderá se impor a todos pelo seu admirável senso 
+diplomático e de justiça. Será mais bem sucedido (a) se empreender 
+atividades independentes ou exercer cargos de chefia, pois tem 
+dificuldade para aceitar mando de terceiros. Afetuoso (a) e de elevados 
+ideais, é independente e tem muita força de vontade e se dispõe a 
+grandes sacrifícios para atingir suas metas. Ama a liberdade e sofre 
+com as limitações que o (a) impedem e atrapalham. É capaz de se 
+dedicar a várias atividades ao mesmo tempo e dispõe, para isso, de 
+grande vitalidade e energia. Frequentemente perde o interesse pelo que 
+faz quase sempre no momento em que está por alcançar o sucesso, 
+deixando escapar preciosas oportunidades de conquistar fama, fortuna 
+e felicidade. Existe predisposição para sofrer prejuízos financeiros, por 
+isso, deve redobrar sua atenção em seus investimentos. Ainda mais que 
+o (a) nativo (a) do dia 28 pende para ser um (a) sonhador (a), que pode 
+cair na preguiça se não dominar sua tendência para devaneios. É forte 
+no desejo e na capacidade para liderança, no entanto, falta espírito 
+competitivo e força de vontade para lutar pelo que ambiciona; 
+acomoda-se passivamente na espera que os outros reconheçam seus 
+méritos e lhe façam justiça. Para superar tais pontos negativos é 
+importante que desenvolva o otimismo, autoconfiança e perseverança 
+nos propósitos. Estudar a natureza humana e compreende-la, combater 
+o egoísmo e a autocomiseração são suas armas para lutar pelo 
+sucesso. Decepções, desenganos e frustrações podem causar 
+perturbações no sistema circulatório, cérebro e coração.`,
+
+29: `Dia 29 
+O dia 29 imprime força ao seu nativo; se souber se orientar 
+adequadamente terá grande prosperidade. Mas pode ser um (a) 
+extremista, ora estando eufórico (a), ora deprimido (a). Expressa seus 
+afetos em campos específicos do sentir e da espiritualidade. Seu meio 
+de realização é a imaginação, com brandura de modos e espírito de 
+conciliação. Moralmente e intelectualmente elevado (a), fará uso da fé, 
+do idealismo e conhecimento inspirado para atingir suas metas. Pode 
+trabalhar associado (a), porém, quando alcança níveis mais elevados de 
+consciência, de cultura, intelecto e prática convém trabalhar de forma 
+independente, seguindo sua força interior como guia. Pode ajustar seu 
+caminho e ajudar os outros a ajustarem os seus também. Muitas vezes 
+é absorvido (a) por sonhos, ideais e preocupações e deixa de 
+considerar os que estão junto de si. Se tiver um interesse definido 
+consegue se manter com ânimo calmo e bem equilibrado. Pode 
+interessar-se por religião, correndo risco de se tornar fanático e induzir 
+outros incidirem no mesmo exagero, pois é inspirador (a) e convincente. 
+Prefere muitos amigos casuais e poucos íntimos, porém, com seus 
+raros amigos verdadeiros é leal e sincero (a). O êxito só vem 
+acompanhado de harmonia em tudo e com todos. Precisa do ambiente 
+do lar, no entanto, nem sempre é fácil a convivência por sua tendência a 
+mudanças repentinas de humor, que vai de um extremo a outro. Sua 
+grande dificuldade está em se situar no meio termo. Pode sofrer 
+decepções amorosas; quando encontrar a pessoa certa é bom que se 
+case cedo. O número 29 é do casamento e do divórcio, por isso, o (a) 
+nativo (a) desse dia precisa aprender a controlar suas emoções e evitar 
+atitudes apaixonadas e destrutivas, pois uma união desfeita pode gerar 
+imenso sofrimento e dificuldade para se ajustar a uma outra. Bondoso 
+(a), compreensivo (a), de visão ampla, porém dogmático (a), mas sabe 
+ceder a argumentos justos e lógicos. Apesar de ser pacifista, diplomata 
+e conciliador (a), pode se tornar agressivo (a) e violento (a) quando 
+desprende muita energia e o máximo de seu esforço e não alcança o 
+resultado adequado, segundo seu ponto de vista. Frustrações, derrotas 
+e desenganos podem causar perturbações no estomago e demais 
+órgãos do aparelho digestório, ou mesmo, moléstias de difícil 
+diagnostico e que se curam de forma inesperada. `,
+
+30: `Dia 30 
+O (a) nascido (a) no dia 30 tem necessidade de desenvolver suas 
+capacidades de expressão e manifestação. Para conseguir, usa de 
+imaginação, liberalidade e o convívio em comunhão com os que o (a) 
+cercam. O seu grande inimigo é o medo de críticas, e também sua 
+sensibilidade à própria autocensura. Tendência para se anular e para a 
+autodesvalorização. Para superar tais deficiências precisa se 
+conscientizar de seu grande valor e de sua habilidade em superar 
+dificuldades e, principalmente, se impor antes a si próprio (a) para 
+depois conquistar respeito e admiração dos outros. Quando está 
+decidido (a) realmente a uma conquista ninguém consegue detê-lo (a). 
+É muito ambicioso (a) e luta por altas posições; quando toma uma 
+resolução trabalha sem descanso. Sua força de vontade e determinação 
+alavancam o seu sucesso. É bondoso (a), apegado (a) à família, digno 
+(a) de confiança e faz amigos com facilidade. Intuitivo (a) e original será 
+mais bem sucedido (a) trabalhando como um profissional e exercendo 
+sua própria iniciativa. Sabe aproveitar todas as oportunidades para se 
+expressar e se aperfeiçoar. Sua características marcantes são: 
+independência, perfeição e realização, por isso não suporta posição 
+subalterna. É justo (a) e honesto (a) em pensamentos e atos, liberal, 
+prestativo (a) e religioso (a). Normalmente não tolera negócios escusos, 
+não se aborrece com facilmente e não se entrega a preocupações 
+desnecessárias. Porém, se for pouco desenvolvido (a) moralmente 
+tende para a adulação, simulando docilidade e sinceridade, usando de 
+hipocrisia e falsidade para alcançar seus objetivos. Normalmente não 
+deixa transparecer seus problemas íntimos para estranhos, externando 
+sempre alegria e descontração, mesmo sob a mais grave depressão. No 
+entanto, na intimidade revela-se vulnerável, indeciso (a) e atemorizado 
+(a), sentindo-se alvo de situações constrangedoras, mesmo que ele (a) 
+próprio (a) as tenha provocado. Geralmente é tolerante e compreensivo 
+(a), porém, quando revoltado (a) é questionador (a), às vezes até cruel. 
+Com firmeza em suas opiniões acredita estar sempre certo (a). 
+Natureza altiva, qualidades comerciais, aptidão para comando e para 
+ocupações que exijam sociabilidade e diplomacia. A repressão de suas 
+emoções, os desenganos e frustrações podem causar distúrbios no 
+sistema nervoso e doenças psicossomáticas. `,
+
+31: `Dia 31 
+O (a) nativo (a) do dia 31 dá mais valor á sua obra que à sua própria 
+pessoa. Dotado (a) de grande habilidade e capacidade, tem na ordem, 
+na autoridade e na segurança econômica os instrumentos para o 
+perfeito desempenho do que se propõe fazer. Trabalha melhor em 
+cooperação com outras pessoas do que só. Intimamente vive rebelado 
+(a) contra regras e regulamentos. É um (a) lutador (a) pelas causas 
+justas, mesmo que sejam completamente alheias. Para vencer e 
+conseguir estabilidade e segurança, normalmente enfrenta mais 
+obstáculos que a maioria das pessoas, por causa de sua boa fé, 
+lealdade e confiança em quem não merece. O seu mundo é de difícil 
+acesso e os outros têm dificuldade para compreender suas ideias e 
+ações. Geralmente é solitário (a), embora goste de sentir que os outros 
+estão próximos; a solidão absoluta, no entanto, o (a) deprime e se torna 
+amargo (a) e pessimista. É bondoso (a) e a lealdade é muito importante, 
+do mesmo modo que é muito leal com seus amigos. Tem a mesma 
+facilidade para atrair amigos quanto inimigos; parece sempre atrair 
+alguém que trabalhe contra seus planos ou contra ele, movido por inveja 
+e despeito pela sua eficiência, capacidade e talento. Se adapta com 
+facilidade a trabalhos regulares e contínuos, e é capaz de grandes 
+esforços para execução de seus projetos. Possui caráter independente, 
+persistência nos propósitos e capacidade para executar tarefas 
+dificílimas, as quais outros não se submeteriam. É um (a) prático (a) 
+construtor (a) e muito eficiente nos negócios. Suas características 
+marcantes são: trabalhar duro, ser honesto (a), leal, determinado (a) e 
+econômico (a). Nunca esquece uma bondade ou uma injuria. Adora 
+crianças e anseia por um lar e uma família; casando cedo se estabiliza 
+mais rapidamente, pois a responsabilidade o (a) fortalece. Gosta de 
+viajar. Tende para a teimosia e para a insistência em seus pontos de 
+vista. Coloca padrões muito altos para a sua vida e se desaponta 
+profundamente consigo mesmo se não consegue corresponder à sua 
+própria expectativa.`, 
+
+
+}
