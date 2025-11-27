@@ -89,6 +89,7 @@ const Sidebar = ({
               </ListItemIcon>
               <ListItemText primary="Calcular Mapa" />
             </ListItem>
+            
 
             {/* Botão de PDF - AGORA COM NOMES SOCIAIS */}
             <PdfGeneratorButton

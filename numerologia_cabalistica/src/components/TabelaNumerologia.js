@@ -2570,10 +2570,11 @@ export const arcanos = {
     descricao: "Significa curiosidade, entusiasmo; que é hora de identificar os lampejos criativos dentro de si e ser audacioso. Esse momento quase sempre se manifesta na forma de uma vaga sensação de insatisfação, mas que não chega a justificar uma mudança radical. Representa ação imediata no plano material; chegada de boas notícias, oportunidade, entusiasmo e aventura, bem como possibilidade de viagens. Risco: impulsividade, inexperiência levando a maus resultados."
   },
   27: {
-    titulo: "Arcano 27",
+    titulo: "ARCANO 27 – O INESPERADO",
     descricao: "Representa situações opressivas em seu limite; falta de perspectiva, fardo pesado, excesso de responsabilidades, sobrecarga, tensões e preocupações, desentendimentos, traições, falsidades e hipocrisias; necessidade de mudar a energia; final de uma fase."
   },
   28: {
+    image: "https://i.ibb.co/mr9TXZQH/27-O-INESPERADO.png",
     titulo: "Arcano 28",
     descricao: "Empreendimentos científicos ou misteriosos, cujo sucesso depende de muita prudência e discrição; viagens perigosas; surpresas; atraso, suspensão, adiamento, demora, obstáculo, contrariedade. Representa o poder da informação e da cultura, força física ou psíquica; conhecimentos especiais; atitude defensiva, medo de se machucar e sofrer que leva a manter uma situação que não funciona mais; desconfiança, recusa de novidades que leva a fechar-se em si. Persistência e vigilância. Risco de virar um “mártir”."
   },
@@ -2606,7 +2607,8 @@ export const arcanos = {
     descricao: "Significa o equilíbrio, ou desequilíbrio, dos ímpetos; grande capacidade e intuição; formulação de um novo projeto, de um objetivo ou de uma ideia; o futuro parece brilhante, mas guarda seus segredos e mistérios. Representa o poder que se manifesta como cooperação e ajuda; a dualidade que se manifesta como cooperação e assistência, mas que traz o componente da indecisão, da apatia; dividir para multiplicar. Risco de se tornar arrogante."
   },
   36: {
-    titulo: "Arcano 36",
+    image: "https://i.ibb.co/mCQc244R/36-A-INICIA-O.png",
+    titulo: "Arcano 36 - A INICIAÇÃO",
     descricao: "Representa a força criativa propulsora das novas ideias, a inspiração, a determinação e a coragem; novos horizontes e a disposição para arriscar-se; os estágios iniciais de um novo empreendimento ou o nascimento de algo ou de uma criança. Risco de inflexibilidade."
   },
   37: {
@@ -2634,7 +2636,8 @@ export const arcanos = {
     descricao: "Os seus desejos poderão agora ser realizados; um período de satisfação e alegrias, de realizações de sonhos e projetos; fortuna, honras, glória e reputação; vitória, êxito, ganho, triunfo, prosperidade, lealdade, boa-fé, franqueza, verdade. Representa a felicidade, o bem-estar e a segurança material; alegria de viver e o desfrutar do êxito. Risco de excessos e luxúria, escapismo e fuga."
   },
   43: {
-    titulo: "Arcano 43",
+    image: "https://i.ibb.co/TDyZw7TV/43-Alucina-o.png",
+    titulo: "ARCANO PESSOAL 43 -  Alucinação",
     descricao: "É a necessidade de buscar um sentido para a vida e para suas relações amorosas; necessidade de despertar e desistir de alguma coisa; excessivo interesse pelos prazeres que pode levar a escândalos amorosos; paixões violentas, divórcio, mau casamento, sedução. Representa a busca espiritual pelo abandono do material; partida difícil. A indolência e contrariedade; hora de perceber qual é o seu papel na relação. Risco de abandono cruel."
   },
   44: {
@@ -2738,7 +2741,8 @@ export const arcanos = {
     descricao: "O acúmulo de energia a ser utilizada na realização de projetos materiais e para preencher as necessidades do corpo; aparece na forma de pequenas quantias de dinheiro que devem ser poupadas, ao invés de serem gastas inutilmente, ou surge um passatempo que pode se tornar uma profissão altamente lucrativa; abertura para novas ideias e visão das oportunidades surgindo. Representa o plano material na sensação do tato; oportunidade surpreendente e valiosa e proposta concreta e útil; observação e estudo."
   },
   69: {
-    titulo: "Arcano 69",
+    image: "https://i.ibb.co/HTkmxP9C/69-O-AZAR.png",
+    titulo: "ARCANO PESSOAL 69 -  O AZAR",
     descricao: "Período de muita satisfação e segurança e a consciência de que realizou algo permanente para ser passado adiante; situação econômica próspera; sugere partilhamento de herança de família, ou talvez um momento de realização artística; perpetuação de uma coisa boa. Representa a posse do segredo da riqueza; plenitude e riqueza. Risco de opulência."
   },
   70: {

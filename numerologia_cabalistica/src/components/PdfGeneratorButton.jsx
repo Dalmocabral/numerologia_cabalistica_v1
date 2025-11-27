@@ -25,6 +25,8 @@ import { calcularDesafios } from "./CalculoDesafios";
 import { calcularMomentosDecisivos } from "./CalcularMomentosDecisivos";
 import { calcularHarmoniaConjugal } from "./CalculoHarmoniaConjugal";
 import { generateInvertedPyramid, findSequences } from "./generateInvertedPyramid";
+import { calcularArcanosTransito } from "./CalculoArcanosTransito";
+import { calcularDiasFavoraveis } from "./CalculoDiasFavoraveis";
 
 
 
@@ -637,6 +639,31 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
           y += 5; // Espaço extra após a seção
         }
       }
+      // =================================================================
+      // 17-B. DIAS FAVORÁVEIS
+      // =================================================================
+      if (dataNascimento) {
+         const diasFav = calcularDiasFavoraveis(dataNascimento);
+         
+         if (diasFav) {
+            // Usa o padrão de título centralizado igual às outras seções
+            y = printSectionTitle("Dias Favoráveis");
+            addToIndex("Dias Favoráveis");
+            
+            // Texto introdutório padrão
+            y = printWrappedText(
+               "Estes são os dias do mês que vibram em harmonia com a sua energia pessoal, ideais para tomadas de decisão e eventos importantes:", 
+               y
+            );
+            y += 5;
+
+            // Imprime os dias em negrito, mas preto e sem fundo
+            // Usamos printWrappedText para garantir que quebre linha se houver muitos dias
+            y = printWrappedText(diasFav, y, 14, "bold", CONFIG.colorBlack);
+            
+            y += 10; // Espaço após a seção
+         }
+      }
 
       // 14. TENDÊNCIAS OCULTAS
       if (nomeCliente) {
@@ -925,6 +952,142 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
             y = printWrappedText(desc, y);
             y += 5;
           });
+        }
+      }
+
+     // =================================================================
+      // 24. ARCANOS DE TRÂNSITO (LAYOUT TABELA EM CIMA, DETALHES EM BAIXO)
+      // =================================================================
+      if (nomeCliente && dataNascimento) {
+        const transitos = calcularArcanosTransito(nomeCliente, dataNascimento);
+        
+        if (transitos && transitos.length > 0) {
+           // Inicia nova página
+           doc.addPage();
+           addWatermarkHelper();
+           y = CONFIG.margin;
+
+           y = printSectionTitle("Arcanos de Trânsito (Previsões)");
+           addToIndex("Previsões");
+
+           y = printWrappedText(
+             "Esta análise divide sua vida em ciclos fixos de 4 anos. O destaque em verde indica o seu momento atual.",
+             y
+           );
+           y += 10;
+
+           // --- TABELA LARGA ---
+           const col1 = CONFIG.margin;
+           const col2 = CONFIG.margin + 30;
+           const col3 = CONFIG.margin + 110;
+           const rowH = 7;
+           const tableWidth = 170; // Largura total da tabela
+
+           // Cabeçalho da Tabela
+           doc.setFontSize(9);
+           doc.setFont("helvetica", "bold");
+           doc.setFillColor(240, 240, 240);
+           
+           doc.rect(col1, y, 30, rowH, 'F'); doc.text("Arcano", col1 + 2, y + 5);
+           doc.rect(col2, y, 80, rowH, 'F'); doc.text("Período", col2 + 2, y + 5);
+           doc.rect(col3, y, 60, rowH, 'F'); doc.text("Idade", col3 + 2, y + 5);
+           
+           y += rowH;
+
+           let arcanoAtualEncontrado = null;
+
+           transitos.forEach((t) => {
+             if (y > CONFIG.pageHeight - CONFIG.margin) {
+                 doc.addPage();
+                 addWatermarkHelper();
+                 y = CONFIG.margin + 10;
+                 doc.setFont("helvetica", "bold");
+                 doc.text("Previsões (Continuação)", CONFIG.margin, y - 5);
+             }
+
+             const isAtual = t.isAtual;
+             if (isAtual) arcanoAtualEncontrado = t;
+
+             if (isAtual) {
+                 doc.setFillColor(232, 245, 233); // Verde Claro Fundo
+                 doc.rect(col1, y, tableWidth, rowH, 'F');
+             }
+
+             doc.setFont("helvetica", isAtual ? "bold" : "normal");
+             doc.setTextColor(isAtual ? 0 : 0, isAtual ? 100 : 0, 0); // Verde escuro texto
+
+             // Arcano (Caixinha)
+             doc.setDrawColor(isAtual ? 76 : 200, isAtual ? 175 : 0, isAtual ? 80 : 0);
+             doc.rect(col1 + 5, y + 1, 12, 5);
+             doc.text(t.arcano.toString(), col1 + 7, y + 4.5);
+
+             doc.setTextColor(CONFIG.colorBlack);
+             doc.text(`${t.inicio} - ${t.fim}`, col2 + 2, y + 5);
+             doc.text(`${t.idadeInicio} - ${t.idadeFim} anos`, col3 + 2, y + 5);
+             
+             doc.setDrawColor(220);
+             doc.line(col1, y + rowH, col1 + tableWidth, y + rowH);
+             y += rowH;
+           });
+
+           y += 10; // Espaço após a tabela
+
+           // --- CARD "PERÍODO ATUAL" ABAIXO DA TABELA ---
+           if (arcanoAtualEncontrado && arcanos?.[arcanoAtualEncontrado.arcano]) {
+               // Verifica se cabe na página, senão quebra
+               y = checkPageBreak(y, 120); // 120 é uma estimativa segura para o card com imagem
+
+               const info = arcanos[arcanoAtualEncontrado.arcano];
+               const startCardY = y;
+               
+               // Layout do Card: Imagem Esquerda | Texto Direita
+               const imgWidth = 40;
+               const imgHeight = 60;
+               const textX = CONFIG.margin + imgWidth + 10;
+               const textWidth = CONFIG.pageWidth - CONFIG.margin - textX;
+
+               // Título do Bloco
+               doc.setFillColor(76, 175, 80); // Verde
+               doc.rect(CONFIG.margin, y, 170, 8, 'F');
+               doc.setTextColor(255, 255, 255);
+               doc.setFont("helvetica", "bold");
+               doc.setFontSize(11);
+               doc.text(`VIBRAÇÃO DO PERÍODO ATUAL: ARCANO ${arcanoAtualEncontrado.arcano} - ${info.titulo.toUpperCase()}`, CONFIG.centerX, y + 5.5, { align: "center" });
+               y += 15;
+
+               // Imagem (Esquerda)
+               if (info.image) {
+                   try {
+                       const imgBase64 = await loadImage(info.image);
+                       if (imgBase64) {
+                           doc.addImage(imgBase64, 'PNG', CONFIG.margin, y, imgWidth, imgHeight);
+                       }
+                   } catch (e) {}
+               }
+
+               // Texto (Direita)
+               doc.setTextColor(CONFIG.colorBlack);
+               doc.setFont("helvetica", "normal");
+               doc.setFontSize(10);
+               
+               // Imprime o texto respeitando a largura da coluna direita
+               // O printWrappedText aqui precisa de cuidado para não quebrar a página no meio do card de forma feia
+               // mas como já verificamos checkPageBreak(y, 120), deve caber.
+               let textY = y;
+               const lines = doc.splitTextToSize(info.descricao, textWidth);
+               doc.text(lines, textX, textY + 4);
+               
+               // Calcula a altura final do bloco (maior entre imagem e texto)
+               const textHeight = lines.length * 5;
+               const blockHeight = Math.max(imgHeight, textHeight + 10);
+               
+               // Desenha borda ao redor do conteúdo
+               doc.setDrawColor(76, 175, 80);
+               doc.setLineWidth(0.5);
+               doc.rect(CONFIG.margin, startCardY + 8, 170, blockHeight + 10);
+               
+               y += blockHeight + 20;
+           }
         }
       }
 

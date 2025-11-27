@@ -1,39 +1,65 @@
 import { calcularAnoPessoal } from './CalculoAnoPessoal';
 
-// Função para calcular o Mês Pessoal
-export const calcularMesPessoal = (dataNascimento, mesInteresse) => {
-    if (!dataNascimento || !mesInteresse) return '—'; // Retorna um traço caso não tenha valores
-
-    const anoPessoal = calcularAnoPessoal(dataNascimento);
-    const soma = anoPessoal + parseInt(mesInteresse, 10);
-
-    return reduzirNumero(soma);
-};
-
-// Função para calcular o Dia Pessoal
-export const calcularDiaPessoal = (dataNascimento, mesInteresse, diaInteresse) => {
-    if (!dataNascimento || !mesInteresse || !diaInteresse) return '—';
-
-    const mesPessoal = calcularMesPessoal(dataNascimento, mesInteresse);
-    const soma = mesPessoal + [...`${diaInteresse}`].map(Number).reduce((acc, num) => acc + num, 0);
-
-    return reduzirNumero(soma);
-};
-
-// Função para reduzir números (exceto 11 e 22, que são reduzidos diretamente)
+// Função auxiliar para reduzir (privada neste arquivo)
 const reduzirNumero = (numero) => {
-    while (numero >= 10) {
+    while (numero >= 10 && numero !== 11 && numero !== 22) {
         numero = numero.toString().split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0);
     }
     return numero;
 };
 
+// ==========================================
+// 1. CÁLCULO DO MÊS PESSOAL (Com Automático)
+// ==========================================
+export const calcularMesPessoal = (dataNascimento, mesInteresse) => {
+    if (!dataNascimento) return '—';
 
-// Função para calcular os Meses Pessoais Restantes até o próximo aniversário
+    // Lógica Automática: Se não informou mês, pega o mês ATUAL
+    let mesCalc = mesInteresse;
+    if (!mesCalc) {
+        const hoje = new Date();
+        mesCalc = hoje.getMonth() + 1; // Janeiro é 0, então somamos 1
+    }
+
+    const anoPessoal = calcularAnoPessoal(dataNascimento);
+    
+    // Soma: Ano Pessoal + Mês
+    const soma = anoPessoal + parseInt(mesCalc, 10);
+
+    return reduzirNumero(soma);
+};
+
+// ==========================================
+// 2. CÁLCULO DO DIA PESSOAL (Com Automático)
+// ==========================================
+export const calcularDiaPessoal = (dataNascimento, mesInteresse, diaInteresse) => {
+    if (!dataNascimento) return '—';
+
+    const hoje = new Date();
+
+    // Lógica Automática: 
+    // Se não tem mês, usa o atual.
+    // Se não tem dia, usa o atual.
+    const mesCalc = mesInteresse ? parseInt(mesInteresse, 10) : (hoje.getMonth() + 1);
+    const diaCalc = diaInteresse ? parseInt(diaInteresse, 10) : hoje.getDate();
+
+    // Calcula o mês pessoal baseado no mês definido acima
+    // (Reutiliza a lógica interna, mas chamamos o calculo direto para garantir)
+    const anoPessoal = calcularAnoPessoal(dataNascimento);
+    const mesPessoalVal = reduzirNumero(anoPessoal + mesCalc);
+
+    // Soma: Mês Pessoal + Dia
+    const soma = mesPessoalVal + diaCalc;
+
+    return reduzirNumero(soma);
+};
+
+// ==========================================
+// 3. MESES RESTANTES (Já estava correto, mantive a lógica)
+// ==========================================
 export const calcularMesesPessoaisRestantes = (dataNascimento, mesInicio) => {
     if (!dataNascimento) return [];
 
-    // Garantir leitura correta da data (aceita "DD/MM/YYYY" ou "YYYY-MM-DD")
     let partes = dataNascimento.includes("/")
         ? dataNascimento.split("/")
         : dataNascimento.split("-").reverse();
@@ -41,14 +67,12 @@ export const calcularMesesPessoaisRestantes = (dataNascimento, mesInicio) => {
     const mesAniversario = Number(partes[1]);
 
     if (isNaN(mesAniversario) || mesAniversario < 1 || mesAniversario > 12) {
-        console.error("Erro: mês de aniversário inválido.");
         return [];
     }
 
     const hoje = new Date();
     const anoAtual = hoje.getFullYear();
 
-    // Mês inicial — se vier 0, arrumamos para 1 (evita loop infinito)
     let mesInicial = mesInicio ? Number(mesInicio) : hoje.getMonth() + 1;
     if (mesInicial < 1 || mesInicial > 12) mesInicial = hoje.getMonth() + 1;
 
@@ -60,15 +84,11 @@ export const calcularMesesPessoaisRestantes = (dataNascimento, mesInicio) => {
     ];
 
     const resultados = [];
-
     let m = mesInicial;
     let anoLoop = anoAtual;
-
-    const limiteMaxIteracoes = 24; // segurança arredia – evita crash
     let contador = 0;
 
-    while (contador < limiteMaxIteracoes) {
-
+    while (contador < 24) {
         const soma = anoPessoal + m;
         const mesPessoal = reduzirNumero(soma);
 
@@ -79,18 +99,13 @@ export const calcularMesesPessoaisRestantes = (dataNascimento, mesInicio) => {
             valor: mesPessoal
         });
 
-        // Condição de parada segura
-        if (m === mesAniversario && anoLoop !== anoAtual) {
-            break;
-        }
+        if (m === mesAniversario && anoLoop !== anoAtual) break;
 
-        // Avança mês
         m++;
         if (m > 12) {
             m = 1;
             anoLoop++;
         }
-
         contador++;
     }
 

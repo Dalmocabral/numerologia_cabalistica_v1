@@ -27,6 +27,8 @@ import { generateInvertedPyramid } from "./components/generateInvertedPyramid";
 import { arcanos } from './components/TabelaNumerologia';
 import { calcularArcanoPessoal, calcularArcanoCabalistico } from './components/CalculoArcano';
 import PiramideInvertida from "./components/PiramideInvertida";
+import TabelaArcanosTransito from './components/TabelaArcanosTransito';
+import { calcularDiasFavoraveis } from './components/CalculoDiasFavoraveis';
 
 // Estilos personalizados para as células da tabela
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -63,6 +65,7 @@ const App = () => {
   const [arcano, setArcano] = useState('');
   const arcanoPessoal = calcularArcanoPessoal(dataNascimento);
   const arcanoCabalistico = calcularArcanoCabalistico(nome);
+  const diasFavoraveis = calcularDiasFavoraveis(dataNascimento);
 
   // Estado para armazenar múltiplos nomes sociais
   const [nomesSociais, setNomesSociais] = useState([]);
@@ -172,9 +175,19 @@ const missao = calcularMissao(destino, expressao);
                   <TextField label="Ano Pessoal" value={calcularAnoPessoal(dataNascimento)} disabled fullWidth sx={{ mt: 2 }} />
                   
                   <TextField label="Dia Pessoal" value={calcularDiaPessoal(dataNascimento, mesInteresse, diaInteresse)} disabled fullWidth sx={{ mt: 2 }} />
+                  
                   <TextField label="Subconsciente" value={calcularSubconsciente(calcularLicoesCarmicas(nome))} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Número Harmônico" value={harmonicos.length ? harmonicos.join(", ") : "Nenhum"} disabled fullWidth sx={{ mt: 2 }} />
                 </Box>
+                <Box sx={{ mt: 2 }}>
+      <TextField 
+          label="Dias do Mês Favoráveis" 
+          value={diasFavoraveis} 
+          disabled 
+          fullWidth 
+          
+      />
+   </Box>
                 <Box sx={{ mt: 2, p: 2, border: "1px solid #ccc", borderRadius: 2 }}>
                   <TextField
                     label="Meses Pessoais"
@@ -448,7 +461,11 @@ const missao = calcularMissao(destino, expressao);
                   </Box>
                 )}
               </Box>
+              <Box sx={{ width: '100%', mt: 4 }}>
+    <TabelaArcanosTransito nome={nome} dataNascimento={dataNascimento} />
+</Box>
             </Box>
+            
           ) : (
             // Mensagem de boas-vindas
             <Box
