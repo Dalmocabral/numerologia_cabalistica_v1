@@ -2554,7 +2554,8 @@ export const arcanos = {
     descricao: "Significa decisão importante; encontrar-se diante de uma escolha que deve ser decidida com cuidado, mas também com coragem e, sobretudo, atendendo a intuição e aos impulsos interiores; anuncia o advento de um novo capítulo da vida. Existe o risco, mas existe também o desejo de saltar no desconhecido. Representa as inteligências sobre-humanas, a espontaneidade, o espiritual atuando no material, o risco."
   },
   23: {
-    titulo: "Arcano 23",
+    image: "https://i.ibb.co/Ngcwzmq3/23-O-LAVRADOR.png",
+    titulo: "Arcano 23 - O LAVRADOR (Senhor/Rei do Bastão/Rei de Paus/k de Paus)",
     descricao: "Aparece um aspecto da personalidade que vai gerar novas ideias; qualidades de liderança, bondade e honestidade. É o símbolo do poder adquirido pelo mérito e pelo trabalho, sendo emblema de proteção das pessoas bem colocadas. Representa autoconfiança, motivação, empreendedorismo, sabedoria e convicção; respeitabilidade e amizades. Risco: inflexibilidade e intolerância."
   },
   24: {

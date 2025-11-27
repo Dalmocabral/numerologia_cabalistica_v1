@@ -1,12 +1,11 @@
 // src/components/PiramideInvertida.jsx
-import React, { useState } from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import React from 'react';
+import { Box, Typography } from '@mui/material'; // Removido Button e Dialog
 import { findSequences } from './generateInvertedPyramid';
 import { sequenciaNegativa } from '../components/TabelaNumerologia';
-import DialogNomeSocial from './DialogNomeSocial';
 
-const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
+// Removemos a prop 'onNomeSocialChange' pois este componente não edita mais nada
+const PiramideInvertida = ({ dados }) => {
 
   if (!dados || dados.length === 0) {
     return (
@@ -32,11 +31,6 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
       });
     }
   });
-
-  const handleSaveNomeSocial = (nomeSocial, arcano) => {
-    onNomeSocialChange(nomeSocial, arcano); // Chama a função do App.jsx
-    setDialogOpen(false); // Fecha o diálogo
-  };
 
   return (
     <Box sx={{
@@ -112,7 +106,7 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
         </Box>
       ))}
 
-      {/* Exibição simplificada das sequências */}
+      {/* Exibição das sequências */}
       {Object.keys(sequencesFound).length > 0 && (
         <Box sx={{
           mt: 4,
@@ -137,21 +131,8 @@ const PiramideInvertida = ({ dados, onNomeSocialChange }) => {
         </Box>
       )}
 
-      {/* Botão para criar nome social */}
-      <Button
-        variant="contained"
-        sx={{ mt: 4 }}
-        onClick={() => setDialogOpen(true)}
-      >
-        Criar Nome Social
-      </Button>
-
-      {/* Dialog para criar nome social - AGORA ESTÁ AQUI */}
-      <DialogNomeSocial
-        open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
-        onSave={handleSaveNomeSocial}
-      />
+      {/* REMOVIDO: Botão "Criar Nome Social" */}
+      {/* REMOVIDO: DialogNomeSocial */}
     </Box>
   );
 };

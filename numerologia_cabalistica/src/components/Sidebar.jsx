@@ -10,10 +10,12 @@ import {
   Typography,
   Divider
 } from '@mui/material';
-import { Add, DarkMode, LightMode } from '@mui/icons-material';
+import { Add, DarkMode, LightMode, PersonAdd, Create } from '@mui/icons-material'; // Ícones novos
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import NovoMapaDialog from './NovoMapaDialog';
+import DialogNomeSocial from './DialogNomeSocial'; // Importe o Dialog de Nome Social
 import PdfGeneratorButton from './PdfGeneratorButton';
+import DialogAssinatura from './DialogAssinatura';
 
 const Sidebar = ({ 
   darkMode, 
@@ -21,17 +23,25 @@ const Sidebar = ({
   onSalvarNome, 
   nomeCliente, 
   dataNascimento,
-  nomesSociais = [] // ← NOVA PROP
+  nomesSociais = [],
+  onSaveNomeSocial, // <--- Recebe a função para salvar nome social do App
+  onSalvarAssinatura, // <--- NOVA PROP
+  mesInteresse,
+  assinatura,
+  diaInteresse
 }) => {
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openMapaDialog, setOpenMapaDialog] = useState(false);
+  const [openSocialDialog, setOpenSocialDialog] = useState(false); // Estado para o dialog de nome social
+  const [openAssinaturaDialog, setOpenAssinaturaDialog] = useState(false);
+  
 
-  const handleOpenDialog = () => {
-    setOpenDialog(true);
-  };
+  // Handlers para o Mapa
+  const handleOpenMapa = () => setOpenMapaDialog(true);
+  const handleCloseMapa = () => setOpenMapaDialog(false);
 
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
+  // Handlers para o Nome Social
+  const handleOpenSocial = () => setOpenSocialDialog(true);
+  const handleCloseSocial = () => setOpenSocialDialog(false);
 
   return (
     <>
@@ -54,28 +64,9 @@ const Sidebar = ({
         }}
       >
         <Box>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              py: 3,
-              mb: 2
-            }}
-          >
-            <PsychologyIcon sx={{
-              fontSize: 80,
-              color: 'primary.main',
-              mb: 1
-            }} />
-            <Typography
-              variant="h5"
-              component="div"
-              sx={{
-                fontWeight: 'bold',
-                color: 'primary.main'
-              }}
-            >
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', py: 3, mb: 2 }}>
+            <PsychologyIcon sx={{ fontSize: 80, color: 'primary.main', mb: 1 }} />
+            <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
               Numeris
             </Typography>
           </Box>
@@ -83,21 +74,41 @@ const Sidebar = ({
           <Divider />
 
           <List>
-            <ListItem button onClick={handleOpenDialog}>
-              <ListItemIcon>
-                <Add sx={{ color: darkMode ? '#ffffff' : '#000000' }} />
-              </ListItemIcon>
+            {/* Botão Calcular Mapa */}
+            <ListItem button onClick={handleOpenMapa}>
+              <ListItemIcon><Add sx={{ color: darkMode ? '#ffffff' : '#000000' }} /></ListItemIcon>
               <ListItemText primary="Calcular Mapa" />
             </ListItem>
             
+            {/* Botão Criar Nome Social (Só aparece se tiver um cliente carregado) */}
+            <ListItem button onClick={handleOpenSocial} disabled={!nomeCliente}>
+              <ListItemIcon><PersonAdd sx={{ color: !nomeCliente ? 'grey' : (darkMode ? '#ffffff' : '#000000') }} /></ListItemIcon>
+              <ListItemText primary="Criar Nome Social" />
+            </ListItem>
 
-            {/* Botão de PDF - AGORA COM NOMES SOCIAIS */}
+             {/* Botão Assinatura (Desabilitado) */}
+             <ListItem 
+            button 
+            onClick={() => setOpenAssinaturaDialog(true)} 
+            disabled={!nomesSociais || nomesSociais.length === 0}
+         >
+            <ListItemIcon>
+              <Create sx={{ color: (!nomesSociais || nomesSociais.length === 0) ? 'grey' : (darkMode ? '#ffffff' : '#000000') }} />
+            </ListItemIcon>
+            <ListItemText primary="Assinatura do Poder" />
+         </ListItem>
+        
+
+            {/* Botão PDF */}
             <PdfGeneratorButton
               nomeCliente={nomeCliente}
               dataNascimento={dataNascimento}
-              nomesSociais={nomesSociais} // ← PASSA OS NOMES SOCIAIS
+              nomesSociais={nomesSociais}
+              mesInteresse={mesInteresse}
+              diaInteresse={diaInteresse}
               asListItem={true}
               darkMode={darkMode}
+              assinatura={assinatura}
             />
           </List>
         </Box>
@@ -107,18 +118,28 @@ const Sidebar = ({
           <List>
             <ListItem button onClick={toggleDarkMode}>
               <ListItemIcon>
-                {darkMode ? (
-                  <LightMode sx={{ color: darkMode ? '#ffffff' : '#000000' }} />
-                ) : (
-                  <DarkMode sx={{ color: darkMode ? '#ffffff' : '#000000' }} />
-                )}
+                {darkMode ? <LightMode sx={{ color: '#ffffff' }} /> : <DarkMode sx={{ color: '#000000' }} />}
               </ListItemIcon>
               <ListItemText primary={darkMode ? 'Modo Claro' : 'Modo Escuro'} />
             </ListItem>
           </List>
         </Box>
       </Drawer>
-      <NovoMapaDialog open={openDialog} onClose={handleCloseDialog} onSalvarNome={onSalvarNome} />
+      
+      {/* Diálogos */}
+      <NovoMapaDialog open={openMapaDialog} onClose={handleCloseMapa} onSalvarNome={onSalvarNome} />
+      
+      <DialogNomeSocial 
+        open={openSocialDialog} 
+        onClose={handleCloseSocial} 
+        onSave={onSaveNomeSocial} // Passa a função que vem do App
+      />
+      <DialogAssinatura 
+        open={openAssinaturaDialog}
+        onClose={() => setOpenAssinaturaDialog(false)}
+        nomeSocial={nomesSociais.length > 0 ? nomesSociais[nomesSociais.length - 1].nome : ''}
+        onSalvar={onSalvarAssinatura} // <--- O ERRO ESTAVA AQUI (Verifique se o App passa essa prop pro Sidebar)
+      />
     </>
   );
 };

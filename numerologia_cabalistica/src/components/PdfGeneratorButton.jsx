@@ -41,7 +41,7 @@ import {
 // =================================================================
 // 2. COMPONENTE PRINCIPAL
 // =================================================================
-const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode, nomesSociais = [], mesInteresse, diaInteresse }) => {
+const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode, nomesSociais = [], mesInteresse, diaInteresse, assinatura }) => {
 
   // --- Funções Utilitárias ---
   const calcularValorComAcento = (letra) => {
@@ -1162,6 +1162,98 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
           doc.setDrawColor(200, 200, 200);
           doc.line(CONFIG.margin, y, CONFIG.pageWidth - CONFIG.margin, y);
           y += 10;
+        }
+      }
+
+      // =================================================================
+      // 25. ASSINATURA DO PODER (COM CARTA E DESCRIÇÃO)
+      // =================================================================
+      if (assinatura) { 
+        // Força nova página para destaque
+        doc.addPage();
+        addWatermarkHelper();
+        y = CONFIG.margin;
+
+        y = printSectionTitle("Assinatura do Poder");
+        addToIndex("Assinatura do Poder");
+
+        y = printWrappedText(
+          "A Assinatura do Poder é uma rubrica vibracional criada para alinhar suas energias com a sua Expressão de Nome Social, potencializando suas conquistas.",
+          y
+        );
+        y += 15;
+
+        // --- 1. EXIBE A ASSINATURA GRANDE ---
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(24);
+        doc.setTextColor(CONFIG.colorBlue); // Azul para destacar
+        doc.text(assinatura.assinatura, CONFIG.centerX, y, { align: "center" });
+        y += 15;
+        
+        // --- 2. DESENHA A PIRÂMIDE ---
+        // Usamos o helper drawPyramid que centraliza automaticamente
+        const pyResult = drawPyramid(assinatura.assinatura, y);
+        y = pyResult.nextY + 15;
+
+        // --- 3. BLOCO DO ARCANO REGENTE (CARTA + DESCRIÇÃO) ---
+        const arcanoRegente = assinatura.arcanoRegente;
+        if (arcanoRegente && arcanos[arcanoRegente]) {
+            const info = arcanos[arcanoRegente];
+            
+            // Verifica se cabe na página (Carta + Texto ocupam ~80-100mm)
+            y = checkPageBreak(y, 100); 
+
+            // Configurações do Bloco
+            const cardHeight = 80;
+            const imgWidth = 45;
+            const imgHeight = 70;
+            const textX = CONFIG.margin + imgWidth + 10;
+            const textWidth = CONFIG.pageWidth - CONFIG.margin - textX;
+
+            // Caixa de Fundo (Amarelo Claro para destacar Poder/Ouro)
+            doc.setDrawColor(218, 165, 32); // Goldenrod
+            doc.setLineWidth(0.5);
+            doc.setFillColor(255, 250, 220); // Fundo bem clarinho
+            doc.rect(CONFIG.margin, y, 170, cardHeight, 'F'); // Fundo
+            doc.rect(CONFIG.margin, y, 170, cardHeight);      // Borda
+
+            // Imagem (Esquerda)
+            if (info.image) {
+                try {
+                    // Carregamento com await (dentro do fluxo async)
+                    const imgData = await loadImage(info.image);
+                    if (imgData) {
+                        doc.addImage(imgData, 'PNG', CONFIG.margin + 5, y + 5, imgWidth, imgHeight);
+                    }
+                } catch(e) { console.error("Erro imagem assinatura", e); }
+            }
+
+            // Texto (Direita)
+            let textY = y + 10;
+            
+            // Título
+            doc.setTextColor(CONFIG.colorBlack);
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(14);
+            doc.text(`Arcano Regente ${arcanoRegente}`, textX, textY);
+            
+            textY += 7;
+            doc.setFontSize(12);
+            doc.setTextColor(184, 134, 11); // Dourado escuro
+            doc.text(info.titulo.toUpperCase(), textX, textY);
+
+            textY += 10;
+            
+            // Descrição (Justificada/Quebrada)
+            doc.setTextColor(CONFIG.colorBlack);
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            
+            // Usa o splitTextToSize para quebrar o texto na largura disponível
+            const descLines = doc.splitTextToSize(info.descricao, textWidth - 5);
+            doc.text(descLines, textX, textY);
+
+            y += cardHeight + 10; // Avança Y para depois da caixa
         }
       }
 

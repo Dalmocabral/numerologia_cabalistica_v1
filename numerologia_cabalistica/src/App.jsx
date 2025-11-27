@@ -66,6 +66,7 @@ const App = () => {
   const arcanoPessoal = calcularArcanoPessoal(dataNascimento);
   const arcanoCabalistico = calcularArcanoCabalistico(nome);
   const diasFavoraveis = calcularDiasFavoraveis(dataNascimento);
+  const [assinatura, setAssinatura] = useState(null);
 
   // Estado para armazenar múltiplos nomes sociais
   const [nomesSociais, setNomesSociais] = useState([]);
@@ -85,6 +86,7 @@ const App = () => {
     setNomeSocial('');
     setArcano('');
     setNomesSociais([]);
+    setAssinatura(null);
 
     const resultado = calcularNumeroHarmonico(novaDataNascimento);
     setHarmonicos(resultado);
@@ -103,7 +105,7 @@ const App = () => {
       arcano: arcanoNumber,
       dataCriacao: new Date().toLocaleDateString('pt-BR')
     }]);
-    
+
     // Também define como nome social atual (mantém compatibilidade)
     setNomeSocial(nomeSocial);
     setArcano(arcanoNumber);
@@ -122,8 +124,8 @@ const App = () => {
 
   // Cálculos principais
   const destino = calcularDestino(dataNascimento);
-const expressao = calcularExpressao(nome);
-const missao = calcularMissao(destino, expressao);
+  const expressao = calcularExpressao(nome);
+  const missao = calcularMissao(destino, expressao);
   const momentosDecisivos = calcularMomentosDecisivos(dataNascimento, calcularDestino(dataNascimento));
   const desafios = calcularDesafios(dataNascimento, calcularCicloVida(dataNascimento, calcularDestino(dataNascimento)));
   const harmonia = calcularHarmoniaConjugal(missao);
@@ -134,6 +136,11 @@ const missao = calcularMissao(destino, expressao);
   // Função para alternar entre as abas
   const handleTabChange = (event, newIndex) => {
     setTabIndex(newIndex);
+  };
+
+  // 2. NOVA FUNÇÃO PARA SALVAR A ASSINATURA
+  const handleSalvarAssinatura = (dadosAssinatura) => {
+    setAssinatura(dadosAssinatura);
   };
 
   return (
@@ -147,6 +154,9 @@ const missao = calcularMissao(destino, expressao);
           nomeCliente={nome}
           dataNascimento={dataNascimento}
           nomesSociais={nomesSociais}
+          onSaveNomeSocial={handleSaveNomeSocial}
+          onSalvarAssinatura={handleSalvarAssinatura}
+          assinatura={assinatura}
         />
       </ThemeProvider>
 
@@ -173,21 +183,21 @@ const missao = calcularMissao(destino, expressao);
                   <TextField label="Lições Cármicas" value={calcularLicoesCarmicas(nome)} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Tendências Ocultas" value={calcularTendenciasOcultas(nome)} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Ano Pessoal" value={calcularAnoPessoal(dataNascimento)} disabled fullWidth sx={{ mt: 2 }} />
-                  
+
                   <TextField label="Dia Pessoal" value={calcularDiaPessoal(dataNascimento, mesInteresse, diaInteresse)} disabled fullWidth sx={{ mt: 2 }} />
-                  
+
                   <TextField label="Subconsciente" value={calcularSubconsciente(calcularLicoesCarmicas(nome))} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Número Harmônico" value={harmonicos.length ? harmonicos.join(", ") : "Nenhum"} disabled fullWidth sx={{ mt: 2 }} />
                 </Box>
                 <Box sx={{ mt: 2 }}>
-      <TextField 
-          label="Dias do Mês Favoráveis" 
-          value={diasFavoraveis} 
-          disabled 
-          fullWidth 
-          
-      />
-   </Box>
+                  <TextField
+                    label="Dias do Mês Favoráveis"
+                    value={diasFavoraveis}
+                    disabled
+                    fullWidth
+
+                  />
+                </Box>
                 <Box sx={{ mt: 2, p: 2, border: "1px solid #ccc", borderRadius: 2 }}>
                   <TextField
                     label="Meses Pessoais"
@@ -201,11 +211,12 @@ const missao = calcularMissao(destino, expressao);
                     sx={{ mt: 2 }}
                   />
                 </Box>
+                
                 <Box sx={{ display: "flex", gap: 2 }}>
                   <TextField label="Cores Favoráveis" value={calcularCoresFavoraveis(numeroExpressao)} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Nome social" value={nomeSocial} disabled fullWidth sx={{ mt: 2 }} />
-                  <TextField label="Arcano Taro" value={arcanoPessoal} disabled  fullWidth sx={{ mt: 2 }} />
-                  <TextField label="Arcano Cabalística" value={arcanoCabalistico} disabled  fullWidth sx={{ mt: 2 }} />
+                  <TextField label="Arcano Taro" value={arcanoPessoal} disabled fullWidth sx={{ mt: 2 }} />
+                  <TextField label="Arcano Cabalística" value={arcanoCabalistico} disabled fullWidth sx={{ mt: 2 }} />
                 </Box>
 
                 {/* SEÇÃO: Lista de Nomes Sociais Salvos */}
@@ -253,8 +264,8 @@ const missao = calcularMissao(destino, expressao);
                                 )}
                               </StyledTableCell>
                               <StyledTableCell align="center">
-                                <Button 
-                                  size="small" 
+                                <Button
+                                  size="small"
                                   color="error"
                                   onClick={() => handleRemoverNomeSocial(index)}
                                 >
@@ -267,7 +278,88 @@ const missao = calcularMissao(destino, expressao);
                       </Table>
                     </TableContainer>
                   </Box>
+                  
                 )}
+
+                {/* 4. EXIBIR A ASSINATURA NA TELA SE ELA EXISTIR */}
+             {/* 4. EXIBIR A ASSINATURA NA TELA (FORMATO TABELA) */}
+              {assinatura && (
+                <Box sx={{ mt: 4, width: '100%' }}>
+                  <Typography variant="h5" gutterBottom sx={{ color: 'success.main', display: 'flex', alignItems: 'center', gap: 1 }}>
+                    Assinatura do Poder Escolhida
+                  </Typography>
+                  
+                  <TableContainer component={Paper} sx={{ border: '2px solid #4caf50' }}>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <StyledTableCell>Assinatura</StyledTableCell>
+                          <StyledTableCell align="center">Arcano Regente</StyledTableCell>
+                          <StyledTableCell align="center">Significado</StyledTableCell>
+                          <StyledTableCell align="center">Ações</StyledTableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <StyledTableRow>
+                          {/* Coluna da Assinatura */}
+                          <StyledTableCell component="th" scope="row">
+                            <Typography variant="h5" sx={{ fontWeight: 'bold', letterSpacing: 2, color: 'primary.main' }}>
+                              {assinatura.assinatura}
+                            </Typography>
+                          </StyledTableCell>
+
+                          {/* Coluna do Número do Arcano */}
+                          <StyledTableCell align="center">
+                            <Box sx={{ 
+                              display: 'inline-flex', 
+                              justifyContent: 'center', 
+                              alignItems: 'center', 
+                              width: 40, 
+                              height: 40, 
+                              borderRadius: '50%', 
+                              bgcolor: 'success.light', 
+                              color: 'success.dark',
+                              fontWeight: 'bold',
+                              fontSize: '1.2rem'
+                            }}>
+                              {assinatura.arcanoRegente}
+                            </Box>
+                          </StyledTableCell>
+
+                          {/* Coluna do Título do Arcano */}
+                          <StyledTableCell align="center">
+                            {arcanos[assinatura.arcanoRegente] ? (
+                              <Box>
+                                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                                  {arcanos[assinatura.arcanoRegente].titulo}
+                                </Typography>
+                                <Typography variant="caption" color="textSecondary">
+                                  {arcanos[assinatura.arcanoRegente].descricao.substring(0, 60)}...
+                                </Typography>
+                              </Box>
+                            ) : (
+                              <Typography variant="body2" color="textSecondary">Indisponível</Typography>
+                            )}
+                          </StyledTableCell>
+
+                          {/* Botão de Remover */}
+                          <StyledTableCell align="center">
+                            <Button 
+                              size="small" 
+                              color="error" 
+                              variant="outlined"
+                              onClick={() => setAssinatura(null)}
+                            >
+                              Remover
+                            </Button>
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Box>
+              )}
+                
 
                 {/* Container para as tabelas */}
                 <Box sx={{ display: 'flex', gap: 2, mt: 4 }}>
@@ -462,10 +554,10 @@ const missao = calcularMissao(destino, expressao);
                 )}
               </Box>
               <Box sx={{ width: '100%', mt: 4 }}>
-    <TabelaArcanosTransito nome={nome} dataNascimento={dataNascimento} />
-</Box>
+                <TabelaArcanosTransito nome={nome} dataNascimento={dataNascimento} />
+              </Box>
             </Box>
-            
+
           ) : (
             // Mensagem de boas-vindas
             <Box
