@@ -1178,10 +1178,11 @@ const PdfGeneratorButton = ({ nomeCliente, dataNascimento, asListItem, darkMode,
         addToIndex("Assinatura do Poder");
 
         y = printWrappedText(
-          "A Assinatura do Poder é uma rubrica vibracional criada para alinhar suas energias com a sua Expressão de Nome Social, potencializando suas conquistas.",
-          y
-        );
-        y += 15;
+  "A assinatura representa o selo pelo qual você dá fé aos documentos que assina. Ela é uma afirmação pessoal que garante autenticidade e possui um padrão vibratório próprio. Uma assinatura aleatória, criada sem planejamento, pode bloquear o fluxo da prosperidade pessoal. Já uma assinatura bem elaborada torna-se uma ferramenta poderosa para direcionar corretamente as energias da prosperidade.\n\nPara alcançar um resultado satisfatório na criação de uma assinatura existe uma combinação complexa de cálculos, e nem sempre é possível compatibilizar os aspectos técnicos com a estética desejada. Assim, caso a opção sugerida não lhe agrade, entre em contato indicando como gostaria que fosse sua assinatura, para que uma nova proposta seja elaborada.\n\nÉ importante que sua assinatura seja claramente legível, ligeiramente ascendente e sem qualquer traço que a corte, contendo todos os acentos e sinais gráficos. Ela deve ser utilizada em documentos, registros, cartórios e bancos. Caso deseje usá-la como nome social, artístico ou profissional, inclua-a também em cartões de apresentação, crachás e outros materiais. Quanto mais ela for usada, maior será sua força de atração.\n\nA assinatura correta proporciona bem-estar, otimismo, prosperidade, felicidade, equilíbrio emocional, amor-próprio e autonomia. Assinaturas rabiscadas, por outro lado, podem gerar baixa autoestima, pessimismo e obstáculos na prosperidade, além de favorecer sentimentos de mágoa e frustração.\n\nA melhor assinatura é aquela que harmoniza a quantidade de letras com seu valor numérico, trazendo melhorias para a vida pessoal e profissional.",
+  y
+);
+y += 15;
+
 
         // --- 1. EXIBE A ASSINATURA GRANDE ---
         doc.setFont("helvetica", "bold");
