@@ -28,7 +28,9 @@ const Sidebar = ({
   onSalvarAssinatura, // <--- NOVA PROP
   mesInteresse,
   assinatura,
-  diaInteresse
+  diaInteresse,
+  nomeCompanheiro, 
+  dataNascimentoCompanheiro
 }) => {
   const [openMapaDialog, setOpenMapaDialog] = useState(false);
   const [openSocialDialog, setOpenSocialDialog] = useState(false); // Estado para o dialog de nome social
@@ -109,6 +111,8 @@ const Sidebar = ({
               asListItem={true}
               darkMode={darkMode}
               assinatura={assinatura}
+              nomeCompanheiro={nomeCompanheiro}           // <--- VOCÊ PASSOU ISSO?
+              dataNascimentoCompanheiro={dataNascimentoCompanheiro} // <--- E ISSO?
             />
           </List>
         </Box>

@@ -67,6 +67,8 @@ const App = () => {
   const arcanoCabalistico = calcularArcanoCabalistico(nome);
   const diasFavoraveis = calcularDiasFavoraveis(dataNascimento);
   const [assinatura, setAssinatura] = useState(null);
+  const [nomeCompanheiro, setNomeCompanheiro] = useState('');
+  const [dataNascCompanheiro, setDataNascCompanheiro] = useState('');
 
   // Estado para armazenar múltiplos nomes sociais
   const [nomesSociais, setNomesSociais] = useState([]);
@@ -76,18 +78,24 @@ const App = () => {
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
-  const handleSalvarNome = (novoNome, novaDataNascimento, novoMesInteresse, novoDiaInteresse) => {
+  const handleSalvarNome = (novoNome, novaDataNascimento, novoMesInteresse, novoDiaInteresse, novoNomeComp, novaDataComp) => {
+    // Dados do Cliente
     setNome(novoNome);
     setDataNascimento(novaDataNascimento);
     setMesInteresse(novoMesInteresse);
     setDiaInteresse(novoDiaInteresse);
 
-    // Limpa os dados do nome social quando um novo nome principal é processado
+    // Dados do Companheiro (CORREÇÃO AQUI: Usar os nomes corretos dos parâmetros)
+    setNomeCompanheiro(novoNomeComp);
+    setDataNascCompanheiro(novaDataComp);
+
+    // Limpezas
     setNomeSocial('');
     setArcano('');
     setNomesSociais([]);
     setAssinatura(null);
 
+    // Cálculos Iniciais
     const resultado = calcularNumeroHarmonico(novaDataNascimento);
     setHarmonicos(resultado);
 
@@ -130,6 +138,14 @@ const App = () => {
   const desafios = calcularDesafios(dataNascimento, calcularCicloVida(dataNascimento, calcularDestino(dataNascimento)));
   const harmonia = calcularHarmoniaConjugal(missao);
 
+  let harmoniaCompanheiro = null;
+  if (nomeCompanheiro && dataNascCompanheiro) {
+    const destinoComp = calcularDestino(dataNascCompanheiro);
+    const expressaoComp = calcularExpressao(nomeCompanheiro);
+    const missaoComp = calcularMissao(destinoComp, expressaoComp);
+    harmoniaCompanheiro = calcularHarmoniaConjugal(missaoComp);
+  }
+
   // Cálculo dos Meses Pessoais Restantes
   const mesesPessoaisLista = calcularMesesPessoaisRestantes(dataNascimento, mesInteresse);
 
@@ -157,6 +173,8 @@ const App = () => {
           onSaveNomeSocial={handleSaveNomeSocial}
           onSalvarAssinatura={handleSalvarAssinatura}
           assinatura={assinatura}
+          nomeCompanheiro={nomeCompanheiro}           // <--- PASSAR AQUI
+          dataNascimentoCompanheiro={dataNascCompanheiro}
         />
       </ThemeProvider>
 
@@ -211,7 +229,7 @@ const App = () => {
                     sx={{ mt: 2 }}
                   />
                 </Box>
-                
+
                 <Box sx={{ display: "flex", gap: 2 }}>
                   <TextField label="Cores Favoráveis" value={calcularCoresFavoraveis(numeroExpressao)} disabled fullWidth sx={{ mt: 2 }} />
                   <TextField label="Nome social" value={nomeSocial} disabled fullWidth sx={{ mt: 2 }} />
@@ -278,88 +296,88 @@ const App = () => {
                       </Table>
                     </TableContainer>
                   </Box>
-                  
+
                 )}
 
                 {/* 4. EXIBIR A ASSINATURA NA TELA SE ELA EXISTIR */}
-             {/* 4. EXIBIR A ASSINATURA NA TELA (FORMATO TABELA) */}
-              {assinatura && (
-                <Box sx={{ mt: 4, width: '100%' }}>
-                  <Typography variant="h5" gutterBottom sx={{ color: 'success.main', display: 'flex', alignItems: 'center', gap: 1 }}>
-                    Assinatura do Poder Escolhida
-                  </Typography>
-                  
-                  <TableContainer component={Paper} sx={{ border: '2px solid #4caf50' }}>
-                    <Table>
-                      <TableHead>
-                        <TableRow>
-                          <StyledTableCell>Assinatura</StyledTableCell>
-                          <StyledTableCell align="center">Arcano Regente</StyledTableCell>
-                          <StyledTableCell align="center">Significado</StyledTableCell>
-                          <StyledTableCell align="center">Ações</StyledTableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        <StyledTableRow>
-                          {/* Coluna da Assinatura */}
-                          <StyledTableCell component="th" scope="row">
-                            <Typography variant="h5" sx={{ fontWeight: 'bold', letterSpacing: 2, color: 'primary.main' }}>
-                              {assinatura.assinatura}
-                            </Typography>
-                          </StyledTableCell>
+                {/* 4. EXIBIR A ASSINATURA NA TELA (FORMATO TABELA) */}
+                {assinatura && (
+                  <Box sx={{ mt: 4, width: '100%' }}>
+                    <Typography variant="h5" gutterBottom sx={{ color: 'success.main', display: 'flex', alignItems: 'center', gap: 1 }}>
+                      Assinatura do Poder Escolhida
+                    </Typography>
 
-                          {/* Coluna do Número do Arcano */}
-                          <StyledTableCell align="center">
-                            <Box sx={{ 
-                              display: 'inline-flex', 
-                              justifyContent: 'center', 
-                              alignItems: 'center', 
-                              width: 40, 
-                              height: 40, 
-                              borderRadius: '50%', 
-                              bgcolor: 'success.light', 
-                              color: 'success.dark',
-                              fontWeight: 'bold',
-                              fontSize: '1.2rem'
-                            }}>
-                              {assinatura.arcanoRegente}
-                            </Box>
-                          </StyledTableCell>
+                    <TableContainer component={Paper} sx={{ border: '2px solid #4caf50' }}>
+                      <Table>
+                        <TableHead>
+                          <TableRow>
+                            <StyledTableCell>Assinatura</StyledTableCell>
+                            <StyledTableCell align="center">Arcano Regente</StyledTableCell>
+                            <StyledTableCell align="center">Significado</StyledTableCell>
+                            <StyledTableCell align="center">Ações</StyledTableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          <StyledTableRow>
+                            {/* Coluna da Assinatura */}
+                            <StyledTableCell component="th" scope="row">
+                              <Typography variant="h5" sx={{ fontWeight: 'bold', letterSpacing: 2, color: 'primary.main' }}>
+                                {assinatura.assinatura}
+                              </Typography>
+                            </StyledTableCell>
 
-                          {/* Coluna do Título do Arcano */}
-                          <StyledTableCell align="center">
-                            {arcanos[assinatura.arcanoRegente] ? (
-                              <Box>
-                                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                                  {arcanos[assinatura.arcanoRegente].titulo}
-                                </Typography>
-                                <Typography variant="caption" color="textSecondary">
-                                  {arcanos[assinatura.arcanoRegente].descricao.substring(0, 60)}...
-                                </Typography>
+                            {/* Coluna do Número do Arcano */}
+                            <StyledTableCell align="center">
+                              <Box sx={{
+                                display: 'inline-flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: 40,
+                                height: 40,
+                                borderRadius: '50%',
+                                bgcolor: 'success.light',
+                                color: 'success.dark',
+                                fontWeight: 'bold',
+                                fontSize: '1.2rem'
+                              }}>
+                                {assinatura.arcanoRegente}
                               </Box>
-                            ) : (
-                              <Typography variant="body2" color="textSecondary">Indisponível</Typography>
-                            )}
-                          </StyledTableCell>
+                            </StyledTableCell>
 
-                          {/* Botão de Remover */}
-                          <StyledTableCell align="center">
-                            <Button 
-                              size="small" 
-                              color="error" 
-                              variant="outlined"
-                              onClick={() => setAssinatura(null)}
-                            >
-                              Remover
-                            </Button>
-                          </StyledTableCell>
-                        </StyledTableRow>
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                </Box>
-              )}
-                
+                            {/* Coluna do Título do Arcano */}
+                            <StyledTableCell align="center">
+                              {arcanos[assinatura.arcanoRegente] ? (
+                                <Box>
+                                  <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                                    {arcanos[assinatura.arcanoRegente].titulo}
+                                  </Typography>
+                                  <Typography variant="caption" color="textSecondary">
+                                    {arcanos[assinatura.arcanoRegente].descricao.substring(0, 60)}...
+                                  </Typography>
+                                </Box>
+                              ) : (
+                                <Typography variant="body2" color="textSecondary">Indisponível</Typography>
+                              )}
+                            </StyledTableCell>
+
+                            {/* Botão de Remover */}
+                            <StyledTableCell align="center">
+                              <Button
+                                size="small"
+                                color="error"
+                                variant="outlined"
+                                onClick={() => setAssinatura(null)}
+                              >
+                                Remover
+                              </Button>
+                            </StyledTableCell>
+                          </StyledTableRow>
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </Box>
+                )}
+
 
                 {/* Container para as tabelas */}
                 <Box sx={{ display: 'flex', gap: 2, mt: 4 }}>
@@ -420,82 +438,123 @@ const App = () => {
                   </Box>
                 </Box>
 
-                {/* Tabela dos Momentos Decisivos e Harmonia Conjugal lado a lado */}
-                <Box sx={{ display: 'flex', gap: 2, mt: 4 }}>
-                  {/* Tabela dos Momentos Decisivos */}
-                  <Box sx={{ flex: 1 }}>
-                    <Typography variant="h6" align="center">Momentos Decisivos</Typography>
+                {/* Container Principal para Momentos e Harmonia */}
+              <Box sx={{ mt: 4, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  
+                  {/* 1. MOMENTOS DECISIVOS (Largura Total para melhor leitura) */}
+                  <Box>
+                    <Typography variant="h6" align="center" gutterBottom sx={{ color: 'primary.main' }}>
+                        Momentos Decisivos
+                    </Typography>
                     <TableContainer component={Paper}>
-                      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                      <Table size="small">
                         <TableHead>
                           <TableRow>
                             <StyledTableCell>Energia</StyledTableCell>
-                            <StyledTableCell align="right">Idade</StyledTableCell>
-                            <StyledTableCell align="right">Período</StyledTableCell>
+                            <StyledTableCell align="center">Idade</StyledTableCell>
+                            <StyledTableCell align="center">Período</StyledTableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {momentosDecisivos.map((momento, index) => (
-                            <StyledTableRow key={index}>
-                              <StyledTableCell component="th" scope="row">
-                                {momento.momento}
-                              </StyledTableCell>
-                              <StyledTableCell align="right">{
-                                index === 0 ? `0 até ${momentosDecisivos[0].fim - new Date(dataNascimento).getFullYear()} anos` :
-                                  index === 1 ? `${momentosDecisivos[0].fim - new Date(dataNascimento).getFullYear()} até ${momentosDecisivos[1].fim - new Date(dataNascimento).getFullYear()} anos` :
-                                    index === 2 ? `${momentosDecisivos[1].fim - new Date(dataNascimento).getFullYear()} até ${momentosDecisivos[2].fim - new Date(dataNascimento).getFullYear()} anos` :
-                                      `${momentosDecisivos[2].fim - new Date(dataNascimento).getFullYear()} anos em diante`
-                              }</StyledTableCell>
-                              <StyledTableCell align="right">{`${momentosDecisivos[index].inicio} até ${momentosDecisivos[index].fim}`}</StyledTableCell>
-                            </StyledTableRow>
-                          ))}
+                          {momentosDecisivos.map((momento, index) => {
+                             const startAge = index === 0 ? 0 : momentosDecisivos[index - 1].fim - new Date(dataNascimento).getFullYear();
+                             const endAge = momento.fim === '...' ? '...' : (startAge + (momento.fim - momento.inicio));
+                             const labelIdade = momento.fim === '...' 
+                                ? `${startAge} anos em diante` 
+                                : `${startAge} até ${endAge} anos`;
+                             const labelPeriodo = momento.fim === '...' 
+                                ? `${momento.inicio} em diante` 
+                                : `${momento.inicio} a ${momento.fim}`;
+
+                             return (
+                                <StyledTableRow key={index}>
+                                  <StyledTableCell component="th" scope="row">
+                                    <Typography fontWeight="bold">{momento.momento}</Typography>
+                                  </StyledTableCell>
+                                  <StyledTableCell align="center">{labelIdade}</StyledTableCell>
+                                  <StyledTableCell align="center">{labelPeriodo}</StyledTableCell>
+                                </StyledTableRow>
+                             );
+                          })}
                         </TableBody>
                       </Table>
                     </TableContainer>
                   </Box>
 
-                  {/* Tabela da Harmonia Conjugal */}
-                  <Box sx={{ flex: 1 }}>
-                    <Typography variant="h6" align="center">
-                      Harmonia Conjugal -{' '}
-                      <Box component="span" sx={{ color: 'error.main' }}>
-                        {harmonia?.numero}
-                      </Box>
+                  {/* 2. HARMONIA CONJUGAL (Lado a Lado se tiver companheiro) */}
+                  <Box>
+                    <Typography variant="h6" align="center" gutterBottom sx={{ color: 'primary.main' }}>
+                        Análise de Harmonia Conjugal
                     </Typography>
-                    <TableContainer component={Paper}>
-                      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                        <TableHead>
-                          <TableRow>
-                            <StyledTableCell>#</StyledTableCell>
-                            <StyledTableCell align="right"></StyledTableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {harmonia && (
-                            <>
-                              <StyledTableRow>
-                                <StyledTableCell component="th" scope="row">Vibra com</StyledTableCell>
-                                <StyledTableCell align="right">{harmonia.vibraCom}</StyledTableCell>
-                              </StyledTableRow>
-                              <StyledTableRow>
-                                <StyledTableCell component="th" scope="row">Atrai</StyledTableCell>
-                                <StyledTableCell align="right">{harmonia.atrai}</StyledTableCell>
-                              </StyledTableRow>
-                              <StyledTableRow>
-                                <StyledTableCell component="th" scope="row">É oposto</StyledTableCell>
-                                <StyledTableCell align="right">{harmonia.oposto}</StyledTableCell>
-                              </StyledTableRow>
-                              <StyledTableRow>
-                                <StyledTableCell component="th" scope="row">É passivo em relação a</StyledTableCell>
-                                <StyledTableCell align="right">{harmonia.passivo}</StyledTableCell>
-                              </StyledTableRow>
-                            </>
-                          )}
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
+                    
+                    <Box sx={{ 
+                        display: 'flex', 
+                        gap: 2, 
+                        flexDirection: { xs: 'column', md: 'row' }, // Em mobile fica um embaixo do outro
+                        justifyContent: 'center' // Centraliza se for só um
+                    }}>
+                        
+                        {/* Tabela Cliente */}
+                        {harmonia && (
+                            <Box sx={{ flex: 1, maxWidth: harmoniaCompanheiro ? '50%' : '100%' }}>
+                                <Typography variant="subtitle2" align="center" sx={{ color: 'primary.dark', fontWeight: 'bold', mb: 1 }}>
+                                    {nome} (Base: {harmonia.numero})
+                                </Typography>
+                                <TableContainer component={Paper} elevation={2}>
+                                    <Table size="small">
+                                        <TableHead>
+                                            <TableRow>
+                                                <StyledTableCell>Tipo</StyledTableCell>
+                                                <StyledTableCell align="center">Números</StyledTableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            <StyledTableRow><StyledTableCell>Vibra com</StyledTableCell><StyledTableCell align="center">{harmonia.vibraCom}</StyledTableCell></StyledTableRow>
+                                            <StyledTableRow><StyledTableCell>Atrai</StyledTableCell><StyledTableCell align="center">{harmonia.atrai}</StyledTableCell></StyledTableRow>
+                                            <StyledTableRow><StyledTableCell>É oposto</StyledTableCell><StyledTableCell align="center">{harmonia.oposto}</StyledTableCell></StyledTableRow>
+                                            <StyledTableRow><StyledTableCell>É passivo</StyledTableCell><StyledTableCell align="center">{harmonia.passivo}</StyledTableCell></StyledTableRow>
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            </Box>
+                        )}
+
+                        {/* Tabela Companheiro */}
+                        {harmoniaCompanheiro && (
+                            <Box sx={{ flex: 1, maxWidth: '50%' }}>
+                                <Typography variant="subtitle2" align="center" sx={{ color: 'secondary.dark', fontWeight: 'bold', mb: 1 }}>
+                                    {nomeCompanheiro} (Base: {harmoniaCompanheiro.numero})
+                                </Typography>
+                                <TableContainer component={Paper} elevation={2}>
+                                    <Table size="small">
+                                        <TableHead>
+                                            <TableRow>
+                                                <StyledTableCell sx={{ bgcolor: 'secondary.main' }}>Tipo</StyledTableCell>
+                                                <StyledTableCell align="center" sx={{ bgcolor: 'secondary.main' }}>Números</StyledTableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            <StyledTableRow><StyledTableCell>Vibra com</StyledTableCell><StyledTableCell align="center">{harmoniaCompanheiro.vibraCom}</StyledTableCell></StyledTableRow>
+                                            <StyledTableRow><StyledTableCell>Atrai</StyledTableCell><StyledTableCell align="center">{harmoniaCompanheiro.atrai}</StyledTableCell></StyledTableRow>
+                                            <StyledTableRow><StyledTableCell>É oposto</StyledTableCell><StyledTableCell align="center">{harmoniaCompanheiro.oposto}</StyledTableCell></StyledTableRow>
+                                            <StyledTableRow><StyledTableCell>É passivo</StyledTableCell><StyledTableCell align="center">{harmoniaCompanheiro.passivo}</StyledTableCell></StyledTableRow>
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            </Box>
+                        )}
+                    </Box>
+                    
+                    {/* Feedback de Comparação */}
+                    {harmonia && harmoniaCompanheiro && (
+                        <Box sx={{ mt: 2, p: 1, bgcolor: '#e3f2fd', borderRadius: 1, textAlign: 'center', border: '1px solid #bbdefb' }}>
+                            <Typography variant="body2" color="primary.dark">
+                                Comparando: <strong>{harmonia.numero}</strong> com <strong>{harmoniaCompanheiro.numero}</strong>
+                            </Typography>
+                        </Box>
+                    )}
                   </Box>
-                </Box>
+              </Box>
               </Box>
 
               {/* Adicionando Tabs abaixo das tabelas */}
