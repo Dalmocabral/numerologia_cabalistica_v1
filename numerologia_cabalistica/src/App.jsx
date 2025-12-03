@@ -51,6 +51,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+
+
 const App = () => {
   const [darkMode, setDarkMode] = useState(true);
   const [nome, setNome] = useState('');
@@ -158,6 +160,15 @@ const App = () => {
   const handleSalvarAssinatura = (dadosAssinatura) => {
     setAssinatura(dadosAssinatura);
   };
+
+  // Verifica se o número base está presente na lista de números da linha
+const isMatch = (numerosDaLinha, baseParaComparar) => {
+  if (!numerosDaLinha || !baseParaComparar) return false;
+  // Converte para string e verifica se a base está inclusa
+  // Ex: "1, 5, 9" inclui "5"? Sim.
+  const lista = numerosDaLinha.toString().split(',').map(n => n.trim());
+  return lista.includes(baseParaComparar.toString());
+};
 
   return (
     <>

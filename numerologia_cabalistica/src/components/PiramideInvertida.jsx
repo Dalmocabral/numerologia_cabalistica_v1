@@ -1,10 +1,9 @@
 // src/components/PiramideInvertida.jsx
 import React from 'react';
-import { Box, Typography } from '@mui/material'; // Removido Button e Dialog
+import { Box, Typography, Paper, Divider } from '@mui/material';
 import { findSequences } from './generateInvertedPyramid';
 import { sequenciaNegativa } from '../components/TabelaNumerologia';
 
-// Removemos a prop 'onNomeSocialChange' pois este componente não edita mais nada
 const PiramideInvertida = ({ dados }) => {
 
   if (!dados || dados.length === 0) {
@@ -15,7 +14,7 @@ const PiramideInvertida = ({ dados }) => {
     );
   }
 
-  // Encontrar e agrupar sequências únicas usando sequenciaNegativa
+  // Encontrar e agrupar sequências únicas
   const sequencesFound = {};
   dados.forEach(row => {
     if (row.type === 'numbers') {
@@ -32,107 +31,126 @@ const PiramideInvertida = ({ dados }) => {
     }
   });
 
+  const hasSequences = Object.keys(sequencesFound).length > 0;
+
   return (
-    <Box sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      mt: 4,
-      textAlign: 'center'
-    }}>
-      {/* Renderização da pirâmide */}
-      {dados.map((row, rowIndex) => (
-        <Box
-          key={rowIndex}
-          sx={{
-            display: 'flex',
-            gap: 0.5,
-            justifyContent: 'center',
-            alignItems: 'center',
-            mb: 0.5,
-            py: 0.5
-          }}
-        >
-          {row.data.map((item, itemIndex) => {
-            const baseStyle = {
-              minWidth: '2.2rem',
-              height: '2.2rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: '4px',
-              transition: 'all 0.2s ease'
-            };
+    <Box sx={{ width: '100%', mt: 4 }}>
+      
+      {/* Container Flex para alinhar Lado a Lado */}
+      <Box sx={{ 
+        display: 'flex', 
+        flexDirection: { xs: 'column', md: 'row' }, // Mobile: Coluna, Desktop: Linha
+        gap: 4, 
+        alignItems: 'flex-start', // Alinha no topo
+        justifyContent: 'center'
+      }}>
 
-            if (row.type === 'letters') {
-              return (
-                <Box
-                  key={itemIndex}
-                  sx={{
-                    ...baseStyle,
-                    fontSize: '1.8rem',
-                    fontWeight: 700,
-                    color: 'primary.main',
-                    bgcolor: 'background.paper',
-                    border: '1px solid',
-                    borderColor: 'divider'
-                  }}
-                >
-                  {item}
-                </Box>
-              );
-            }
-
-            const sequences = findSequences(row.data);
-            const isSequence = sequences.includes(itemIndex);
-
-            return (
-              <Box
-                key={itemIndex}
-                sx={{
-                  ...baseStyle,
-                  fontSize: '1.5rem',
-                  fontWeight: isSequence ? 700 : 500,
-                  color: isSequence ? 'error.contrastText' : 'text.primary',
-                  bgcolor: isSequence ? 'error.main' : 'background.paper',
-                  border: '1px solid',
-                  borderColor: isSequence ? 'error.dark' : 'divider'
-                }}
-              >
-                {item}
-              </Box>
-            );
-          })}
-        </Box>
-      ))}
-
-      {/* Exibição das sequências */}
-      {Object.keys(sequencesFound).length > 0 && (
-        <Box sx={{
-          mt: 4,
-          width: '100%',
-          maxWidth: '600px',
-          textAlign: 'left',
-          p: 2
+        {/* --- LADO ESQUERDO: PIRÂMIDE --- */}
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center',
+          flex: hasSequences ? 2 : 1, // Se tiver texto, ocupa 2/3, senão ocupa tudo
+          width: '100%'
         }}>
-          <Typography variant="h6" gutterBottom sx={{ color: 'error.main' }}>
-            Interpretação das Sequências:
-          </Typography>
+          {dados.map((row, rowIndex) => (
+            <Box
+              key={rowIndex}
+              sx={{
+                display: 'flex',
+                gap: 0.5,
+                justifyContent: 'center',
+                alignItems: 'center',
+                mb: 0.5,
+                py: 0.5
+              }}
+            >
+              {row.data.map((item, itemIndex) => {
+                const baseStyle = {
+                  minWidth: '2.2rem',
+                  height: '2.2rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: '4px',
+                  transition: 'all 0.2s ease'
+                };
 
-          {Object.entries(sequencesFound).map(([sequence, description], index) => (
-            <Box key={index} sx={{ mb: 2 }}>
-              <Typography variant="body1" component="div">
-                <Box component="span" sx={{ fontWeight: 'bold' }}>
-                  {sequence.charAt(0)} {sequence.charAt(1)} {sequence.charAt(2)}
-                </Box> - {description}
-              </Typography>
+                if (row.type === 'letters') {
+                  return (
+                    <Box
+                      key={itemIndex}
+                      sx={{
+                        ...baseStyle,
+                        fontSize: '1.8rem',
+                        fontWeight: 700,
+                        color: 'primary.main',
+                        bgcolor: 'background.paper',
+                        border: '1px solid',
+                        borderColor: 'divider'
+                      }}
+                    >
+                      {item}
+                    </Box>
+                  );
+                }
+
+                const sequences = findSequences(row.data);
+                const isSequence = sequences.includes(itemIndex);
+
+                return (
+                  <Box
+                    key={itemIndex}
+                    sx={{
+                      ...baseStyle,
+                      fontSize: '1.5rem',
+                      fontWeight: isSequence ? 700 : 500,
+                      color: isSequence ? 'error.contrastText' : 'text.primary',
+                      bgcolor: isSequence ? 'error.main' : 'background.paper',
+                      border: '1px solid',
+                      borderColor: isSequence ? 'error.dark' : 'divider'
+                    }}
+                  >
+                    {item}
+                  </Box>
+                );
+              })}
             </Box>
           ))}
         </Box>
-      )}
 
-      {/* REMOVIDO: Botão "Criar Nome Social" */}
-      {/* REMOVIDO: DialogNomeSocial */}
+        {/* --- LADO DIREITO: DESCRIÇÕES (SÓ APARECE SE TIVER SEQUÊNCIAS) --- */}
+        {hasSequences && (
+          <Paper 
+            elevation={2}
+            sx={{
+              flex: 1, // Ocupa 1/3 do espaço
+              p: 3,
+              bgcolor: '#fff0f0', // Fundo levemente avermelhado para alerta
+              borderLeft: '6px solid #d32f2f',
+              width: '100%',
+              textAlign: 'left'
+            }}
+          >
+            <Typography variant="h6" gutterBottom sx={{ color: 'error.main', fontWeight: 'bold' }}>
+              Sequências Negativas Identificadas
+            </Typography>
+            <Divider sx={{ mb: 2, bgcolor: 'error.light' }} />
+
+            {Object.entries(sequencesFound).map(([sequence, description], index) => (
+              <Box key={index} sx={{ mb: 3 }}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: 'error.dark', display: 'flex', alignItems: 'center', gap: 1 }}>
+                  ⚠️ Sequência {sequence}
+                </Typography>
+                <Typography variant="body2" sx={{ color: 'text.primary', mt: 0.5, lineHeight: 1.6 }}>
+                  {description}
+                </Typography>
+              </Box>
+            ))}
+          </Paper>
+        )}
+
+      </Box>
     </Box>
   );
 };
