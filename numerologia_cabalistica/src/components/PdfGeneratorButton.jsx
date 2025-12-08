@@ -755,63 +755,166 @@ y += 10;
       }
 
       // 19. HARMONIA CONJUGAL
-      if (selectedSections.harmonia && nomeCliente && dataNascimento) {
-        const destino = calcularDestino(dataNascimento);
-        const expressao = calcularExpressao(nomeCliente);
-        const missao = calcularMissao(destino, expressao);
-        const harmonia = calcularHarmoniaConjugal(missao);
-        let harmoniaComp = null;
-        if (nomeCompanheiro && dataNascimentoCompanheiro) {
-          const destinoComp = calcularDestino(dataNascimentoCompanheiro);
-          const expressaoComp = calcularExpressao(nomeCompanheiro);
-          const missaoComp = calcularMissao(destinoComp, expressaoComp);
-          harmoniaComp = calcularHarmoniaConjugal(missaoComp);
-        }
-        if (harmonia) {
-          y = printSectionTitle("Harmonia Conjugal");
-          addToIndex("Harmonia Conjugal");
-          addWatermarkHelper();
-          y = printWrappedText("A Harmonia Conjugal analisa a combinação vibracional entre duas pessoas. Ela mostra como as energias se unem, onde existe fluidez, onde podem surgir conflitos e como fortalecer o relacionamento. Não é um mapa de destino, mas um manual de compreensão mútua: ajuda a enxergar o outro com mais clareza, respeito e afeto.", y);
-          y += 10;
-          if (harmoniaComp) {
-            const colWidth = 80; const gap = 10;
-            const x1 = CONFIG.margin; const x2 = CONFIG.margin + colWidth + gap;
-            doc.setFontSize(11); doc.setFont("helvetica", "bold");
-            doc.setTextColor(0, 0, 139); doc.text(nomeCliente, x1 + (colWidth / 2), y, { align: "center" });
-            doc.text(`Base: ${harmonia.numero}`, x1 + (colWidth / 2), y + 5, { align: "center" });
-            doc.setTextColor(139, 0, 0); doc.text(nomeCompanheiro, x2 + (colWidth / 2), y, { align: "center" });
-            doc.text(`Base: ${harmoniaComp.numero}`, x2 + (colWidth / 2), y + 5, { align: "center" });
-            y += 10;
-            const drawSideTable = (data, startX, startY) => {
-              let curY = startY; const cellH = 7; const colW = colWidth / 2;
-              doc.setFillColor(230, 230, 230); doc.setTextColor(0, 0, 0); doc.setFontSize(9); doc.setFont("helvetica", "bold");
-              doc.rect(startX, curY, colW, cellH, 'F'); doc.text("Tipo", startX + 2, curY + 5);
-              doc.rect(startX + colW, curY, colW, cellH, 'F'); doc.text("Números", startX + colW + 2, curY + 5);
-              curY += cellH;
-              doc.setFont("helvetica", "normal");
-              data.forEach(row => {
-                doc.setDrawColor(200); doc.rect(startX, curY, colW, cellH); doc.rect(startX + colW, curY, colW, cellH);
-                doc.text(String(row.label), startX + 2, curY + 5);
-                const valText = String(row.value || "");
-                const valLines = doc.splitTextToSize(valText, colW - 4);
-                doc.text(valLines, startX + colW + 2, curY + 5);
-                curY += cellH;
-              });
-              return curY;
-            };
-            const dados1 = [{ label: "Vibra com", value: harmonia.vibraCom }, { label: "Atrai", value: harmonia.atrai }, { label: "Oposto", value: harmonia.oposto }, { label: "Passivo", value: harmonia.passivo }];
-            const dados2 = [{ label: "Vibra com", value: harmoniaComp.vibraCom }, { label: "Atrai", value: harmoniaComp.atrai }, { label: "Oposto", value: harmoniaComp.oposto }, { label: "Passivo", value: harmoniaComp.passivo }];
-            const endY1 = drawSideTable(dados1, x1, y); const endY2 = drawSideTable(dados2, x2, y);
-            y = Math.max(endY1, endY2) + 15;
+if (selectedSections.harmonia && nomeCliente && dataNascimento) {
+  const destino = calcularDestino(dataNascimento);
+  const expressao = calcularExpressao(nomeCliente);
+  const missao = calcularMissao(destino, expressao);
+  const harmonia = calcularHarmoniaConjugal(missao);
+  
+  let harmoniaComp = null;
+  if (nomeCompanheiro && dataNascimentoCompanheiro) {
+    const destinoComp = calcularDestino(dataNascimentoCompanheiro);
+    const expressaoComp = calcularExpressao(nomeCompanheiro);
+    const missaoComp = calcularMissao(destinoComp, expressaoComp);
+    harmoniaComp = calcularHarmoniaConjugal(missaoComp);
+  }
+  
+  if (harmonia) {
+    y = printSectionTitle("Harmonia Conjugal");
+    addToIndex("Harmonia Conjugal");
+    addWatermarkHelper();
+    y = printWrappedText("A Harmonia Conjugal analisa a combinação vibracional entre duas pessoas. Ela mostra como as energias se unem, onde existe fluidez, onde podem surgir conflitos e como fortalecer o relacionamento. Não é um mapa de destino, mas um manual de compreensão mútua: ajuda a enxergar o outro com mais clareza, respeito e afeto.", y);
+    y += 10;
+    
+    if (harmoniaComp) {
+      const colWidth = 80; 
+      const gap = 10;
+      const x1 = CONFIG.margin; 
+      const x2 = CONFIG.margin + colWidth + gap;
+      
+      doc.setFontSize(11); 
+      doc.setFont("helvetica", "bold");
+      
+      // Títulos das colunas
+      doc.setTextColor(0, 0, 139); // Azul escuro
+      doc.text(nomeCliente, x1 + (colWidth / 2), y, { align: "center" });
+      doc.text(`Base: ${harmonia.numero}`, x1 + (colWidth / 2), y + 5, { align: "center" });
+      
+      doc.setTextColor(139, 0, 0); // Vermelho escuro
+      doc.text(nomeCompanheiro, x2 + (colWidth / 2), y, { align: "center" });
+      doc.text(`Base: ${harmoniaComp.numero}`, x2 + (colWidth / 2), y + 5, { align: "center" });
+      y += 10;
+      
+      // Função para verificar correspondência
+      const temCorrespondencia = (campo, harmoniaLocal, harmoniaComparacao) => {
+        if (!harmoniaComparacao) return false;
+        if (!harmoniaLocal || !harmoniaLocal[campo]) return false;
+        
+        const numeroBaseOutra = harmoniaComparacao.numero.toString();
+        const numerosAtuais = harmoniaLocal[campo].toString()
+          .split(',')
+          .map(num => num.trim());
+        
+        return numerosAtuais.includes(numeroBaseOutra);
+      };
+      
+      // Função modificada para desenhar tabela com destaque
+      const drawSideTable = (data, startX, startY, isCliente) => {
+        let curY = startY; 
+        const cellH = 7; 
+        const colW = colWidth / 2;
+        
+        // Cabeçalho da tabela
+        doc.setFillColor(230, 230, 230); 
+        doc.setTextColor(0, 0, 0); 
+        doc.setFontSize(9); 
+        doc.setFont("helvetica", "bold");
+        doc.rect(startX, curY, colW, cellH, 'F'); 
+        doc.text("Tipo", startX + 2, curY + 5);
+        doc.rect(startX + colW, curY, colW, cellH, 'F'); 
+        doc.text("Números", startX + colW + 2, curY + 5);
+        curY += cellH;
+        
+        doc.setFont("helvetica", "normal");
+        
+        // Para cada linha de dados
+        data.forEach(row => {
+          // Verificar se há correspondência
+          const campo = row.campo;
+          const temCorresp = isCliente 
+            ? temCorrespondencia(campo, harmonia, harmoniaComp)
+            : temCorrespondencia(campo, harmoniaComp, harmonia);
+          
+          // Desenhar célula do tipo
+          doc.setDrawColor(200); 
+          doc.rect(startX, curY, colW, cellH);
+          
+          // Desenhar célula dos números - com destaque se houver correspondência
+          if (temCorresp) {
+            // Fundo verde para destaque
+            doc.setFillColor(232, 245, 233); // Verde claro #e8f5e9
+            doc.rect(startX + colW, curY, colW, cellH, 'F');
+            doc.setTextColor(27, 94, 32); // Verde escuro #1b5e20
+            doc.setFont("helvetica", "bold");
           } else {
-            doc.setFont("helvetica", "bold"); doc.setTextColor(CONFIG.colorBlack);
-            doc.text(`Número Base: ${harmonia.numero}`, CONFIG.margin, y); y += 10;
-            const data = [{ t: "Vibra com", v: String(harmonia.vibraCom) }, { t: "Atrai", v: String(harmonia.atrai) }, { t: "Oposto", v: String(harmonia.oposto) }, { t: "Passivo", v: String(harmonia.passivo) }];
-            y = renderTableHelper(["Tipo", "Números"], data, y);
+            doc.rect(startX + colW, curY, colW, cellH);
+            doc.setTextColor(0, 0, 0);
+            doc.setFont("helvetica", "normal");
           }
-        }
-      }
-
+          
+          // Texto do tipo
+          doc.setTextColor(0, 0, 0);
+          doc.setFont("helvetica", "normal");
+          doc.text(String(row.label), startX + 2, curY + 5);
+          
+          // Texto dos números
+          const valText = String(row.value || "");
+          const valLines = doc.splitTextToSize(valText, colW - 4);
+          doc.text(valLines, startX + colW + 2, curY + 5);
+          
+          curY += cellH;
+        });
+        
+        return curY;
+      };
+      
+      // Preparar dados para as tabelas
+      const dados1 = [
+        { label: "Vibra com", value: harmonia.vibraCom, campo: "vibraCom" },
+        { label: "Atrai", value: harmonia.atrai, campo: "atrai" },
+        { label: "Oposto", value: harmonia.oposto, campo: "oposto" },
+        { label: "Passivo", value: harmonia.passivo, campo: "passivo" }
+      ];
+      
+      const dados2 = [
+        { label: "Vibra com", value: harmoniaComp.vibraCom, campo: "vibraCom" },
+        { label: "Atrai", value: harmoniaComp.atrai, campo: "atrai" },
+        { label: "Oposto", value: harmoniaComp.oposto, campo: "oposto" },
+        { label: "Passivo", value: harmoniaComp.passivo, campo: "passivo" }
+      ];
+      
+      // Desenhar as duas tabelas
+      const endY1 = drawSideTable(dados1, x1, y, true);
+      const endY2 = drawSideTable(dados2, x2, y, false);
+      y = Math.max(endY1, endY2) + 15;
+      
+      // Adicionar legenda explicativa
+      doc.setFontSize(8);
+      doc.setTextColor(27, 94, 32); // Verde escuro
+      doc.setFont("helvetica", "bold");
+      doc.text("Legenda:", CONFIG.margin, y);
+      y += 5;
+      doc.setFont("helvetica", "normal");
+      
+      
+    } else {
+      // Código para quando não há companheiro (mantenha como estava)
+      doc.setFont("helvetica", "bold"); 
+      doc.setTextColor(CONFIG.colorBlack);
+      doc.text(`Número Base: ${harmonia.numero}`, CONFIG.margin, y); 
+      y += 10;
+      
+      const data = [
+        { t: "Vibra com", v: String(harmonia.vibraCom) }, 
+        { t: "Atrai", v: String(harmonia.atrai) }, 
+        { t: "Oposto", v: String(harmonia.oposto) }, 
+        { t: "Passivo", v: String(harmonia.passivo) }
+      ];
+      
+      y = renderTableHelper(["Tipo", "Números"], data, y);
+    }
+  }
+}
       // 20. PIRÂMIDE INVERTIDA
       if (selectedSections.piramide && nomeCliente) {
         y = printSectionTitle("Pirâmide Invertida");

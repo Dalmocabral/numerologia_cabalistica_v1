@@ -162,13 +162,44 @@ const App = () => {
   };
 
   // Verifica se o número base está presente na lista de números da linha
-const isMatch = (numerosDaLinha, baseParaComparar) => {
-  if (!numerosDaLinha || !baseParaComparar) return false;
-  // Converte para string e verifica se a base está inclusa
-  // Ex: "1, 5, 9" inclui "5"? Sim.
-  const lista = numerosDaLinha.toString().split(',').map(n => n.trim());
-  return lista.includes(baseParaComparar.toString());
-};
+  const isMatch = (numerosDaLinha, baseParaComparar) => {
+    if (!numerosDaLinha || !baseParaComparar) return false;
+    // Converte para string e verifica se a base está inclusa
+    // Ex: "1, 5, 9" inclui "5"? Sim.
+    const lista = numerosDaLinha.toString().split(',').map(n => n.trim());
+    return lista.includes(baseParaComparar.toString());
+  };
+
+  // Função para verificar comparações na Harmonia Conjugal
+  const isComparacaoHarmonia = (campo, harmoniaAtual, harmoniaOutra) => {
+    // Se não tiver companheiro, não há comparação
+    if (!harmoniaOutra) return false;
+
+    // Se não tiver o campo no objeto atual, retorna false
+    if (!harmoniaAtual || !harmoniaAtual[campo]) return false;
+
+    // Pega o número base da outra pessoa
+    const numeroBaseOutra = harmoniaOutra.numero.toString();
+
+    // Pega os números do campo atual (ex: "1, 5, 9")
+    const numerosAtuais = harmoniaAtual[campo].toString().split(',').map(num => num.trim());
+
+    // Verifica se o número base da outra pessoa está presente na lista atual
+    return numerosAtuais.includes(numeroBaseOutra);
+  };
+
+  // Mantenha também a função original se ainda precisar dela para outras coisas
+  const isResultadoIncomum = (valor) => {
+    if (!valor || valor === '') return false;
+    if (valor.includes('-')) return true;
+    if (valor.includes('0')) return true;
+
+    const numeros = valor.split(',').map(num => num.trim());
+    return numeros.some(num => {
+      const numInt = parseInt(num);
+      return numInt <= 0 || numInt === 13;
+    });
+  };
 
   return (
     <>
@@ -450,12 +481,12 @@ const isMatch = (numerosDaLinha, baseParaComparar) => {
                 </Box>
 
                 {/* Container Principal para Momentos e Harmonia */}
-              <Box sx={{ mt: 4, display: 'flex', flexDirection: 'column', gap: 4 }}>
-                  
+                <Box sx={{ mt: 4, display: 'flex', flexDirection: 'column', gap: 4 }}>
+
                   {/* 1. MOMENTOS DECISIVOS (Largura Total para melhor leitura) */}
                   <Box>
                     <Typography variant="h6" align="center" gutterBottom sx={{ color: 'primary.main' }}>
-                        Momentos Decisivos
+                      Momentos Decisivos
                     </Typography>
                     <TableContainer component={Paper}>
                       <Table size="small">
@@ -468,24 +499,24 @@ const isMatch = (numerosDaLinha, baseParaComparar) => {
                         </TableHead>
                         <TableBody>
                           {momentosDecisivos.map((momento, index) => {
-                             const startAge = index === 0 ? 0 : momentosDecisivos[index - 1].fim - new Date(dataNascimento).getFullYear();
-                             const endAge = momento.fim === '...' ? '...' : (startAge + (momento.fim - momento.inicio));
-                             const labelIdade = momento.fim === '...' 
-                                ? `${startAge} anos em diante` 
-                                : `${startAge} até ${endAge} anos`;
-                             const labelPeriodo = momento.fim === '...' 
-                                ? `${momento.inicio} em diante` 
-                                : `${momento.inicio} a ${momento.fim}`;
+                            const startAge = index === 0 ? 0 : momentosDecisivos[index - 1].fim - new Date(dataNascimento).getFullYear();
+                            const endAge = momento.fim === '...' ? '...' : (startAge + (momento.fim - momento.inicio));
+                            const labelIdade = momento.fim === '...'
+                              ? `${startAge} anos em diante`
+                              : `${startAge} até ${endAge} anos`;
+                            const labelPeriodo = momento.fim === '...'
+                              ? `${momento.inicio} em diante`
+                              : `${momento.inicio} a ${momento.fim}`;
 
-                             return (
-                                <StyledTableRow key={index}>
-                                  <StyledTableCell component="th" scope="row">
-                                    <Typography fontWeight="bold">{momento.momento}</Typography>
-                                  </StyledTableCell>
-                                  <StyledTableCell align="center">{labelIdade}</StyledTableCell>
-                                  <StyledTableCell align="center">{labelPeriodo}</StyledTableCell>
-                                </StyledTableRow>
-                             );
+                            return (
+                              <StyledTableRow key={index}>
+                                <StyledTableCell component="th" scope="row">
+                                  <Typography fontWeight="bold">{momento.momento}</Typography>
+                                </StyledTableCell>
+                                <StyledTableCell align="center">{labelIdade}</StyledTableCell>
+                                <StyledTableCell align="center">{labelPeriodo}</StyledTableCell>
+                              </StyledTableRow>
+                            );
                           })}
                         </TableBody>
                       </Table>
@@ -493,80 +524,186 @@ const isMatch = (numerosDaLinha, baseParaComparar) => {
                   </Box>
 
                   {/* 2. HARMONIA CONJUGAL (Lado a Lado se tiver companheiro) */}
+                  {/* 2. HARMONIA CONJUGAL (Lado a Lado se tiver companheiro) */}
                   <Box>
                     <Typography variant="h6" align="center" gutterBottom sx={{ color: 'primary.main' }}>
-                        Análise de Harmonia Conjugal
+                      Análise de Harmonia Conjugal
                     </Typography>
-                    
-                    <Box sx={{ 
-                        display: 'flex', 
-                        gap: 2, 
-                        flexDirection: { xs: 'column', md: 'row' }, // Em mobile fica um embaixo do outro
-                        justifyContent: 'center' // Centraliza se for só um
-                    }}>
-                        
-                        {/* Tabela Cliente */}
-                        {harmonia && (
-                            <Box sx={{ flex: 1, maxWidth: harmoniaCompanheiro ? '50%' : '100%' }}>
-                                <Typography variant="subtitle2" align="center" sx={{ color: 'primary.dark', fontWeight: 'bold', mb: 1 }}>
-                                    {nome} (Base: {harmonia.numero})
-                                </Typography>
-                                <TableContainer component={Paper} elevation={2}>
-                                    <Table size="small">
-                                        <TableHead>
-                                            <TableRow>
-                                                <StyledTableCell>Tipo</StyledTableCell>
-                                                <StyledTableCell align="center">Números</StyledTableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            <StyledTableRow><StyledTableCell>Vibra com</StyledTableCell><StyledTableCell align="center">{harmonia.vibraCom}</StyledTableCell></StyledTableRow>
-                                            <StyledTableRow><StyledTableCell>Atrai</StyledTableCell><StyledTableCell align="center">{harmonia.atrai}</StyledTableCell></StyledTableRow>
-                                            <StyledTableRow><StyledTableCell>É oposto</StyledTableCell><StyledTableCell align="center">{harmonia.oposto}</StyledTableCell></StyledTableRow>
-                                            <StyledTableRow><StyledTableCell>É passivo</StyledTableCell><StyledTableCell align="center">{harmonia.passivo}</StyledTableCell></StyledTableRow>
-                                        </TableBody>
-                                    </Table>
-                                </TableContainer>
-                            </Box>
-                        )}
 
-                        {/* Tabela Companheiro */}
-                        {harmoniaCompanheiro && (
-                            <Box sx={{ flex: 1, maxWidth: '50%' }}>
-                                <Typography variant="subtitle2" align="center" sx={{ color: 'secondary.dark', fontWeight: 'bold', mb: 1 }}>
-                                    {nomeCompanheiro} (Base: {harmoniaCompanheiro.numero})
-                                </Typography>
-                                <TableContainer component={Paper} elevation={2}>
-                                    <Table size="small">
-                                        <TableHead>
-                                            <TableRow>
-                                                <StyledTableCell sx={{ bgcolor: 'secondary.main' }}>Tipo</StyledTableCell>
-                                                <StyledTableCell align="center" sx={{ bgcolor: 'secondary.main' }}>Números</StyledTableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            <StyledTableRow><StyledTableCell>Vibra com</StyledTableCell><StyledTableCell align="center">{harmoniaCompanheiro.vibraCom}</StyledTableCell></StyledTableRow>
-                                            <StyledTableRow><StyledTableCell>Atrai</StyledTableCell><StyledTableCell align="center">{harmoniaCompanheiro.atrai}</StyledTableCell></StyledTableRow>
-                                            <StyledTableRow><StyledTableCell>É oposto</StyledTableCell><StyledTableCell align="center">{harmoniaCompanheiro.oposto}</StyledTableCell></StyledTableRow>
-                                            <StyledTableRow><StyledTableCell>É passivo</StyledTableCell><StyledTableCell align="center">{harmoniaCompanheiro.passivo}</StyledTableCell></StyledTableRow>
-                                        </TableBody>
-                                    </Table>
-                                </TableContainer>
-                            </Box>
-                        )}
-                    </Box>
-                    
-                    {/* Feedback de Comparação */}
-                    {harmonia && harmoniaCompanheiro && (
-                        <Box sx={{ mt: 2, p: 1, bgcolor: '#e3f2fd', borderRadius: 1, textAlign: 'center', border: '1px solid #bbdefb' }}>
-                            <Typography variant="body2" color="primary.dark">
-                                Comparando: <strong>{harmonia.numero}</strong> com <strong>{harmoniaCompanheiro.numero}</strong>
-                            </Typography>
+                    <Box sx={{
+                      display: 'flex',
+                      gap: 2,
+                      flexDirection: { xs: 'column', md: 'row' },
+                      justifyContent: 'center'
+                    }}>
+
+                      {/* Tabela Cliente */}
+                      {harmonia && (
+                        <Box sx={{ flex: 1, maxWidth: harmoniaCompanheiro ? '50%' : '100%' }}>
+                          <Typography variant="subtitle2" align="center" sx={{ color: 'primary.dark', fontWeight: 'bold', mb: 1 }}>
+                            {nome} (Base: {harmonia.numero})
+                          </Typography>
+                          <TableContainer component={Paper} elevation={2}>
+                            <Table size="small">
+                              <TableHead>
+                                <TableRow>
+                                  <StyledTableCell>Tipo</StyledTableCell>
+                                  <StyledTableCell align="center">Números</StyledTableCell>
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
+                                <StyledTableRow>
+                                  <StyledTableCell>Vibra com</StyledTableCell>
+                                  <StyledTableCell
+                                    align="center"
+                                    sx={{
+                                      bgcolor: isComparacaoHarmonia('vibraCom', harmonia, harmoniaCompanheiro) ? '#e8f5e9' : 'inherit',
+                                      color: isComparacaoHarmonia('vibraCom', harmonia, harmoniaCompanheiro) ? '#1b5e20' : 'inherit',
+                                      fontWeight: isComparacaoHarmonia('vibraCom', harmonia, harmoniaCompanheiro) ? 'bold' : 'normal',
+                                      borderLeft: isComparacaoHarmonia('vibraCom', harmonia, harmoniaCompanheiro) ? '3px solid #4caf50' : 'none'
+                                    }}
+                                  >
+                                    {harmonia.vibraCom}
+                                  </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                  <StyledTableCell>Atrai</StyledTableCell>
+                                  <StyledTableCell
+                                    align="center"
+                                    sx={{
+                                      bgcolor: isComparacaoHarmonia('atrai', harmonia, harmoniaCompanheiro) ? '#e8f5e9' : 'inherit',
+                                      color: isComparacaoHarmonia('atrai', harmonia, harmoniaCompanheiro) ? '#1b5e20' : 'inherit',
+                                      fontWeight: isComparacaoHarmonia('atrai', harmonia, harmoniaCompanheiro) ? 'bold' : 'normal',
+                                      borderLeft: isComparacaoHarmonia('atrai', harmonia, harmoniaCompanheiro) ? '3px solid #4caf50' : 'none'
+                                    }}
+                                  >
+                                    {harmonia.atrai}
+                                  </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                  <StyledTableCell>É oposto</StyledTableCell>
+                                  <StyledTableCell
+                                    align="center"
+                                    sx={{
+                                      bgcolor: isComparacaoHarmonia('oposto', harmonia, harmoniaCompanheiro) ? '#e8f5e9' : 'inherit',
+                                      color: isComparacaoHarmonia('oposto', harmonia, harmoniaCompanheiro) ? '#1b5e20' : 'inherit',
+                                      fontWeight: isComparacaoHarmonia('oposto', harmonia, harmoniaCompanheiro) ? 'bold' : 'normal',
+                                      borderLeft: isComparacaoHarmonia('oposto', harmonia, harmoniaCompanheiro) ? '3px solid #4caf50' : 'none'
+                                    }}
+                                  >
+                                    {harmonia.oposto}
+                                  </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                  <StyledTableCell>É passivo</StyledTableCell>
+                                  <StyledTableCell
+                                    align="center"
+                                    sx={{
+                                      bgcolor: isComparacaoHarmonia('passivo', harmonia, harmoniaCompanheiro) ? '#e8f5e9' : 'inherit',
+                                      color: isComparacaoHarmonia('passivo', harmonia, harmoniaCompanheiro) ? '#1b5e20' : 'inherit',
+                                      fontWeight: isComparacaoHarmonia('passivo', harmonia, harmoniaCompanheiro) ? 'bold' : 'normal',
+                                      borderLeft: isComparacaoHarmonia('passivo', harmonia, harmoniaCompanheiro) ? '3px solid #4caf50' : 'none'
+                                    }}
+                                  >
+                                    {harmonia.passivo}
+                                  </StyledTableCell>
+                                </StyledTableRow>
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
                         </Box>
-                    )}
+                      )}
+
+                      {/* Tabela Companheiro */}
+                      {harmoniaCompanheiro && (
+                        <Box sx={{ flex: 1, maxWidth: '50%' }}>
+                          <Typography variant="subtitle2" align="center" sx={{ color: 'secondary.dark', fontWeight: 'bold', mb: 1 }}>
+                            {nomeCompanheiro} (Base: {harmoniaCompanheiro.numero})
+                          </Typography>
+                          <TableContainer component={Paper} elevation={2}>
+                            <Table size="small">
+                              <TableHead>
+                                <TableRow>
+                                  <StyledTableCell sx={{ bgcolor: 'secondary.main' }}>Tipo</StyledTableCell>
+                                  <StyledTableCell align="center" sx={{ bgcolor: 'secondary.main' }}>Números</StyledTableCell>
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
+                                <StyledTableRow>
+                                  <StyledTableCell>Vibra com</StyledTableCell>
+                                  <StyledTableCell
+                                    align="center"
+                                    sx={{
+                                      bgcolor: isComparacaoHarmonia('vibraCom', harmoniaCompanheiro, harmonia) ? '#e8f5e9' : 'inherit',
+                                      color: isComparacaoHarmonia('vibraCom', harmoniaCompanheiro, harmonia) ? '#1b5e20' : 'inherit',
+                                      fontWeight: isComparacaoHarmonia('vibraCom', harmoniaCompanheiro, harmonia) ? 'bold' : 'normal',
+                                      borderLeft: isComparacaoHarmonia('vibraCom', harmoniaCompanheiro, harmonia) ? '3px solid #4caf50' : 'none'
+                                    }}
+                                  >
+                                    {harmoniaCompanheiro.vibraCom}
+                                  </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                  <StyledTableCell>Atrai</StyledTableCell>
+                                  <StyledTableCell
+                                    align="center"
+                                    sx={{
+                                      bgcolor: isComparacaoHarmonia('atrai', harmoniaCompanheiro, harmonia) ? '#e8f5e9' : 'inherit',
+                                      color: isComparacaoHarmonia('atrai', harmoniaCompanheiro, harmonia) ? '#1b5e20' : 'inherit',
+                                      fontWeight: isComparacaoHarmonia('atrai', harmoniaCompanheiro, harmonia) ? 'bold' : 'normal',
+                                      borderLeft: isComparacaoHarmonia('atrai', harmoniaCompanheiro, harmonia) ? '3px solid #4caf50' : 'none'
+                                    }}
+                                  >
+                                    {harmoniaCompanheiro.atrai}
+                                  </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                  <StyledTableCell>É oposto</StyledTableCell>
+                                  <StyledTableCell
+                                    align="center"
+                                    sx={{
+                                      bgcolor: isComparacaoHarmonia('oposto', harmoniaCompanheiro, harmonia) ? '#e8f5e9' : 'inherit',
+                                      color: isComparacaoHarmonia('oposto', harmoniaCompanheiro, harmonia) ? '#1b5e20' : 'inherit',
+                                      fontWeight: isComparacaoHarmonia('oposto', harmoniaCompanheiro, harmonia) ? 'bold' : 'normal',
+                                      borderLeft: isComparacaoHarmonia('oposto', harmoniaCompanheiro, harmonia) ? '3px solid #4caf50' : 'none'
+                                    }}
+                                  >
+                                    {harmoniaCompanheiro.oposto}
+                                  </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                  <StyledTableCell>É passivo</StyledTableCell>
+                                  <StyledTableCell
+                                    align="center"
+                                    sx={{
+                                      bgcolor: isComparacaoHarmonia('passivo', harmoniaCompanheiro, harmonia) ? '#e8f5e9' : 'inherit',
+                                      color: isComparacaoHarmonia('passivo', harmoniaCompanheiro, harmonia) ? '#1b5e20' : 'inherit',
+                                      fontWeight: isComparacaoHarmonia('passivo', harmoniaCompanheiro, harmonia) ? 'bold' : 'normal',
+                                      borderLeft: isComparacaoHarmonia('passivo', harmoniaCompanheiro, harmonia) ? '3px solid #4caf50' : 'none'
+                                    }}
+                                  >
+                                    {harmoniaCompanheiro.passivo}
+                                  </StyledTableCell>
+                                </StyledTableRow>
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+                        </Box>
+                      )}
+                    </Box>
                   </Box>
+
+                  
+                  
+                </Box>
               </Box>
-              </Box>
+
 
               {/* Adicionando Tabs abaixo das tabelas */}
               <Box sx={{ width: '100%', mt: 4 }}>
