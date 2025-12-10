@@ -1,9 +1,3 @@
-Com certeza. Com base em todo o código que desenvolvemos e nas funcionalidades implementadas, preparei uma documentação técnica e funcional do projeto **Numeris**.
-
-Esta documentação serve tanto para orientar o uso quanto para facilitar a manutenção futura do código.
-
----
-
 # 📘 Documentação do Projeto: Numeris - Sistema de Numerologia Cabalística
 
 ## 1. Visão Geral
