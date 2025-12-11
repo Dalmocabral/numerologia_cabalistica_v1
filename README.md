@@ -1,103 +1,134 @@
 # 📘 Documentação do Projeto: Numeris - Sistema de Numerologia Cabalística
 
 ## 1. Visão Geral
+
 O **Numeris** é uma aplicação web desenvolvida para automatizar a criação de Mapas Numerológicos Cabalísticos. O sistema processa dados pessoais (nome e data de nascimento) para gerar cálculos complexos, interpretações, previsões e relatórios em PDF profissionais.
 
+A documentação a seguir visa detalhar a **estrutura do projeto**, o **ambiente de desenvolvimento** e os **procedimentos de manutenção**, complementando a descrição de funcionalidades já existente.
+
 ## 2. Stack Tecnológica
-* **Frontend:** React.js
-* **UI Framework:** Material UI (MUI) - Para componentes visuais e sistema de temas (Dark/Light Mode).
-* **Geração de Relatórios:** `jsPDF` - Para criação de PDFs vetorizados no lado do cliente.
-* **Ícones:** Material Icons.
+
+O projeto é construído com tecnologias modernas de desenvolvimento web, garantindo performance e manutenibilidade:
+
+| Categoria | Tecnologia | Versão (Aproximada) | Propósito |
+| :--- | :--- | :--- | :--- |
+| **Frontend** | React.js | 19.0.0 | Biblioteca principal para construção da interface de usuário. |
+| **Build Tool** | Vite | 6.2.0 | Empacotador e servidor de desenvolvimento rápido. |
+| **UI Framework** | Material UI (MUI) | 6.4.8 | Componentes visuais e sistema de temas (Dark/Light Mode). |
+| **PDF Generation** | `jsPDF` | 3.0.1 | Criação de PDFs vetorizados no lado do cliente. |
+| **Testing** | Vitest | 4.0.15 | Framework de testes unitários e de integração. |
+| **Deployment** | `gh-pages` | 6.3.0 | Publicação automatizada no GitHub Pages. |
+
+## 3. Estrutura de Arquivos e Componentes
+
+O projeto está organizado em uma estrutura modular para facilitar a manutenção e a adição de novos cálculos. A pasta principal do código-fonte é `numerologia_cabalistica/src/`.
+
+### 3.1. Core (Raiz)
+
+| Arquivo/Pasta | Descrição |
+| :--- | :--- |
+| `App.jsx` | Componente principal. Gerencia o estado global (dados do cliente, companheiro e resultados dos cálculos) e orquestra a comunicação entre o `Sidebar` e o `NumerologyPanel`. |
+| `main.jsx` | Ponto de entrada da aplicação (renderização do React). |
+| `NumerologyPanel.jsx` | O componente "visualizador". Recebe os dados calculados e renderiza os TextFields, Tabelas e Gráficos na tela. |
+| `NumerologiaContext.js` | Contexto do React para prover o estado global a todos os componentes. |
+
+### 3.2. Componentes de UI (`src/components/`)
+
+Esta pasta contém os componentes reutilizáveis da interface e os modais de interação:
+
+| Componente | Função Principal |
+| :--- | :--- |
+| `Sidebar.jsx` | Menu lateral com botões de ação (Novo Mapa, Assinatura, PDF, Tema). |
+| `NovoMapaDialog.jsx` | Formulário modal para entrada de dados (Nome/Data de Nascimento). Inclui validação de campos. |
+| `DialogAssinatura.jsx` | Interface para criação e validação da Assinatura do Poder. |
+| `PdfGeneratorButton.jsx` | Motor de geração do PDF. Contém a lógica de `jsPDF`, paginação e renderização de conteúdo. |
+| `PdfSelectionDialog.jsx` | Modal com *checkboxes* para filtrar as seções a serem incluídas no PDF. |
+| `PiramideInvertida.jsx` | Componente visual que desenha a pirâmide e lista sequências negativas. |
+
+### 3.3. Lógica de Cálculo (`src/components/`)
+
+Cada cálculo numerológico está isolado em seu próprio arquivo, seguindo o padrão `Calculo[NomeDoCalculo].jsx` para facilitar a manutenção e o teste unitário.
+
+| Exemplo de Arquivo | Cálculo Correspondente |
+| :--- | :--- |
+| `CalculoMotivacao.jsx` | Motivação (Vogais do Nome) |
+| `CalculoDestino.jsx` | Destino (Data de Nascimento) |
+| `CalculoExpressao.jsx` | Expressão (Nome Completo) |
+| `CalculoHarmoniaConjugal.jsx` | Lógica de compatibilidade entre dois mapas. |
+| `generateInvertedPyramid.jsx` | Algoritmo recursivo para montar a Pirâmide Invertida. |
+
+### 3.4. Dados Estáticos e Configurações
+
+| Arquivo | Conteúdo |
+| :--- | :--- |
+| `TabelaNumerologia.js` | Contém a Tabela Pitagórica (A=1, B=2...), descrições dos números, significados dos Arcanos e textos longos de interpretação usados nos relatórios. **Este é o arquivo a ser editado para alterar os textos interpretativos.** |
+| `vite.config.js` | Configuração do *build* e do servidor de desenvolvimento do Vite. |
+| `eslint.config.js` | Regras de linting para garantir a qualidade do código. |
+
+## 4. Ambiente de Desenvolvimento e Execução
+
+Para configurar o ambiente de desenvolvimento e executar o projeto localmente, siga os passos abaixo.
+
+### 4.1. Pré-requisitos
+
+Certifique-se de ter o **Node.js** (versão 18+) e o **npm** (ou yarn/pnpm) instalados em sua máquina.
+
+### 4.2. Instalação
+
+1.  **Clone o repositório:**
+    ```bash
+    git clone https://github.com/Dalmocabral/numerologia_cabalistica_v1.git
+    cd numerologia_cabalistica_v1/numerologia_cabalistica
+    ```
+
+2.  **Instale as dependências:**
+    ```bash
+    npm install
+    # ou pnpm install
+    # ou yarn install
+    ```
+
+### 4.3. Comandos de Execução
+
+| Comando | Descrição |
+| :--- | :--- |
+| `npm run dev` | Inicia o servidor de desenvolvimento local (Vite). A aplicação estará acessível em `http://localhost:5173` (ou porta similar). |
+| `npm run build` | Compila o projeto para produção na pasta `dist/`. |
+| `npm run preview` | Serve a versão de produção compilada localmente. |
+| `npm run test` | Executa os testes unitários configurados com Vitest. |
+| `npm run deploy` | Executa o *build* e publica a aplicação na branch `gh-pages` do GitHub. |
+
+## 5. Procedimentos de Manutenção
+
+### 5.1. Alteração de Textos Interpretativos
+
+Para modificar as descrições dos números, significados dos Arcanos ou qualquer texto longo de interpretação:
+
+1.  Edite o arquivo `src/components/TabelaNumerologia.js`.
+2.  Localize a estrutura de dados correspondente ao texto que deseja alterar.
+
+### 5.2. Adição de Novo Cálculo
+
+Para integrar um novo cálculo numerológico ao sistema:
+
+1.  Crie um novo arquivo em `src/components/`, por exemplo, `CalculoNovo.jsx`.
+2.  Implemente a lógica de cálculo e o componente de exibição.
+3.  Importe o novo cálculo em `App.jsx`.
+4.  No *handler* de salvamento de nome (`handleSalvarNome` ou similar em `App.jsx`), chame a função de cálculo e armazene o resultado no estado global.
+5.  Renderize o novo componente em `NumerologyPanel.jsx`, passando os dados calculados como *props*.
+
+### 5.3. Ajustes na Geração de PDF
+
+Toda a lógica de paginação, layout e renderização do PDF está isolada em `PdfGeneratorButton.jsx`. Para ajustes finos no layout, como margens, fontes ou quebras de página, edite este arquivo.
 
 ---
 
-## 3. Funcionalidades Principais
+## 6. Funcionalidades Principais (Resumo)
 
-### 3.1. Cálculos Numerológicos
-O sistema realiza automaticamente a redução teosófica e interpretação dos seguintes itens:
-* **Números Centrais:** Motivação, Impressão, Expressão e Destino.
-* **Missão de Vida:** Cálculo combinado de Destino + Expressão.
-* **Karmas:** Dívidas Cármicas, Lições Cármicas e Tendências Ocultas.
-* **Previsões:** Ano Pessoal, Mês Pessoal, Dia Pessoal (automático para data atual ou selecionada) e Arcanos de Trânsito (ciclos de 4 anos).
-* **Ciclos de Vida:** Ciclos, Desafios e Momentos Decisivos.
+Para referência rápida, as principais funcionalidades do sistema incluem:
 
-### 3.2. Ferramentas Avançadas
-* **Pirâmide Invertida:** Gera visualmente a pirâmide do nome, destacando sequências numéricas negativas (ex: 333, 555) e o Arcano do topo.
-* **Assinatura do Poder:**
-    * **Modo Automático:** O sistema sugere assinaturas baseadas nas letras do nome que mantêm a Expressão original e eliminam sequências negativas.
-    * **Modo Manual:** Permite ao numerólogo testar uma rubrica, validando em tempo real se ela é positiva.
-    * **Visualização:** Exibe a pirâmide da assinatura ao lado da carta do Arcano Regente.
-* **Harmonia Conjugal:**
-    * Permite inserir dados de um companheiro(a).
-    * Exibe tabelas comparativas lado a lado (Vibra, Atrai, Oposto, Passivo).
-    * Destaca (em verde) as compatibilidades numéricas entre o casal.
-* **Nomes Sociais:** Permite criar e armazenar múltiplos nomes sociais para análise comparativa.
-
-### 3.3. Geração de PDF Profissional
-* **Seleção de Conteúdo:** Dialog com *checkboxes* permitindo escolher quais seções incluir no relatório.
-* **Layout:** Capa, marca d'água, índice dinâmico (auto-ajustável em colunas) e numeração de páginas.
-* **Conteúdo:** Inclui todas as tabelas, textos interpretativos e imagens das cartas de Tarot.
-
----
-
-## 4. Estrutura de Arquivos e Componentes
-
-A organização do projeto segue uma separação clara de responsabilidades:
-
-### 4.1. Core (Raiz)
-* **`App.jsx`**: Gerenciador de estado global. Armazena os dados do cliente, companheiro e resultados. Orquestra a comunicação entre o Sidebar e o Painel de Exibição.
-* **`DashboardLayout.jsx`** (Implícito): Estrutura base com Sidebar e Área de Conteúdo.
-
-### 4.2. Componentes de UI (`src/components/`)
-* **`Sidebar.jsx`**: Menu lateral contendo os botões de ação (Calcular, Assinatura, PDF, Tema).
-* **`NumerologyPanel.jsx`**: O componente "visualizador". Recebe os dados calculados e renderiza os TextFields, Tabelas e Gráficos na tela.
-* **`NovoMapaDialog.jsx`**: Formulário modal para entrada de dados. Possui validação de campos obrigatórios (Nome/Data).
-* **`PdfGeneratorButton.jsx`**: Motor de geração do PDF. Contém toda a lógica do `jsPDF`, paginação e renderização.
-* **`PdfSelectionDialog.jsx`**: Modal com checkboxes para filtrar o que sai no PDF.
-* **`DialogAssinatura.jsx`**: Interface para criação e validação da Assinatura do Poder.
-* **`PiramideInvertida.jsx`**: Componente visual que desenha a pirâmide e lista sequências negativas.
-
-### 4.3. Lógica de Cálculo (Arquivos `.js`)
-Cada aspecto da numerologia tem seu próprio arquivo para facilitar manutenção:
-* `CalculoMotivacao.js`, `CalculoDestino.js`, `CalculoExpressao.js`, etc.
-* `CalculoHarmoniaConjugal.js`: Lógica de compatibilidade.
-* `CalculoArcano.jsx`: Contém lógica para Arcano Pessoal, Arcano do Nome e Arcano Cabalístico.
-* `generateInvertedPyramid.js`: Algoritmo recursivo para montar a pirâmide.
-
-### 4.4. Dados Estáticos
-* **`TabelaNumerologia.js`**: Contém a Tabela Pitagórica (A=1, B=2...), descrições dos números, significados dos Arcanos e textos longos usados nos relatórios.
-
----
-
-## 5. Detalhes de Implementação Importantes
-
-### 5.1. Validação de Entrada (`NovoMapaDialog`)
-O sistema impede cálculos se o nome ou data de nascimento estiverem vazios. O estado `errors` controla a exibição de bordas vermelhas nos campos.
-
-### 5.2. Lógica do PDF (`PdfGeneratorButton`)
-* **Paginação Inteligente:** A função `checkPageBreak` calcula se o próximo elemento cabe na página. Se não, cria uma nova.
-* **Índice Dinâmico:** O índice é gerado no final do processo, mas inserido na **Página 4** (reservada). Se houver muitos itens, ele se divide automaticamente em duas colunas e reduz a fonte para caber em uma única página.
-* **Imagens:** As imagens (logo, cartas) são processadas via `canvas` para garantir transparência correta no PDF, inclusive em dispositivos móveis.
-
-### 5.3. Responsividade
-* O layout utiliza `flexDirection: { xs: 'column', md: 'row' }`.
-* No celular, tabelas comparativas (como a Harmonia Conjugal) ficam uma embaixo da outra.
-* No desktop, elas ficam lado a lado para facilitar a comparação.
-
----
-
-## 6. Como Utilizar (Fluxo do Usuário)
-
-1.  **Início:** Ao abrir, o sistema mostra uma tela de boas-vindas.
-2.  **Novo Mapa:** Clique em `+` no menu lateral. Preencha Nome e Data. (Opcional: Preencha dados do Companheiro para Harmonia).
-3.  **Análise:** O sistema exibe o painel com todos os números calculados.
-4.  **Assinatura:** No menu lateral, clique em "Assinatura do Poder". Use o modo automático para sugestões ou manual para testar. Clique em "Escolher" para fixar uma assinatura no mapa.
-5.  **PDF:** Clique em "Gerar PDF". Selecione as seções desejadas no dialog (ou "Todos"). O arquivo será baixado automaticamente.
-
----
-
-## 7. Manutenção Futura
-
-* **Alterar Textos:** Para mudar as descrições dos números, edite o arquivo `src/components/TabelaNumerologia.js`.
-* **Adicionar Novo Cálculo:** Crie um arquivo `CalculoNovo.js`, importe no `App.jsx`, realize o cálculo dentro de `handleSalvarNome` e passe o resultado para o `NumerologyPanel.jsx`.
-* **Ajustar PDF:** Toda a lógica de desenho do PDF está isolada em `PdfGeneratorButton.jsx`.
+*   **Cálculos Centrais:** Motivação, Impressão, Expressão, Destino e Missão de Vida.
+*   **Karmas:** Dívidas Cármicas, Lições Cármicas e Tendências Ocultas.
+*   **Previsões:** Ano Pessoal, Mês Pessoal, Dia Pessoal e Arcanos de Trânsito.
+*   **Ferramentas:** Pirâmide Invertida, Assinatura do Poder (Automática/Manual) e Harmonia Conjugal.
+*   **Relatório:** Geração de PDF profissional com seleção de conteúdo, índice dinâmico e paginação inteligente.
