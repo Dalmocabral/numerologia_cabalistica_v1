@@ -427,10 +427,10 @@ const PdfGeneratorButton = ({
         y = printSectionTitle("Destino");
         addToIndex("Destino");
         y = printWrappedText(
-  "O Número do Destino revela o caminho principal da sua vida. Ele mostra as experiências que você veio viver, as oportunidades que surgem no seu percurso e os aprendizados que moldam sua jornada. Esse número funciona como um roteiro espiritual, indicando os talentos que você veio aperfeiçoar e a direção que tende a trazer mais realização.",
-  y
-);
-y += 10;
+          "O Número do Destino revela o caminho principal da sua vida. Ele mostra as experiências que você veio viver, as oportunidades que surgem no seu percurso e os aprendizados que moldam sua jornada. Esse número funciona como um roteiro espiritual, indicando os talentos que você veio aperfeiçoar e a direção que tende a trazer mais realização.",
+          y
+        );
+        y += 10;
 
         const destinoVal = calcularDestino(dataNascimento);
         doc.setFont("helvetica", "bold");
@@ -449,10 +449,10 @@ y += 10;
           y = printSectionTitle("Dia do Nascimento");
           addToIndex("Dia do Nascimento");
           y = printWrappedText(
-  "O Dia do Nascimento revela uma qualidade natural que você traz desde o primeiro instante. Ele mostra seus talentos espontâneos, a forma como você age de modo instintivo e aquilo que flui sem esforço na sua personalidade. Esse número destaca dons que acompanham você desde cedo e que, quando bem utilizados, tornam sua jornada mais leve e intuitiva.",
-  y
-);
-y += 10;
+            "O Dia do Nascimento revela uma qualidade natural que você traz desde o primeiro instante. Ele mostra seus talentos espontâneos, a forma como você age de modo instintivo e aquilo que flui sem esforço na sua personalidade. Esse número destaca dons que acompanham você desde cedo e que, quando bem utilizados, tornam sua jornada mais leve e intuitiva.",
+            y
+          );
+          y += 10;
 
           doc.setFont("helvetica", "bold");
           doc.text(`Nascido(a) no dia: ${diaNasc}`, CONFIG.margin, y);
@@ -471,7 +471,7 @@ y += 10;
         y = printSectionTitle("Missão");
         addToIndex("Missão");
         y = printWrappedText("A Missão representa o propósito central da sua existência — aquilo que sua alma veio aprender, desenvolver e entregar ao mundo. É o grande caminho da sua vida, mostrando quais talentos precisam ser despertados e quais desafios você deve transformar em sabedoria. Esse número não fala do que você já é, mas do que você está se tornando. Quando você vive alinhado(a) à sua Missão, a vida ganha fluidez, sentido e direção.", y);
-y += 10;
+        y += 10;
         const valorDestino = calcularDestino(dataNascimento);
         const valorExpressao = calcularExpressao(nomeCliente);
         const missaoVal = calcularMissao(valorDestino, valorExpressao);
@@ -488,7 +488,7 @@ y += 10;
         y = printSectionTitle("Dívidas Cármicas");
         addToIndex("Dívidas Cármicas");
         y = printWrappedText("As Dívidas Cármicas revelam padrões repetitivos que você trouxe de outras experiências e que precisam ser corrigidos nesta vida. Elas não são castigos, mas convites a amadurecer. Cada dívida mostra uma área onde houve abuso, negligência ou excesso no passado — e agora a vida oferece a chance de equilibrar, reconstruir e evoluir. Ao compreender essa energia, você deixa de repetir erros e passa a agir com mais consciência.", y);
-y += 10;
+        y += 10;
         const dividas = calcularDividasCarmicas(dataNascimento, calcularExpressao(nomeCliente), calcularDestino(dataNascimento), calcularMotivacao(nomeCliente));
         y += 5;
         doc.setFont("helvetica", "bold");
@@ -589,7 +589,7 @@ y += 10;
           y = printSectionTitle("Dia Pessoal");
           addToIndex("Dia Pessoal");
           y = printWrappedText("O Dia Pessoal apresenta a energia de cada dia — um mapa rápido para guiar pequenas escolhas, decisões importantes e momentos ideais para agir ou descansar. Quando você segue essa vibração, a rotina fica mais leve e as situações se encaixam com maior naturalidade.", y);
-        y += 10;
+          y += 10;
 
           const introText = isDataPadrao
             ? "Calculado para a data de hoje."
@@ -704,7 +704,7 @@ y += 10;
           y = printSectionTitle("Desafios");
           addToIndex("Desafios");
           y = printWrappedText("Os Desafios representam forças que você precisa dominar ao longo da vida. São como montanhas internas: algumas pequenas, outras maiores. Eles não aparecem para travar sua jornada, mas para torná-lo(a) mais forte, mais consciente e mais preparado(a). Cada desafio superado libera um novo potencial.", y);
-        y += 10;
+          y += 10;
           const headers = ["Desafio", "Valor", "Período"];
           const data = desafiosList.map(d => ({ n: d.nome, v: d.valor, p: d.periodo }));
           y = renderTableHelper(headers, data, y + 10);
@@ -727,7 +727,7 @@ y += 10;
           y = printSectionTitle("Momentos Decisivos");
           addToIndex("Momentos Decisivos");
           y = printWrappedText("Momentos Decisivos são períodos-chave, marcados por viradas, decisões importantes ou acontecimentos que moldam sua trajetória. São momentos em que a vida dá um empurrão, coloca você diante de escolhas significativas ou abre portas que só aparecem uma vez. Quando você entende o significado vibracional desses períodos, suas escolhas ficam mais seguras e alinhadas.", y);
-        y += 10;
+          y += 10;
           const data = momentos.map((m, i) => {
             const startAge = i === 0 ? 0 : momentos[i - 1].fim - new Date(dataNascimento).getFullYear();
             const endAge = m.fim === '...' ? '...' : (startAge + (m.fim - m.inicio));
@@ -755,172 +755,188 @@ y += 10;
       }
 
       // 19. HARMONIA CONJUGAL
-if (selectedSections.harmonia && nomeCliente && dataNascimento) {
-  const destino = calcularDestino(dataNascimento);
-  const expressao = calcularExpressao(nomeCliente);
-  const missao = calcularMissao(destino, expressao);
-  const harmonia = calcularHarmoniaConjugal(missao);
-  
-  let harmoniaComp = null;
-  if (nomeCompanheiro && dataNascimentoCompanheiro) {
-    const destinoComp = calcularDestino(dataNascimentoCompanheiro);
-    const expressaoComp = calcularExpressao(nomeCompanheiro);
-    const missaoComp = calcularMissao(destinoComp, expressaoComp);
-    harmoniaComp = calcularHarmoniaConjugal(missaoComp);
-  }
-  
-  if (harmonia) {
-    y = printSectionTitle("Harmonia Conjugal");
-    addToIndex("Harmonia Conjugal");
-    addWatermarkHelper();
-    y = printWrappedText("A Harmonia Conjugal analisa a combinação vibracional entre duas pessoas. Ela mostra como as energias se unem, onde existe fluidez, onde podem surgir conflitos e como fortalecer o relacionamento. Não é um mapa de destino, mas um manual de compreensão mútua: ajuda a enxergar o outro com mais clareza, respeito e afeto.", y);
-    y += 10;
-    
-    if (harmoniaComp) {
-      const colWidth = 80; 
-      const gap = 10;
-      const x1 = CONFIG.margin; 
-      const x2 = CONFIG.margin + colWidth + gap;
-      
-      doc.setFontSize(11); 
-      doc.setFont("helvetica", "bold");
-      
-      // Títulos das colunas
-      doc.setTextColor(0, 0, 139); // Azul escuro
-      doc.text(nomeCliente, x1 + (colWidth / 2), y, { align: "center" });
-      doc.text(`Base: ${harmonia.numero}`, x1 + (colWidth / 2), y + 5, { align: "center" });
-      
-      doc.setTextColor(139, 0, 0); // Vermelho escuro
-      doc.text(nomeCompanheiro, x2 + (colWidth / 2), y, { align: "center" });
-      doc.text(`Base: ${harmoniaComp.numero}`, x2 + (colWidth / 2), y + 5, { align: "center" });
-      y += 10;
-      
-      // Função para verificar correspondência
-      const temCorrespondencia = (campo, harmoniaLocal, harmoniaComparacao) => {
-        if (!harmoniaComparacao) return false;
-        if (!harmoniaLocal || !harmoniaLocal[campo]) return false;
-        
-        const numeroBaseOutra = harmoniaComparacao.numero.toString();
-        const numerosAtuais = harmoniaLocal[campo].toString()
-          .split(',')
-          .map(num => num.trim());
-        
-        return numerosAtuais.includes(numeroBaseOutra);
-      };
-      
-      // Função modificada para desenhar tabela com destaque
-      const drawSideTable = (data, startX, startY, isCliente) => {
-        let curY = startY; 
-        const cellH = 7; 
-        const colW = colWidth / 2;
-        
-        // Cabeçalho da tabela
-        doc.setFillColor(230, 230, 230); 
-        doc.setTextColor(0, 0, 0); 
-        doc.setFontSize(9); 
-        doc.setFont("helvetica", "bold");
-        doc.rect(startX, curY, colW, cellH, 'F'); 
-        doc.text("Tipo", startX + 2, curY + 5);
-        doc.rect(startX + colW, curY, colW, cellH, 'F'); 
-        doc.text("Números", startX + colW + 2, curY + 5);
-        curY += cellH;
-        
-        doc.setFont("helvetica", "normal");
-        
-        // Para cada linha de dados
-        data.forEach(row => {
-          // Verificar se há correspondência
-          const campo = row.campo;
-          const temCorresp = isCliente 
-            ? temCorrespondencia(campo, harmonia, harmoniaComp)
-            : temCorrespondencia(campo, harmoniaComp, harmonia);
-          
-          // Desenhar célula do tipo
-          doc.setDrawColor(200); 
-          doc.rect(startX, curY, colW, cellH);
-          
-          // Desenhar célula dos números - com destaque se houver correspondência
-          if (temCorresp) {
-            // Fundo verde para destaque
-            doc.setFillColor(232, 245, 233); // Verde claro #e8f5e9
-            doc.rect(startX + colW, curY, colW, cellH, 'F');
-            doc.setTextColor(27, 94, 32); // Verde escuro #1b5e20
+      // 19. HARMONIA CONJUGAL
+      if (selectedSections.harmonia && nomeCliente && dataNascimento) {
+        const destino = calcularDestino(dataNascimento);
+        const expressao = calcularExpressao(nomeCliente);
+        const missao = calcularMissao(destino, expressao);
+        const harmonia = calcularHarmoniaConjugal(missao);
+
+        let harmoniaComp = null;
+        if (nomeCompanheiro && dataNascimentoCompanheiro) {
+          const destinoComp = calcularDestino(dataNascimentoCompanheiro);
+          const expressaoComp = calcularExpressao(nomeCompanheiro);
+          const missaoComp = calcularMissao(destinoComp, expressaoComp);
+          harmoniaComp = calcularHarmoniaConjugal(missaoComp);
+        }
+
+        if (harmonia) {
+          y = printSectionTitle("Harmonia Conjugal");
+          addToIndex("Harmonia Conjugal");
+          addWatermarkHelper();
+          y = printWrappedText("A Harmonia Conjugal analisa a combinação vibracional entre duas pessoas. Ela mostra como as energias se unem, onde existe fluidez, onde podem surgir conflitos e como fortalecer o relacionamento. Não é um mapa de destino, mas um manual de compreensão mútua: ajuda a enxergar o outro com mais clareza, respeito e afeto.", y);
+          y += 10;
+
+          if (harmoniaComp) {
+            const colWidth = 80;
+            const gap = 10;
+            const x1 = CONFIG.margin;
+            const x2 = CONFIG.margin + colWidth + gap;
+
+            doc.setFontSize(11);
             doc.setFont("helvetica", "bold");
+
+            // Títulos das colunas
+            doc.setTextColor(0, 0, 139); // Azul escuro
+            doc.text(nomeCliente, x1 + (colWidth / 2), y, { align: "center" });
+            doc.text(`Base: ${harmonia.numero}`, x1 + (colWidth / 2), y + 5, { align: "center" });
+
+            doc.setTextColor(139, 0, 0); // Vermelho escuro
+            doc.text(nomeCompanheiro, x2 + (colWidth / 2), y, { align: "center" });
+            doc.text(`Base: ${harmoniaComp.numero}`, x2 + (colWidth / 2), y + 5, { align: "center" });
+            y += 10;
+
+            // FUNÇÃO CORRIGIDA: Verifica se há números em comum entre as mesmas categorias
+            const temCorrespondencia = (campo, harmoniaLocal, harmoniaComparacao) => {
+              if (!harmoniaComparacao) return false;
+
+              // Se não tiver o campo em ambos objetos, retorna false
+              if (!harmoniaLocal || !harmoniaLocal[campo] ||
+                !harmoniaComparacao || !harmoniaComparacao[campo]) {
+                return false;
+              }
+
+              // Pega os números dos dois campos (ex: "3, 9" e "3, 7, 9")
+              const numerosAtuais = harmoniaLocal[campo].toString()
+                .split(',')
+                .map(num => num.trim());
+
+              const numerosOutros = harmoniaComparacao[campo].toString()
+                .split(',')
+                .map(num => num.trim());
+
+              // Verifica se há interseção (números em comum)
+              const temInterseccao = numerosAtuais.some(num =>
+                numerosOutros.includes(num)
+              );
+
+              return temInterseccao;
+            };
+
+            // Função modificada para desenhar tabela com destaque
+            const drawSideTable = (data, startX, startY, isCliente) => {
+              let curY = startY;
+              const cellH = 7;
+              const colW = colWidth / 2;
+
+              // Cabeçalho da tabela
+              doc.setFillColor(230, 230, 230);
+              doc.setTextColor(0, 0, 0);
+              doc.setFontSize(9);
+              doc.setFont("helvetica", "bold");
+              doc.rect(startX, curY, colW, cellH, 'F');
+              doc.text("Tipo", startX + 2, curY + 5);
+              doc.rect(startX + colW, curY, colW, cellH, 'F');
+              doc.text("Números", startX + colW + 2, curY + 5);
+              curY += cellH;
+
+              doc.setFont("helvetica", "normal");
+
+              // Para cada linha de dados
+              data.forEach(row => {
+                // Verificar se há correspondência usando a nova lógica
+                const campo = row.campo;
+                const temCorresp = isCliente
+                  ? temCorrespondencia(campo, harmonia, harmoniaComp)
+                  : temCorrespondencia(campo, harmoniaComp, harmonia);
+
+                // Desenhar célula do tipo
+                doc.setDrawColor(200);
+                doc.rect(startX, curY, colW, cellH);
+
+                // Desenhar célula dos números - com destaque se houver correspondência
+                if (temCorresp) {
+                  // Fundo verde para destaque
+                  doc.setFillColor(232, 245, 233); // Verde claro #e8f5e9
+                  doc.rect(startX + colW, curY, colW, cellH, 'F');
+                  doc.setTextColor(27, 94, 32); // Verde escuro #1b5e20
+                  doc.setFont("helvetica", "bold");
+                } else {
+                  doc.rect(startX + colW, curY, colW, cellH);
+                  doc.setTextColor(0, 0, 0);
+                  doc.setFont("helvetica", "normal");
+                }
+
+                // Texto do tipo
+                doc.setTextColor(0, 0, 0);
+                doc.setFont("helvetica", "normal");
+                doc.text(String(row.label), startX + 2, curY + 5);
+
+                // Texto dos números
+                const valText = String(row.value || "");
+                const valLines = doc.splitTextToSize(valText, colW - 4);
+                doc.text(valLines, startX + colW + 2, curY + 5);
+
+                curY += cellH;
+              });
+
+              return curY;
+            };
+
+            // Preparar dados para as tabelas
+            const dados1 = [
+              { label: "Vibra com", value: harmonia.vibraCom, campo: "vibraCom" },
+              { label: "Atrai", value: harmonia.atrai, campo: "atrai" },
+              { label: "Oposto", value: harmonia.oposto, campo: "oposto" },
+              { label: "Passivo", value: harmonia.passivo, campo: "passivo" }
+            ];
+
+            const dados2 = [
+              { label: "Vibra com", value: harmoniaComp.vibraCom, campo: "vibraCom" },
+              { label: "Atrai", value: harmoniaComp.atrai, campo: "atrai" },
+              { label: "Oposto", value: harmoniaComp.oposto, campo: "oposto" },
+              { label: "Passivo", value: harmoniaComp.passivo, campo: "passivo" }
+            ];
+
+            // Desenhar as duas tabelas
+            const endY1 = drawSideTable(dados1, x1, y, true);
+            const endY2 = drawSideTable(dados2, x2, y, false);
+            y = Math.max(endY1, endY2) + 15;
+
+           
+
           } else {
-            doc.rect(startX + colW, curY, colW, cellH);
-            doc.setTextColor(0, 0, 0);
-            doc.setFont("helvetica", "normal");
+            // Código para quando não há companheiro (mantenha como estava)
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(CONFIG.colorBlack);
+            doc.text(`Número Base: ${harmonia.numero}`, CONFIG.margin, y);
+            y += 10;
+
+            const data = [
+              { t: "Vibra com", v: String(harmonia.vibraCom) },
+              { t: "Atrai", v: String(harmonia.atrai) },
+              { t: "Oposto", v: String(harmonia.oposto) },
+              { t: "Passivo", v: String(harmonia.passivo) }
+            ];
+
+            y = renderTableHelper(["Tipo", "Números"], data, y);
+
+            // Adicionar nota informativa
+            y += 5;
+            doc.setFontSize(8);
+            doc.setTextColor(100, 100, 100);
+            doc.setFont("helvetica", "italic");
+            doc.text("Nota: Para análise completa de Harmonia Conjugal, é necessário informar os dados do companheiro.", CONFIG.margin, y);
+            y += 5;
           }
-          
-          // Texto do tipo
-          doc.setTextColor(0, 0, 0);
-          doc.setFont("helvetica", "normal");
-          doc.text(String(row.label), startX + 2, curY + 5);
-          
-          // Texto dos números
-          const valText = String(row.value || "");
-          const valLines = doc.splitTextToSize(valText, colW - 4);
-          doc.text(valLines, startX + colW + 2, curY + 5);
-          
-          curY += cellH;
-        });
-        
-        return curY;
-      };
-      
-      // Preparar dados para as tabelas
-      const dados1 = [
-        { label: "Vibra com", value: harmonia.vibraCom, campo: "vibraCom" },
-        { label: "Atrai", value: harmonia.atrai, campo: "atrai" },
-        { label: "Oposto", value: harmonia.oposto, campo: "oposto" },
-        { label: "Passivo", value: harmonia.passivo, campo: "passivo" }
-      ];
-      
-      const dados2 = [
-        { label: "Vibra com", value: harmoniaComp.vibraCom, campo: "vibraCom" },
-        { label: "Atrai", value: harmoniaComp.atrai, campo: "atrai" },
-        { label: "Oposto", value: harmoniaComp.oposto, campo: "oposto" },
-        { label: "Passivo", value: harmoniaComp.passivo, campo: "passivo" }
-      ];
-      
-      // Desenhar as duas tabelas
-      const endY1 = drawSideTable(dados1, x1, y, true);
-      const endY2 = drawSideTable(dados2, x2, y, false);
-      y = Math.max(endY1, endY2) + 15;
-      
-      // Adicionar legenda explicativa
-      doc.setFontSize(8);
-      doc.setTextColor(27, 94, 32); // Verde escuro
-      doc.setFont("helvetica", "bold");
-      doc.text("Legenda:", CONFIG.margin, y);
-      y += 5;
-      doc.setFont("helvetica", "normal");
-      
-      
-    } else {
-      // Código para quando não há companheiro (mantenha como estava)
-      doc.setFont("helvetica", "bold"); 
-      doc.setTextColor(CONFIG.colorBlack);
-      doc.text(`Número Base: ${harmonia.numero}`, CONFIG.margin, y); 
-      y += 10;
-      
-      const data = [
-        { t: "Vibra com", v: String(harmonia.vibraCom) }, 
-        { t: "Atrai", v: String(harmonia.atrai) }, 
-        { t: "Oposto", v: String(harmonia.oposto) }, 
-        { t: "Passivo", v: String(harmonia.passivo) }
-      ];
-      
-      y = renderTableHelper(["Tipo", "Números"], data, y);
-    }
-  }
-}
+        }
+      }
       // 20. PIRÂMIDE INVERTIDA
       if (selectedSections.piramide && nomeCliente) {
         y = printSectionTitle("Pirâmide Invertida");
         addToIndex("Pirâmide Invertida");
         y = printWrappedText("A Pirâmide Invertida representa a construção energética do nome. Cada linha mostra camadas da sua personalidade e como sua vibração se organiza de dentro para fora. O último número da pirâmide simboliza o Arcano que você manifesta quando usa essa assinatura — ele funciona como a força dominante do seu nome, revelando seu comportamento natural, seu impulso interior e o impacto que você causa no mundo. Dentro dessa pirâmide também aparecem as chamadas Sequências Negativas. Elas surgem quando a soma das letras do nome forma um padrão repetitivo que indica excesso de uma energia específica. Quando isso acontece, alguns comportamentos podem ficar distorcidos, como se uma qualidade sua fosse usada em exagero ou de forma desequilibrada. As Sequências Negativas não aparecem para 'punir', mas para alertar sobre altos e baixos emocionais, impulsos automáticos e atitudes que podem atrapalhar seus resultados. Identificá-las dentro da pirâmide ajuda a entender pontos de atenção e a ajustar sua energia para evitar desgaste, atrasos ou bloqueios. Quando você entende a sequência que está ativa, consegue transformar aquela tendência e recuperar o lado positivo do seu Arcano.", y);
-y += 10;
+        y += 10;
         doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(CONFIG.colorBlack);
         doc.text(`Nome: ${nomeCliente}`, CONFIG.margin, y); y += 10;
         const nomeTratado = nomeCliente.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase();
@@ -980,23 +996,23 @@ y += 10;
       if (selectedSections.nomesSociais && nomesSociais && nomesSociais.length > 0) {
         y = printSectionTitle("Nomes Sociais");
         addToIndex("Nomes Sociais");
-       y = printWrappedText(
-    "O Nome Social expressa a identidade que você escolhe assumir. Ele representa o 'eu atual', " +
-    "a forma como você deseja ser visto(a) e reconhecido(a). Assim como na pirâmide principal, " +
-    "o último número da pirâmide do Nome Social revela o Arcano que você ativa ao usar essa " +
-    "identidade — uma energia escolhida conscientemente para guiar sua vida no presente. Ao " +
-    "contrário do nome de nascimento, o Nome Social não deve apresentar Sequências Negativas. " +
-    "Isso acontece porque a função dele é ajustar, harmonizar e melhorar a vibração pessoal, " +
-    "oferecendo clareza, força e equilíbrio para o momento atual. As Sequências Negativas " +
-    "indicam excesso, distorção ou bloqueio energético, e sua presença quebraria o propósito " +
-    "do Nome Social, que é trazer leveza, fluidez e proteção vibracional. Um Nome Social bem " +
-    "construído sempre busca uma vibração limpa, coerente e positiva, funcionando como uma " +
-    "assinatura energética que fortalece autoestima, direcionamento e posicionamento no mundo. " +
-    "Quando ele é calculado corretamente — sem repetições negativas — serve como um verdadeiro " +
-    "alinhamento vibracional para a nova fase da vida.", 
-    y
-);
-y += 10;
+        y = printWrappedText(
+          "O Nome Social expressa a identidade que você escolhe assumir. Ele representa o 'eu atual', " +
+          "a forma como você deseja ser visto(a) e reconhecido(a). Assim como na pirâmide principal, " +
+          "o último número da pirâmide do Nome Social revela o Arcano que você ativa ao usar essa " +
+          "identidade — uma energia escolhida conscientemente para guiar sua vida no presente. Ao " +
+          "contrário do nome de nascimento, o Nome Social não deve apresentar Sequências Negativas. " +
+          "Isso acontece porque a função dele é ajustar, harmonizar e melhorar a vibração pessoal, " +
+          "oferecendo clareza, força e equilíbrio para o momento atual. As Sequências Negativas " +
+          "indicam excesso, distorção ou bloqueio energético, e sua presença quebraria o propósito " +
+          "do Nome Social, que é trazer leveza, fluidez e proteção vibracional. Um Nome Social bem " +
+          "construído sempre busca uma vibração limpa, coerente e positiva, funcionando como uma " +
+          "assinatura energética que fortalece autoestima, direcionamento e posicionamento no mundo. " +
+          "Quando ele é calculado corretamente — sem repetições negativas — serve como um verdadeiro " +
+          "alinhamento vibracional para a nova fase da vida.",
+          y
+        );
+        y += 10;
         const uniqueNomes = nomesSociais.filter((item, index, self) => index === self.findIndex((t) => (t.nome.toLowerCase().trim() === item.nome.toLowerCase().trim())));
         for (const [idx, social] of uniqueNomes.entries()) {
           const imgWidth = 35; const imgHeight = 55; const gap = 5;

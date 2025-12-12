@@ -169,25 +169,33 @@ const App = () => {
     const lista = numerosDaLinha.toString().split(',').map(n => n.trim());
     return lista.includes(baseParaComparar.toString());
   };
-
-  // Função para verificar comparações na Harmonia Conjugal
+  // Substitua a função isComparacaoHarmonia por esta versão corrigida:
   const isComparacaoHarmonia = (campo, harmoniaAtual, harmoniaOutra) => {
     // Se não tiver companheiro, não há comparação
     if (!harmoniaOutra) return false;
 
-    // Se não tiver o campo no objeto atual, retorna false
-    if (!harmoniaAtual || !harmoniaAtual[campo]) return false;
+    // Se não tiver o campo em ambos objetos, retorna false
+    if (!harmoniaAtual || !harmoniaAtual[campo] ||
+      !harmoniaOutra || !harmoniaOutra[campo]) {
+      return false;
+    }
 
-    // Pega o número base da outra pessoa
-    const numeroBaseOutra = harmoniaOutra.numero.toString();
+    // Pega os números dos dois campos (ex: "3, 9" e "3, 7, 9")
+    const numerosAtuais = harmoniaAtual[campo].toString()
+      .split(',')
+      .map(num => num.trim());
 
-    // Pega os números do campo atual (ex: "1, 5, 9")
-    const numerosAtuais = harmoniaAtual[campo].toString().split(',').map(num => num.trim());
+    const numerosOutros = harmoniaOutra[campo].toString()
+      .split(',')
+      .map(num => num.trim());
 
-    // Verifica se o número base da outra pessoa está presente na lista atual
-    return numerosAtuais.includes(numeroBaseOutra);
+    // Verifica se há interseção (números em comum)
+    const temInterseccao = numerosAtuais.some(num =>
+      numerosOutros.includes(num)
+    );
+
+    return temInterseccao;
   };
-
   // Mantenha também a função original se ainda precisar dela para outras coisas
   const isResultadoIncomum = (valor) => {
     if (!valor || valor === '') return false;
@@ -699,8 +707,8 @@ const App = () => {
                     </Box>
                   </Box>
 
-                  
-                  
+
+
                 </Box>
               </Box>
 

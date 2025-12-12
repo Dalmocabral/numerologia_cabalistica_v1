@@ -2559,11 +2559,13 @@ export const arcanos = {
     descricao: "Aparece um aspecto da personalidade que vai gerar novas ideias; qualidades de liderança, bondade e honestidade. É o símbolo do poder adquirido pelo mérito e pelo trabalho, sendo emblema de proteção das pessoas bem colocadas. Representa autoconfiança, motivação, empreendedorismo, sabedoria e convicção; respeitabilidade e amizades. Risco: inflexibilidade e intolerância."
   },
   24: {
-    titulo: "Arcano 24",
+    image: "https://i.ibb.co/jvk04cYV/24-A-TECEL.png",
+    titulo: "Arcano 24 - A TECELÃ (Senhora/Rainha do Copo/Rainha de Copas/Dama de Copas)",
     descricao: "É símbolo de posição elevada; demonstra a força da imaginação, da constância e da objetividade; momento de oferecer e receber aconchego e proteção. Representa a ação desejada, o plano criativo; o feminino atraente e inteligente; crescimento, atividade, firmeza e amor pela vida. Risco: vaidade e orgulho."
   },
   25: {
-    titulo: "Arcano 25",
+    image: "https://i.ibb.co/cWfYjdj/25-O-ARGONAUTA.png",
+    titulo: "Arcano 25 - O ARGONAUTA ou O NAVEGADOR (Cavalheiro de Bastão/Soldado do Bastão/Cavaleiro de Paus)",
     descricao: "Significa partida, mudanças, fuga, dissensão, separação, abandono, início ou final de uma situação importante; o símbolo dos altos empregos secundários, da luta para conquistar uma posição, do poder adquirido pelas lutas; momento de desenvolver as qualidades exuberantes, aventureiras e voláteis contidas em si. Representa a ação necessária no plano formativo; mudança de residência, de cidade, de situação e modo de vida; entusiasmo. Risco: tensão, euforia, exibicionismo, impaciência."
   },
   26: {
@@ -2682,7 +2684,8 @@ export const arcanos = {
     descricao: "É momento de se preparar para eventuais mudanças repentinas em sua vida deixando de lado os antigos padrões existentes. Tais mudanças podem acontecer com uma pessoa que aparece trazendo a inquietação, o fascínio e a tendência para o rompimento, ou a concepção de uma nova ideia, ou projeto, que surge para quebrar antigas formas de pensamento, ou ainda, alguém que se oponha aos seus planos ou pensamentos. Representa a sequência ordenada do pensamento lógico no plano formativo; imprevisibilidade, controvérsia, rigor, hostilidade e agressividade. Contundência, impetuosidade e atropelo."
   },
   54: {
-    titulo: "Arcano 54",
+    image: "https://i.ibb.co/cKDSkvqv/54-Valete-de-Espada.png",
+    titulo: "Arcano 54 - Valete de Espadas (Senhor/Rei de Espadas/k de Espadas)",
     descricao: "Momento de confrontar-se com a curiosidade infantil e a predisposição maliciosa para a fofoca e o mexerico. Possibilidade de vir a se tornar vítima da intriga dos outros ou ter propensão para se envolver em pequenas disputas. Representa o pensamento aproximado na verificação do plano material; espionagem, vigilância; a discórdia semeada e a crítica esclarecedora. Defensividade."
   },
   55: {
