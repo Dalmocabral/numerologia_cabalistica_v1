@@ -1,9 +1,43 @@
-import { PictureAsPdf } from "@mui/icons-material";
-import { Button, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import jsPDF from "jspdf";
-import { useState } from "react";
 import logo from "../assets/image/logo.png";
-import PdfSelectionDialog from "./PdfSelectionDialog"; // Importe o dialog que criamos
+import { tabelaAcentos, tabelaNumeros } from "../utils/TabelaNumerologia"; // Re-import needed for helpers if not global
+
+// --- Funções Utilitárias Moved from Component Scope ---
+const calcularValorComAcento = (letra) => {
+    if (!letra || letra.trim() === "") return 0;
+    const acentos = letra.normalize('NFD').match(/[\u0300-\u036f]/g);
+    const letraBase = letra.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    let valorBase = tabelaNumeros[letraBase] || 0;
+    if (acentos) {
+      acentos.forEach(acento => {
+        if (tabelaAcentos[acento]) valorBase += tabelaAcentos[acento];
+      });
+    }
+    return valorBase;
+};
+
+const isVogal = (letra) => {
+    const letraBase = letra.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    return ['A', 'E', 'I', 'O', 'U'].includes(letraBase);
+};
+
+const prepareWatermarkImage = (url, opacity = 0.1) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.src = url;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.globalAlpha = opacity;
+        ctx.drawImage(img, 0, 0);
+        resolve(canvas.toDataURL('image/png'));
+      };
+      img.onerror = () => resolve(null);
+    });
+};
 
 // =================================================================
 // 1. IMPORTAÇÕES DE CÁLCULOS E DADOS
@@ -48,8 +82,6 @@ import {
     segundoCicloVida,
     segundoMomentoDecisivo,
     sequenciaNegativa,
-    tabelaAcentos,
-    tabelaNumeros,
     tendenciaOculta,
     terceiroCicloVida,
     terceiroMomentoDecisivo
@@ -58,80 +90,24 @@ import {
 // =================================================================
 // 2. COMPONENTE PRINCIPAL
 // =================================================================
-const PdfGeneratorButton = ({
-  nomeCliente,
-  dataNascimento,
-  asListItem,
-  darkMode,
-  nomesSociais = [],
-  mesInteresse,
-  diaInteresse,
-  assinatura,
-  nomeCompanheiro,
-  dataNascimentoCompanheiro
-}) => {
+// =================================================================
+// 3. SERVICE EXPORT
+// =================================================================
 
-  const [openSelection, setOpenSelection] = useState(false);
+export const generatePDF = async (data, selectedSections) => {
+  const {
+      nomeCliente,
+      dataNascimento,
+      nomesSociais = [],
+      mesInteresse,
+      diaInteresse,
+      assinatura,
+      nomeCompanheiro,
+      dataNascimentoCompanheiro
+  } = data;
 
-  // --- Funções Utilitárias ---
-  const calcularValorComAcento = (letra) => {
-    if (!letra || letra.trim() === "") return 0;
-    const acentos = letra.normalize('NFD').match(/[\u0300-\u036f]/g);
-    const letraBase = letra.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    let valorBase = tabelaNumeros[letraBase] || 0;
-    if (acentos) {
-      acentos.forEach(acento => {
-        if (tabelaAcentos[acento]) valorBase += tabelaAcentos[acento];
-      });
-    }
-    return valorBase;
-  };
 
-  const isVogal = (letra) => {
-    const letraBase = letra.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    return ['A', 'E', 'I', 'O', 'U'].includes(letraBase);
-  };
 
-  const loadImage = (url) => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.crossOrigin = 'Anonymous';
-      img.src = url;
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-        resolve(canvas.toDataURL('image/png'));
-      };
-      img.onerror = () => resolve(null);
-    });
-  };
-
-  // Fix para transparência em mobile
-  const prepareWatermarkImage = (url, opacity = 0.1) => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.crossOrigin = 'Anonymous';
-      img.src = url;
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-        ctx.globalAlpha = opacity;
-        ctx.drawImage(img, 0, 0);
-        resolve(canvas.toDataURL('image/png'));
-      };
-      img.onerror = () => resolve(null);
-    });
-  };
-
-  // =================================================================
-  // 3. FUNÇÃO GERADORA DO PDF (CORE)
-  // =================================================================
-  const generatePDF = async (selectedSections) => {
     const doc = new jsPDF();
 
     const CONFIG = {
@@ -1251,23 +1227,3 @@ const PdfGeneratorButton = ({
     }
   };
 
-  return (
-    <>
-      {asListItem ? (
-        <ListItem button onClick={() => setOpenSelection(true)}>
-          <ListItemIcon><PictureAsPdf sx={{ color: darkMode ? '#ffffff' : '#000000' }} /></ListItemIcon>
-          <ListItemText primary="Gerar PDF" />
-        </ListItem>
-      ) : (
-        <Button variant="contained" onClick={() => setOpenSelection(true)} fullWidth sx={{ mt: 2 }}>Gerar PDF</Button>
-      )}
-      <PdfSelectionDialog
-        open={openSelection}
-        onClose={() => setOpenSelection(false)}
-        onConfirm={(sections) => generatePDF(sections)}
-      />
-    </>
-  );
-};
-
-export default PdfGeneratorButton;
