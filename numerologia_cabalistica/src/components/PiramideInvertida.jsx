@@ -1,8 +1,7 @@
 // src/components/PiramideInvertida.jsx
-import React from 'react';
-import { Box, Typography, Paper, Divider } from '@mui/material';
-import { findSequences } from './generateInvertedPyramid';
-import { sequenciaNegativa } from '../components/TabelaNumerologia';
+import { Box, Divider, Paper, Typography } from '@mui/material';
+import { findSequences } from '../utils/generateInvertedPyramid';
+import { sequenciaNegativa } from '../utils/TabelaNumerologia';
 
 const PiramideInvertida = ({ dados }) => {
 

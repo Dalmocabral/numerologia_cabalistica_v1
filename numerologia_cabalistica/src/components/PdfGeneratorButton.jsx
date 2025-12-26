@@ -1,42 +1,59 @@
-import React, { useState } from "react";
-import { Button, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { PictureAsPdf } from "@mui/icons-material";
+import { Button, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import jsPDF from "jspdf";
+import { useState } from "react";
 import logo from "../assets/image/logo.png";
 import PdfSelectionDialog from "./PdfSelectionDialog"; // Importe o dialog que criamos
 
 // =================================================================
 // 1. IMPORTAÇÕES DE CÁLCULOS E DADOS
 // =================================================================
-import { calcularMotivacao } from "./CalculoMotivacao";
-import { calcularImpressao } from "./CalculoImpressao";
-import { calcularExpressao } from "./CalculoExpressao";
-import { calcularDestino } from "./CalculoDestino";
-import { calcularMissao } from "./CalculoMissao";
-import { calcularDividasCarmicas } from "./CalculoDividasCarmicas";
-import { calcularLicoesCarmicas } from "./CalculoLicoesCarmicas";
-import { calcularMesesPessoaisRestantes, calcularDiaPessoal } from "./CalculoMesDiaPessoal";
-import { calcularAnoPessoal } from "./CalculoAnoPessoal";
-import { calcularTendenciasOcultas } from "./CalculoTendenciasOcultas";
-import { calcularSubconsciente } from "./CalculoSubconsciente";
-import { calcularCicloVida } from "./CalculoCicloVida";
-import { calcularDesafios } from "./CalculoDesafios";
-import { calcularMomentosDecisivos } from "./CalcularMomentosDecisivos";
-import { calcularHarmoniaConjugal } from "./CalculoHarmoniaConjugal";
-import { generateInvertedPyramid, findSequences } from "./generateInvertedPyramid";
-import { calcularArcanosTransito } from "./CalculoArcanosTransito";
-import { calcularDiasFavoraveis } from "./CalculoDiasFavoraveis";
+import { calcularMomentosDecisivos } from "../utils/CalcularMomentosDecisivos";
+import { calcularAnoPessoal } from "../utils/CalculoAnoPessoal";
+import { calcularArcanosTransito } from "../utils/CalculoArcanosTransito";
+import { calcularCicloVida } from "../utils/CalculoCicloVida";
+import { calcularDesafios } from "../utils/CalculoDesafios";
+import { calcularDestino } from "../utils/CalculoDestino";
+import { calcularDiasFavoraveis } from "../utils/CalculoDiasFavoraveis";
+import { calcularDividasCarmicas } from "../utils/CalculoDividasCarmicas";
+import { calcularExpressao } from "../utils/CalculoExpressao";
+import { calcularHarmoniaConjugal } from "../utils/CalculoHarmoniaConjugal";
+import { calcularImpressao } from "../utils/CalculoImpressao";
+import { calcularLicoesCarmicas } from "../utils/CalculoLicoesCarmicas";
+import { calcularDiaPessoal, calcularMesesPessoaisRestantes } from "../utils/CalculoMesDiaPessoal";
+import { calcularMissao } from "../utils/CalculoMissao";
+import { calcularMotivacao } from "../utils/CalculoMotivacao";
+import { calcularSubconsciente } from "../utils/CalculoSubconsciente";
+import { calcularTendenciasOcultas } from "../utils/CalculoTendenciasOcultas";
+import { findSequences, generateInvertedPyramid } from "../utils/generateInvertedPyramid";
 
 import {
-  tabelaNumeros, tabelaAcentos, motivacaoTextos, impressaoTextos, expressaoTextos, destinoTextos, missaoTextos,
-  dividasCarmicasTextos, licoesCarmicasTexto, anoPessoalDescritivo, tendenciaOculta, respostaSubconsciente,
-  mesesPessoal, sequenciaNegativa, arcanos, CicloVida,
-  segundoCicloVida, terceiroCicloVida,
-  desafios as desafiosTextos,
-  momentosDecisivos as momentosDecisivosTextos, segundoMomentoDecisivo, terceiroMomentoDecisivo, quartoMomentoDecisivo,
-  diaPessoal as diaPessoalTextos,
-  caracteristicasDiaNascimento
-} from "./TabelaNumerologia";
+    anoPessoalDescritivo,
+    arcanos,
+    caracteristicasDiaNascimento,
+    CicloVida,
+    desafios as desafiosTextos,
+    destinoTextos,
+    diaPessoal as diaPessoalTextos,
+    dividasCarmicasTextos,
+    expressaoTextos,
+    impressaoTextos,
+    licoesCarmicasTexto,
+    mesesPessoal,
+    missaoTextos,
+    momentosDecisivos as momentosDecisivosTextos,
+    motivacaoTextos,
+    quartoMomentoDecisivo,
+    respostaSubconsciente,
+    segundoCicloVida,
+    segundoMomentoDecisivo,
+    sequenciaNegativa,
+    tabelaAcentos,
+    tabelaNumeros,
+    tendenciaOculta,
+    terceiroCicloVida,
+    terceiroMomentoDecisivo
+} from "../utils/TabelaNumerologia";
 
 // =================================================================
 // 2. COMPONENTE PRINCIPAL

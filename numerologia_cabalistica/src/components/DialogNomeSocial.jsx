@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  TextField,
-  DialogActions,
-  Button,
-  Box,
-  Typography,
-  Card,
-  CardContent
+    Box,
+    Button,
+    Card,
+    CardContent,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    TextField,
+    Typography
 } from '@mui/material';
-import { generateInvertedPyramid } from './generateInvertedPyramid';
-import { arcanos } from '../components/TabelaNumerologia'; // Importar o dicionário de arcanos
+import { useEffect, useState } from 'react';
+import { generateInvertedPyramid } from '../utils/generateInvertedPyramid';
+import { arcanos } from '../utils/TabelaNumerologia'; // Importar o dicionário de arcanos
 
 const DialogNomeSocial = ({ open, onClose, onSave }) => {
   const [nome, setNome] = useState('');

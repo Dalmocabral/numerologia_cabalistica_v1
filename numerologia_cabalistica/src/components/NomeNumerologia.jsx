@@ -1,7 +1,6 @@
 // src/components/NomeNumerologia.jsx
-import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { tabelaNumeros, tabelaAcentos } from './TabelaNumerologia';
+import { tabelaAcentos, tabelaNumeros } from '../utils/TabelaNumerologia';
 
 const calcularValorComAcento = (letra) => {
   if (letra.trim() === "") return 0;

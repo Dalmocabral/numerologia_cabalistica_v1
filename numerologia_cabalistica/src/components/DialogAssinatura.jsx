@@ -1,14 +1,27 @@
 // src/components/DialogAssinatura.jsx
-import React, { useState } from 'react';
+import { AutoFixHigh, Cancel, CheckCircle, Edit, Save } from '@mui/icons-material';
 import {
-  Dialog, DialogTitle, DialogContent, DialogActions,
-  TextField, Button, Box, Typography, Tabs, Tab,
-  Card, CardContent, Chip, Grid, Divider, CircularProgress, Alert, CardMedia
+    Alert,
+    Box,
+    Button,
+    Card, CardContent,
+    CardMedia,
+    Chip,
+    CircularProgress,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Grid,
+    Tab,
+    Tabs,
+    TextField,
+    Typography
 } from '@mui/material';
-import { CheckCircle, Cancel, AutoFixHigh, Edit, Save } from '@mui/icons-material';
-import { analisarAssinatura, gerarAssinaturasAutomaticas } from './CalculoAssinatura';
-import { calcularExpressao } from './CalculoExpressao';
-import { arcanos } from './TabelaNumerologia';
+import { useState } from 'react';
+import { analisarAssinatura, gerarAssinaturasAutomaticas } from '../utils/CalculoAssinatura';
+import { calcularExpressao } from '../utils/CalculoExpressao';
+import { arcanos } from '../utils/TabelaNumerologia';
 
 const DialogAssinatura = ({ open, onClose, nomeSocial, onSalvar }) => {
   const [tabIndex, setTabIndex] = useState(0);

@@ -1,4 +1,4 @@
-import { tabelaNumeros, tabelaAcentos } from "../components/TabelaNumerologia";
+import { tabelaAcentos, tabelaNumeros } from "./TabelaNumerologia";
 
 // Função para calcular valor com acento OU caractere especial
 const calcularValorComAcento = (letra) => {

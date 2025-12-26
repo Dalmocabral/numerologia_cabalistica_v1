@@ -1,11 +1,16 @@
 // src/components/TabelaArcanosTransito.jsx
-import React, { useEffect, useState } from 'react';
-import { 
-  Table, TableBody, TableCell, TableContainer, 
-  TableHead, TableRow, Paper, Typography, Box, Grid, Card, CardContent, CardMedia 
+import {
+    Box,
+    Card, CardContent, CardMedia,
+    Grid,
+    Paper,
+    Table, TableBody, TableCell, TableContainer,
+    TableHead, TableRow,
+    Typography
 } from '@mui/material';
-import { calcularArcanosTransito } from './CalculoArcanosTransito';
-import { arcanos } from './TabelaNumerologia'; // Importe o dicionário
+import { useEffect, useState } from 'react';
+import { calcularArcanosTransito } from '../utils/CalculoArcanosTransito';
+import { arcanos } from '../utils/TabelaNumerologia'; // Importe o dicionário
 
 const TabelaArcanosTransito = ({ nome, dataNascimento }) => {
   const dados = calcularArcanosTransito(nome, dataNascimento);
