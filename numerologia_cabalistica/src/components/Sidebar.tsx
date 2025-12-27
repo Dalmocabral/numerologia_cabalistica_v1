@@ -1,21 +1,21 @@
 // src/components/Sidebar.jsx
-import React, { useState } from 'react';
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Box,
-  Typography,
-  Divider
-} from '@mui/material';
-import { Add, DarkMode, LightMode, PersonAdd, Create } from '@mui/icons-material'; // Ícones novos
+import { Add, Create, DarkMode, LightMode, PersonAdd } from '@mui/icons-material'; // Ícones novos
 import PsychologyIcon from '@mui/icons-material/Psychology';
-import NovoMapaDialog from './NovoMapaDialog';
-import DialogNomeSocial from './DialogNomeSocial'; // Importe o Dialog de Nome Social
-import PdfGeneratorButton from './PdfGeneratorButton';
+import {
+    Box,
+    Divider,
+    Drawer,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Typography
+} from '@mui/material';
+import { useState } from 'react';
 import DialogAssinatura from './DialogAssinatura';
+import DialogNomeSocial from './DialogNomeSocial'; // Importe o Dialog de Nome Social
+import NovoMapaDialog from './NovoMapaDialog';
+import PdfGeneratorButton from './PdfGeneratorButton';
 
 const Sidebar = ({ 
   darkMode, 
@@ -57,8 +57,8 @@ const Sidebar = ({
           '& .MuiDrawer-paper': {
             width: 240,
             boxSizing: 'border-box',
-            backgroundColor: darkMode ? '#121212' : '#ffffff',
-            color: darkMode ? '#ffffff' : '#000000',
+            backgroundColor: '#121212', 
+            color: '#ffffff',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -73,18 +73,18 @@ const Sidebar = ({
             </Typography>
           </Box>
 
-          <Divider />
+          <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.12)' }} />
 
           <List>
             {/* Botão Calcular Mapa */}
             <ListItem button onClick={handleOpenMapa}>
-              <ListItemIcon><Add sx={{ color: darkMode ? '#ffffff' : '#000000' }} /></ListItemIcon>
+              <ListItemIcon><Add sx={{ color: '#ffffff' }} /></ListItemIcon>
               <ListItemText primary="Calcular Mapa" />
             </ListItem>
             
             {/* Botão Criar Nome Social (Só aparece se tiver um cliente carregado) */}
             <ListItem button onClick={handleOpenSocial} disabled={!nomeCliente}>
-              <ListItemIcon><PersonAdd sx={{ color: !nomeCliente ? 'grey' : (darkMode ? '#ffffff' : '#000000') }} /></ListItemIcon>
+              <ListItemIcon><PersonAdd sx={{ color: !nomeCliente ? 'grey' : '#ffffff' }} /></ListItemIcon>
               <ListItemText primary="Criar Nome Social" />
             </ListItem>
 
@@ -95,7 +95,7 @@ const Sidebar = ({
             disabled={!nomesSociais || nomesSociais.length === 0}
          >
             <ListItemIcon>
-              <Create sx={{ color: (!nomesSociais || nomesSociais.length === 0) ? 'grey' : (darkMode ? '#ffffff' : '#000000') }} />
+              <Create sx={{ color: (!nomesSociais || nomesSociais.length === 0) ? 'grey' : '#ffffff' }} />
             </ListItemIcon>
             <ListItemText primary="Assinatura do Poder" />
          </ListItem>
@@ -109,20 +109,20 @@ const Sidebar = ({
               mesInteresse={mesInteresse}
               diaInteresse={diaInteresse}
               asListItem={true}
-              darkMode={darkMode}
+              darkMode={true} // Forcing dark mode styles for the button itself if it relies on it
               assinatura={assinatura}
-              nomeCompanheiro={nomeCompanheiro}           // <--- VOCÊ PASSOU ISSO?
-              dataNascimentoCompanheiro={dataNascimentoCompanheiro} // <--- E ISSO?
+              nomeCompanheiro={nomeCompanheiro}           
+              dataNascimentoCompanheiro={dataNascimentoCompanheiro} 
             />
           </List>
         </Box>
 
         <Box>
-          <Divider />
+          <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.12)' }} />
           <List>
             <ListItem button onClick={toggleDarkMode}>
               <ListItemIcon>
-                {darkMode ? <LightMode sx={{ color: '#ffffff' }} /> : <DarkMode sx={{ color: '#000000' }} />}
+                {darkMode ? <LightMode sx={{ color: '#ffffff' }} /> : <DarkMode sx={{ color: '#ffffff' }} />}
               </ListItemIcon>
               <ListItemText primary={darkMode ? 'Modo Claro' : 'Modo Escuro'} />
             </ListItem>

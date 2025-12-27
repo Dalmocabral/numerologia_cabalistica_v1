@@ -22,25 +22,25 @@ import { calcularTendenciasOcultas } from '../utils/CalculoTendenciasOcultas';
 import { generateInvertedPyramid } from "../utils/generateInvertedPyramid";
 
 export const useNumerology = () => {
-    // Helper para carregar do localStorage
+    // Helper para carregar do sessionStorage
     const loadState = (key, initialValue) => {
         try {
-            const savedItem = localStorage.getItem(key);
+            const savedItem = sessionStorage.getItem(key);
             if (savedItem) {
                 return JSON.parse(savedItem);
             }
         } catch (error) {
-            console.error(`Erro ao carregar ${key} do localStorage:`, error);
+            console.error(`Erro ao carregar ${key} do sessionStorage:`, error);
         }
         return initialValue;
     };
 
-    // Helper para salvar no localStorage
+    // Helper para salvar no sessionStorage
     const saveState = (key, value) => {
         try {
-            localStorage.setItem(key, JSON.stringify(value));
+            sessionStorage.setItem(key, JSON.stringify(value));
         } catch (error) {
-            console.error(`Erro ao salvar ${key} no localStorage:`, error);
+            console.error(`Erro ao salvar ${key} no sessionStorage:`, error);
         }
     };
 
