@@ -9,7 +9,7 @@ import WelcomeScreen from './components/WelcomeScreen';
 import { useNumerology } from './hooks/useNumerology';
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
 
   // Use the custom hook for all numerology logic

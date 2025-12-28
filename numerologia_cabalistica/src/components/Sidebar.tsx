@@ -1,5 +1,6 @@
 // src/components/Sidebar.jsx
 import { Add, Create, DarkMode, LightMode, PersonAdd } from '@mui/icons-material'; // Ícones novos
+import InfoIcon from '@mui/icons-material/Info';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import {
     Box,
@@ -12,6 +13,7 @@ import {
     Typography
 } from '@mui/material';
 import { useState } from 'react';
+import AboutDialog from './AboutDialog';
 import DialogAssinatura from './DialogAssinatura';
 import DialogNomeSocial from './DialogNomeSocial'; // Importe o Dialog de Nome Social
 import NovoMapaDialog from './NovoMapaDialog';
@@ -35,6 +37,7 @@ const Sidebar = ({
   const [openMapaDialog, setOpenMapaDialog] = useState(false);
   const [openSocialDialog, setOpenSocialDialog] = useState(false); // Estado para o dialog de nome social
   const [openAssinaturaDialog, setOpenAssinaturaDialog] = useState(false);
+  const [openAbout, setOpenAbout] = useState(false);
   
 
   // Handlers para o Mapa
@@ -120,6 +123,12 @@ const Sidebar = ({
         <Box>
           <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.12)' }} />
           <List>
+            <ListItem button onClick={() => setOpenAbout(true)}>
+              <ListItemIcon>
+                <InfoIcon sx={{ color: '#ffffff' }} />
+              </ListItemIcon>
+              <ListItemText primary="Sobre" />
+            </ListItem>
             <ListItem button onClick={toggleDarkMode}>
               <ListItemIcon>
                 {darkMode ? <LightMode sx={{ color: '#ffffff' }} /> : <DarkMode sx={{ color: '#ffffff' }} />}
@@ -136,15 +145,17 @@ const Sidebar = ({
       <DialogNomeSocial 
         open={openSocialDialog} 
         onClose={handleCloseSocial} 
-        onSave={onSaveNomeSocial} // Passa a função que vem do App
+        onSave={onSaveNomeSocial} 
       />
       <DialogAssinatura 
         open={openAssinaturaDialog}
         onClose={() => setOpenAssinaturaDialog(false)}
         nomeSocial={nomesSociais.length > 0 ? nomesSociais[nomesSociais.length - 1].nome : ''}
-        onSalvar={onSalvarAssinatura} // <--- O ERRO ESTAVA AQUI (Verifique se o App passa essa prop pro Sidebar)
+        onSalvar={onSalvarAssinatura} 
       />
+      <AboutDialog open={openAbout} onClose={() => setOpenAbout(false)} />
     </>
+
   );
 };
 
