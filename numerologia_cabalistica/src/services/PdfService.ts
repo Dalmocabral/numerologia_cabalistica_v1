@@ -62,29 +62,32 @@ import { calcularTendenciasOcultas } from "../utils/CalculoTendenciasOcultas";
 import { findSequences, generateInvertedPyramid } from "../utils/generateInvertedPyramid";
 
 import {
-    anoPessoalDescritivo,
-    arcanos,
-    caracteristicasDiaNascimento,
-    CicloVida,
-    desafios as desafiosTextos,
-    destinoTextos,
-    diaPessoal as diaPessoalTextos,
-    dividasCarmicasTextos,
-    expressaoTextos,
-    impressaoTextos,
-    licoesCarmicasTexto,
-    mesesPessoal,
-    missaoTextos,
-    momentosDecisivos as momentosDecisivosTextos,
-    motivacaoTextos,
-    quartoMomentoDecisivo,
-    respostaSubconsciente,
-    segundoCicloVida,
-    segundoMomentoDecisivo,
-    sequenciaNegativa,
-    tendenciaOculta,
-    terceiroCicloVida,
-    terceiroMomentoDecisivo
+  anoPessoalDescritivo,
+  arcanos,
+  caracteristicasDiaNascimento,
+  CicloVida,
+  desafios as desafiosTextos,
+  destinoTextos,
+  diaPessoal as diaPessoalTextos,
+  dividasCarmicasTextos,
+  expressaoTextos,
+  impressaoTextos,
+  licoesCarmicasTexto,
+  mesesPessoal,
+  missaoTextos,
+  momentosDecisivos as momentosDecisivosTextos,
+  motivacaoTextos,
+  perfilAmoroso,
+  quartoMomentoDecisivo,
+  respostaSubconsciente,
+  segundoCicloVida,
+  segundoMomentoDecisivo,
+  sequenciaNegativa,
+  tendenciaOculta,
+  terceiroCicloVida,
+  terceiroMomentoDecisivo,
+  textoCompatibilidade,
+  textoExplicativoHarmonia
 } from "../utils/TabelaNumerologia";
 
 // =================================================================
@@ -770,7 +773,37 @@ export const generatePDF = async (data, selectedSections) => {
           y = printWrappedText("A Harmonia Conjugal analisa a combinação vibracional entre duas pessoas. Ela mostra como as energias se unem, onde existe fluidez, onde podem surgir conflitos e como fortalecer o relacionamento. Não é um mapa de destino, mas um manual de compreensão mútua: ajuda a enxergar o outro com mais clareza, respeito e afeto.", y);
           y += 10;
 
+          // ===================================
+          // NOVO: Entendendo os Termos
+          // ===================================
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(14);
+          doc.text("Entendendo os Termos:", CONFIG.margin, y);
+          y += 8;
+          
+          const termos = [
+            { t: "Vibra com", d: textoExplicativoHarmonia.vibra },
+            { t: "Atrai", d: textoExplicativoHarmonia.atrai },
+            { t: "É Oposto", d: textoExplicativoHarmonia.oposto },
+            { t: "Passivo", d: textoExplicativoHarmonia.passivo }
+          ];
+
+          termos.forEach(termo => {
+            y = checkPageBreak(y, 30);
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(11);
+            doc.text(`• ${termo.t}:`, CONFIG.margin, y);
+            // Pequeno recuo para a descrição
+            y += 6;
+            y = printWrappedText(termo.d, y, 10, "normal", CONFIG.colorBlack, CONFIG.margin + 5, 160);
+            y += 5;
+          });
+          y += 5;
+
+
           if (harmoniaComp) {
+            y = checkPageBreak(y, 100);
+            // Tabela Lado a Lado (Original)
             const colWidth = 80;
             const gap = 10;
             const x1 = CONFIG.margin;
@@ -789,6 +822,8 @@ export const generatePDF = async (data, selectedSections) => {
             doc.text(`Base: ${harmoniaComp.numero}`, x2 + (colWidth / 2), y + 5, { align: "center" });
             y += 10;
 
+            // ... (Rest of table logic remains, but simplified here for inserting profiles after)
+            
             // FUNÇÃO CORRIGIDA: Verifica se há números em comum entre as mesmas categorias
             const temCorrespondencia = (campo, harmoniaLocal, harmoniaComparacao) => {
               if (!harmoniaComparacao) return false;
@@ -818,88 +853,175 @@ export const generatePDF = async (data, selectedSections) => {
 
             // Função modificada para desenhar tabela com destaque
             const drawSideTable = (data, startX, startY, isCliente) => {
-              let curY = startY;
-              const cellH = 7;
-              const colW = colWidth / 2;
+               let curY = startY;
+               const cellH = 7;
+               const colW = colWidth / 2;
+ 
+               // Cabeçalho da tabela
+               doc.setFillColor(230, 230, 230);
+               doc.setTextColor(0, 0, 0);
+               doc.setFontSize(9);
+               doc.setFont("helvetica", "bold");
+               doc.rect(startX, curY, colW, cellH, 'F');
+               doc.text("Tipo", startX + 2, curY + 5);
+               doc.rect(startX + colW, curY, colW, cellH, 'F');
+               doc.text("Números", startX + colW + 2, curY + 5);
+               curY += cellH;
+ 
+               doc.setFont("helvetica", "normal");
+ 
+               // Para cada linha de dados
+               data.forEach(row => {
+                 // Verificar se há correspondência usando a nova lógica
+                 const campo = row.campo;
+                 const temCorresp = isCliente
+                   ? temCorrespondencia(campo, harmonia, harmoniaComp)
+                   : temCorrespondencia(campo, harmoniaComp, harmonia);
+ 
+                 // Desenhar célula do tipo
+                 doc.setDrawColor(200);
+                 doc.rect(startX, curY, colW, cellH);
+ 
+                 // Desenhar célula dos números - com destaque se houver correspondência
+                 if (temCorresp) {
+                   // Fundo verde para destaque
+                   doc.setFillColor(232, 245, 233); // Verde claro #e8f5e9
+                   doc.rect(startX + colW, curY, colW, cellH, 'F');
+                   doc.setTextColor(27, 94, 32); // Verde escuro #1b5e20
+                   doc.setFont("helvetica", "bold");
+                 } else {
+                   doc.rect(startX + colW, curY, colW, cellH);
+                   doc.setTextColor(0, 0, 0);
+                   doc.setFont("helvetica", "normal");
+                 }
+ 
+                 // Texto do tipo
+                 doc.setTextColor(0, 0, 0);
+                 doc.setFont("helvetica", "normal");
+                 doc.text(String(row.label), startX + 2, curY + 5);
+ 
+                 // Texto dos números
+                 const valText = String(row.value || "");
+                 const valLines = doc.splitTextToSize(valText, colW - 4);
+                 doc.text(valLines, startX + colW + 2, curY + 5);
+ 
+                 curY += cellH;
+               });
+ 
+               return curY;
+             };
 
-              // Cabeçalho da tabela
-              doc.setFillColor(230, 230, 230);
-              doc.setTextColor(0, 0, 0);
-              doc.setFontSize(9);
-              doc.setFont("helvetica", "bold");
-              doc.rect(startX, curY, colW, cellH, 'F');
-              doc.text("Tipo", startX + 2, curY + 5);
-              doc.rect(startX + colW, curY, colW, cellH, 'F');
-              doc.text("Números", startX + colW + 2, curY + 5);
-              curY += cellH;
+             // Preparar dados para as tabelas
+             const dados1 = [
+               { label: "Vibra com", value: harmonia.vibraCom, campo: "vibraCom" },
+               { label: "Atrai", value: harmonia.atrai, campo: "atrai" },
+               { label: "Oposto", value: harmonia.oposto, campo: "oposto" },
+               { label: "Passivo", value: harmonia.passivo, campo: "passivo" }
+             ];
+ 
+             const dados2 = [
+               { label: "Vibra com", value: harmoniaComp.vibraCom, campo: "vibraCom" },
+               { label: "Atrai", value: harmoniaComp.atrai, campo: "atrai" },
+               { label: "Oposto", value: harmoniaComp.oposto, campo: "oposto" },
+               { label: "Passivo", value: harmoniaComp.passivo, campo: "passivo" }
+             ];
+ 
+             // Desenhar as duas tabelas
+             const endY1 = drawSideTable(dados1, x1, y, true);
+             const endY2 = drawSideTable(dados2, x2, y, false);
+             y = Math.max(endY1, endY2) + 20;
 
-              doc.setFont("helvetica", "normal");
+             // ===================================
+             // NOVO: Análise de Compatibilidade (Texto do Casal)
+             // ===================================
+             y = checkPageBreak(y, 60);
 
-              // Para cada linha de dados
-              data.forEach(row => {
-                // Verificar se há correspondência usando a nova lógica
-                const campo = row.campo;
-                const temCorresp = isCliente
-                  ? temCorrespondencia(campo, harmonia, harmoniaComp)
-                  : temCorrespondencia(campo, harmoniaComp, harmonia);
+             // Define Helper to get Relationship Type based on one's list containing the other's base
+             const getRelationshipType = (baseProcurada, tabelaDoOutro) => {
+                if(tabelaDoOutro.vibraCom == baseProcurada) return 'vibra';
+                if(String(tabelaDoOutro.atrai).split(',').map(s=>s.trim()).includes(String(baseProcurada))) return 'atrai';
+                if(String(tabelaDoOutro.oposto).split(',').map(s=>s.trim()).includes(String(baseProcurada))) return 'oposto';
+                if(String(tabelaDoOutro.passivo).split(',').map(s=>s.trim()).includes(String(baseProcurada))) return 'passivo';
+                return null;
+             };
 
-                // Desenhar célula do tipo
-                doc.setDrawColor(200);
-                doc.rect(startX, curY, colW, cellH);
+             const tipoRelacao = getRelationshipType(harmonia.numero, harmoniaComp); // Check if Client Base (harmonia.numero) is in Partner's Table (harmoniaComp)
+             
+             doc.setFont("helvetica", "bold");
+             doc.setFontSize(14);
+             doc.setTextColor(CONFIG.colorBlack);
+             doc.text("Análise da Compatibilidade:", CONFIG.margin, y);
+             y += 10;
 
-                // Desenhar célula dos números - com destaque se houver correspondência
-                if (temCorresp) {
-                  // Fundo verde para destaque
-                  doc.setFillColor(232, 245, 233); // Verde claro #e8f5e9
-                  doc.rect(startX + colW, curY, colW, cellH, 'F');
-                  doc.setTextColor(27, 94, 32); // Verde escuro #1b5e20
-                  doc.setFont("helvetica", "bold");
-                } else {
-                  doc.rect(startX + colW, curY, colW, cellH);
-                  doc.setTextColor(0, 0, 0);
-                  doc.setFont("helvetica", "normal");
-                }
+             if (tipoRelacao && textoCompatibilidade.casal[tipoRelacao]) {
+                // Print Intro
+                y = printWrappedText(textoCompatibilidade.casal.intro, y);
+                y += 5;
+                
+                // Print Specific Result with Highlight
+                doc.setFillColor(232, 245, 233); // Light Green box
+                doc.rect(CONFIG.margin - 2, y - 2, CONFIG.pageWidth - (CONFIG.margin*2) + 4, 30, 'F'); // Approximate height, text will overlay
+                
+                doc.setTextColor(27, 94, 32); // Dark Green Text
+                doc.setFont("helvetica", "bold");
+                y = printWrappedText(textoCompatibilidade.casal[tipoRelacao], y);
+                doc.setTextColor(CONFIG.colorBlack); // Reset
+             } else {
+                 y = printWrappedText("Não foi possível determinar uma compatibilidade padrão direta com base nos números principais. Isso indica uma relação complexa e única.", y);
+             }
+             y += 15;
 
-                // Texto do tipo
-                doc.setTextColor(0, 0, 0);
-                doc.setFont("helvetica", "normal");
-                doc.text(String(row.label), startX + 2, curY + 5);
+            // ===================================
+            // NOVO: Perfil Amoroso
+            // ===================================
+            // Perfil 1 (Cliente)
+             y = checkPageBreak(y, 60);
+             doc.setFont("helvetica", "bold");
+             doc.setFontSize(14);
+             doc.setTextColor(CONFIG.colorBlue);
+             doc.text(`Perfil Amoroso: ${nomeCliente}`, CONFIG.margin, y);
+             y += 10;
+             
+             if(perfilAmoroso[harmonia.numero]) {
+                y = printWrappedText(perfilAmoroso[harmonia.numero], y);
+             } else {
+                y = printWrappedText("Descrição não disponível.", y);
+             }
+             y += 15;
 
-                // Texto dos números
-                const valText = String(row.value || "");
-                const valLines = doc.splitTextToSize(valText, colW - 4);
-                doc.text(valLines, startX + colW + 2, curY + 5);
+             // Perfil 2 (Companheiro)
+             y = checkPageBreak(y, 60);
+             doc.setFont("helvetica", "bold");
+             doc.setFontSize(14);
+             doc.setTextColor(139, 0, 0);
+             doc.text(`Perfil Amoroso: ${nomeCompanheiro}`, CONFIG.margin, y);
+             y += 10;
+             
+             if(perfilAmoroso[harmoniaComp.numero]) {
+                y = printWrappedText(perfilAmoroso[harmoniaComp.numero], y);
+             } else {
+                 y = printWrappedText("Descrição não disponível.", y);
+             }
+             y += 10;
 
-                curY += cellH;
-              });
 
-              return curY;
-            };
-
-            // Preparar dados para as tabelas
-            const dados1 = [
-              { label: "Vibra com", value: harmonia.vibraCom, campo: "vibraCom" },
-              { label: "Atrai", value: harmonia.atrai, campo: "atrai" },
-              { label: "Oposto", value: harmonia.oposto, campo: "oposto" },
-              { label: "Passivo", value: harmonia.passivo, campo: "passivo" }
-            ];
-
-            const dados2 = [
-              { label: "Vibra com", value: harmoniaComp.vibraCom, campo: "vibraCom" },
-              { label: "Atrai", value: harmoniaComp.atrai, campo: "atrai" },
-              { label: "Oposto", value: harmoniaComp.oposto, campo: "oposto" },
-              { label: "Passivo", value: harmoniaComp.passivo, campo: "passivo" }
-            ];
-
-            // Desenhar as duas tabelas
-            const endY1 = drawSideTable(dados1, x1, y, true);
-            const endY2 = drawSideTable(dados2, x2, y, false);
-            y = Math.max(endY1, endY2) + 15;
 
            
 
           } else {
-            // Código para quando não há companheiro (mantenha como estava)
+             // ===================================
+             // CASO SOLTEIRO
+             // ===================================
+             y = checkPageBreak(y, 60);
+             doc.setFont("helvetica", "bold");
+             doc.setFontSize(14);
+             doc.setTextColor(CONFIG.colorBlack);
+             doc.text("Análise de Compatibilidade (Individual):", CONFIG.margin, y);
+             y += 10;
+             y = printWrappedText(textoCompatibilidade.solteiro, y);
+             y += 15;
+
+            // Código para quando não há companheiro
             doc.setFont("helvetica", "bold");
             doc.setTextColor(CONFIG.colorBlack);
             doc.text(`Número Base: ${harmonia.numero}`, CONFIG.margin, y);
