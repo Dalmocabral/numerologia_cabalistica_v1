@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from 'react';
 import {
-  Dialog, DialogTitle, DialogContent, DialogActions,
-  Button, FormControlLabel, Checkbox, FormGroup, Grid
+    Button,
+    Checkbox,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    FormControlLabel,
+    FormGroup, Grid
 } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 const SECTIONS = [
   { id: 'motivacao', label: 'Motivação' },
@@ -27,6 +33,7 @@ const SECTIONS = [
   { id: 'nomesSociais', label: 'Nomes Sociais' },
   { id: 'previsoes', label: 'Arcanos de Trânsito' },
   { id: 'assinatura', label: 'Assinatura do Poder' },
+  { id: 'vocacao', label: 'Orientação Profissional' },
 ];
 
 const PdfSelectionDialog = ({ open, onClose, onConfirm }) => {

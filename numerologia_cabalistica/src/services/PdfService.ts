@@ -39,6 +39,23 @@ const prepareWatermarkImage = (url, opacity = 0.1) => {
     });
 };
 
+const loadImage = (url) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.src = url;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        resolve(canvas.toDataURL('image/png'));
+      };
+      img.onerror = () => resolve(null);
+    });
+};
+
 // =================================================================
 // 1. IMPORTAÇÕES DE CÁLCULOS E DADOS
 // =================================================================
@@ -87,7 +104,8 @@ import {
   terceiroCicloVida,
   terceiroMomentoDecisivo,
   textoCompatibilidade,
-  textoExplicativoHarmonia
+  textoExplicativoHarmonia, // FIXED: removed duplicate
+  vocacaoTextos
 } from "../utils/TabelaNumerologia";
 
 // =================================================================
@@ -1193,6 +1211,48 @@ export const generatePDF = async (data, selectedSections) => {
         }
       }
 
+
+
+      // ===============================================
+      // NOVA SEÇÃO: ORIENTAÇÃO PROFISSIONAL (VOCACÃO)
+      // ===============================================
+      if (selectedSections.vocacao && dataNascimento) {
+          const destinoVal = calcularDestino(dataNascimento);
+          
+          y = checkPageBreak(y, 100);
+          y = printSectionTitle("Orientação Profissional");
+          addToIndex("Orientação Profissional");
+          
+          y = printWrappedText("A Numerologia Cabalística não apenas revela traços de personalidade, mas também aponta caminhos profissionais onde seus talentos naturais podem fluir com maior facilidade e sucesso. Esta análise baseia-se na vibração do seu Número de Destino, que indica o seu propósito de realização no mundo.", y);
+          y += 10;
+          
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(14);
+          doc.setTextColor(CONFIG.colorBlue);
+          doc.text(`Caminho Profissional (Baseado no Destino ${destinoVal}):`, CONFIG.margin, y);
+          y += 10;
+          
+          const vocacao = vocacaoTextos[destinoVal];
+          if (vocacao) {
+              doc.setFont("helvetica", "bold");
+              doc.setFontSize(12);
+              doc.setTextColor(CONFIG.colorBlack);
+              doc.text("Aptidões Naturais:", CONFIG.margin, y);
+              y += 7;
+              
+              y = printWrappedText(vocacao.aptidoes, y);
+              y += 5;
+              
+              doc.setFont("helvetica", "bold");
+              doc.text("Áreas de Atuação Sugeridas:", CONFIG.margin, y);
+              y += 7;
+              
+              y = printWrappedText(vocacao.areas, y);
+          } else {
+              y = printWrappedText(`Descrição específica não disponível para o número ${destinoVal}. Recomenda-se analisar o Número de Expressão e Motivação para mais detalhes.`, y);
+          }
+          y += 15;
+      }
       // 25. ASSINATURA DO PODER
       if (selectedSections.assinatura && assinatura) {
         doc.addPage(); addWatermarkHelper(); y = CONFIG.margin;

@@ -18,6 +18,57 @@ export const tabelaAcentos = {
 
 export const vogais = ['A', 'E', 'I', 'O', 'U', 'Y'];
 
+export const vocacaoTextos = {
+  1: {
+    aptidoes: "Liderança, iniciativa, originalidade, independência, coragem e determinação.",
+    areas: "Empresário, Diretor, Gerente, Advogado, Engenheiro, Inventor, Produtor, Militar, Publicitário, Vendedor."
+  },
+  2: {
+    aptidoes: "Diplomacia, cooperação, paciência, atenção aos detalhes, sensibilidade e facilidade para trabalhar em equipe.",
+    areas: "Psicólogo, Assistente Social, Professor, Secretário, Bibliotecário, Diplomata, Político, Escritor, Artista (música/dança)."
+  },
+  3: {
+    aptidoes: "Comunicação, criatividade, otimismo, entusiasmo, sociabilidade e expressão artística.",
+    areas: "Ator, Cantor, Escritor, Jornalista, Publicitário, Vendedor, Decorador, Designer, Fotógrafo, Professor."
+  },
+  4: {
+    aptidoes: "Organização, disciplina, praticidade, honestidade, lealdade e habilidade manual.",
+    areas: "Engenheiro, Arquiteto, Contador, Administrador, Militar, Policial, Mecânico, Carpinteiro, Agricultor, Químico."
+  },
+  5: {
+    aptidoes: "Versatilidade, adaptabilidade, curiosidade, agilidade mental, gosto por mudanças e viagens.",
+    areas: "Vendedor, Agente de Viagens, Guia Turístico, Jornalista, Publicitário, Detetive, Piloto, Comissário de Bordo, Ator."
+  },
+  6: {
+    aptidoes: "Responsabilidade, conselheiro, senso de justiça, amor ao lar e à família, habilidade para cuidar e ensinar.",
+    areas: "Médico, Enfermeiro, Professor, Assistente Social, Psicólogo, Decorador, Esteticista, Cozinheiro, Artista, Advogado de Família."
+  },
+  7: {
+    aptidoes: "Analítico, introspectivo, intuitivo, perfeccionista, gosto pelo conhecimento e pela pesquisa.",
+    areas: "Cientista, Pesquisador, Filósofo, Escritor, Professor Universitário, Religioso, Esotérico, Psicólogo, Programador."
+  },
+  8: {
+    aptidoes: "Liderança, organização, ambição, visão de negócios, justiça e eficiência administrativa.",
+    areas: "Empresário, Executivo, Banquiro, Corretor de Imóveis, Advogado, Juiz, Político, Engenheiro, Administrador Hospitalar."
+  },
+  9: {
+    aptidoes: "Humanitarismo, generosidade, compaixão, intuição, talento artístico e desejo de ajudar o próximo.",
+    areas: "Médico, Enfermeiro, Assistente Social, Filantropo, Artista, Escritor, Advogado de Direitos Humanos, Missionário, Professor."
+  },
+  11: {
+    aptidoes: "Inspiração, intuição, idealismo, liderança espiritual e capacidade de influenciar pessoas.",
+    areas: "Líder Espiritual, Filósofo, Escritor, Artista, Psicólogo, Psicanalista, Astrólogo, Numerólogo, Diplomata, Inventor."
+  },
+  22: {
+    aptidoes: "Visão global, capacidade de realização em grande escala, liderança internacional e idealismo prático.",
+    areas: "Estadista, Embaixador, Diretor de Multinacional, Arquiteto de Grandes Obras, Engenheiro (projetos globais), Filantropo Internacional."
+  },
+  33: {
+     aptidoes: "Amor incondicional, serviço abnegado, cura espiritual e aconselhamento.",
+     areas: "Mestre Espiritual, Curador, Líder de ONG Humanitária, Conselheiro de Grandes Causas."
+  }
+};
+
 export const tabelaNumerologia = [
   {
     numero: 1,
