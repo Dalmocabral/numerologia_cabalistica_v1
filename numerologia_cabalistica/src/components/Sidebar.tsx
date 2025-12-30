@@ -1,5 +1,5 @@
 // src/components/Sidebar.jsx
-import { Add, Create, DarkMode, LightMode, PersonAdd } from '@mui/icons-material'; // Ícones novos
+import { Add, Create, DarkMode, LightMode, Logout, PersonAdd } from '@mui/icons-material'; // Ícones novos
 import InfoIcon from '@mui/icons-material/Info';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import {
@@ -13,6 +13,7 @@ import {
     Typography
 } from '@mui/material';
 import { useState } from 'react';
+import { useLicense } from '../contexts/LicenseContext';
 import AboutDialog from './AboutDialog';
 import DialogAssinatura from './DialogAssinatura';
 import DialogNomeSocial from './DialogNomeSocial'; // Importe o Dialog de Nome Social
@@ -38,6 +39,7 @@ const Sidebar = ({
   const [openSocialDialog, setOpenSocialDialog] = useState(false); // Estado para o dialog de nome social
   const [openAssinaturaDialog, setOpenAssinaturaDialog] = useState(false);
   const [openAbout, setOpenAbout] = useState(false);
+  const { logout } = useLicense();
   
 
   // Handlers para o Mapa
@@ -134,6 +136,12 @@ const Sidebar = ({
                 {darkMode ? <LightMode sx={{ color: '#ffffff' }} /> : <DarkMode sx={{ color: '#ffffff' }} />}
               </ListItemIcon>
               <ListItemText primary={darkMode ? 'Modo Claro' : 'Modo Escuro'} />
+            </ListItem>
+            <ListItem button onClick={logout}>
+              <ListItemIcon>
+                <Logout sx={{ color: '#ff4444' }} />
+              </ListItemIcon>
+              <ListItemText primary="Sair / Logout" sx={{ color: '#ff4444' }} />
             </ListItem>
           </List>
         </Box>

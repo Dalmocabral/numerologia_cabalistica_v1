@@ -1,19 +1,21 @@
-import { Close, Code, GitHub, LinkedIn } from '@mui/icons-material';
+import { CheckCircle, Close, Code, Email, GitHub, Key, LinkedIn } from '@mui/icons-material';
 import {
-    Box,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    Divider,
-    IconButton,
-    Link,
-    Typography,
-    useTheme
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  IconButton,
+  Link,
+  Typography,
+  useTheme
 } from '@mui/material';
+import { useLicense } from '../contexts/LicenseContext';
 
 const AboutDialog = ({ open, onClose }) => {
   const theme = useTheme();
+  const { licenseData } = useLicense();
 
   return (
     <Dialog 
@@ -79,6 +81,36 @@ const AboutDialog = ({ open, onClose }) => {
                  Versão 1.0.0
              </Typography>
           </Box>
+
+          {/* Seção de Licença */}
+          {licenseData && (
+             <Box sx={{ width: '100%', mb: 3, textAlign: 'left', bgcolor: 'background.paper', p: 2, borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Key fontSize="small" color="primary" /> Informações da Licença
+                </Typography>
+                
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                    <Email fontSize="small" color="action" />
+                    <Typography variant="body2">
+                        {licenseData.email}
+                    </Typography>
+                </Box>
+                
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                    <Key fontSize="small" color="action" />
+                    <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
+                        {licenseData.key}
+                    </Typography>
+                </Box>
+
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <CheckCircle fontSize="small" color="success" />
+                    <Typography variant="body2" color="success.main" sx={{ fontWeight: 'bold' }}>
+                        Ativo
+                    </Typography>
+                </Box>
+             </Box>
+          )}
 
           <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
             Desenvolvido por:

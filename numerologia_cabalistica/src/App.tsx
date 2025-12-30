@@ -8,6 +8,9 @@ import Sidebar from './components/Sidebar';
 import WelcomeScreen from './components/WelcomeScreen';
 import { useNumerology } from './hooks/useNumerology';
 
+import AdminPanel from './components/AdminPanel';
+import { RequireLicense } from './components/RequireLicense';
+
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
@@ -81,9 +84,19 @@ const App = () => {
         <CssBaseline />
         <div style={{ marginLeft: 240, padding: '16px', minHeight: '100vh' }}>
             <Routes>
-                <Route path="/" element={<WelcomeScreen />} />
+                {/* Rota Pública de Admin */}
+                <Route path="/admin-secreto" element={<AdminPanel />} />
+
+                {/* Rotas Protegidas */}
+                <Route path="/" element={
+                  <RequireLicense>
+                    <WelcomeScreen />
+                  </RequireLicense>
+                } />
+                
                 <Route path="/mapa" element={
-                    nome ? (
+                  <RequireLicense>
+                    {nome ? (
                         <NumerologyDashboard
                             nome={nome}
                             dataNascimento={dataNascimento}
@@ -102,7 +115,8 @@ const App = () => {
                         />
                     ) : (
                         <Navigate to="/" replace />
-                    )
+                    )}
+                  </RequireLicense>
                 } />
                 {/* Fallback */}
                 <Route path="*" element={<Navigate to="/" replace />} />
