@@ -5,7 +5,7 @@ import { useState } from 'react';
 import NomeNumerologia from '../components/NomeNumerologia';
 import PiramideInvertida from "../components/PiramideInvertida";
 import TabelaArcanosTransito from '../components/TabelaArcanosTransito';
-import { arcanos } from '../utils/TabelaNumerologia';
+import { arcanos, vocacaoTextos } from '../utils/TabelaNumerologia';
 
 // Estilos personalizados para as células da tabela (Duplicated for now, will be moved to shared styles later)
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -128,6 +128,21 @@ const NumerologyDashboard = ({
                     <TextField label="Nome social" value={nomeSocial} disabled fullWidth sx={{ mt: 2 }} />
                     <TextField label="Arcano Taro" value={profile.arcanoPessoal} disabled fullWidth sx={{ mt: 2 }} />
                     <TextField label="Arcano Cabalística" value={profile.arcanoCabalistico} disabled fullWidth sx={{ mt: 2 }} />
+                </Box>
+
+                {/* Vocation Section */}
+                 <Box sx={{ mt: 2 }}>
+                    <TextField
+                        label="Profissão / Aptidões (Baseado no Destino)"
+                        value={
+                             vocacaoTextos[profile.destino] 
+                             ? `Aptidões: ${vocacaoTextos[profile.destino].aptidoes}\n\nÁreas Sugeridas: ${vocacaoTextos[profile.destino].areas}`
+                             : "Descrição não disponível para este número de destino."
+                        }
+                        multiline
+                        disabled
+                        fullWidth
+                    />
                 </Box>
                 
                 {/* Social Names Table */}

@@ -18,6 +18,57 @@ export const tabelaAcentos = {
 
 export const vogais = ['A', 'E', 'I', 'O', 'U', 'Y'];
 
+export const vocacaoTextos = {
+  1: {
+    aptidoes: "Liderança, iniciativa, originalidade, independência, coragem e determinação.",
+    areas: "Empresário, Diretor, Gerente, Advogado, Engenheiro, Inventor, Produtor, Militar, Publicitário, Vendedor."
+  },
+  2: {
+    aptidoes: "Diplomacia, cooperação, paciência, atenção aos detalhes, sensibilidade e facilidade para trabalhar em equipe.",
+    areas: "Psicólogo, Assistente Social, Professor, Secretário, Bibliotecário, Diplomata, Político, Escritor, Artista (música/dança)."
+  },
+  3: {
+    aptidoes: "Comunicação, criatividade, otimismo, entusiasmo, sociabilidade e expressão artística.",
+    areas: "Ator, Cantor, Escritor, Jornalista, Publicitário, Vendedor, Decorador, Designer, Fotógrafo, Professor."
+  },
+  4: {
+    aptidoes: "Organização, disciplina, praticidade, honestidade, lealdade e habilidade manual.",
+    areas: "Engenheiro, Arquiteto, Contador, Administrador, Militar, Policial, Mecânico, Carpinteiro, Agricultor, Químico."
+  },
+  5: {
+    aptidoes: "Versatilidade, adaptabilidade, curiosidade, agilidade mental, gosto por mudanças e viagens.",
+    areas: "Vendedor, Agente de Viagens, Guia Turístico, Jornalista, Publicitário, Detetive, Piloto, Comissário de Bordo, Ator."
+  },
+  6: {
+    aptidoes: "Responsabilidade, conselheiro, senso de justiça, amor ao lar e à família, habilidade para cuidar e ensinar.",
+    areas: "Médico, Enfermeiro, Professor, Assistente Social, Psicólogo, Decorador, Esteticista, Cozinheiro, Artista, Advogado de Família."
+  },
+  7: {
+    aptidoes: "Analítico, introspectivo, intuitivo, perfeccionista, gosto pelo conhecimento e pela pesquisa.",
+    areas: "Cientista, Pesquisador, Filósofo, Escritor, Professor Universitário, Religioso, Esotérico, Psicólogo, Programador."
+  },
+  8: {
+    aptidoes: "Liderança, organização, ambição, visão de negócios, justiça e eficiência administrativa.",
+    areas: "Empresário, Executivo, Banquiro, Corretor de Imóveis, Advogado, Juiz, Político, Engenheiro, Administrador Hospitalar."
+  },
+  9: {
+    aptidoes: "Humanitarismo, generosidade, compaixão, intuição, talento artístico e desejo de ajudar o próximo.",
+    areas: "Médico, Enfermeiro, Assistente Social, Filantropo, Artista, Escritor, Advogado de Direitos Humanos, Missionário, Professor."
+  },
+  11: {
+    aptidoes: "Inspiração, intuição, idealismo, liderança espiritual e capacidade de influenciar pessoas.",
+    areas: "Líder Espiritual, Filósofo, Escritor, Artista, Psicólogo, Psicanalista, Astrólogo, Numerólogo, Diplomata, Inventor."
+  },
+  22: {
+    aptidoes: "Visão global, capacidade de realização em grande escala, liderança internacional e idealismo prático.",
+    areas: "Estadista, Embaixador, Diretor de Multinacional, Arquiteto de Grandes Obras, Engenheiro (projetos globais), Filantropo Internacional."
+  },
+  33: {
+     aptidoes: "Amor incondicional, serviço abnegado, cura espiritual e aconselhamento.",
+     areas: "Mestre Espiritual, Curador, Líder de ONG Humanitária, Conselheiro de Grandes Causas."
+  }
+};
+
 export const tabelaNumerologia = [
   {
     numero: 1,
@@ -509,8 +560,40 @@ e destruição em grande escala. Cultive a determinação e a persistência, e t
 sempre em benefício da humanidade, sem se esquecer de si próprio (a).`
 };
 
+export const textoExplicativoHarmonia = {
+  vibra: "Indica uma forte atração e compatibilidade natural. Existe uma química instantânea e um fluxo de energia que favorece o entendimento mútuo, a paixão e a parceria de longo prazo. É como se as almas se reconhecessem.",
+  atrai: "Indica complementariedade. Vocês possuem qualidades diferentes que se somam. Um tem o que falta ao outro, criando um equilíbrio dinâmico. Embora diferentes, essas energias se buscam para formar um todo mais completo.",
+  oposto: "Indica desafios que trazem crescimento. Vocês veem o mundo de formas muito diferentes ou até antagônicas. Isso pode gerar atrito e exigir muita diplomacia, mas também oferece a maior oportunidade de aprendizado e evolução se houver amor verdadeiro e respeito às diferenças.",
+  passivo: "Indica uma relação mais neutra, racional ou de convivência pacífica. Não há necessariamente uma atração magnética imediata nem grandes conflitos. A relação precisa ser alimentada com consciência e um dos parceiros pode precisar assumir a liderança para evitar a estagnação."
+};
 
 
+export const textoCompatibilidade = {
+  solteiro: "Como interpretar seus resultados:\nVocê está fazendo este mapa individualmente, mas ele é uma ferramenta poderosa para entender seus relacionamentos futuros. Observe as listas 'Vibra com', 'Atrai', 'Oposto' e 'Passivo' na tabela acima. \n\nQuando conhecer alguém, se você souber o número da Missão ou Destino dessa pessoa, poderá ver onde ela se encaixa para você:\n- Se estiver em 'Vibra com', espere uma química imediata.\n- Se estiver em 'Atrai', vocês se completarão nas diferenças.\n- Se estiver em 'Oposto', haverá muito aprendizado e necessidade de diálogo.\n- Se estiver em 'Passivo', a relação tenderá a ser tranquila e racional, pedindo iniciativa de sua parte.",
+  casal: {
+    intro: "Resultado da Compatibilidade do Casal:\nAnalisamos como o NÚMERO BASE de um aparece na tabela do outro. O resultado abaixo descreve a energia predominante na união de vocês:",
+    vibra: "Vocês possuem uma Compatibilidade Vibracional! (Vibra Com)\nIsso significa que existe uma afinidade natural e profunda. É aquele encontro onde a energia flui sem barreiras, a compreensão acontece no olhar e a sintonia é quase telepática. Vocês 'vibram' na mesma frequência, o que facilita a paixão e o entendimento mútuo. É uma relação leve e magnética.",
+    atrai: "Vocês possuem uma Compatibilidade de Atração! (Atrai)\nEsta é a união dos complementares. Vocês provavelmente têm temperamentos, talentos ou visões diferentes, e é exatamente isso que torna a relação rica. O que falta em um, sobra no outro. Vocês se atraem como peças de um quebra-cabeça. O desafio é valorizar essas diferenças em vez de tentar mudar o outro.",
+    oposto: "Vocês possuem uma Compatibilidade de Opostos! (É Oposto)\nAqui está a maior oportunidade de evolução. Vocês são como o Norte e o Sul. Isso pode gerar faíscas e desafios de entendimento no início, pois veem a vida por ângulos contrários. Porém, se houver respeito e amor, vocês se tornam uma dupla imbatível, cobrindo 360 graus da realidade. O segredo é a diplomacia.",
+    passivo: "Vocês possuem uma Compatibilidade Passiva! (Passivo)\nEsta é uma relação marcada pela paz, racionalidade e convivência tranquila. Não é uma união de conflitos explosivos, mas também pode carecer de 'fogo' e iniciativa se vocês não tomarem cuidado. Vocês se sentem bem juntos, como grandes amigos, mas precisam se esforçar conscientemente para trazer emoção, novidade e romance para não caírem na rotina ou no marasmo."
+  }
+};
+
+export const perfilAmoroso = {
+  1: "No amor, o Número 1 é independente, decidido e intenso. Gosta de tomar a iniciativa e liderar o relacionamento. Busca um par que respeite sua individualidade e admire suas conquistas. Pode ser protetor, mas precisa cuidar para não se tornar autoritário. A chama da paixão é mantida pela admiração mútua e pela novidade.",
+  2: "No amor, o Número 2 é a própria essência da parceria. Sensível, carinhoso e compreensivo, coloca a felicidade do outro muitas vezes acima da sua. Busca harmonia, paz e uma conexão emocional profunda. Detesta conflitos e precisa de demonstrações constantes de afeto e segurança para florescer.",
+  3: "No amor, o Número 3 é divertido, romântico e expressivo. Busca alegria, entusiasmo e uma vida social ativa. O relacionamento precisa ser leve, criativo e cheio de diálogo. Detesta a rotina e o silêncio. Conquista pelo charme e mantém o interesse através da admiração e do companheirismo em momentos felizes.",
+  4: "No amor, o Número 4 é leal, estável e tradicional. Não é dado a grandes dramas ou aventuras passageiras; busca compromisso sério e segurança. Demonstra amor através de atos concretos, cuidado e construção de um futuro sólido. É um porto seguro, mas pode precisar aprender a ser mais flexível e demonstrar mais sentimentos.",
+  5: "No amor, o Número 5 é magnético, aventureiro e sensual. Busca liberdade e novidade constante. A rotina é o maior inimigo da relação. Precisa de um parceiro que seja também um companheiro de viagens e descobertas, e que não seja possessivo. A atração física e mental devem caminhar juntas.",
+  6: "No amor, o Número 6 é dedicado, protetor e busca constituir família. Valoriza o lar, o conforto e a estabilidade emocional. É o arquétipo do cuidador, que quer ver todos bem. Pode ser idealista, exigindo perfeição do parceiro, ou tornar-se ciumento se sentir sua segurança ameaçada. O amor para ele é sinônimo de cuidado.",
+  7: "No amor, o Número 7 é seletivo, reservado e profundo. Não se entrega a qualquer relação superficial. Busca uma conexão de alma e intelectual, alguém que respeite seus momentos de silêncio e introspecção. Pode parecer frio externamente, mas possui sentimentos intensos e fiéis quando encontra a pessoa certa que compreende seu mundo interior.",
+  8: "No amor, o Número 8 é intenso, direto e busca um relacionamento poderoso. Valoriza parceiros que tenham ambição e força de caráter. Demonstra amor provendo segurança material e protegendo os seus. Pode tentar controlar a relação, mas respeita quem se posiciona com firmeza. Busca construir um império a dois.",
+  9: "No amor, o Número 9 é romântico, generoso e compassivo. Tende a idealizar o parceiro e a relação. Tem muito amor para dar e busca uma conexão que vá além do físico, algo quase espiritual. É tolerante e prestativo, mas pode se decepcionar quando a realidade não corresponde aos seus ideais elevados. Precisa de admiração e conexão de propósitos."
+
+
+
+
+};
 
 export const impressaoTextos = {
 
