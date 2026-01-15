@@ -102,7 +102,7 @@ const NumerologyDashboard = ({
 
                  <Box sx={{ mt: 2 }}>
                     <TextField
-                        label="Dias do Mês Favoráveis"
+                        label="Dias Favoráveis"
                         value={profile.diasFavoraveis}
                         disabled
                         fullWidth
