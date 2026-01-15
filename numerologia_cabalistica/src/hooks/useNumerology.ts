@@ -123,8 +123,28 @@ export const useNumerology = () => {
     }, [nomeCompanheiro, dataNascCompanheiro]);
 
 
+    // Force Refresh State
+    const [mapKey, setMapKey] = useState(0);
+
     // Handlers
     const handleSalvarNome = (novoNome, novaDataNascimento, novoMesInteresse, novoDiaInteresse, novoNomeComp, novaDataComp) => {
+        console.log('handleSalvarNome executado. Limpando estados...');
+        
+        // 1. Resetar estados visuais IMEDIATAMENTE antes de setar os novos dados
+        setNomeSocial('');
+        setNomesSociais([]);
+        setAssinatura(null);
+        
+        // 2. Limpar storage
+        try {
+            sessionStorage.removeItem('numerologia_nomesSociais');
+            sessionStorage.removeItem('numerologia_assinatura');
+            sessionStorage.removeItem('numerologia_nomeSocial'); 
+        } catch (e) {
+            console.error('Erro ao limpar storage', e);
+        }
+
+        // 3. Setar novos dados principais
         setNome(novoNome);
         setDataNascimento(novaDataNascimento);
         setMesInteresse(novoMesInteresse);
@@ -132,16 +152,13 @@ export const useNumerology = () => {
         setNomeCompanheiro(novoNomeComp);
         setDataNascCompanheiro(novaDataComp);
 
-        // Reset Auxiliary States
-        // User might want to keep social names maybe? For now let's reset to keep "New Map" semantics
-        setNomeSocial('');
-        setNomesSociais([]);
-        setAssinatura(null);
-
-        // Trigger Dependent Calculations (Legacy behavior compatibility)
+        // 4. Trigger calculations
         setHarmonicos(calcularNumeroHarmonico(novaDataNascimento));
         setNumeroExpressao(calcularExpressao(novoNome));
         setPiramide(generateInvertedPyramid(novoNome));
+
+        // 5. Forçar refresh da UI
+        setMapKey(prev => prev + 1);
     };
 
     const handleSaveNomeSocial = (novoNomeSocial, arcanoNumber) => {
@@ -174,6 +191,7 @@ export const useNumerology = () => {
         assinatura,
         harmonicos,
         piramide,
+        mapKey, // Exporting mapKey
         
         // Calculated Data
         profile,

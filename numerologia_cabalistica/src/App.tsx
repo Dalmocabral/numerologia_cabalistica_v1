@@ -25,6 +25,7 @@ const App = () => {
       piramide,
       profile,
       partnerProfile,
+      mapKey,
       handleSalvarNome,
       handleSaveNomeSocial,
       handleRemoverNomeSocial,
@@ -85,6 +86,7 @@ const App = () => {
                 <Route path="/mapa" element={
                     nome ? (
                         <NumerologyDashboard
+                            key={mapKey}
                             nome={nome}
                             dataNascimento={dataNascimento}
                             profile={profile}
