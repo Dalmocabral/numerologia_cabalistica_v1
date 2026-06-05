@@ -105,6 +105,8 @@ const App = () => {
       (window as any).ipcRenderer.invoke('check-for-updates').catch((err: any) => {
         setUpdateError(String(err));
       });
+    } else {
+      setUpdateError('Erro FATAL: Conexão com o sistema foi perdida (ipcRenderer undefined).');
     }
   };
 

@@ -71,6 +71,10 @@ app.on('activate', () => {
 import log from 'electron-log/main'
 
 log.initialize({ preload: true })
+log.info('=====================================')
+log.info('Aplicativo iniciado com sucesso! Versão:', app.getVersion())
+log.info('=====================================')
+
 autoUpdater.logger = log
 autoUpdater.autoDownload = false;
 
