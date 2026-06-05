@@ -1,8 +1,9 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Box, Button, Chip, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material';
 import { addDoc, collection, deleteDoc, doc, getDocs, query } from 'firebase/firestore';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
-import { db } from '../services/firebase';
+import { db, auth } from '../services/firebase';
 
 interface License {
   id: string;
@@ -16,18 +17,25 @@ const AdminPanel = () => {
   const [chave, setChave] = useState('');
   const [licenses, setLicenses] = useState<License[]>([]);
   const [loading, setLoading] = useState(false);
-  const [masterKey, setMasterKey] = useState('');
+  
+  // Login states
+  const [adminEmail, setAdminEmail] = useState('');
+  const [adminPassword, setAdminPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loginError, setLoginError] = useState('');
 
-  // Hardcoded simple protection
-  const MASTER_PASSWORD = "admin"; 
-
-  const handleLogin = () => {
-    if (masterKey === MASTER_PASSWORD) {
+  const handleLogin = async () => {
+    try {
+      setLoading(true);
+      setLoginError('');
+      await signInWithEmailAndPassword(auth, adminEmail, adminPassword);
       setIsAuthenticated(true);
       fetchLicenses();
-    } else {
-      alert("Senha incorreta");
+    } catch (error: any) {
+      console.error("Erro no login:", error);
+      setLoginError("Credenciais inválidas ou erro no servidor.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,7 +51,7 @@ const AdminPanel = () => {
       setLicenses(list);
     } catch (error) {
       console.error("Erro ao buscar licenças:", error);
-      alert("Erro ao buscar dados. Verifique se o Banco de Dados foi criado no Console do Firebase.");
+      alert("Erro ao buscar dados. Verifique permissões do Firebase.");
     } finally {
       setLoading(false);
     }
@@ -94,13 +102,21 @@ const AdminPanel = () => {
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 10, gap: 2 }}>
         <Typography variant="h4">Admin Login</Typography>
         <TextField 
-          type="password" 
-          label="Senha Mestra" 
-          value={masterKey} 
-          onChange={(e) => setMasterKey(e.target.value)} 
+          type="email" 
+          label="E-mail" 
+          value={adminEmail} 
+          onChange={(e) => setAdminEmail(e.target.value)} 
         />
-        <Button variant="contained" onClick={handleLogin}>Entrar</Button>
-        <Typography variant="caption" color="textSecondary">Senha: admin</Typography>
+        <TextField 
+          type="password" 
+          label="Senha" 
+          value={adminPassword} 
+          onChange={(e) => setAdminPassword(e.target.value)} 
+        />
+        {loginError && <Typography color="error">{loginError}</Typography>}
+        <Button variant="contained" onClick={handleLogin} disabled={loading}>
+          {loading ? "Entrando..." : "Entrar"}
+        </Button>
       </Box>
     );
   }

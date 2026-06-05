@@ -50,26 +50,40 @@ const App = () => {
   }, [nome, navigate]);
 
   // Auto-Update Logic
-  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [updateVersion, setUpdateVersion] = useState<string | null>(null);
+  const [downloadProgress, setDownloadProgress] = useState<number | null>(null);
   const [updateDownloaded, setUpdateDownloaded] = useState(false);
+  const [updateError, setUpdateError] = useState<string | null>(null);
 
   useEffect(() => {
     if ((window as any).ipcRenderer) {
-      (window as any).ipcRenderer.on('update-available', () => {
-        setUpdateAvailable(true);
+      (window as any).ipcRenderer.on('update-available', (event: any, version: string) => {
+        setUpdateVersion(version || 'Nova Versão');
+      });
+      (window as any).ipcRenderer.on('download-progress', (event: any, percent: number) => {
+        setDownloadProgress(percent);
       });
       (window as any).ipcRenderer.on('update-downloaded', () => {
         setUpdateDownloaded(true);
       });
+      (window as any).ipcRenderer.on('update-error', (event: any, err: string) => {
+        setUpdateError(err);
+      });
     }
   }, []);
+
+  const handleStartDownload = () => {
+    if ((window as any).ipcRenderer) {
+        setDownloadProgress(0); // Start progress
+        (window as any).ipcRenderer.send('start-download');
+    }
+  };
 
   const handleRestart = () => {
     if ((window as any).ipcRenderer) {
         (window as any).ipcRenderer.send('restart_app');
     }
   };
-
 
 
   const darkTheme = createTheme({ palette: { mode: 'dark' } });
@@ -97,6 +111,13 @@ const App = () => {
           assinatura={assinatura}
           nomeCompanheiro={nomeCompanheiro}
           dataNascimentoCompanheiro={dataNascCompanheiro}
+          // Updater props
+          updateVersion={updateVersion}
+          downloadProgress={downloadProgress}
+          updateDownloaded={updateDownloaded}
+          updateError={updateError}
+          onStartDownload={handleStartDownload}
+          onRestart={handleRestart}
         />
       </ThemeProvider>
 
@@ -146,34 +167,6 @@ const App = () => {
             </Routes>
         </div>
       </ThemeProvider>
-
-      {/* Update Notifications */}
-      <Snackbar 
-        open={updateAvailable} 
-        autoHideDuration={6000} 
-        onClose={() => setUpdateAvailable(false)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      >
-        <Alert severity="info" onClose={() => setUpdateAvailable(false)}>
-          Uma nova atualização está disponível. Baixando agora...
-        </Alert>
-      </Snackbar>
-
-      <Snackbar 
-        open={updateDownloaded} 
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      >
-        <Alert 
-          severity="success"
-          action={
-            <Button color="inherit" size="small" onClick={handleRestart}>
-              Reiniciar
-            </Button>
-          }
-        >
-          Atualização baixada. Reinicie para aplicar.
-        </Alert>
-      </Snackbar>
 
     </>
   );

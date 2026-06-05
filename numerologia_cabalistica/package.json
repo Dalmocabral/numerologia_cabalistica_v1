@@ -2,7 +2,7 @@
   "homepage": "https://dalmocabral.github.io/numerologia_cabalistica_v1",
   "name": "numerologia_cabalistica",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Dalmo Cabral",
   "description": "Numerologia Cabalística Desktop App",
   "build": {
@@ -20,9 +20,9 @@
       "output": "release"
     },
     "win": {
-        "target": [
-            "nsis"
-        ]
+      "target": [
+        "nsis"
+      ]
     }
   },
   "main": "dist-electron/main.js",
@@ -46,7 +46,6 @@
     "@mui/material": "^6.4.8",
     "electron-updater": "^6.6.2",
     "firebase": "^12.7.0",
-    "html2canvas": "^1.4.1",
     "jspdf": "^3.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -66,6 +66,8 @@ app.on('activate', () => {
   }
 })
 
+autoUpdater.autoDownload = false;
+
 app.whenReady().then(() => {
   createWindow()
   
@@ -74,15 +76,31 @@ app.whenReady().then(() => {
 })
 
 // Auto-updater events
-autoUpdater.on('update-available', () => {
-  win?.webContents.send('update-available')
+autoUpdater.on('update-available', (info) => {
+  win?.webContents.send('update-available', info.version)
+})
+
+autoUpdater.on('update-not-available', () => {
+  win?.webContents.send('update-not-available')
+})
+
+autoUpdater.on('download-progress', (progressObj) => {
+  win?.webContents.send('download-progress', progressObj.percent)
 })
 
 autoUpdater.on('update-downloaded', () => {
   win?.webContents.send('update-downloaded')
 })
 
+autoUpdater.on('error', (err) => {
+  win?.webContents.send('update-error', err.message)
+})
+
+// Listeners from frontend
+ipcMain.on('start-download', () => {
+  autoUpdater.downloadUpdate()
+})
+
 ipcMain.on('restart_app', () => {
   autoUpdater.quitAndInstall()
 })
-

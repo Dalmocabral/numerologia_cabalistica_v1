@@ -1,6 +1,7 @@
-import { CheckCircle, Close, Code, Email, GitHub, Key, LinkedIn } from '@mui/icons-material';
+import { CheckCircle, Close, Code, Email, GitHub, Key, LinkedIn, SystemUpdateAlt, ErrorOutline } from '@mui/icons-material';
 import {
   Box,
+  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -8,12 +9,22 @@ import {
   Divider,
   IconButton,
   Link,
+  LinearProgress,
   Typography,
   useTheme
 } from '@mui/material';
 import { useLicense } from '../contexts/LicenseContext';
 
-const AboutDialog = ({ open, onClose }) => {
+const AboutDialog = ({ 
+  open, 
+  onClose,
+  updateVersion,
+  downloadProgress,
+  updateDownloaded,
+  updateError,
+  onStartDownload,
+  onRestart 
+}) => {
   const theme = useTheme();
   const { licenseData } = useLicense();
 
@@ -78,9 +89,76 @@ const AboutDialog = ({ open, onClose }) => {
           
           <Box sx={{ bgcolor: 'action.hover', p: 2, borderRadius: 2, width: '100%', mb: 3 }}>
              <Typography variant="subtitle2" color="text.secondary">
-                 Versão 1.0.0
+                 Versão Atual: 1.0.0
              </Typography>
           </Box>
+
+          {/* Seção de AutoUpdate */}
+          {updateVersion && (
+             <Box sx={{ 
+                width: '100%', 
+                mb: 3, 
+                textAlign: 'left', 
+                bgcolor: 'info.main', 
+                color: 'info.contrastText',
+                p: 2, 
+                borderRadius: 2, 
+                boxShadow: 2
+             }}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <SystemUpdateAlt /> Nova Versão Disponível: {updateVersion}
+                </Typography>
+                
+                {updateError && (
+                  <Typography variant="body2" color="error.light" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <ErrorOutline fontSize="small" /> Erro no download: {updateError}
+                  </Typography>
+                )}
+
+                {updateDownloaded ? (
+                  <Box sx={{ mt: 2 }}>
+                    <Typography variant="body2" sx={{ mb: 2, fontWeight: 'medium' }}>
+                      Atualização baixada com sucesso! O aplicativo será reiniciado para aplicar a instalação.
+                    </Typography>
+                    <Button 
+                      variant="contained" 
+                      color="success" 
+                      fullWidth 
+                      onClick={onRestart}
+                      sx={{ fontWeight: 'bold' }}
+                    >
+                      Reiniciar e Instalar Agora
+                    </Button>
+                  </Box>
+                ) : downloadProgress !== null ? (
+                  <Box sx={{ mt: 2 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                      <Typography variant="body2">Baixando atualização...</Typography>
+                      <Typography variant="body2" sx={{ fontWeight: 'bold' }}>{Math.round(downloadProgress)}%</Typography>
+                    </Box>
+                    <LinearProgress 
+                      variant="determinate" 
+                      value={downloadProgress} 
+                      sx={{ height: 10, borderRadius: 5, backgroundColor: 'rgba(255,255,255,0.3)', '& .MuiLinearProgress-bar': { backgroundColor: 'white' } }} 
+                    />
+                  </Box>
+                ) : (
+                  <Box sx={{ mt: 2 }}>
+                    <Typography variant="body2" sx={{ mb: 2 }}>
+                      A versão mais recente traz melhorias e correções. Deseja baixar agora?
+                    </Typography>
+                    <Button 
+                      variant="contained" 
+                      sx={{ bgcolor: 'white', color: 'info.main', fontWeight: 'bold', '&:hover': { bgcolor: '#f0f0f0' } }} 
+                      fullWidth 
+                      onClick={onStartDownload}
+                    >
+                      Baixar Atualização (114 MB)
+                    </Button>
+                  </Box>
+                )}
+             </Box>
+          )}
 
           {/* Seção de Licença */}
           {licenseData && (

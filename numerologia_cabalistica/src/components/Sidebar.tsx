@@ -3,6 +3,7 @@ import { Add, Create, DarkMode, LightMode, PersonAdd } from '@mui/icons-material
 import InfoIcon from '@mui/icons-material/Info';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import {
+    Badge,
     Box,
     Divider,
     Drawer,
@@ -32,7 +33,13 @@ const Sidebar = ({
   assinatura,
   diaInteresse,
   nomeCompanheiro, 
-  dataNascimentoCompanheiro
+  dataNascimentoCompanheiro,
+  updateVersion,
+  downloadProgress,
+  updateDownloaded,
+  updateError,
+  onStartDownload,
+  onRestart
 }) => {
   const [openMapaDialog, setOpenMapaDialog] = useState(false);
   const [openSocialDialog, setOpenSocialDialog] = useState(false); // Estado para o dialog de nome social
@@ -125,7 +132,9 @@ const Sidebar = ({
           <List>
             <ListItem button onClick={() => setOpenAbout(true)}>
               <ListItemIcon>
-                <InfoIcon sx={{ color: '#ffffff' }} />
+                <Badge color="error" variant="dot" invisible={!updateVersion}>
+                  <InfoIcon sx={{ color: '#ffffff' }} />
+                </Badge>
               </ListItemIcon>
               <ListItemText primary="Sobre" />
             </ListItem>
@@ -153,7 +162,16 @@ const Sidebar = ({
         nomeSocial={nomesSociais.length > 0 ? nomesSociais[nomesSociais.length - 1].nome : ''}
         onSalvar={onSalvarAssinatura} 
       />
-      <AboutDialog open={openAbout} onClose={() => setOpenAbout(false)} />
+      <AboutDialog 
+        open={openAbout} 
+        onClose={() => setOpenAbout(false)}
+        updateVersion={updateVersion}
+        downloadProgress={downloadProgress}
+        updateDownloaded={updateDownloaded}
+        updateError={updateError}
+        onStartDownload={onStartDownload}
+        onRestart={onRestart}
+      />
     </>
 
   );
