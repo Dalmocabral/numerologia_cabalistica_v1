@@ -18,6 +18,7 @@ import { useLicense } from '../contexts/LicenseContext';
 const AboutDialog = ({ 
   open, 
   onClose,
+  currentVersion,
   updateVersion,
   downloadProgress,
   updateDownloaded,
@@ -89,7 +90,7 @@ const AboutDialog = ({
           
           <Box sx={{ bgcolor: 'action.hover', p: 2, borderRadius: 2, width: '100%', mb: 3 }}>
              <Typography variant="subtitle2" color="text.secondary">
-                 Versão Atual: 1.0.0
+                 Versão Atual: {currentVersion || 'Desconhecida'}
              </Typography>
           </Box>
 

@@ -34,6 +34,7 @@ const Sidebar = ({
   diaInteresse,
   nomeCompanheiro, 
   dataNascimentoCompanheiro,
+  currentVersion,
   updateVersion,
   downloadProgress,
   updateDownloaded,
@@ -165,6 +166,7 @@ const Sidebar = ({
       <AboutDialog 
         open={openAbout} 
         onClose={() => setOpenAbout(false)}
+        currentVersion={currentVersion}
         updateVersion={updateVersion}
         downloadProgress={downloadProgress}
         updateDownloaded={updateDownloaded}
