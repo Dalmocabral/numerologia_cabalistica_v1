@@ -68,6 +68,10 @@ app.on('activate', () => {
   }
 })
 
+import log from 'electron-log/main'
+
+log.initialize({ preload: true })
+autoUpdater.logger = log
 autoUpdater.autoDownload = false;
 
 app.whenReady().then(() => {
@@ -75,13 +79,18 @@ app.whenReady().then(() => {
 })
 
 ipcMain.handle('check-for-updates', async () => {
+  log.info('Frontend solicitou verificação de atualizações (botão clicado ou app montado).')
   if (app.isPackaged) {
     try {
+      log.info('Iniciando autoUpdater.checkForUpdates()...')
       await autoUpdater.checkForUpdates()
+      log.info('autoUpdater.checkForUpdates() concluído com sucesso.')
     } catch (error) {
+      log.error('Erro catastrofico no checkForUpdates:', error)
       win?.webContents.send('update-error', String(error))
     }
   } else {
+    log.info('Tentativa de atualizar no modo de desenvolvimento. Ignorado.')
     win?.webContents.send('update-error', 'Auto-update só funciona no app instalado (não no modo dev).')
   }
 })

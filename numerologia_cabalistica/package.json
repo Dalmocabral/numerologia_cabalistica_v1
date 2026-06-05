@@ -2,7 +2,7 @@
   "homepage": "https://dalmocabral.github.io/numerologia_cabalistica_v1",
   "name": "numerologia_cabalistica",
   "private": true,
-  "version": "1.0.8",
+  "version": "1.0.9",
   "author": "Dalmo Cabral",
   "description": "Numerologia Cabalística Desktop App",
   "build": {
@@ -44,6 +44,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.8",
     "@mui/material": "^6.4.8",
+    "electron-log": "^5.4.4",
     "electron-updater": "^6.6.2",
     "firebase": "^12.7.0",
     "jspdf": "^3.0.1",
