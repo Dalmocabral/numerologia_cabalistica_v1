@@ -50,7 +50,7 @@ const App = () => {
   }, [nome, navigate]);
 
   // Auto-Update Logic
-  const [currentVersion, setCurrentVersion] = useState<string>('1.0.0');
+  const [currentVersion, setCurrentVersion] = useState<string>('Carregando...');
   const [updateVersion, setUpdateVersion] = useState<string | null>(null);
   const [downloadProgress, setDownloadProgress] = useState<number | null>(null);
   const [updateDownloaded, setUpdateDownloaded] = useState(false);
@@ -58,9 +58,10 @@ const App = () => {
 
   useEffect(() => {
     if ((window as any).ipcRenderer) {
-      (window as any).ipcRenderer.on('app-version', (event: any, version: string) => {
+      (window as any).ipcRenderer.invoke('get-app-version').then((version: string) => {
         setCurrentVersion(version);
       });
+
       (window as any).ipcRenderer.on('update-available', (event: any, version: string) => {
         setUpdateVersion(version || 'Nova Versão');
       });
