@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { db } from '../services/firebase';
 
@@ -44,13 +44,26 @@ export const LicenseProvider = ({ children }: { children: ReactNode }) => {
       const q = query(
         licensesRef, 
         where("email", "==", email),
-        where("chave", "==", key),
-        where("status", "==", "ativo")
+        where("chave", "==", key)
       );
 
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
+        const docSnap = querySnapshot.docs[0];
+        const licenseData = docSnap.data();
+
+        if (licenseData.status === 'pendente') {
+          // Ativa a licença no primeiro uso
+          await updateDoc(doc(db, "licencas", docSnap.id), {
+            status: 'ativo',
+            activatedAt: new Date()
+          });
+        } else if (licenseData.status !== 'ativo') {
+          setIsLoading(false);
+          return { success: false, message: "Licença revogada ou inválida." };
+        }
+
         // Success
         const dataToSave = { status: 'valid', email, key };
         localStorage.setItem('numeris_license', JSON.stringify(dataToSave));

@@ -56,7 +56,7 @@ const AdminPanel = () => {
       await addDoc(collection(db, "licencas"), {
         email,
         chave,
-        status: 'ativo',
+        status: 'pendente',
         createdAt: new Date()
       });
       setEmail('');
@@ -83,11 +83,9 @@ const AdminPanel = () => {
 
   // Generate a random key
   const generateKey = () => {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
-    for (let i = 0; i < 4; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
-    result += '-';
-    for (let i = 0; i < 4; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
+    for (let i = 0; i < 24; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
     setChave(result);
   };
 
@@ -153,7 +151,11 @@ const AdminPanel = () => {
                 <TableCell>{lic.email}</TableCell>
                 <TableCell>{lic.chave}</TableCell>
                 <TableCell>
-                  <Chip label={lic.status} color="success" size="small" />
+                  <Chip 
+                    label={lic.status} 
+                    color={lic.status === 'ativo' ? 'success' : 'warning'} 
+                    size="small" 
+                  />
                 </TableCell>
                 <TableCell>
                   <IconButton color="error" onClick={() => handleDelete(lic.id)}>

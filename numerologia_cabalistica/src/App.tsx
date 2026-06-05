@@ -1,4 +1,5 @@
 // src/App.jsx
+import { Alert, Button, Snackbar } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
@@ -47,6 +48,28 @@ const App = () => {
         navigate('/mapa');
     }
   }, [nome, navigate]);
+
+  // Auto-Update Logic
+  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [updateDownloaded, setUpdateDownloaded] = useState(false);
+
+  useEffect(() => {
+    if ((window as any).ipcRenderer) {
+      (window as any).ipcRenderer.on('update-available', () => {
+        setUpdateAvailable(true);
+      });
+      (window as any).ipcRenderer.on('update-downloaded', () => {
+        setUpdateDownloaded(true);
+      });
+    }
+  }, []);
+
+  const handleRestart = () => {
+    if ((window as any).ipcRenderer) {
+        (window as any).ipcRenderer.send('restart_app');
+    }
+  };
+
 
 
   const darkTheme = createTheme({ palette: { mode: 'dark' } });
@@ -123,6 +146,35 @@ const App = () => {
             </Routes>
         </div>
       </ThemeProvider>
+
+      {/* Update Notifications */}
+      <Snackbar 
+        open={updateAvailable} 
+        autoHideDuration={6000} 
+        onClose={() => setUpdateAvailable(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert severity="info" onClose={() => setUpdateAvailable(false)}>
+          Uma nova atualização está disponível. Baixando agora...
+        </Alert>
+      </Snackbar>
+
+      <Snackbar 
+        open={updateDownloaded} 
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert 
+          severity="success"
+          action={
+            <Button color="inherit" size="small" onClick={handleRestart}>
+              Reiniciar
+            </Button>
+          }
+        >
+          Atualização baixada. Reinicie para aplicar.
+        </Alert>
+      </Snackbar>
+
     </>
   );
 };
