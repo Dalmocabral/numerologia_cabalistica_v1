@@ -72,9 +72,12 @@ autoUpdater.autoDownload = false;
 
 app.whenReady().then(() => {
   createWindow()
-  
-  // Check for updates after the window is created
-  autoUpdater.checkForUpdatesAndNotify()
+})
+
+ipcMain.handle('check-for-updates', () => {
+  if (app.isPackaged) {
+    autoUpdater.checkForUpdates()
+  }
 })
 
 // Auto-updater events

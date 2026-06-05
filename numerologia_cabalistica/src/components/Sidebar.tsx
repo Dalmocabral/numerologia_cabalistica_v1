@@ -40,7 +40,8 @@ const Sidebar = ({
   updateDownloaded,
   updateError,
   onStartDownload,
-  onRestart
+  onRestart,
+  onCheckUpdate
 }) => {
   const [openMapaDialog, setOpenMapaDialog] = useState(false);
   const [openSocialDialog, setOpenSocialDialog] = useState(false); // Estado para o dialog de nome social
@@ -173,6 +174,7 @@ const Sidebar = ({
         updateError={updateError}
         onStartDownload={onStartDownload}
         onRestart={onRestart}
+        onCheckUpdate={onCheckUpdate}
       />
     </>
 

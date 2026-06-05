@@ -50,11 +50,11 @@ const App = () => {
   }, [nome, navigate]);
 
   // Auto-Update Logic
-  const [currentVersion, setCurrentVersion] = useState<string>('Carregando...');
-  const [updateVersion, setUpdateVersion] = useState<string | null>(null);
-  const [downloadProgress, setDownloadProgress] = useState<number | null>(null);
+  const [currentVersion, setCurrentVersion] = useState('Carregando...');
+  const [updateVersion, setUpdateVersion] = useState(null);
+  const [downloadProgress, setDownloadProgress] = useState(null);
   const [updateDownloaded, setUpdateDownloaded] = useState(false);
-  const [updateError, setUpdateError] = useState<string | null>(null);
+  const [updateError, setUpdateError] = useState(null);
 
   useEffect(() => {
     if ((window as any).ipcRenderer) {
@@ -74,6 +74,9 @@ const App = () => {
       (window as any).ipcRenderer.on('update-error', (event: any, err: string) => {
         setUpdateError(err);
       });
+
+      // Checa por atualizações SOMENTE AGORA que o React já montou os listeners
+      (window as any).ipcRenderer.invoke('check-for-updates');
     }
   }, []);
 
@@ -87,6 +90,13 @@ const App = () => {
   const handleRestart = () => {
     if ((window as any).ipcRenderer) {
         (window as any).ipcRenderer.send('restart_app');
+    }
+  };
+
+  const handleCheckUpdate = () => {
+    if ((window as any).ipcRenderer) {
+      setUpdateError(null);
+      (window as any).ipcRenderer.invoke('check-for-updates');
     }
   };
 
@@ -124,6 +134,7 @@ const App = () => {
           updateError={updateError}
           onStartDownload={handleStartDownload}
           onRestart={handleRestart}
+          onCheckUpdate={handleCheckUpdate}
         />
       </ThemeProvider>
 

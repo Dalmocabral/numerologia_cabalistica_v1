@@ -24,7 +24,8 @@ const AboutDialog = ({
   updateDownloaded,
   updateError,
   onStartDownload,
-  onRestart 
+  onRestart,
+  onCheckUpdate
 }) => {
   const theme = useTheme();
   const { licenseData } = useLicense();
@@ -154,10 +155,24 @@ const AboutDialog = ({
                       fullWidth 
                       onClick={onStartDownload}
                     >
-                      Baixar Atualização (114 MB)
+                      Baixar Atualização
                     </Button>
                   </Box>
                 )}
+             </Box>
+          )}
+
+          {!updateVersion && (
+             <Box sx={{ width: '100%', mb: 3 }}>
+                <Button 
+                  variant="outlined" 
+                  fullWidth 
+                  onClick={onCheckUpdate}
+                  sx={{ borderColor: 'divider', color: 'text.secondary' }}
+                  startIcon={<SystemUpdateAlt />}
+                >
+                  Procurar Atualizações
+                </Button>
              </Box>
           )}
 
