@@ -75,6 +75,10 @@ const App = () => {
         setUpdateError(err);
       });
 
+      (window as any).ipcRenderer.on('update-not-available', () => {
+        setUpdateError('Você já está na versão mais recente!');
+      });
+
       // Checa por atualizações SOMENTE AGORA que o React já montou os listeners
       (window as any).ipcRenderer.invoke('check-for-updates');
     }

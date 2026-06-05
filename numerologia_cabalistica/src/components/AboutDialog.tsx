@@ -176,6 +176,12 @@ const AboutDialog = ({
              </Box>
           )}
 
+          {updateError && (
+            <Typography variant="body2" color="error.main" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+              <ErrorOutline fontSize="small" /> Status: {updateError}
+            </Typography>
+          )}
+
           {/* Seção de Licença */}
           {licenseData && (
              <Box sx={{ width: '100%', mb: 3, textAlign: 'left', bgcolor: 'background.paper', p: 2, borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
