@@ -80,7 +80,9 @@ const App = () => {
       });
 
       // Checa por atualizações SOMENTE AGORA que o React já montou os listeners
-      (window as any).ipcRenderer.invoke('check-for-updates');
+      (window as any).ipcRenderer.invoke('check-for-updates').catch((err: any) => {
+        setUpdateError(String(err));
+      });
     }
   }, []);
 
@@ -100,7 +102,9 @@ const App = () => {
   const handleCheckUpdate = () => {
     if ((window as any).ipcRenderer) {
       setUpdateError(null);
-      (window as any).ipcRenderer.invoke('check-for-updates');
+      (window as any).ipcRenderer.invoke('check-for-updates').catch((err: any) => {
+        setUpdateError(String(err));
+      });
     }
   };
 

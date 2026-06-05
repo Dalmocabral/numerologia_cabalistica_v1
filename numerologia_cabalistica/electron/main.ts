@@ -74,9 +74,15 @@ app.whenReady().then(() => {
   createWindow()
 })
 
-ipcMain.handle('check-for-updates', () => {
+ipcMain.handle('check-for-updates', async () => {
   if (app.isPackaged) {
-    autoUpdater.checkForUpdates()
+    try {
+      await autoUpdater.checkForUpdates()
+    } catch (error) {
+      win?.webContents.send('update-error', String(error))
+    }
+  } else {
+    win?.webContents.send('update-error', 'Auto-update só funciona no app instalado (não no modo dev).')
   }
 })
 
