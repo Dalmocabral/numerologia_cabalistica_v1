@@ -23,6 +23,6 @@
     "checkJs": false,
     "noImplicitAny": false
   },
-  "include": ["src"],
+  "include": ["src", "electron"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

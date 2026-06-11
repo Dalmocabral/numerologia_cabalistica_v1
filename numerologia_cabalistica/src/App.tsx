@@ -1,4 +1,5 @@
 // src/App.jsx
+import { Alert, Button, Snackbar } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
@@ -7,6 +8,9 @@ import NumerologyDashboard from './components/NumerologyDashboard';
 import Sidebar from './components/Sidebar';
 import WelcomeScreen from './components/WelcomeScreen';
 import { useNumerology } from './hooks/useNumerology';
+
+import AdminPanel from './components/AdminPanel';
+import { RequireLicense } from './components/RequireLicense';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -46,6 +50,67 @@ const App = () => {
     }
   }, [nome, navigate]);
 
+  // Auto-Update Logic
+  const [currentVersion, setCurrentVersion] = useState('Carregando...');
+  const [updateVersion, setUpdateVersion] = useState(null);
+  const [downloadProgress, setDownloadProgress] = useState(null);
+  const [updateDownloaded, setUpdateDownloaded] = useState(false);
+  const [updateError, setUpdateError] = useState(null);
+
+  useEffect(() => {
+    if ((window as any).ipcRenderer) {
+      (window as any).ipcRenderer.invoke('get-app-version').then((version: string) => {
+        setCurrentVersion(version);
+      });
+
+      (window as any).ipcRenderer.on('update-available', (event: any, version: string) => {
+        setUpdateVersion(version || 'Nova Versão');
+      });
+      (window as any).ipcRenderer.on('download-progress', (event: any, percent: number) => {
+        setDownloadProgress(percent);
+      });
+      (window as any).ipcRenderer.on('update-downloaded', () => {
+        setUpdateDownloaded(true);
+      });
+      (window as any).ipcRenderer.on('update-error', (event: any, err: string) => {
+        setUpdateError(err);
+      });
+
+      (window as any).ipcRenderer.on('update-not-available', () => {
+        setUpdateError('Você já está na versão mais recente!');
+      });
+
+      // Checa por atualizações SOMENTE AGORA que o React já montou os listeners
+      (window as any).ipcRenderer.invoke('check-for-updates').catch((err: any) => {
+        setUpdateError(String(err));
+      });
+    }
+  }, []);
+
+  const handleStartDownload = () => {
+    if ((window as any).ipcRenderer) {
+        setDownloadProgress(0); // Start progress
+        (window as any).ipcRenderer.send('start-download');
+    }
+  };
+
+  const handleRestart = () => {
+    if ((window as any).ipcRenderer) {
+        (window as any).ipcRenderer.send('restart_app');
+    }
+  };
+
+  const handleCheckUpdate = () => {
+    if ((window as any).ipcRenderer) {
+      setUpdateError(null);
+      (window as any).ipcRenderer.invoke('check-for-updates').catch((err: any) => {
+        setUpdateError(String(err));
+      });
+    } else {
+      setUpdateError('Erro FATAL: Conexão com o sistema foi perdida (ipcRenderer undefined).');
+    }
+  };
+
 
   const darkTheme = createTheme({ palette: { mode: 'dark' } });
   
@@ -72,6 +137,15 @@ const App = () => {
           assinatura={assinatura}
           nomeCompanheiro={nomeCompanheiro}
           dataNascimentoCompanheiro={dataNascCompanheiro}
+          // Updater props
+          currentVersion={currentVersion}
+          updateVersion={updateVersion}
+          downloadProgress={downloadProgress}
+          updateDownloaded={updateDownloaded}
+          updateError={updateError}
+          onStartDownload={handleStartDownload}
+          onRestart={handleRestart}
+          onCheckUpdate={handleCheckUpdate}
         />
       </ThemeProvider>
 
@@ -82,9 +156,19 @@ const App = () => {
         <CssBaseline />
         <div style={{ marginLeft: 240, padding: '16px', minHeight: '100vh' }}>
             <Routes>
-                <Route path="/" element={<WelcomeScreen />} />
+                {/* Rota Pública de Admin */}
+                <Route path="/admin-secreto" element={<AdminPanel />} />
+
+                {/* Rotas Protegidas */}
+                <Route path="/" element={
+                  <RequireLicense>
+                    <WelcomeScreen />
+                  </RequireLicense>
+                } />
+                
                 <Route path="/mapa" element={
-                    nome ? (
+                  <RequireLicense>
+                    {nome ? (
                         <NumerologyDashboard
                             key={mapKey}
                             nome={nome}
@@ -104,13 +188,15 @@ const App = () => {
                         />
                     ) : (
                         <Navigate to="/" replace />
-                    )
+                    )}
+                  </RequireLicense>
                 } />
                 {/* Fallback */}
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </div>
       </ThemeProvider>
+
     </>
   );
 };
