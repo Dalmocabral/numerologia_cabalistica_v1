@@ -14,7 +14,8 @@ const PdfGeneratorButton = ({
   diaInteresse,
   assinatura,
   nomeCompanheiro,
-  dataNascimentoCompanheiro
+  dataNascimentoCompanheiro,
+  disabled = false
 }) => {
 
   const [openSelection, setOpenSelection] = useState(false);
@@ -43,8 +44,8 @@ const PdfGeneratorButton = ({
   if (asListItem) {
       return (
         <>
-            <ListItem button onClick={() => setOpenSelection(true)}>
-                <ListItemIcon><PictureAsPdf sx={{ color: darkMode ? '#ffffff' : '#000000' }} /></ListItemIcon>
+            <ListItem button onClick={() => setOpenSelection(true)} disabled={disabled}>
+                <ListItemIcon><PictureAsPdf sx={{ color: disabled ? 'grey' : (darkMode ? '#ffffff' : '#000000') }} /></ListItemIcon>
                 <ListItemText primary="Gerar PDF" />
             </ListItem>
             <PdfSelectionDialog
@@ -58,7 +59,7 @@ const PdfGeneratorButton = ({
 
   return (
     <>
-      <Button variant="contained" onClick={() => setOpenSelection(true)} fullWidth sx={{ mt: 2 }}>
+      <Button variant="contained" onClick={() => setOpenSelection(true)} fullWidth sx={{ mt: 2 }} disabled={disabled}>
         Gerar PDF
       </Button>
       <PdfSelectionDialog

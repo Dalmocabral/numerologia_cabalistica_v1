@@ -16,6 +16,7 @@ import {
     Typography
 } from '@mui/material';
 import { useState } from 'react';
+import { useLicense } from '../contexts/LicenseContext';
 import AboutDialog from './AboutDialog';
 import DialogAssinatura from './DialogAssinatura';
 import DialogNomeSocial from './DialogNomeSocial'; // Importe o Dialog de Nome Social
@@ -46,6 +47,9 @@ const Sidebar = ({
   onRestart,
   onCheckUpdate
 }) => {
+  // Verifica se a licença está ativa
+  const { isVerified } = useLicense();
+
   const [openMapaDialog, setOpenMapaDialog] = useState(false);
   const [openSocialDialog, setOpenSocialDialog] = useState(false); // Estado para o dialog de nome social
   const [openAssinaturaDialog, setOpenAssinaturaDialog] = useState(false);
@@ -136,14 +140,14 @@ const Sidebar = ({
 
           <List>
             {/* Botão Calcular Mapa */}
-            <ListItem button onClick={handleOpenMapa}>
-              <ListItemIcon><Add sx={{ color: '#ffffff' }} /></ListItemIcon>
+            <ListItem button onClick={handleOpenMapa} disabled={!isVerified}>
+              <ListItemIcon><Add sx={{ color: !isVerified ? 'grey' : '#ffffff' }} /></ListItemIcon>
               <ListItemText primary="Calcular Mapa" />
             </ListItem>
             
             {/* Botão Criar Nome Social (Só aparece se tiver um cliente carregado) */}
-            <ListItem button onClick={handleOpenSocial} disabled={!nomeCliente}>
-              <ListItemIcon><PersonAdd sx={{ color: !nomeCliente ? 'grey' : '#ffffff' }} /></ListItemIcon>
+            <ListItem button onClick={handleOpenSocial} disabled={!nomeCliente || !isVerified}>
+              <ListItemIcon><PersonAdd sx={{ color: (!nomeCliente || !isVerified) ? 'grey' : '#ffffff' }} /></ListItemIcon>
               <ListItemText primary="Criar Nome Social" />
             </ListItem>
 
@@ -151,10 +155,10 @@ const Sidebar = ({
              <ListItem 
             button 
             onClick={() => setOpenAssinaturaDialog(true)} 
-            disabled={!nomesSociais || nomesSociais.length === 0}
+            disabled={!nomesSociais || nomesSociais.length === 0 || !isVerified}
          >
             <ListItemIcon>
-              <Create sx={{ color: (!nomesSociais || nomesSociais.length === 0) ? 'grey' : '#ffffff' }} />
+              <Create sx={{ color: (!nomesSociais || nomesSociais.length === 0 || !isVerified) ? 'grey' : '#ffffff' }} />
             </ListItemIcon>
             <ListItemText primary="Assinatura do Poder" />
          </ListItem>
@@ -171,17 +175,18 @@ const Sidebar = ({
               darkMode={true} // Forcing dark mode styles for the button itself if it relies on it
               assinatura={assinatura}
               nomeCompanheiro={nomeCompanheiro}           
-              dataNascimentoCompanheiro={dataNascimentoCompanheiro} 
+              dataNascimentoCompanheiro={dataNascimentoCompanheiro}
+              disabled={!isVerified}
             />
 
             {/* Banco de Dados Local (Electron apenas) */}
             <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.12)', my: 1 }} />
-            <ListItem button onClick={handleSaveCurrentProfile} disabled={!nomeCliente}>
-              <ListItemIcon><SaveIcon sx={{ color: !nomeCliente ? 'grey' : '#ffffff' }} /></ListItemIcon>
+            <ListItem button onClick={handleSaveCurrentProfile} disabled={!nomeCliente || !isVerified}>
+              <ListItemIcon><SaveIcon sx={{ color: (!nomeCliente || !isVerified) ? 'grey' : '#ffffff' }} /></ListItemIcon>
               <ListItemText primary="Salvar Dados" />
             </ListItem>
-            <ListItem button onClick={() => setOpenCarregarDialog(true)}>
-              <ListItemIcon><FolderOpenIcon sx={{ color: '#ffffff' }} /></ListItemIcon>
+            <ListItem button onClick={() => setOpenCarregarDialog(true)} disabled={!isVerified}>
+              <ListItemIcon><FolderOpenIcon sx={{ color: !isVerified ? 'grey' : '#ffffff' }} /></ListItemIcon>
               <ListItemText primary="Carregar Dados" />
             </ListItem>
           </List>
