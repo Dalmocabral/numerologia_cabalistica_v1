@@ -7,6 +7,7 @@ import NumerologyDashboard from './components/NumerologyDashboard';
 import Sidebar from './components/Sidebar';
 import WelcomeScreen from './components/WelcomeScreen';
 import { useNumerology } from './hooks/useNumerology';
+import AdminPanel from './components/AdminPanel';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -82,6 +83,7 @@ const App = () => {
         <CssBaseline />
         <div style={{ marginLeft: 240, padding: '16px', minHeight: '100vh' }}>
             <Routes>
+                <Route path="/admin-secreto" element={<AdminPanel />} />
                 <Route path="/" element={<WelcomeScreen />} />
                 <Route path="/mapa" element={
                     nome ? (
