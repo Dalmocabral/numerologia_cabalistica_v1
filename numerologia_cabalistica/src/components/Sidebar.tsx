@@ -140,13 +140,13 @@ const Sidebar = ({
 
           <List>
             {/* Botão Calcular Mapa */}
-            <ListItem button onClick={handleOpenMapa} disabled={!isVerified}>
+            <ListItem button onClick={() => { if (isVerified) handleOpenMapa(); }} disabled={!isVerified}>
               <ListItemIcon><Add sx={{ color: !isVerified ? 'grey' : '#ffffff' }} /></ListItemIcon>
               <ListItemText primary="Calcular Mapa" />
             </ListItem>
             
             {/* Botão Criar Nome Social (Só aparece se tiver um cliente carregado) */}
-            <ListItem button onClick={handleOpenSocial} disabled={!nomeCliente || !isVerified}>
+            <ListItem button onClick={() => { if (isVerified && nomeCliente) handleOpenSocial(); }} disabled={!nomeCliente || !isVerified}>
               <ListItemIcon><PersonAdd sx={{ color: (!nomeCliente || !isVerified) ? 'grey' : '#ffffff' }} /></ListItemIcon>
               <ListItemText primary="Criar Nome Social" />
             </ListItem>
@@ -154,7 +154,7 @@ const Sidebar = ({
              {/* Botão Assinatura (Desabilitado) */}
              <ListItem 
             button 
-            onClick={() => setOpenAssinaturaDialog(true)} 
+            onClick={() => { if (isVerified && nomesSociais && nomesSociais.length > 0) setOpenAssinaturaDialog(true); }} 
             disabled={!nomesSociais || nomesSociais.length === 0 || !isVerified}
          >
             <ListItemIcon>
@@ -181,11 +181,11 @@ const Sidebar = ({
 
             {/* Banco de Dados Local (Electron apenas) */}
             <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.12)', my: 1 }} />
-            <ListItem button onClick={handleSaveCurrentProfile} disabled={!nomeCliente || !isVerified}>
+            <ListItem button onClick={() => { if (isVerified && nomeCliente) handleSaveCurrentProfile(); }} disabled={!nomeCliente || !isVerified}>
               <ListItemIcon><SaveIcon sx={{ color: (!nomeCliente || !isVerified) ? 'grey' : '#ffffff' }} /></ListItemIcon>
               <ListItemText primary="Salvar Dados" />
             </ListItem>
-            <ListItem button onClick={() => setOpenCarregarDialog(true)} disabled={!isVerified}>
+            <ListItem button onClick={() => { if (isVerified) setOpenCarregarDialog(true); }} disabled={!isVerified}>
               <ListItemIcon><FolderOpenIcon sx={{ color: !isVerified ? 'grey' : '#ffffff' }} /></ListItemIcon>
               <ListItemText primary="Carregar Dados" />
             </ListItem>

@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/numerologia_cabalistica_v1/sw.js', { scope: '/numerologia_cabalistica_v1/' })})}

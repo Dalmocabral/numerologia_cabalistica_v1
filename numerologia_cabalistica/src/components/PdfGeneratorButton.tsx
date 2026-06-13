@@ -44,7 +44,7 @@ const PdfGeneratorButton = ({
   if (asListItem) {
       return (
         <>
-            <ListItem button onClick={() => setOpenSelection(true)} disabled={disabled}>
+            <ListItem button onClick={() => { if (!disabled) setOpenSelection(true); }} disabled={disabled}>
                 <ListItemIcon><PictureAsPdf sx={{ color: disabled ? 'grey' : (darkMode ? '#ffffff' : '#000000') }} /></ListItemIcon>
                 <ListItemText primary="Gerar PDF" />
             </ListItem>
@@ -59,7 +59,7 @@ const PdfGeneratorButton = ({
 
   return (
     <>
-      <Button variant="contained" onClick={() => setOpenSelection(true)} fullWidth sx={{ mt: 2 }} disabled={disabled}>
+      <Button variant="contained" onClick={() => { if (!disabled) setOpenSelection(true); }} fullWidth sx={{ mt: 2 }} disabled={disabled}>
         Gerar PDF
       </Button>
       <PdfSelectionDialog
