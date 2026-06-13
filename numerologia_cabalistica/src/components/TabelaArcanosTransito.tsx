@@ -8,24 +8,24 @@ import {
     TableHead, TableRow,
     Typography
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { calcularArcanosTransito } from '../utils/CalculoArcanosTransito';
 import { arcanos } from '../utils/TabelaNumerologia'; // Importe o dicionário
 
 const TabelaArcanosTransito = ({ nome, dataNascimento }) => {
-  const dados = calcularArcanosTransito(nome, dataNascimento);
-  const [arcanoAtual, setArcanoAtual] = useState(null);
+  const dados = useMemo(() => calcularArcanosTransito(nome, dataNascimento), [nome, dataNascimento]);
 
-  useEffect(() => {
+  const arcanoAtual = useMemo(() => {
     if (dados) {
       const atual = dados.find(d => d.isAtual);
       if (atual) {
-        setArcanoAtual({
+        return {
            ...atual,
            info: arcanos[atual.arcano]
-        });
+        };
       }
     }
+    return null;
   }, [dados]);
 
   if (!dados || dados.length === 0) return null;
