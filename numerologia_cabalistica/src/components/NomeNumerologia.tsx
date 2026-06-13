@@ -40,8 +40,8 @@ const isVogal = (letra) => {
 const NomeNumerologia = ({ nome }) => {
     if (!nome) return null;
 
-    // Converte para maiúsculas e remove espaços
-    const nomeFormatado = nome.toUpperCase().replace(/\s/g, '');
+    // Divide o nome em palavras, ignorando espaços múltiplos
+    const palavras = nome.toUpperCase().trim().split(/\s+/);
 
     return (
         <Box
@@ -52,40 +52,52 @@ const NomeNumerologia = ({ nome }) => {
                 flexDirection: 'column',
                 textAlign: 'center',
                 marginTop: 4,
+                width: '100%'
             }}
         >
-            {/* Renderiza as letras do nome */}
-            <Box sx={{ display: 'flex', gap: 2 }}>
-                {nomeFormatado.split('').map((letra, index) => (
-                    <Box
-                        key={index}
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            gap: 0.5,
-                        }}
-                    >
-                        <Typography
-                            variant="h5"
-                            component="span"
-                            sx={{
-                                color: isVogal(letra) ? '#64B5F6' : '#9E9E9E', // Azul para vogais, cinza para consoantes
-                                fontSize: '2rem',
-                            }}
-                        >
-                            {letra}
-                        </Typography>
-                        <Typography
-                            variant="body1"
-                            component="span"
-                            sx={{
-                                color: isVogal(letra) ? '#64B5F6' : '#9E9E9E',
-                                fontSize: '1.5rem',
-                            }}
-                        >
-                            {calcularValorComAcento(letra) || '-'}
-                        </Typography>
+            {/* Renderiza as palavras, permitindo quebra de linha (wrap) */}
+            <Box sx={{ 
+                display: 'flex', 
+                flexWrap: 'wrap', 
+                justifyContent: 'center', 
+                gap: 4, // Espaçamento maior entre as palavras
+                rowGap: 3 // Espaçamento vertical quando quebra de linha
+            }}>
+                {palavras.map((palavra, pIndex) => (
+                    <Box key={pIndex} sx={{ display: 'flex', gap: 0.5 }}>
+                        {palavra.split('').map((letra, lIndex) => (
+                            <Box
+                                key={lIndex}
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    gap: 0.5,
+                                }}
+                            >
+                                <Typography
+                                    variant="h5"
+                                    component="span"
+                                    sx={{
+                                        color: isVogal(letra) ? '#64B5F6' : '#9E9E9E',
+                                        fontSize: { xs: '1.5rem', sm: '1.8rem', md: '2rem' }, // Responsivo
+                                        fontWeight: 'bold'
+                                    }}
+                                >
+                                    {letra}
+                                </Typography>
+                                <Typography
+                                    variant="body1"
+                                    component="span"
+                                    sx={{
+                                        color: isVogal(letra) ? '#64B5F6' : '#9E9E9E',
+                                        fontSize: { xs: '1.2rem', sm: '1.4rem', md: '1.5rem' }, // Responsivo
+                                    }}
+                                >
+                                    {calcularValorComAcento(letra) || '-'}
+                                </Typography>
+                            </Box>
+                        ))}
                     </Box>
                 ))}
             </Box>
