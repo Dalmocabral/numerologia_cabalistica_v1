@@ -127,15 +127,13 @@ export const useNumerology = () => {
     const [mapKey, setMapKey] = useState(0);
 
     // Handlers
-    const handleSalvarNome = (novoNome, novaDataNascimento, novoMesInteresse, novoDiaInteresse, novoNomeComp, novaDataComp) => {
-        console.log('handleSalvarNome executado. Limpando estados...');
-        
-        // 1. Resetar estados visuais IMEDIATAMENTE antes de setar os novos dados
+    const handleSalvarNome = (novoNome, novaDataNascimento, novoMesInteresse, novoDiaInteresse, novoNomeComp, novaDataComp, novosNomesSociais = [], novaAssinatura = null) => {
+        // 1. Resetar estados
+        setNomesSociais(novosNomesSociais);
+        setAssinatura(novaAssinatura);
         setNomeSocial('');
-        setNomesSociais([]);
-        setAssinatura(null);
-        
-        // 2. Limpar storage
+
+        // 2. Limpar storage para nomes sociais e assinatura
         try {
             sessionStorage.removeItem('numerologia_nomesSociais');
             sessionStorage.removeItem('numerologia_assinatura');

@@ -2,7 +2,10 @@
 import { Add, Create, DarkMode, LightMode, PersonAdd } from '@mui/icons-material'; // Ícones novos
 import InfoIcon from '@mui/icons-material/Info';
 import PsychologyIcon from '@mui/icons-material/Psychology';
+import SaveIcon from '@mui/icons-material/Save';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import {
+    Badge,
     Box,
     Divider,
     Drawer,
@@ -13,11 +16,13 @@ import {
     Typography
 } from '@mui/material';
 import { useState } from 'react';
+import { useLicense } from '../contexts/LicenseContext';
 import AboutDialog from './AboutDialog';
 import DialogAssinatura from './DialogAssinatura';
 import DialogNomeSocial from './DialogNomeSocial'; // Importe o Dialog de Nome Social
 import NovoMapaDialog from './NovoMapaDialog';
 import PdfGeneratorButton from './PdfGeneratorButton';
+import DialogCarregarDados from './DialogCarregarDados';
 
 const Sidebar = ({ 
   darkMode, 
@@ -32,12 +37,24 @@ const Sidebar = ({
   assinatura,
   diaInteresse,
   nomeCompanheiro, 
-  dataNascimentoCompanheiro
+  dataNascimentoCompanheiro,
+  currentVersion,
+  updateVersion,
+  downloadProgress,
+  updateDownloaded,
+  updateError,
+  onStartDownload,
+  onRestart,
+  onCheckUpdate
 }) => {
+  // Verifica se a licença está ativa
+  const { isVerified } = useLicense();
+
   const [openMapaDialog, setOpenMapaDialog] = useState(false);
   const [openSocialDialog, setOpenSocialDialog] = useState(false); // Estado para o dialog de nome social
   const [openAssinaturaDialog, setOpenAssinaturaDialog] = useState(false);
   const [openAbout, setOpenAbout] = useState(false);
+  const [openCarregarDialog, setOpenCarregarDialog] = useState(false);
   
 
   // Handlers para o Mapa
@@ -47,6 +64,49 @@ const Sidebar = ({
   // Handlers para o Nome Social
   const handleOpenSocial = () => setOpenSocialDialog(true);
   const handleCloseSocial = () => setOpenSocialDialog(false);
+
+  const handleSaveCurrentProfile = async () => {
+    const db = (window as any).electronDB;
+    if (!db) {
+      alert("O banco de dados (electronDB) não está conectado! O preload script falhou?");
+      return;
+    }
+    if (db && nomeCliente) {
+      const data = {
+        nomeCliente,
+        dataNascimento,
+        nomesSociais,
+        mesInteresse,
+        diaInteresse,
+        assinatura,
+        nomeCompanheiro,
+        dataNascimentoCompanheiro
+      };
+      try {
+        const res = await db.saveProfile(data);
+        if (res.success) {
+          alert("Dados salvos com sucesso no Banco de Dados local!");
+        } else {
+          alert("Erro ao salvar dados: " + res.error);
+        }
+      } catch (e) {
+        alert("Erro crítico ao salvar: " + e.message);
+      }
+    }
+  };
+
+  const handleLoadProfile = (profile) => {
+    onSalvarNome(
+      profile.nomeCliente, 
+      profile.dataNascimento, 
+      profile.mesInteresse || '', 
+      profile.diaInteresse || '', 
+      profile.nomeCompanheiro || '', 
+      profile.dataNascimentoCompanheiro || '',
+      profile.nomesSociais || [],
+      profile.assinatura || null
+    );
+  };
 
   return (
     <>
@@ -80,25 +140,25 @@ const Sidebar = ({
 
           <List>
             {/* Botão Calcular Mapa */}
-            <ListItem button onClick={handleOpenMapa}>
-              <ListItemIcon><Add sx={{ color: '#ffffff' }} /></ListItemIcon>
+            <ListItem button onClick={() => { if (isVerified) handleOpenMapa(); }} disabled={!isVerified}>
+              <ListItemIcon><Add sx={{ color: !isVerified ? 'grey' : '#ffffff' }} /></ListItemIcon>
               <ListItemText primary="Calcular Mapa" />
             </ListItem>
             
             {/* Botão Criar Nome Social (Só aparece se tiver um cliente carregado) */}
-            <ListItem button onClick={handleOpenSocial} disabled={!nomeCliente}>
-              <ListItemIcon><PersonAdd sx={{ color: !nomeCliente ? 'grey' : '#ffffff' }} /></ListItemIcon>
+            <ListItem button onClick={() => { if (isVerified && nomeCliente) handleOpenSocial(); }} disabled={!nomeCliente || !isVerified}>
+              <ListItemIcon><PersonAdd sx={{ color: (!nomeCliente || !isVerified) ? 'grey' : '#ffffff' }} /></ListItemIcon>
               <ListItemText primary="Criar Nome Social" />
             </ListItem>
 
              {/* Botão Assinatura (Desabilitado) */}
              <ListItem 
             button 
-            onClick={() => setOpenAssinaturaDialog(true)} 
-            disabled={!nomesSociais || nomesSociais.length === 0}
+            onClick={() => { if (isVerified && nomesSociais && nomesSociais.length > 0) setOpenAssinaturaDialog(true); }} 
+            disabled={!nomesSociais || nomesSociais.length === 0 || !isVerified}
          >
             <ListItemIcon>
-              <Create sx={{ color: (!nomesSociais || nomesSociais.length === 0) ? 'grey' : '#ffffff' }} />
+              <Create sx={{ color: (!nomesSociais || nomesSociais.length === 0 || !isVerified) ? 'grey' : '#ffffff' }} />
             </ListItemIcon>
             <ListItemText primary="Assinatura do Poder" />
          </ListItem>
@@ -115,8 +175,20 @@ const Sidebar = ({
               darkMode={true} // Forcing dark mode styles for the button itself if it relies on it
               assinatura={assinatura}
               nomeCompanheiro={nomeCompanheiro}           
-              dataNascimentoCompanheiro={dataNascimentoCompanheiro} 
+              dataNascimentoCompanheiro={dataNascimentoCompanheiro}
+              disabled={!isVerified}
             />
+
+            {/* Banco de Dados Local (Electron apenas) */}
+            <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.12)', my: 1 }} />
+            <ListItem button onClick={() => { if (isVerified && nomeCliente) handleSaveCurrentProfile(); }} disabled={!nomeCliente || !isVerified}>
+              <ListItemIcon><SaveIcon sx={{ color: (!nomeCliente || !isVerified) ? 'grey' : '#ffffff' }} /></ListItemIcon>
+              <ListItemText primary="Salvar Dados" />
+            </ListItem>
+            <ListItem button onClick={() => { if (isVerified) setOpenCarregarDialog(true); }} disabled={!isVerified}>
+              <ListItemIcon><FolderOpenIcon sx={{ color: !isVerified ? 'grey' : '#ffffff' }} /></ListItemIcon>
+              <ListItemText primary="Carregar Dados" />
+            </ListItem>
           </List>
         </Box>
 
@@ -125,7 +197,9 @@ const Sidebar = ({
           <List>
             <ListItem button onClick={() => setOpenAbout(true)}>
               <ListItemIcon>
-                <InfoIcon sx={{ color: '#ffffff' }} />
+                <Badge color="error" variant="dot" invisible={!updateVersion}>
+                  <InfoIcon sx={{ color: '#ffffff' }} />
+                </Badge>
               </ListItemIcon>
               <ListItemText primary="Sobre" />
             </ListItem>
@@ -153,7 +227,23 @@ const Sidebar = ({
         nomeSocial={nomesSociais.length > 0 ? nomesSociais[nomesSociais.length - 1].nome : ''}
         onSalvar={onSalvarAssinatura} 
       />
-      <AboutDialog open={openAbout} onClose={() => setOpenAbout(false)} />
+      <AboutDialog 
+        open={openAbout} 
+        onClose={() => setOpenAbout(false)}
+        currentVersion={currentVersion}
+        updateVersion={updateVersion}
+        downloadProgress={downloadProgress}
+        updateDownloaded={updateDownloaded}
+        updateError={updateError}
+        onStartDownload={onStartDownload}
+        onRestart={onRestart}
+        onCheckUpdate={onCheckUpdate}
+      />
+      <DialogCarregarDados
+        open={openCarregarDialog}
+        onClose={() => setOpenCarregarDialog(false)}
+        onLoadProfile={handleLoadProfile}
+      />
     </>
 
   );
