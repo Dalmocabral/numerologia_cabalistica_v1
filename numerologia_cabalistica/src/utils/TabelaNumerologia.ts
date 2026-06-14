@@ -22,50 +22,62 @@ export const vocacaoTextos = {
   1: {
     aptidoes: "Liderança, iniciativa, originalidade, independência, coragem e determinação.",
     areas: "Empresário, Diretor, Gerente, Advogado, Engenheiro, Inventor, Produtor, Militar, Publicitário, Vendedor."
+    image: "./tarot/default.png",
   },
   2: {
     aptidoes: "Diplomacia, cooperação, paciência, atenção aos detalhes, sensibilidade e facilidade para trabalhar em equipe.",
     areas: "Psicólogo, Assistente Social, Professor, Secretário, Bibliotecário, Diplomata, Político, Escritor, Artista (música/dança)."
+    image: "./tarot/default.png",
   },
   3: {
     aptidoes: "Comunicação, criatividade, otimismo, entusiasmo, sociabilidade e expressão artística.",
     areas: "Ator, Cantor, Escritor, Jornalista, Publicitário, Vendedor, Decorador, Designer, Fotógrafo, Professor."
+    image: "./tarot/default.png",
   },
   4: {
     aptidoes: "Organização, disciplina, praticidade, honestidade, lealdade e habilidade manual.",
     areas: "Engenheiro, Arquiteto, Contador, Administrador, Militar, Policial, Mecânico, Carpinteiro, Agricultor, Químico."
+    image: "./tarot/default.png",
   },
   5: {
     aptidoes: "Versatilidade, adaptabilidade, curiosidade, agilidade mental, gosto por mudanças e viagens.",
     areas: "Vendedor, Agente de Viagens, Guia Turístico, Jornalista, Publicitário, Detetive, Piloto, Comissário de Bordo, Ator."
+    image: "./tarot/default.png",
   },
   6: {
     aptidoes: "Responsabilidade, conselheiro, senso de justiça, amor ao lar e à família, habilidade para cuidar e ensinar.",
     areas: "Médico, Enfermeiro, Professor, Assistente Social, Psicólogo, Decorador, Esteticista, Cozinheiro, Artista, Advogado de Família."
+    image: "./tarot/default.png",
   },
   7: {
     aptidoes: "Analítico, introspectivo, intuitivo, perfeccionista, gosto pelo conhecimento e pela pesquisa.",
     areas: "Cientista, Pesquisador, Filósofo, Escritor, Professor Universitário, Religioso, Esotérico, Psicólogo, Programador."
+    image: "./tarot/default.png",
   },
   8: {
     aptidoes: "Liderança, organização, ambição, visão de negócios, justiça e eficiência administrativa.",
     areas: "Empresário, Executivo, Banquiro, Corretor de Imóveis, Advogado, Juiz, Político, Engenheiro, Administrador Hospitalar."
+    image: "./tarot/default.png",
   },
   9: {
     aptidoes: "Humanitarismo, generosidade, compaixão, intuição, talento artístico e desejo de ajudar o próximo.",
     areas: "Médico, Enfermeiro, Assistente Social, Filantropo, Artista, Escritor, Advogado de Direitos Humanos, Missionário, Professor."
+    image: "./tarot/default.png",
   },
   11: {
     aptidoes: "Inspiração, intuição, idealismo, liderança espiritual e capacidade de influenciar pessoas.",
     areas: "Líder Espiritual, Filósofo, Escritor, Artista, Psicólogo, Psicanalista, Astrólogo, Numerólogo, Diplomata, Inventor."
+    image: "./tarot/default.png",
   },
   22: {
     aptidoes: "Visão global, capacidade de realização em grande escala, liderança internacional e idealismo prático.",
     areas: "Estadista, Embaixador, Diretor de Multinacional, Arquiteto de Grandes Obras, Engenheiro (projetos globais), Filantropo Internacional."
+    image: "./tarot/default.png",
   },
   33: {
      aptidoes: "Amor incondicional, serviço abnegado, cura espiritual e aconselhamento.",
      areas: "Mestre Espiritual, Curador, Líder de ONG Humanitária, Conselheiro de Grandes Causas."
+    image: "./tarot/default.png",
   }
 };
 
@@ -152,46 +164,57 @@ export const coresFavoraveis = {
   1: {
     descricao: "amarelo e laranja, castanho, dourado, verde, creme e branco",
     cores: ["amarelo", "laranja", "castanho", "dourado", "verde", "creme", "branco"]
+    image: "./tarot/default.png",
   },
   2: {
     descricao: "Todos os tons de verde, creme, branco e cinza",
     cores: ["verde", "creme", "branco", "cinza"]
+    image: "./tarot/default.png",
   },
   3: {
     descricao: "Violeta, vinho, púrpura e vermelho",
     cores: ["violeta", "vinho", "púrpura", "vermelho"]
+    image: "./tarot/default.png",
   },
   4: {
     descricao: "Azul, cinza, púrpura e ouro",
     cores: ["azul", "cinza", "púrpura", "ouro"]
+    image: "./tarot/default.png",
   },
   5: {
     descricao: "Todas as cores claras, cinza e prateado",
     cores: ["cores claras", "cinza", "prateado"]
+    image: "./tarot/default.png",
   },
   6: {
     descricao: "Rosa, azul e verde",
     cores: ["rosa", "azul", "verde"]
+    image: "./tarot/default.png",
   },
   7: {
     descricao: "Verde, amarelo, branco, cinza e azul-claro",
     cores: ["verde", "amarelo", "branco", "cinza", "azul-claro"]
+    image: "./tarot/default.png",
   },
   8: {
     descricao: "Púrpura, cinza, azul, preto e castanho",
     cores: ["púrpura", "cinza", "azul", "preto", "castanho"]
+    image: "./tarot/default.png",
   },
   9: {
     descricao: "Vermelho, rosa, coral e vinho",
     cores: ["vermelho", "rosa", "coral", "vinho"]
+    image: "./tarot/default.png",
   },
   11: {
     descricao: "Branco, violeta e cores claras",
     cores: ["branco", "violeta", "cores claras"]
+    image: "./tarot/default.png",
   },
   22: {
     descricao: "Violeta, branco e cores claras",
     cores: ["violeta", "branco", "cores claras"]
+    image: "./tarot/default.png",
   }
 };
 
@@ -2527,430 +2550,499 @@ pelos períodos de estagnação. Tudo isto pode afetar o sistema nervoso e o cor
 
 export const arcanos = {
   1: {
-    image: "https://i.ibb.co/PbRw50V/1-O-mago.jpg",
+    image: "./tarot/1-O-mago.jpg",
     titulo: "ARCANO PESSOAL 1 - O MAGO ou ",
     descricao: "Aponta para os dons e para o potencial criativo que ainda não se manifestaram. Pode surgir como um pressentimento, uma intuição, uma súbita rajada de energia com relação a novas oportunidades. Indica um momento de clareza e de identificação das possibilidades inexploradas. O Mago vem indicar que agora a viagem será possível, e que ele tem consciência de suas reais possibilidades e de sua capacidade, ainda que não desenvolvida. A atenção deve se voltar para a intuição e os pressentimentos, pois podem revelar as novas oportunidades que poderão surgir de modo inesperado. Representa a atividade mental consciente, a convicção e a direção e prontidão; a inteligência materializada pela vontade."
   },
   2: {
-    image: "https://i.ibb.co/1G16HZRQ/2-A-Sacerdotisa.jpg",
+    image: "./tarot/2-A-Sacerdotisa.jpg",
     titulo: "ARCANO PESSOAL 2 - A PAPISA ou A SACERDOTISA",
     descricao: "Indica força e intuição e sugere o encontro com o mundo interior. O indivíduo pode estar sendo conduzido para esse mundo sem qualquer explicação por intermédio de seu interesse pelas coisas ocultas, pelo esoterismo, ou, talvez, pelos efeitos de algum sonho perturbador. Enfim, por algo que de alguma forma lhe diga que existem forças superiores que atuam na vida das pessoas. Denota percepção das próprias necessidades espirituais e sentimento religioso. Representa a atividade mental intuitiva; a sensibilidade aflorada, a sabedoria e o mistério, os planos futuros, os estudos, o silêncio e a espera."
   },
   3: {
-    image: "https://i.ibb.co/ZpYxKKCK/3-A-Imperatriz.jpg",
+    image: "./tarot/3-A-Imperatriz.jpg",
     titulo: "ARCANO PESSOAL 3 - A IMPERATRIZ ou A EMPERATRIZ",
     descricao: "Significa criatividade, produtividade, maternidade, abundância, boas colheitas, êxito em um ambiente seguro e isento de perigos. Fertilidade tanto mental como física. Indica uma fase da vida mais ligada às coisas terrenas. Um casamento, ou mesmo o nascimento de uma criança podem estar prestes a acontecer. A Imperatriz mostra ainda o êxito nas empresas, e nos empreendimentos, se a pessoa for firme e reta nos pensamentos e ações. Representa o poder da imaginação, a visualização criativa, as emoções saudáveis e o amor; a materialização do desejo; comunicação, inovação, fertilidade, expansão e crescimento."
   },
   4: {
-    image: "https://i.ibb.co/pjLnJvFZ/4-O-Imperador.jpg",
+    image: "./tarot/4-O-Imperador.jpg",
     titulo: "ARCANO PESSOAL 4 - O IMPERADOR ou O EMPERADOR",
     descricao: "Significa liderança, atividade mental, dominação, domínio, paternidade. Ditadura; paixão, mas sempre controlada pela inteligência. É a majestade e o poder. Mostra manifestação de autoridade ou necessidade de consulta a uma autoridade ou superior hierárquico. Confronto com o princípio paternal, tanto no seu aspecto positivo quanto negativo. Representa o poder e a autoridade, a faculdade da razão, a lógica e o raciocínio indutivo; atividade, força e poder; a realidade estruturada e lógica, a disciplina, o anseio por estabilidade e seriedade; os planos seguros."
   },
   5: {
-    image: "https://i.ibb.co/4whHbnMy/5-O-Papa.jpg",
+    image: "./tarot/5-O-Papa.jpg",
     titulo: "ARCANO PESSOAL 5 - O PAPA ou O HIEROFANTE",
     descricao: "Significa ortodoxia, apego às formas externas, ao convencional, ao credo e ao ritual. Tradicionalismo; necessidade de seguir as normas socialmente aceitas; disposição para o dever, a consciência, a generosidade, o perdão, a compaixão e a busca por respostas de ordem filosófica. O Hierofante pode surgir na forma de um psicoterapeuta, um conselheiro, um mestre ou mentor espiritual a quem nos dirigimos em busca de auxilio e orientação. Pode estar indicando que há necessidade de começar a buscar algumas respostas de ordem filosófica. Esse questionamento pode se traduzir no estudo aprofundado de alguma filosofia, ou de um sistema religioso, ou crença, ou mesmo na forma de um profundo comprometimento com relação ao sentido da vida. Representa a compreensão racional das coisas percebidas intuitivamente; as trocas de experiências para aprender e ensinar, as mudanças, a responsabilidade e a moralidade."
   },
   6: {
-    image: "https://i.ibb.co/CpxBP6dk/6-Os-namorados.jpg",
+    image: "./tarot/6-Os-namorados.jpg",
     titulo: "ARCANO PESSOAL 6 - OS ENAMORADOS ou OS AMANTES",
     descricao: "Significa escolha, eleição, tentação, atração. A luta entre o sagrado e o profano nas relações amorosas. Harmonia dos aspectos interior e exterior da vida; amor puro na sua expressão mais elevada; altruísmo. No mundo divino é a ciência do bem e do mal; no mundo intelectual é o equilíbrio da necessidade e da liberdade; no mundo físico é o antagonismo das forças naturais, o encadeamento das causas aos efeitos. Indica necessidade de escolhas, quase sempre no plano amoroso. Pode também indicar a necessidade de estabilizar as emoções. Representa as escolhas seletivas, as faculdades discriminativas da mente; a busca pelo equilíbrio e estabilidade emocional; as uniões, as relações e situações felizes."
   },
   7: {
-    image: "https://i.ibb.co/qvzb51v/7-O-carro.jpg",
+    image: "./tarot/7-O-carro.jpg",
     titulo: "ARCANO PESSOAL 7 - O CARRO",
     descricao: "Significa triunfo, êxito, vitória. Controle sobre as forças da natureza. Recuperação da saúde, vitória sobre as penúrias econômicas ou sobre inimigos de qualquer tipo. É o arcano que representa o alcance de algo grande; conflito e luta que, por sua vez, resultam em crescimento e fortalecimento da personalidade. Pode também significar viagens agradáveis e cômodas. Representa poder e vontade; triunfo, avanço e progresso; novas experiências, confiança, novidades, agilidade."
   },
   8: {
-    image: "https://i.ibb.co/xK8pscqY/11-a-justi-a.jpg",
+    image: "./tarot/11-a-justi-a.jpg",
     titulo: "ARCANO PESSOAL 8 - A FORÇA",
     descricao: "A Força, como Arcano Pessoal, representa a necessidade de confrontar desafios com inteligência e sabedoria. A pessoa deve lidar de maneira equilibrada com aspectos práticos e espirituais da vida, relaxar e acreditar em suas capacidades, usando seu carisma e influência positivamente."
   },
   9: {
-    image: "https://i.ibb.co/Ng7Kmyw2/9-heremita.jpg",
+    image: "./tarot/9-heremita.jpg",
     titulo: "ARCANO PESSOAL 9 - O EREMITA ou O HERMITÃO",
     descricao: "O Eremita, como Arcano Pessoal, encoraja a viver uma vida de reflexão e autoconhecimento. A pessoa deve buscar a serenidade em seu próprio espaço, evitar a dependência dos outros, e transmitir sabedoria, sempre atenta para não se doar em excesso, lembrando que cada coisa tem seu tempo."
   },
   10: {
-    image: "https://i.ibb.co/0j3vY6c/10-Roda-da-fortuna.jpg",
+    image: "./tarot/10-Roda-da-fortuna.jpg",
     titulo: "ARCANO PESSOAL 10 - A RODA DA FORTUNA",
     descricao: "Significa êxito, golpe de sorte inesperado; mudança para melhor. Evolução favorável, segundo as leis do acaso; prenuncia alguma mudança brusca na vida, que tanto pode ser boa como ruim. De qualquer forma, a virada da roda sempre traz o crescimento e inaugura uma nova fase da vida. Representa a riqueza, as trocas favoráveis e a expansão; mudanças e boa fortuna; adverte sobre o tempo e a instabilidade, a falta de planos e a lei do retorno; indica que é tempo de aprender para crescer."
   },
   11: {
-    image: "https://i.ibb.co/wNGxwn8f/8-A-justi-a.jpg",
+    image: "./tarot/8-A-justi-a.jpg",
     titulo: "ARCANO PESSOAL 11 - A JUSTIÇA",
     descricao: "Significa força de caráter; o poder espiritual vencendo o poder material e as forças impulsivas das paixões físicas e emocionais. O amor triunfando sobre o ódio. Vitória da natureza superior sobre os desejos mundanos e carnais; uma situação onde a colisão com o leão interior é inevitável, em que a administração bem conduzida da própria raiva e de todas as emoções é altamente benéfica. A coragem, a força e a autodisciplina são necessárias para dominar a situação. Representa a energia que atua transformando a matéria; a força da mente e o domínio sobre o ambiente."
   },
   12: {
-    image: "https://i.ibb.co/XZJFJQNK/12-Enforcado.jpg",
+    image: "./tarot/12-Enforcado.jpg",
     titulo: "ARCANO PESSOAL 12 - O PENDURADO ou O ENFORCADO",
     descricao: "Significa renúncia ou sacrifício por motivos superiores; desenvolvimento das faculdades psíquicas; domínio da tentação material; transformação da personalidade através da renúncia ou do sacrifício; necessidade do sacrifício voluntário com o propósito de atingir algo muito mais valioso. Representa a abnegação e o sacrifício voluntário por uma causa justa."
   },
   13: {
-    image: "https://i.ibb.co/qLt8BTmY/13-Morte.jpg",
+    image: "./tarot/13-Morte.jpg",
     titulo: "ARCANO PESSOAL 13 - A MORTE",
     descricao: "Significa transformação, mudança e destruição seguidas de renovação; morte de uma parte de si, para o nascimento de novas ideias e de novas oportunidades; uma transformação inevitável, um renascimento do ser interior, desde que se consiga abrir mão da parte de nós que não somos mais. Se essa experiência será dolorosa ou não, vai depender da nossa capacidade em aceitar e reconhecer a necessidade dos fechamentos. Representa as transformações profundas que a vida exige de nós; renovação e mudanças radicais."
   },
   14: {
-    image: "https://i.ibb.co/0Jt0y2c/14-Temperan-a.jpg",
+    image: "./tarot/14-Temperan-a.jpg",
     titulo: "ARCANO PESSOAL 14 - A TEMPERANÇA",
     descricao: "Significa moderação, adaptação, compreensão, cooperação e trabalho em harmonia com os demais; boa administração; o que imagina ocorrerá; conseguirá combinações de êxito; paz interior; necessidade de um redirecionamento no fluxo dos sentimentos e dos relacionamentos. Representa as provas a serem superadas e o otimismo e a confiança necessários para isso; adaptação."
   },
   15: {
-    image: "https://i.ibb.co/0Jt0y2c/15-O-diabo.jpg",
+    image: "./tarot/15-O-diabo.jpg",
     titulo: "ARCANO PESSOAL 15 - O DIABO",
     descricao: "(O Diabo)."
   },
   16: {
-    image: "https://i.ibb.co/0Jt0y2c/16-A-torre.jpg",
+    image: "./tarot/16-A-torre.jpg",
     titulo: "ARCANO PESSOAL 16 - A TORRE",
     descricao: "(A Torre)."
   },
   17: {
-    image: "https://i.ibb.co/0Jt0y2c/17-A-estrela.jpg",
+    image: "./tarot/17-A-estrela.jpg",
     titulo: "ARCANO PESSOAL 17 - A ESTRELA",
     descricao: "Significa inspiração, visão, esperança, idealismo; ajuda desinteressada; dons espirituais em desenvolvimento; grande amor em evidência; esperança e fé em meio às atribulações; renascimento da alegria e do amor; influência, ascendência, criatividade, contato com alguma pessoa que trará inspiração. Representa ideia ou conceito de esperança; caminhos abertos, reinício, ação e projetos favoráveis."
   },
   18: {
-    image: "https://i.ibb.co/0Jt0y2c/18-O-lua.jpg",
+    image: "./tarot/18-O-lua.jpg",
     titulo: "ARCANO PESSOAL 18 - A LUA",
     descricao: "Significa inspiração, imaginação, intuição; desenvolvimento das faculdades psíquicas latentes; viagem astral; o mundo subconsciente dos sonhos; as trevas; um período de confusão, de flutuação e de incertezas. Representa o inconsciente misterioso e oculto; inimigos ocultos, feitiçaria, escuridão, medo, intrigas e fofocas."
   },
   19: {
-    image: "https://i.ibb.co/0Jt0y2c/19-O-sol.jpg",
+    image: "./tarot/19-O-sol.jpg",
     titulo: "ARCANO PESSOAL 19 - O SOL",
     descricao: "Significa paz, amor e felicidade; uma vida bem vivida; um trabalho bem feito; despertar e renovação; assuntos legais favoráveis; alegria e prosperidade; cumulação no plano espiritual; um período de clareza, dinamismo e confiança renovada. Representa a luz presente em cada ser humano, sua sabedoria, generosidade, confiança e caráter; saúde e bem-estar."
   },
   20: {
-    image: "https://i.ibb.co/0Jt0y2c/20-O-julgamento.jpg",
+    image: "./tarot/20-O-julgamento.jpg",
     titulo: "ARCANO PESSOAL 20 - O JULGAMENTO",
     descricao: "Significa renascimento de uma nova vida; que coisas maravilhosas vão ocorrer; poderá vislumbrar o que lhe prepara o futuro; transformação; verá tudo sob uma nova luz; rompimento com o convencional; propõe um período de recompensas pelos esforços empreendidos anteriormente. Representa o julgamento ou síntese que permitem a compreensão da realidade final e o transcender da mente; aproveitar as experiências passadas, renascer para vida nova; troca de ideias, popularidade, fama."
   },
   21: {
-    image: "https://i.ibb.co/0Jt0y2c/21-O-mundo.jpg",
+    image: "./tarot/21-O-mundo.jpg",
     titulo: "ARCANO PESSOAL 21 - O MUNDO",
     descricao: "Significa liberdade para ir em qualquer direção que desejar; conclusão de um trabalho bem feito; triunfo em qualquer coisa que se empreenda; um período de realizações e de totalização; o momento do sucesso, da finalização positiva de um processo ou de uma questão; o instante de alcançarmos um objetivo, de atingirmos um ideal pelo qual lutamos durante muito tempo. Representa os poderes paranormais, a dominação sobre as leis físicas e a matéria; sucesso, viagens, plenitude."
   },
   22: {
-    image: "https://i.ibb.co/0Jt0y2c/22-O-louco.jpg",
+    image: "./tarot/22-O-louco.jpg",
     titulo: "ARCANO PESSOAL 22 - O LOUCO",
     descricao: "Significa decisão importante; encontrar-se diante de uma escolha que deve ser decidida com cuidado, mas também com coragem e, sobretudo, atendendo a intuição e aos impulsos interiores; anuncia o advento de um novo capítulo da vida. Existe o risco, mas existe também o desejo de saltar no desconhecido. Representa as inteligências sobre-humanas, a espontaneidade, o espiritual atuando no material, o risco."
   },
   23: {
-    image: "https://i.ibb.co/Ngcwzmq3/23-O-LAVRADOR.png",
+    image: "./tarot/23-O-LAVRADOR.png",
     titulo: "Arcano 23 - O LAVRADOR (Senhor/Rei do Bastão/Rei de Paus/k de Paus)",
     descricao: "Aparece um aspecto da personalidade que vai gerar novas ideias; qualidades de liderança, bondade e honestidade. É o símbolo do poder adquirido pelo mérito e pelo trabalho, sendo emblema de proteção das pessoas bem colocadas. Representa autoconfiança, motivação, empreendedorismo, sabedoria e convicção; respeitabilidade e amizades. Risco: inflexibilidade e intolerância."
   },
   24: {
-    image: "https://i.ibb.co/jvk04cYV/24-A-TECEL.png",
+    image: "./tarot/24-A-TECEL.png",
     titulo: "Arcano 24 - A TECELÃ (Senhora/Rainha do Copo/Rainha de Copas/Dama de Copas)",
     descricao: "É símbolo de posição elevada; demonstra a força da imaginação, da constância e da objetividade; momento de oferecer e receber aconchego e proteção. Representa a ação desejada, o plano criativo; o feminino atraente e inteligente; crescimento, atividade, firmeza e amor pela vida. Risco: vaidade e orgulho."
   },
   25: {
-    image: "https://i.ibb.co/cWfYjdj/25-O-ARGONAUTA.png",
+    image: "./tarot/25-O-ARGONAUTA.png",
     titulo: "Arcano 25 - O ARGONAUTA ou O NAVEGADOR (Cavalheiro de Bastão/Soldado do Bastão/Cavaleiro de Paus)",
     descricao: "Significa partida, mudanças, fuga, dissensão, separação, abandono, início ou final de uma situação importante; o símbolo dos altos empregos secundários, da luta para conquistar uma posição, do poder adquirido pelas lutas; momento de desenvolver as qualidades exuberantes, aventureiras e voláteis contidas em si. Representa a ação necessária no plano formativo; mudança de residência, de cidade, de situação e modo de vida; entusiasmo. Risco: tensão, euforia, exibicionismo, impaciência."
   },
   26: {
     titulo: "Arcano 26",
     descricao: "Significa curiosidade, entusiasmo; que é hora de identificar os lampejos criativos dentro de si e ser audacioso. Esse momento quase sempre se manifesta na forma de uma vaga sensação de insatisfação, mas que não chega a justificar uma mudança radical. Representa ação imediata no plano material; chegada de boas notícias, oportunidade, entusiasmo e aventura, bem como possibilidade de viagens. Risco: impulsividade, inexperiência levando a maus resultados."
+    image: "./tarot/default.png",
   },
   27: {
     titulo: "ARCANO 27 – O INESPERADO",
     descricao: "Representa situações opressivas em seu limite; falta de perspectiva, fardo pesado, excesso de responsabilidades, sobrecarga, tensões e preocupações, desentendimentos, traições, falsidades e hipocrisias; necessidade de mudar a energia; final de uma fase."
+    image: "./tarot/default.png",
   },
   28: {
-    image: "https://i.ibb.co/mr9TXZQH/27-O-INESPERADO.png",
+    image: "./tarot/27-O-INESPERADO.png",
     titulo: "Arcano 28",
     descricao: "Empreendimentos científicos ou misteriosos, cujo sucesso depende de muita prudência e discrição; viagens perigosas; surpresas; atraso, suspensão, adiamento, demora, obstáculo, contrariedade. Representa o poder da informação e da cultura, força física ou psíquica; conhecimentos especiais; atitude defensiva, medo de se machucar e sofrer que leva a manter uma situação que não funciona mais; desconfiança, recusa de novidades que leva a fechar-se em si. Persistência e vigilância. Risco de virar um “mártir”."
   },
   29: {
     titulo: "Arcano 29",
     descricao: "Significa rapidez e fluidez dos impulsos criativos; que o sucesso da sua meta está ao seu alcance e próximo; um período de ação depois de muita espera e luta; novas ideias que trarão benefícios; campo, agricultura, bens imóveis, divertimento, alegria, paz, tranquilidade; viagens por causa de dinheiro e de grandes negócios, felicidade certa; necessidade de equilibrar o orçamento. Representa a percepção dos sentimentos das outras pessoas; o imprevisto e a rapidez de ação; notícias imprevistas."
+    image: "./tarot/default.png",
   },
   30: {
     titulo: "Arcano 30",
     descricao: "Significa bravura e muita pressão no trabalho ou em outros aspectos da vida. Representa o valor e o prazer em riscos e atividades perigosas que resultam em estímulo; atividades arriscadas; defesa do interesse mediante intransigência, ameaças e concorrência. Equilibrar a força defensiva, a fim de obter vitórias em seus pontos de vista. Risco de se fixar só na defensiva."
+    image: "./tarot/default.png",
   },
   31: {
     titulo: "Arcano 31",
     descricao: "O sucesso nos empreendimentos depende de vontade, firmeza e perseverança. Representa esforços compensados, vitória depois da luta; reconhecimento, conquistas e sucesso. Triunfo pela perseverança e exemplo. Risco de se tornar orgulhoso."
+    image: "./tarot/default.png",
   },
   32: {
     titulo: "Arcano 32",
     descricao: "Pressagia concurso de circunstâncias favoráveis ao êxito das empresas, se o consulente não exceder o fim a que se propõe; energias opostas criando agitação e inquietude; luta contra o dragão da realidade material para atingir os objetivos. Representa luta pela vida e poder, competição, respeito pelos outros; desafio pondo à prova as habilidades. Contendas, disputas, embates, espírito esportivo e confronto de ideias. Risco de instabilidade nos ímpetos."
+    image: "./tarot/default.png",
   },
   33: {
     titulo: "Arcano 33",
     descricao: "Significa um período de recompensa pelos esforços empreendidos; realização do sucesso esperado; empresas sérias e estáveis; associação, aliança, reunião, contrato, êxito, adiantamento; momento de desfrutar dos resultados do trabalho. Representa o fim de um trabalho bem feito e a satisfação proporcionada, ambientes e sensações agradáveis; boa comunicação, alegria, sociabilidade. Estabilidade e realização; o valor das pequenas conquistas. Risco de desprezar o valor das pequenas conquistas."
+    image: "./tarot/default.png",
   },
   34: {
     titulo: "Arcano 34",
     descricao: "Denota começo de êxito nos empreendimentos, inovações felizes, espírito de invenção; poderá receber ajuda de alguém de sua confiança; bases firmes e os negócios tendem a prosperar. Representa a união que cria a força; criatividade e associações férteis, visão de longo alcance; a ética pessoal. A virtude está em se reconhecer o que é necessário para seguir em frente."
+    image: "./tarot/default.png",
   },
   35: {
     titulo: "Arcano 35",
     descricao: "Significa o equilíbrio, ou desequilíbrio, dos ímpetos; grande capacidade e intuição; formulação de um novo projeto, de um objetivo ou de uma ideia; o futuro parece brilhante, mas guarda seus segredos e mistérios. Representa o poder que se manifesta como cooperação e ajuda; a dualidade que se manifesta como cooperação e assistência, mas que traz o componente da indecisão, da apatia; dividir para multiplicar. Risco de se tornar arrogante."
+    image: "./tarot/default.png",
   },
   36: {
-    image: "https://i.ibb.co/mCQc244R/36-A-INICIA-O.png",
+    image: "./tarot/36-A-INICIA-O.png",
     titulo: "Arcano 36 - A INICIAÇÃO",
     descricao: "Representa a força criativa propulsora das novas ideias, a inspiração, a determinação e a coragem; novos horizontes e a disposição para arriscar-se; os estágios iniciais de um novo empreendimento ou o nascimento de algo ou de uma criança. Risco de inflexibilidade."
   },
   37: {
     titulo: "Arcano 37",
     descricao: "O controle emocional. É o momento de experimentar um aspecto ambivalente da própria personalidade, ou seja, o conselheiro, o ouvinte, aquele que pode curar os outros com suas palavras e carinho. Representa o plano arquetípico das emoções e sentimentos; a força dos sentimentos espirituais na alma; o fluir dos sentimentos; a sensibilidade, a honestidade e a generosidade masculinas; autoajuda. Risco de desonestidade e hipocrisia masculina."
+    image: "./tarot/default.png",
   },
   38: {
     titulo: "Arcano 38",
     descricao: "Maturidade emocional. É o momento de encontrar-se com o profundo, desconhecido e paradoxal mundo dos sentimentos que traz dentro de si; anuncia justiça, favores e proteção; o agente catalisador dos sentimentos mais profundos. Representa o plano arquetípico das emoções estéticas, o plano criativo e a inteligência ativa feminina; a espera para obter clareza. Risco de preguiça e pouca afabilidade feminina."
+    image: "./tarot/default.png",
   },
   39: {
     titulo: "Arcano 39",
     descricao: "É tempo de experimentar a incrível e mágica dimensão do amor, a conexão com as emoções; indica uma possível proposta de casamento, ou mesmo o momento de se apaixonar; uma proposta de trabalho, ou o envolvimento com ideais mais elevados. Representa as emoções e os sentimentos no plano formativo; chegada de novas amizades e afeições; reconciliação, cordialidade e paz. Risco de abuso de confiança."
+    image: "./tarot/default.png",
   },
   40: {
     titulo: "Arcano 40",
     descricao: "É indício de algo novo no plano afetivo, que pode ser um relacionamento ou uma nova perspectiva emocional dentro de um relacionamento existente, ou até mesmo o nascimento de uma criança. Representa as emoções no plano do desejo e temor; proposta amorosa e oferta afetuosa; reconciliação, consideração e promoção. Sensibilidade emocional. Risco de sedução e zombaria."
+    image: "./tarot/default.png",
   },
   41: {
     titulo: "Arcano 41",
     descricao: "É a experiência da felicidade desejada; um período de muito contentamento e de harmonia permanente nos domínios do coração; realização das suas esperanças e sonhos; vida feliz; muitas simpatias. Representa o sucesso no nível emocional e dos sentimentos; a felicidade familiar compartilhada; boa reputação e um lar feliz. A saciedade que leva á plenitude da felicidade pela autorrealização. Risco de se tornar dependente dos outros."
+    image: "./tarot/default.png",
   },
   42: {
     titulo: "Arcano 42",
     descricao: "Os seus desejos poderão agora ser realizados; um período de satisfação e alegrias, de realizações de sonhos e projetos; fortuna, honras, glória e reputação; vitória, êxito, ganho, triunfo, prosperidade, lealdade, boa-fé, franqueza, verdade. Representa a felicidade, o bem-estar e a segurança material; alegria de viver e o desfrutar do êxito. Risco de excessos e luxúria, escapismo e fuga."
+    image: "./tarot/default.png",
   },
   43: {
-    image: "https://i.ibb.co/TDyZw7TV/43-Alucina-o.png",
+    image: "./tarot/43-Alucina-o.png",
     titulo: "ARCANO PESSOAL 43 -  Alucinação",
     descricao: "É a necessidade de buscar um sentido para a vida e para suas relações amorosas; necessidade de despertar e desistir de alguma coisa; excessivo interesse pelos prazeres que pode levar a escândalos amorosos; paixões violentas, divórcio, mau casamento, sedução. Representa a busca espiritual pelo abandono do material; partida difícil. A indolência e contrariedade; hora de perceber qual é o seu papel na relação. Risco de abandono cruel."
   },
   44: {
     titulo: "Arcano 44",
     descricao: "É reflexão, pensamento, talentos; uma situação emocional em que existem muitas possibilidades aparentes, mas o indivíduo está diante do desafio de optar e agir em termos realistas para que aquelas potencialidades possam se manifestar. Representa megalomania e ilusões; a realidade onírica, fantasias e êxito de pouco v"
+    image: "./tarot/default.png",
   },
   45: {
     titulo: "Arcano 45",
     descricao: "É a felicidade que vem do passado; o prazer. Possível encontro ou reencontro com pessoa de significado, ou o retorno de um amor antigo, de um sonho acalentado há muito que poderá ser realizado num futuro próximo. Ser feliz por si mesmo; entregar-se ao momento e ser feliz. Representa ânsia pelo passado, pela infância, com recordações felizes, paz interior por aceitação do passado; sonhos. Risco de apego ao passado que traz melancolia, ou de buscar o prazer nos outros."
+    image: "./tarot/default.png",
   },
   46: {
     titulo: "Arcano 46",
     descricao: "É final de uma relação ou amizade com sofrimento; remorso; algo não deu certo, uma possível traição abrindo espaço para a tristeza e o arrependimento; separação num relacionamento, mas que pode não significar um rompimento definitivo. Representa a alegria perdida, tristezas, lamentações e prazeres obscuros; despedida dolorosa, amargura, depressão, fracasso e resignação. Frustração e arrependimento."
+    image: "./tarot/default.png",
   },
   47: {
     titulo: "Arcano 47",
     descricao: "O prazer excessivo que costuma conduzir ao cansaço e ao desejo de coisas ainda maiores, talvez impossíveis de alcançar; aparente inocência, mas com um aguilhão desagradável escondido exigindo moderação nas relações e em tudo o que tenha a ver com as emoções. Representa aborrecimento e depressão, insatisfação e traições; inconstância nos sentimentos e falta de motivação, apatia, mau humor e ciúmes. Ostentação e saciedade com risco de tédio."
+    image: "./tarot/default.png",
   },
   48: {
     titulo: "Arcano 48",
     descricao: "Êxito, começo de um novo estilo de vida, de um novo relacionamento, o nascimento de uma criança ou qualquer outra situação promissora de realização emocional. Porém, cada uma dessas situações é também um princípio, uma iniciação em níveis mais profundos das experiências do coração e o indício de novas descobertas para o futuro. Representa abundância, amizades, alegria, diversão, celebrações e sucesso; gratidão. Risco de se tornar autossuficiente e dissimular os sentimentos."
+    image: "./tarot/default.png",
   },
   49: {
     titulo: "Arcano 49",
     descricao: "Abundância, equilíbrio emocional, amizades e celebração. Entendimento, amizade profunda ou amor; início de um relacionamento; também uma reconciliação, um encontro ou um acordo comercial; quase sempre sugere uma relação entre duas pessoas; poder de atração. Representa amor, afeição e amizade; união afetiva ou casamento; harmonia. Risco de dependência emocional."
+    image: "./tarot/default.png",
   },
   50: {
     titulo: "Arcano 50",
     descricao: "Início de coisas: amor, alegria ou saúde. Representa o poder dos sentimentos; amor, abundância, alegria e prazer; a escolha certa da oportunidade que gera satisfação e realização. Novas emoções envolvendo os relacionamentos em geral, renovando-os. Risco de cegueira e instabilidade emocional."
+    image: "./tarot/default.png",
   },
   51: {
     titulo: "Arcano 51",
     descricao: "Significa maturidade e sabedoria, confiança; um conselheiro confiável; momento de encontrar dentro de si o dom ambivalente da liderança e da estratégia; o arrojo intelectual e a inspiração para desenvolver novos projetos. Representa o pensamento organizado e ideias claras e objetivas; espirituosidade, perspicácia, versatilidade; autoridade masculina enérgica. Risco de intelectualismo excessivo, desumanidade e cinismo masculino."
+    image: "./tarot/default.png",
   },
   52: {
     titulo: "Arcano 52",
     descricao: "Momento de se defrontar com sua própria dimensão obstinada e sua fé inabalável nos altos propósitos e ideais. Esses ideais, altivos e nobres, irão contribuir para o aperfeiçoamento da consciência e a qualidade da própria vida. Será preciso enxergar onde os problemas estão sendo criados para si mesmo ao exigir uma perfeição exagerada para si e para os outros. Representa o plano criativo ordenado pelo pensamento racional indutivo – a razão; independência, inteligência e intelecto femininos. Risco de ressentimento e dureza intelectual feminina."
+    image: "./tarot/default.png",
   },
   53: {
     titulo: "Arcano 53",
     descricao: "É momento de se preparar para eventuais mudanças repentinas em sua vida deixando de lado os antigos padrões existentes. Tais mudanças podem acontecer com uma pessoa que aparece trazendo a inquietação, o fascínio e a tendência para o rompimento, ou a concepção de uma nova ideia, ou projeto, que surge para quebrar antigas formas de pensamento, ou ainda, alguém que se oponha aos seus planos ou pensamentos. Representa a sequência ordenada do pensamento lógico no plano formativo; imprevisibilidade, controvérsia, rigor, hostilidade e agressividade. Contundência, impetuosidade e atropelo."
+    image: "./tarot/default.png",
   },
   54: {
-    image: "https://i.ibb.co/cKDSkvqv/54-Valete-de-Espada.png",
+    image: "./tarot/54-Valete-de-Espada.png",
     titulo: "Arcano 54 - Valete de Espadas (Senhor/Rei de Espadas/k de Espadas)",
     descricao: "Momento de confrontar-se com a curiosidade infantil e a predisposição maliciosa para a fofoca e o mexerico. Possibilidade de vir a se tornar vítima da intriga dos outros ou ter propensão para se envolver em pequenas disputas. Representa o pensamento aproximado na verificação do plano material; espionagem, vigilância; a discórdia semeada e a crítica esclarecedora. Defensividade."
   },
   55: {
     titulo: "Arcano 55",
     descricao: "Finalização de uma situação difícil; pode ser dolorosa, mas, pelo menos o problema será encarado de frente com honestidade, para que um futuro com muito menos conflitos possa começar. A lição já se completou, e tanto a situação econômica como a saúde tendem a melhorar. Representa a ruína total e irreversível; desolação, o ponto final insuportável. Um pedido de ajuda pode ser atendido. Hora de finalizar uma ideia, um processo, uma situação que se esgotou."
+    image: "./tarot/default.png",
   },
   56: {
     titulo: "Arcano 56",
     descricao: "Um período de muita ansiedade e dúvidas com relação ao futuro. É importante examinar e identificar de onde surge a culpa por trás dos temores, em vez de se deixar escravizar por ela. Representa crueldade, desespero, preocupações, tristeza e depressão; consciência culpada, arrependimento, abatimento, tormento, insônia e medo. Pede paciência e resignação."
+    image: "./tarot/default.png",
   },
   57: {
     titulo: "Arcano 57",
     descricao: "Uma situação de dificuldade e quase impossibilidade de agir por medo das consequências; uma decisão se faz necessária, com muita prudência. Representa força paralisada, impossibilidade de ação, indecisão; confusão mental e autossabotagem; racionalidade sem emoção; um período de crises finalizando. Auto-aprisionamento mental."
+    image: "./tarot/default.png",
   },
   58: {
     titulo: "Arcano 58",
     descricao: "Momento de agir com muita diplomacia evitando os confrontos diretos para preservar ao máximo as próprias forças; pode acarretar uma desagradável sensação de falsidade e hipocrisia, mas a vida assim o exige; seus planos poderão não dar resultados positivos ou não estão dando resultados como esperava. Representa esforço inútil; falsidade, impostura, fuga; enganar-se para conseguir algo. Futilidades e subterfúgios; jogos mentais, uso de artifícios mentais; presunção."
+    image: "./tarot/default.png",
   },
   59: {
     titulo: "Arcano 59",
     descricao: "Período onde a capacidade de compreensão da mente ajuda a diminuir a dificuldade e a liberar a ansiedade provocada anteriormente para efetuar uma passagem mais serena. Representa a procura de novos objetivos; o progresso, o sucesso merecido, as viagens; novas experiências, transformação hesitante; um terreno novo; cautela. O aprendizado da ciência mental; afastar-se do problema para vê-lo em perspectiva. Risco de vitimização."
+    image: "./tarot/default.png",
   },
   60: {
     titulo: "Arcano 60",
     descricao: "Necessidade de se encarar as próprias limitações e de reconhecer que a vida deve ser vivida dentro dos limites das próprias capacidades. Representa derrotas, traições e aflições; infâmia e perfídia; o lado negro extrapolado. A derrota, tanto a sua quanto do seu adversário. Risco de humilhar os outros tendo-os como adversários."
+    image: "./tarot/default.png",
   },
   61: {
     titulo: "Arcano 61",
     descricao: "Período de introversão, silêncio e recuperação das forças para enfrentar os novos desafios; a situação tende a melhorar. Representa um período de descanso, uma trégua e um tempo de retiro para recuperação à espera do momento oportuno. A trégua necessária para alcançar a paz mental. Hora de questionar quais dos sacrifícios feitos foram importantes; meditar. Risco de procrastinação."
+    image: "./tarot/default.png",
   },
   62: {
     titulo: "Arcano 62",
     descricao: "Conflito, dor e separação; pequenas brigas podem levar a desgostos sérios; alguém tem que começar a perdoar; mais vale que seja você. Representa dor e sofrimento, infortúnio e privação; sentimentos feridos. Tristeza, sacrifícios necessários."
+    image: "./tarot/default.png",
   },
   63: {
     titulo: "Arcano 63",
     descricao: "Um estado de tensão, no qual existe uma recusa tácita em enfrentar uma situação iminente de conflito; indecisão na hora de definir opções. Representa um período de paz com estagnação; dilema e análise. Desequilíbrio mental; não é momento de decidir. Risco de impasse."
+    image: "./tarot/default.png",
   },
   64: {
     titulo: "Arcano 64",
     descricao: "A emergência de um novo conceito dentro de um conflito; poderes mentais despertando; isso significa uma mudança na vida da pessoa. Representa o poder da mente e da razão; capacidade para o triunfo, compreensão, resolução e prontidão; a hora chegada. Nova maneira de pensar; nova oportunidade de usar a mente. Risco de racionalidade excessiva; mente astuciosa."
+    image: "./tarot/default.png",
   },
   65: {
     titulo: "Arcano 65",
     descricao: "Momento de aceitar os desafios materiais da vida; canalização da autoconfiança e do aperfeiçoamento no processo de realização material da própria pessoa; boa posição nos negócios. Representa a inteligência masculina para o sucesso; a sensação auditiva; solidez, estabilidade e tino comercial; o rei de todos os recursos, o investidor. Risco de se tornar controlador."
+    image: "./tarot/default.png",
   },
   66: {
     titulo: "Arcano 66",
     descricao: "Momento de aprender mais a respeito da própria sensualidade; de compreender o valor do corpo e a importância dos prazeres que preservam e enriquecem a vida; de aprender a preservar seus recursos materiais, estabelecendo condições de vida seguras e estáveis, administrando e economizando dinheiro e esforços. Representa a inteligência feminina atuando no plano criativo; a sensação visual; dinheiro, constância, fidelidade, coragem, fertilidade, senso familiar; habilidade e competência no rumo certo. Cuidado, nutrição e proteção. Risco de mimar demais os seus “protegidos”."
+    image: "./tarot/default.png",
   },
   67: {
     titulo: "Arcano 67",
     descricao: "Momento de desenvolver aquela dimensão da personalidade capaz de aceitar com serenidade e firmeza quaisquer tarefas de caráter cotidiano; dedicação, lealdade e firmeza de atitudes; decisão e ação firme; motivação constante; êxito, conquista de fortuna; paz e tranquilidade final. Representa o plano formativo na sensação do olfato e do paladar; a perseverança nas ideias e ações que geram dinheiro; recebimento de ofertas. Cauteloso e observador, sabe o que deseja."
+    image: "./tarot/default.png",
   },
   68: {
     titulo: "Arcano 68",
     descricao: "O acúmulo de energia a ser utilizada na realização de projetos materiais e para preencher as necessidades do corpo; aparece na forma de pequenas quantias de dinheiro que devem ser poupadas, ao invés de serem gastas inutilmente, ou surge um passatempo que pode se tornar uma profissão altamente lucrativa; abertura para novas ideias e visão das oportunidades surgindo. Representa o plano material na sensação do tato; oportunidade surpreendente e valiosa e proposta concreta e útil; observação e estudo."
+    image: "./tarot/default.png",
   },
   69: {
-    image: "https://i.ibb.co/HTkmxP9C/69-O-AZAR.png",
+    image: "./tarot/69-O-AZAR.png",
     titulo: "ARCANO PESSOAL 69 -  O AZAR",
     descricao: "Período de muita satisfação e segurança e a consciência de que realizou algo permanente para ser passado adiante; situação econômica próspera; sugere partilhamento de herança de família, ou talvez um momento de realização artística; perpetuação de uma coisa boa. Representa a posse do segredo da riqueza; plenitude e riqueza. Risco de opulência."
   },
   70: {
     titulo: "Arcano 70",
     descricao: "Período de autossatisfação justificada em vista de tudo aquilo que se conseguiu. Representa riqueza material e sucesso econômico; vislumbre, golpe de sorte, lucro e abundância. O ganho pelos feitos do esforço no trabalho. Risco de autossuficiência."
+    image: "./tarot/default.png",
   },
   71: {
     titulo: "Arcano 71",
     descricao: "Momento em que o indivíduo representa o papel do aprendiz dedicado que se empenha bravamente para adquirir e desenvolver um novo ofício; um talento recém descoberto que vale a pena ser trabalhado e desenvolvido; em termos mais práticos, um passatempo pode se transformar numa profissão. Representa as tarefas sistemáticas, o esforço dirigido e o aprendizado; início promissor. A prudência, a repetição das práticas básicas confirmadas."
+    image: "./tarot/default.png",
   },
   72: {
     titulo: "Arcano 72",
     descricao: "Momento de tomada de decisão; ponderação e cautela; energia para um novo projeto; fortuna adquirida pelo trabalho pessoal. Representa o amadurecimento e a paciência; “devagar e sempre”. Escolher o momento certo de tomar a decisão; de escolher entre investir mais ou se contentar com que já colheu. Risco de apegar-se ao que já conquistou, e perder."
+    image: "./tarot/default.png",
   },
   73: {
     titulo: "Arcano 73",
     descricao: "Uma situação de oferecimento, tanto financeiro como pessoal; será levado a oferecer sua bondade, ou receber a generosidade dos outros; momento de recuperar a autoconfiança e a fé na vida; coisas boas, possível ascensão e ambiente feliz; desfrute os bons resultados do seu trabalho. Representa surpresas agradáveis, presentes e filantropia – o propósito vale a pena; generosidade e disposição para ajudar – caridade; tolerância e compreensão. Sucesso. Risco de manipulação pela caridade praticada em favor do ego."
+    image: "./tarot/default.png",
   },
   74: {
     titulo: "Arcano 74",
     descricao: "Um período de dificuldades financeiras, ou até mesmo grandes perdas; pode vir acompanhado pela perda da autoconfiança; é muito importante reagir a esse desafio positivamente; não se deixe levar pelo orgulho; tudo passa inclusive esse momento. Representa ruína econômica, desemprego e pobreza; crise, obstáculos e privações. Preocupação; momento de refletir sobre as reais necessidades."
+    image: "./tarot/default.png",
   },
   75: {
     titulo: "Arcano 75",
     descricao: "Momento favorável; possíveis aquisições ou herança; capacidade de trabalho e de acúmulo de posses. Representa o poder econômico e a prosperidade. Momento de estabilizar as posses dos recursos para conservar. Risco de ganância."
+    image: "./tarot/default.png",
   },
   76: {
     titulo: "Arcano 76",
     descricao: "Período de sucesso inicial em algum empreendimento; talvez um projeto comece a dar lucro, ou mesmo uma obra literária ou artística que atinja o sucesso; prêmio, reconhecimento do trabalho e do talento; fortuna por empresas habilmente dirigidas, pelo trabalho e pelo gênio. Representa o trabalho material e a construção; o progresso e os holofotes. Sucesso pelo trabalho em equipe. Risco de discrepâncias pelo trabalho."
+    image: "./tarot/default.png",
   },
   77: {
     titulo: "Arcano 77",
     descricao: "Período de disponibilidade de recursos financeiros e de energia para a realização de novos projetos; é necessário que esteja disposto a aplicar seu capital e a assumir riscos ao invés de economizar para uma possibilidade futura; um momento favorável para todos aqueles que sabem lidar com dinheiro, ou fortuna dividida, porém, probabilidade de associação produtiva. Representa as trocas harmoniosas e favoráveis; flexibilidade. Adaptação para lidar bem com os recursos conquistados, principalmente frente a mudanças."
+    image: "./tarot/default.png",
   },
   78: {
     titulo: "Arcano 78",
     descricao: "Possibilidade de realização material; disposição de energia à execução de um trabalho; início de prosperidade ou aventuras bem sucedidas; o dinheiro pode surgir de repente na forma de uma herança ou jogo. Representa a grande oportunidade da concretização do plano material e da riqueza; a percepção sensorial. Novas habilidades; despertar de novos talentos. Risco de transformar tudo em obrigação."
+    image: "./tarot/default.png",
   },
   79: {
     titulo: "Arcano 79",
     descricao: "Reinício de uma atividade; novo momento; nova vida."
+    image: "./tarot/default.png",
   },
   80: {
     titulo: "Arcano 80",
     descricao: "Reportar-se ao"
+    image: "./tarot/default.png",
   },
   81: {
     titulo: "Arcano 81",
     descricao: "Poderá haver problemas com a justiça; ou da lei de causa e efeito."
+    image: "./tarot/default.png",
   },
   82: {
     titulo: "Arcano 82",
     descricao: "Poderá servir de escada para os outros, voluntária ou involuntariamente."
+    image: "./tarot/default.png",
   },
   83: {
     titulo: "Arcano 83",
     descricao: "Associação intelectual ou cultural; progresso."
+    image: "./tarot/default.png",
   },
   84: {
     titulo: "Arcano 84",
     descricao: "Trabalhar com e para o povo – político, filantropo ou humanitário."
+    image: "./tarot/default.png",
   },
   85: {
     titulo: "Arcano 85",
     descricao: "Significa afastamento da vida social ou perda temporária de bens ou da própria vida."
+    image: "./tarot/default.png",
   },
   86: {
     titulo: "Arcano 86",
     descricao: "Significa vitória sobre alguma coisa conseguida após muita luta e determinação."
+    image: "./tarot/default.png",
   },
   87: {
     titulo: "Arcano 87",
     descricao: "Reportar-se ao"
+    image: "./tarot/default.png",
   },
   88: {
     titulo: "Arcano 88",
     descricao: "Reportar-se ao"
+    image: "./tarot/default.png",
   },
   89: {
     titulo: "Arcano 89",
     descricao: "Significa mérito não reconhecido."
+    image: "./tarot/default.png",
   },
   90: {
     titulo: "Arcano 90",
     descricao: "Reportar-se ao"
+    image: "./tarot/default.png",
   },
   91: {
     titulo: "Arcano 91",
     descricao: "Período de solidão enquanto perdurar a influência do Arcano."
+    image: "./tarot/default.png",
   },
   92: {
     titulo: "Arcano 92",
     descricao: "União tardia ou uma associação com grupos ou pessoas."
+    image: "./tarot/default.png",
   },
   93: {
     titulo: "Arcano 93",
     descricao: "Significa um grande período de sabedoria e bons resultados."
+    image: "./tarot/default.png",
   },
   94: {
     titulo: "Arcano 94",
     descricao: "Significa solidão na velhice ou morte de pessoa idosa."
+    image: "./tarot/default.png",
   },
   95: {
     titulo: "Arcano 95",
     descricao: "Significa reconhecimento intelectual."
+    image: "./tarot/default.png",
   },
   96: {
     titulo: "Arcano 96",
     descricao: "Significa amores secretos e que poderão causar graves problemas."
+    image: "./tarot/default.png",
   },
   97: {
     titulo: "Arcano 97",
     descricao: "Significa decisão difícil ou solidão a muito esperada que se concretiza."
+    image: "./tarot/default.png",
   },
   98: {
     titulo: "Arcano 98",
     descricao: "Significa alto cargo e grande influência."
+    image: "./tarot/default.png",
   },
   99: {
     titulo: "Arcano 99",
     descricao: "Significa muito dinheiro e riqueza material"
+    image: "./tarot/default.png",
   }
 };
 

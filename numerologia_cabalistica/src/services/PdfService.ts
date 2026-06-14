@@ -254,26 +254,49 @@ export const generatePDF = async (data, selectedSections) => {
       let currentY = checkPageBreak(startY, 30);
       const nomeFormatado = nome.toUpperCase().replace(/\s/g, '');
       const letras = nomeFormatado.split('');
-      const espacamento = 7;
-      const totalWidth = (letras.length * espacamento) - 5;
+      
+      const maxWidth = CONFIG.pageWidth - (CONFIG.margin * 2);
+      
+      // Valores padrão
+      let espacamento = 7;
+      let letraFontSize = 14;
+      let numeroFontSize = 12;
+
+      // Calcula a largura total ideal
+      const idealWidth = (letras.length * espacamento) - 5;
+
+      // Se a largura ideal for maior que a tela, aplicamos uma escala de redução
+      if (idealWidth > maxWidth) {
+        const scale = maxWidth / idealWidth;
+        espacamento = espacamento * scale;
+        letraFontSize = Math.max(6, letraFontSize * scale); // limite mínimo de legibilidade
+        numeroFontSize = Math.max(5, numeroFontSize * scale);
+      }
+
+      const totalWidth = (letras.length * espacamento) - (espacamento * 0.7);
       const startX = (CONFIG.pageWidth - totalWidth) / 2;
+      
       let x = startX;
 
       letras.forEach(letra => {
-        doc.setFontSize(14);
+        doc.setFontSize(letraFontSize);
         doc.setTextColor(isVogal(letra) ? CONFIG.colorBlue : CONFIG.colorGray);
         doc.text(letra, x, currentY);
         x += espacamento;
       });
 
       x = startX;
-      currentY += 7;
+      currentY += (letraFontSize / 2); // Distância proporcional
+      
       letras.forEach(letra => {
-        doc.setFontSize(12);
+        doc.setFontSize(numeroFontSize);
         doc.setTextColor(isVogal(letra) ? CONFIG.colorBlue : CONFIG.colorGray);
-        doc.text(calcularValorComAcento(letra).toString(), x + 2, currentY);
+        // Ajuste fino do X para o número ficar centralizado sob a letra
+        const numOffset = letraFontSize > 10 ? 2 : 1; 
+        doc.text(calcularValorComAcento(letra).toString(), x + numOffset, currentY);
         x += espacamento;
       });
+      
       return currentY + 15;
     };
 
