@@ -1425,7 +1425,27 @@ export const generatePDF = async (data, selectedSections) => {
         }
       });
 
-      doc.save(`Mapa_Numerologico_${nomeCliente || 'Cliente'}.pdf`);
+      const safeClienteNome = (nomeCliente || 'Cliente').trim().replace(/[/\\?%*:|"<>]/g, '_');
+      const fileName = `Mapa_Numerologico_${safeClienteNome}.pdf`;
+
+      if ((window as any).ipcRenderer) {
+        try {
+          const pdfBuffer = doc.output('arraybuffer');
+          const res = await (window as any).ipcRenderer.invoke('save-pdf-to-desktop', {
+            fileName,
+            buffer: pdfBuffer
+          });
+          if (!res?.success) {
+            console.warn("Falha ao salvar no Desktop via IPC, usando fallback do navegador:", res?.error);
+            doc.save(fileName);
+          }
+        } catch (ipcErr) {
+          console.error("Erro IPC ao salvar PDF:", ipcErr);
+          doc.save(fileName);
+        }
+      } else {
+        doc.save(fileName);
+      }
     } catch (error) {
       console.error("Erro PDF:", error);
       alert("Erro ao gerar PDF.");

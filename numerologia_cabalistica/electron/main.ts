@@ -1,6 +1,7 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { autoUpdater } from 'electron-updater'
 
+import fs from 'node:fs'
 import { createRequire } from 'node:module'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -178,5 +179,23 @@ ipcMain.handle('db-delete-profile', (_, nomeCliente) => {
     return { success: true };
   } catch (err) {
     return { success: false, error: err.message };
+  }
+});
+
+// Save PDF directly to Desktop/Mapas Numerológicos
+ipcMain.handle('save-pdf-to-desktop', async (_, { fileName, buffer }) => {
+  try {
+    const desktopPath = app.getPath('desktop');
+    const targetDir = path.join(desktopPath, 'Mapas Numerológicos');
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
+    }
+    const filePath = path.join(targetDir, fileName);
+    await fs.promises.writeFile(filePath, Buffer.from(buffer));
+    shell.showItemInFolder(filePath);
+    return { success: true, filePath };
+  } catch (err: any) {
+    console.error('Erro ao salvar PDF no Desktop:', err);
+    return { success: false, error: err?.message || String(err) };
   }
 });
