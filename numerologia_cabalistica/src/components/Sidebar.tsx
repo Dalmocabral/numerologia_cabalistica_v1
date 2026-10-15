@@ -1,5 +1,4 @@
-// src/components/Sidebar.jsx
-import { Add, Create, DarkMode, LightMode, PersonAdd } from '@mui/icons-material'; // Ícones novos
+import { Add, Create, DarkMode, LightMode, PersonAdd, Settings } from '@mui/icons-material'; // Ícones novos
 import InfoIcon from '@mui/icons-material/Info';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import SaveIcon from '@mui/icons-material/Save';
@@ -23,6 +22,7 @@ import DialogNomeSocial from './DialogNomeSocial'; // Importe o Dialog de Nome S
 import NovoMapaDialog from './NovoMapaDialog';
 import PdfGeneratorButton from './PdfGeneratorButton';
 import DialogCarregarDados from './DialogCarregarDados';
+import DialogConfiguracoes from './DialogConfiguracoes';
 
 const Sidebar = ({ 
   darkMode, 
@@ -55,6 +55,7 @@ const Sidebar = ({
   const [openAssinaturaDialog, setOpenAssinaturaDialog] = useState(false);
   const [openAbout, setOpenAbout] = useState(false);
   const [openCarregarDialog, setOpenCarregarDialog] = useState(false);
+  const [openConfigDialog, setOpenConfigDialog] = useState(false);
   
 
   // Handlers para o Mapa
@@ -113,18 +114,24 @@ const Sidebar = ({
       <Drawer
         variant="permanent"
         sx={{
-          width: 240,
+          width: 260,
           flexShrink: 0,
           display: 'flex',
           flexDirection: 'column',
           '& .MuiDrawer-paper': {
-            width: 240,
+            width: 260,
             boxSizing: 'border-box',
             backgroundColor: '#121212', 
             color: '#ffffff',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
+          },
+          '& .MuiListItemIcon-root': {
+            minWidth: '40px',
+          },
+          '& .MuiListItemText-primary': {
+            whiteSpace: 'nowrap',
           },
         }}
       >
@@ -139,29 +146,29 @@ const Sidebar = ({
           <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.12)' }} />
 
           <List>
-            {/* Botão Calcular Mapa */}
+            {/* Botão Criar Mapa */}
             <ListItem button onClick={() => { if (isVerified) handleOpenMapa(); }} disabled={!isVerified}>
               <ListItemIcon><Add sx={{ color: !isVerified ? 'grey' : '#ffffff' }} /></ListItemIcon>
-              <ListItemText primary="Calcular Mapa" />
+              <ListItemText primary="Criar mapa" />
             </ListItem>
             
-            {/* Botão Criar Nome Social (Só aparece se tiver um cliente carregado) */}
+            {/* Botão Análise do Nome Social (Só aparece se tiver um cliente carregado) */}
             <ListItem button onClick={() => { if (isVerified && nomeCliente) handleOpenSocial(); }} disabled={!nomeCliente || !isVerified}>
               <ListItemIcon><PersonAdd sx={{ color: (!nomeCliente || !isVerified) ? 'grey' : '#ffffff' }} /></ListItemIcon>
-              <ListItemText primary="Criar Nome Social" />
+              <ListItemText primary="Análise do nome social" />
             </ListItem>
-
-             {/* Botão Assinatura (Desabilitado) */}
-             <ListItem 
+            
+            {/* Botão Análise da Assinatura */}
+            <ListItem 
             button 
-            onClick={() => { if (isVerified && nomesSociais && nomesSociais.length > 0) setOpenAssinaturaDialog(true); }} 
-            disabled={!nomesSociais || nomesSociais.length === 0 || !isVerified}
+            onClick={() => { if (isVerified && (nomeCliente || (nomesSociais && nomesSociais.length > 0))) setOpenAssinaturaDialog(true); }} 
+            disabled={(!nomeCliente && (!nomesSociais || nomesSociais.length === 0)) || !isVerified}
          >
             <ListItemIcon>
-              <Create sx={{ color: (!nomesSociais || nomesSociais.length === 0 || !isVerified) ? 'grey' : '#ffffff' }} />
+              <Create sx={{ color: (!nomeCliente && (!nomesSociais || nomesSociais.length === 0) || !isVerified) ? 'grey' : '#ffffff' }} />
             </ListItemIcon>
-            <ListItemText primary="Assinatura do Poder" />
-         </ListItem>
+            <ListItemText primary="Análise da assinatura" />
+          </ListItem>
         
 
             {/* Botão PDF */}
@@ -187,7 +194,7 @@ const Sidebar = ({
             </ListItem>
             <ListItem button onClick={() => { if (isVerified) setOpenCarregarDialog(true); }} disabled={!isVerified}>
               <ListItemIcon><FolderOpenIcon sx={{ color: !isVerified ? 'grey' : '#ffffff' }} /></ListItemIcon>
-              <ListItemText primary="Carregar Dados" />
+              <ListItemText primary="Meus mapas" />
             </ListItem>
           </List>
         </Box>
@@ -209,6 +216,12 @@ const Sidebar = ({
               </ListItemIcon>
               <ListItemText primary={darkMode ? 'Modo Claro' : 'Modo Escuro'} />
             </ListItem>
+            <ListItem button onClick={() => setOpenConfigDialog(true)}>
+              <ListItemIcon>
+                <Settings sx={{ color: '#ffffff' }} />
+              </ListItemIcon>
+              <ListItemText primary="Configurações" />
+            </ListItem>
           </List>
         </Box>
       </Drawer>
@@ -217,15 +230,22 @@ const Sidebar = ({
       <NovoMapaDialog open={openMapaDialog} onClose={handleCloseMapa} onSalvarNome={onSalvarNome} />
       
       <DialogNomeSocial 
+        key={nomeCliente || 'empty'}
         open={openSocialDialog} 
         onClose={handleCloseSocial} 
         onSave={onSaveNomeSocial} 
+        nomeOriginal={nomeCliente}
       />
       <DialogAssinatura 
+        key={`assinatura_${nomeCliente || 'empty'}_${(nomesSociais && nomesSociais.length > 0) ? nomesSociais[nomesSociais.length - 1].nome : (nomeCliente || '')}`}
         open={openAssinaturaDialog}
         onClose={() => setOpenAssinaturaDialog(false)}
-        nomeSocial={nomesSociais.length > 0 ? nomesSociais[nomesSociais.length - 1].nome : ''}
+        nomeSocial={(nomesSociais && nomesSociais.length > 0) ? nomesSociais[nomesSociais.length - 1].nome : (nomeCliente || '')}
         onSalvar={onSalvarAssinatura} 
+      />
+      <DialogConfiguracoes 
+        open={openConfigDialog} 
+        onClose={() => setOpenConfigDialog(false)} 
       />
       <AboutDialog 
         open={openAbout} 

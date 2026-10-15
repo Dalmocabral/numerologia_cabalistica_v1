@@ -18,7 +18,7 @@ import {
     TextField,
     Typography
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { analisarAssinatura, gerarAssinaturasAutomaticas } from '../utils/CalculoAssinatura';
 import { calcularExpressao } from '../utils/CalculoExpressao';
 import { arcanos } from '../utils/TabelaNumerologia';
@@ -29,6 +29,21 @@ const DialogAssinatura = ({ open, onClose, nomeSocial, onSalvar }) => {
   const [sugestoes, setSugestoes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sugestaoSelecionada, setSugestaoSelecionada] = useState(null);
+  const [ultimoNomeSocial, setUltimoNomeSocial] = useState('');
+
+  // Limpa estados do cliente anterior sempre que o diálogo for aberto para um novo nome
+  useEffect(() => {
+    if (open) {
+      const nomeAtual = (nomeSocial || '').trim();
+      if (nomeAtual !== ultimoNomeSocial) {
+        setInputManual('');
+        setSugestoes([]);
+        setSugestaoSelecionada(null);
+        setTabIndex(0);
+        setUltimoNomeSocial(nomeAtual);
+      }
+    }
+  }, [open, nomeSocial]);
 
   const expressaoAlvo = nomeSocial ? calcularExpressao(nomeSocial) : 0;
 
@@ -147,64 +162,18 @@ const DialogAssinatura = ({ open, onClose, nomeSocial, onSalvar }) => {
       <DialogTitle sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
          <Typography variant="h6">Assinatura de Poder</Typography>
          <Typography variant="body2" color="textSecondary">
-            Para o Nome Social: <strong>{nomeSocial}</strong> (Expressão Alvo: <strong>{expressaoAlvo}</strong>)
+            Para o Nome: <strong>{nomeSocial}</strong> (Expressão Alvo: <strong>{expressaoAlvo}</strong>)
          </Typography>
       </DialogTitle>
       
       <DialogContent>
         <Tabs value={tabIndex} onChange={handleTabChange} centered sx={{ mb: 3 }}>
-          <Tab icon={<AutoFixHigh />} label="Automático (Sugestões)" />
-          <Tab icon={<Edit />} label="Manual (Testar)" />
+          <Tab icon={<Edit />} label="Manual" />
+          <Tab icon={<AutoFixHigh />} label="Sugestões" />
         </Tabs>
 
-        {/* ABA AUTOMÁTICA */}
+        {/* ABA MANUAL */}
         {tabIndex === 0 && (
-          <Box>
-             <Box sx={{ textAlign: 'center', mb: 3 }}>
-               <Button variant="contained" onClick={gerarSugestoes} disabled={loading || !nomeSocial}>
-                 {loading ? "Calculando..." : "Gerar Sugestões"}
-               </Button>
-             </Box>
-
-             {loading && <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}><CircularProgress /></Box>}
-
-             {!loading && sugestoes.length > 0 && (
-               <Grid container spacing={2}>
-                 <Grid item xs={12} md={4}>
-                   <Typography variant="subtitle2" gutterBottom>Opções:</Typography>
-                   {sugestoes.map((sug, idx) => (
-                     <Card 
-                       key={idx} 
-                       onClick={() => setSugestaoSelecionada(sug)}
-                       sx={{ 
-                         mb: 1, cursor: 'pointer', 
-                         bgcolor: sugestaoSelecionada === sug ? '#e3f2fd' : 'white',
-                         border: sugestaoSelecionada === sug ? '1px solid #1976d2' : '1px solid #eee'
-                       }}
-                     >
-                       <CardContent sx={{ py: 1, '&:last-child': { pb: 1 } }}>
-                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Typography variant="h6" color="primary">{sug.assinatura}</Typography>
-                            <CheckCircle color="success" fontSize="small" />
-                         </Box>
-                       </CardContent>
-                     </Card>
-                   ))}
-                 </Grid>
-                 <Grid item xs={12} md={8}>
-                    {sugestaoSelecionada ? renderPiramide(sugestaoSelecionada, true) : (
-                        <Box sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'text.secondary' }}>
-                            Selecione uma opção.
-                        </Box>
-                    )}
-                 </Grid>
-               </Grid>
-             )}
-          </Box>
-        )}
-
-        {/* ABA MANUAL (AGORA COM OS BOTÕES RESTAURADOS) */}
-        {tabIndex === 1 && (
           <Box>
              <TextField
                label="Digite sua Assinatura (3 a 5 letras)"
@@ -245,6 +214,52 @@ const DialogAssinatura = ({ open, onClose, nomeSocial, onSalvar }) => {
                   {/* Renderiza a pirâmide E o botão de salvar se estiver aprovada */}
                   {renderPiramide(analiseManual, true)} 
                </Box>
+             )}
+          </Box>
+        )}
+
+        {/* ABA SUGESTÕES */}
+        {tabIndex === 1 && (
+          <Box>
+             <Box sx={{ textAlign: 'center', mb: 3 }}>
+               <Button variant="contained" onClick={gerarSugestoes} disabled={loading || !nomeSocial}>
+                 {loading ? "Calculando..." : "Gerar Sugestões"}
+               </Button>
+             </Box>
+
+             {loading && <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}><CircularProgress /></Box>}
+
+             {!loading && sugestoes.length > 0 && (
+               <Grid container spacing={2}>
+                 <Grid item xs={12} md={4}>
+                   <Typography variant="subtitle2" gutterBottom>Opções:</Typography>
+                   {sugestoes.map((sug, idx) => (
+                     <Card 
+                       key={idx} 
+                       onClick={() => setSugestaoSelecionada(sug)}
+                       sx={{ 
+                         mb: 1, cursor: 'pointer', 
+                         bgcolor: sugestaoSelecionada === sug ? '#e3f2fd' : 'white',
+                         border: sugestaoSelecionada === sug ? '1px solid #1976d2' : '1px solid #eee'
+                       }}
+                     >
+                       <CardContent sx={{ py: 1, '&:last-child': { pb: 1 } }}>
+                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Typography variant="h6" color="primary">{sug.assinatura}</Typography>
+                            <CheckCircle color="success" fontSize="small" />
+                         </Box>
+                       </CardContent>
+                     </Card>
+                   ))}
+                 </Grid>
+                 <Grid item xs={12} md={8}>
+                    {sugestaoSelecionada ? renderPiramide(sugestaoSelecionada, true) : (
+                        <Box sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'text.secondary' }}>
+                            Selecione uma opção.
+                        </Box>
+                    )}
+                 </Grid>
+               </Grid>
              )}
           </Box>
         )}

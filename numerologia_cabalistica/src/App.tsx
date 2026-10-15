@@ -154,7 +154,7 @@ const App = () => {
           improving on the previous code that hardcoded LightTheme */}
       <ThemeProvider theme={contentTheme}>
         <CssBaseline />
-        <div style={{ marginLeft: 240, padding: '16px', minHeight: '100vh' }}>
+        <div style={{ marginLeft: 260, padding: '16px', minHeight: '100vh' }}>
             <Routes>
                 {/* Rota Pública de Admin */}
                 <Route path="/admin-secreto" element={<AdminPanel />} />

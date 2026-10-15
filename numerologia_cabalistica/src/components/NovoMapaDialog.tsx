@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Dialog, DialogTitle, DialogContent, TextField, DialogActions, 
   Button, CircularProgress, Typography, Box, Divider, Alert 
@@ -83,9 +83,10 @@ const NovoMapaDialog = ({ open, onClose, onSalvarNome }) => {
               fullWidth
               value={nome}
               onChange={(e) => {
-                setNome(e.target.value);
+                setNome(e.target.value.toUpperCase());
                 if (errors.nome) setErrors({ ...errors, nome: false }); // Limpa erro ao digitar
               }}
+              inputProps={{ style: { textTransform: 'uppercase' } }}
               error={errors.nome} // Mostra vermelho se erro
               helperText={errors.nome ? "O nome é obrigatório." : ""}
               required // Marca visualmente como obrigatório
@@ -138,7 +139,8 @@ const NovoMapaDialog = ({ open, onClose, onSalvarNome }) => {
               label="Nome do Companheiro(a)"
               fullWidth
               value={nomeCompanheiro}
-              onChange={(e) => setNomeCompanheiro(e.target.value)}
+              onChange={(e) => setNomeCompanheiro(e.target.value.toUpperCase())}
+              inputProps={{ style: { textTransform: 'uppercase' } }}
             />
             <TextField
               margin="dense"

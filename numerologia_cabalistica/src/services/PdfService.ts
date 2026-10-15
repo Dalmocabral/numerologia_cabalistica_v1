@@ -1,5 +1,5 @@
 import jsPDF from "jspdf";
-import logo from "../assets/image/logo.png";
+import { getReportSettings } from "./SettingsService";
 import { tabelaAcentos, tabelaNumeros } from "../utils/TabelaNumerologia"; // Re-import needed for helpers if not global
 
 // --- Funções Utilitárias Moved from Component Scope ---
@@ -145,8 +145,17 @@ export const generatePDF = async (data, selectedSections) => {
     let y = CONFIG.margin;
     const indiceItens = [];
 
-    // Carrega marca d'água
-    const watermarkBase64 = await prepareWatermarkImage(logo, 0.08);
+    // Configurações personalizadas (Logotipo, Orientadora e Mensagem Final)
+    const reportSettings = getReportSettings();
+    const nomeOrientadora = (reportSettings.nomeOrientadora || "").trim();
+    const cargoOrientadora = (reportSettings.cargoOrientadora || "").trim() || (nomeOrientadora ? "Numeróloga Cabalística" : "");
+    const logoPersonalizado = reportSettings.logotipoBase64?.trim() || null;
+    const mensagemFinalCustom = (reportSettings.mensagemFinal || "").trim();
+
+    // Carrega marca d'água apenas se houver logotipo personalizado
+    const watermarkBase64 = logoPersonalizado
+      ? await prepareWatermarkImage(logoPersonalizado, 0.08)
+      : null;
 
     const addWatermarkHelper = () => {
       if (watermarkBase64) {
@@ -345,13 +354,27 @@ export const generatePDF = async (data, selectedSections) => {
       // =================================================================
 
       // 1. CAPA (SEMPRE GERA)
-      doc.addImage(logo, 'PNG', 75, 20, 60, 60);
+      let yTituloCapa = 75;
+      if (logoPersonalizado) {
+        doc.addImage(logoPersonalizado, 'PNG', 75, 20, 60, 60);
+        yTituloCapa = 100;
+      }
+
       doc.setFont("helvetica", "bold");
       doc.setFontSize(24);
-      doc.text("MAPA NUMEROLOGICO CABALISTICO", CONFIG.centerX, 100, { align: "center" });
-      doc.setFontSize(16);
-      doc.text("Orientadora: Manouche Yasmin", CONFIG.centerX, 130, { align: "center" });
-      doc.text(`Data: ${new Date().toLocaleDateString('pt-BR')}`, CONFIG.centerX, 140, { align: "center" });
+      doc.text("MAPA NUMEROLOGICO CABALISTICO", CONFIG.centerX, yTituloCapa, { align: "center" });
+
+      let yMetaCapa = yTituloCapa + 30;
+      if (nomeOrientadora) {
+        doc.setFontSize(16);
+        doc.setFont("helvetica", "normal");
+        doc.text(`Orientadora: ${nomeOrientadora}`, CONFIG.centerX, yMetaCapa, { align: "center" });
+        yMetaCapa += 10;
+      }
+
+      doc.setFontSize(14);
+      doc.setFont("helvetica", "normal");
+      doc.text(`Data: ${new Date().toLocaleDateString('pt-BR')}`, CONFIG.centerX, yMetaCapa, { align: "center" });
       addToIndex("Capa");
 
       // 2. DADOS DO CLIENTE (SEMPRE GERA)
@@ -1316,11 +1339,16 @@ export const generatePDF = async (data, selectedSections) => {
       doc.setFontSize(12);
 
       // O texto completo com as quebras de parágrafo (\n\n)
-      const mensagem =
-        `Este Mapa Numerológico foi preparado especialmente para você, ${nomeCliente || ''}, com atenção às suas vibrações, aos caminhos que se abrem diante da sua jornada.\n\n` +
-        "Cada número aqui não fala de destino fechado, mas de potenciais, talentos e desafios que fazem parte da sua história única.\n\n" +
-        "Que este material sirva como um espelho gentil, revelando aspectos profundos do seu ser. Agradeço de coração por confiar seu mapa às minhas mãos.\n\n" +
-        "Que a leitura traga clareza, força e direção — e que você se reconheça, com verdade e acolhimento, em cada página.";
+      let mensagem = "";
+      if (mensagemFinalCustom) {
+        mensagem = mensagemFinalCustom.replace(/\{nomeCliente\}|\{nome\}/gi, nomeCliente || "");
+      } else {
+        mensagem =
+          `Este Mapa Numerológico foi preparado especialmente para você, ${nomeCliente || ''}, com atenção às suas vibrações, aos caminhos que se abrem diante da sua jornada.\n\n` +
+          "Cada número aqui não fala de destino fechado, mas de potenciais, talentos e desafios que fazem parte da sua história única.\n\n" +
+          "Que este material sirva como um espelho gentil, revelando aspectos profundos do seu ser. Agradeço de coração por confiar seu mapa às minhas mãos.\n\n" +
+          "Que a leitura traga clareza, força e direção — e que você se reconheça, com verdade e acolhimento, em cada página.";
+      }
 
       // Imprime o texto com margens maiores (40) para ficar centralizado na folha como uma carta
       yFinal = printWrappedText(mensagem, yFinal, 12, "normal", CONFIG.colorBlack, 40, 130);
@@ -1328,19 +1356,21 @@ export const generatePDF = async (data, selectedSections) => {
       yFinal += 10;
       doc.text("Com carinho,", 40, yFinal);
 
-      // Assinatura Manuscrita (Simulada)
-      yFinal += 25;
-      doc.setFont("times", "italic");
-      doc.setFontSize(30);
-      doc.setTextColor(CONFIG.colorBlack);
-      doc.text("Manouche Yasmin", CONFIG.centerX, yFinal, { align: "center" });
+      // Assinatura Manuscrita (Simulada) - exibe apenas se a orientadora estiver configurada
+      if (nomeOrientadora) {
+        yFinal += 25;
+        doc.setFont("times", "italic");
+        doc.setFontSize(30);
+        doc.setTextColor(CONFIG.colorBlack);
+        doc.text(nomeOrientadora, CONFIG.centerX, yFinal, { align: "center" });
 
-      // Cargo
-      yFinal += 15;
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(10);
-      doc.setTextColor(CONFIG.colorGray);
-      doc.text("Numeróloga Cabalística", CONFIG.centerX, yFinal, { align: "center" });
+        // Cargo
+        yFinal += 15;
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.setTextColor(CONFIG.colorGray);
+        doc.text(cargoOrientadora, CONFIG.centerX, yFinal, { align: "center" });
+      }
 
       // =============================================================
       // FINALIZAÇÃO - ÍNDICE (CORREÇÃO DEFINITIVA)
