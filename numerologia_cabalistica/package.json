@@ -41,7 +41,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d dist -r https://github.com/Dalmocabral/numerologia_cabalistica_v1.git",
     "dev:electron": "cross-env ELECTRON_BUILD=true vite",
     "build:electron": "npx cross-env ELECTRON_BUILD=true vite build && electron-builder",
     "build:electron:publish": "npx cross-env ELECTRON_BUILD=true vite build && electron-builder -p always"
